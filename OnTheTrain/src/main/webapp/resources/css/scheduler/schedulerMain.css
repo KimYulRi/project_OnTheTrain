@@ -1,0 +1,77 @@
+@charset "UTF-8";
+
+@font-face {
+	font-family: 'Noto Sans';
+	src: url('../../font/NotoSansKR-Medium.otf') format('truetype');
+}
+
+@font-face {
+	font-family: 'Noto Sans Bold';
+	src: url('../../font/NotoSansKR-Bold.otf') format('truetype');
+}
+
+article {
+	width: 1024px;
+}
+
+#schedulerBanner {
+	display: flex;
+	align-items: center;
+	width: 1024px;
+	height: 409px;
+	margin-top: 20px;
+	margin-bottom: 45px;
+	background-image:
+		url("../../images/scheduler/schedulerBannerBackground.png");
+}
+
+#schedulerBannerTextBox {
+	position: absolute;
+	width: 621px;
+	height: 177px;
+	left: 60px;
+	top: 150px;
+}
+
+.schedulerBanners {
+	box-sizing: border-box;
+	display: flex;
+	align-items: center;
+	width: 1024px;
+	width: 1024px;
+	height: 160px;
+	padding-left: 60px;
+	margin-top: 45px;
+	margin-bottom: 45px;
+	cursor: pointer;
+}
+
+#schedulerCreate {
+	background-image:
+		url("../../images/scheduler/schedulerCreateBackground.png");
+}
+
+#schedulerRead {
+	background-image:
+		url("../../images/scheduler/schedulerReadBackground.png");
+	margin-bottom: 20px;
+}
+
+.title {
+	font-family: 'Noto Sans Bold';
+	font-style: normal;
+	font-weight: 400;
+	font-size: 55px;
+	line-height: 43px;
+	color: #FFFFFF;
+	margin-bottom: 40px;
+}
+
+.subtitle {
+	font-family: 'Noto Sans';
+	font-style: normal;
+	font-weight: 400;
+	font-size: 30px;
+	line-height: 43px;
+	color: #FFFFFF;
+}
