@@ -1,0 +1,6 @@
+@charset "UTF-8";
+
+@font-face {
+    font-family: 'NotoSans';
+    src: url('/resources/font/NotoSansKR-Medium.otf') format('truetype');
+}
