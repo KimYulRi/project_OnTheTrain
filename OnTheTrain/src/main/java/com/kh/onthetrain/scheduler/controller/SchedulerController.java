@@ -8,15 +8,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/scheduler")
 public class SchedulerController {
 
-	/* �뒪耳�以꾨윭 硫붿씤�쑝濡� 蹂대궡�뒗 硫붿냼�뱶 */
+	
 	@GetMapping("/main")
+	// 스케줄러 메인으로 보내는 메소드
 	public String toMain() {
 
 		return "scheduler/schedulerMain";
 	}
 
-	/* �뒪耳�以꾨윭 �깮�꽦�쑝濡� 蹂대궡�뒗 硫붿냼�뱶 */
 	@GetMapping("/create")
+	// 스케줄러 생성으로 보내는 메소드
 	public String toCreate() {
 
 		return "scheduler/schedulerCreate";
