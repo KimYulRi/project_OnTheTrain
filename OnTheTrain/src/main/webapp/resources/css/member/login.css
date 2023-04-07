@@ -1,0 +1,55 @@
+@charset "UTF-8";
+
+h2 {
+		color:#00008b;
+	}
+	.noneButton  {
+		border-radius: 4px;
+		margin: 5px 0 5px 0;
+		width: 350px;
+		height: 50px;
+	}
+	#loginbtn {
+		border-radius: 4px;
+		margin: 20px 0 10px 0;
+		width: 350px;
+		height: 50px;
+	}
+	.atag {
+		color:#00008b;
+		text-decoration: none;
+		margin: 10px 0 10px 0;
+		float: left;
+		font-weight: 600;
+		font-size: small;
+	}
+	#body{
+		position: absolute;
+		top: 35%; left: 53%;
+		margin: -210px 0 0 -290px;
+		width: 400px; height: 500px;
+		padding: 30px;
+
+	}
+	#userId, #userPwd{
+		width: 350px;
+		height: 50px;
+		border: 0.5px solid #D3D2D2;
+		margin: 5px 0 5px 0;
+		border-radius: 4px;
+	}
+	#enroll{
+		float: right;
+	}
+	.atag-wrrap{
+		width: 350px;
+		background-color: antiquewhite;
+	}
+	#rememberId{
+		margin:10px 0 0 0;
+		height: 10px;
+	}
+	#rememberLabel{
+		color:#596180;
+		font-size: small;
+	}
