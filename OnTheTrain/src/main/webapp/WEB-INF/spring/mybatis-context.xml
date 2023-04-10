@@ -20,7 +20,7 @@
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean"
 		  p:dataSource-ref="dataSource"
 		  p:configuration-ref="mybatisConfig"
-		  p:typeAliasesPackage="com.kh.onthetrain.*.model.vo"
+		  p:typeAliasesPackage="com.kh.onthetrain.*.model.vo, com.kh.practice.*.model.entity"
 		  p:mapperLocations="classpath:mappers/**/*.xml"
 	/>
 	
