@@ -4,12 +4,32 @@
 
 <mapper namespace="com.kh.onthetrain.scheduler.model.mapper.SchedulerMapper">
 	<sql id="selectScheduleSql">
-	
-	
+		SELECT
+			NO,
+			MEMBER_NO,
+			VISABLE,
+			CREATE_DATE,
+			EDIT_DATE
+		FROM
+			SCHEDULER
 	</sql>
 	
-	<select id="selectScheduleByNo" resultType="Scheduler">
+	<resultMap id="schedulerResultMap" type="Scheduler">
+		<id property="no" column="NO" />
+		<result property="memberNo" column="MEMBER_NO" />
+		<result property="visable" column="VISABLE" />
+		<result property="createDate" column="CREATE_DATE" />
+		<result property="editDate" column="EDIT_DATE" />
+	</resultMap>
 	
+	
+	<select id="selectScheduleByNo" 
+	parameterType="_int" 
+	resultMap="schedulerResultMap">
+		<include refid="selectScheduleSql" />
+		WHERE 
+				NO = #{no} 
+			AND VISABLE = 'Y'
 	</select>
 
 </mapper>
