@@ -5,11 +5,9 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <c:set var="path" value="${ pageContext.request.contextPath }"/>
 <%@ page session="false" %>
-<html>
-<head>
-	<title>Home</title>
-</head>
-<body>
+
+
+<%@ include file="../views/common/header.jsp" %>
 <h1>
 	Hello world!  
 </h1>

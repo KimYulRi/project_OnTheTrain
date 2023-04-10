@@ -22,7 +22,7 @@ h2 {
 		float: left;
 		font-weight: 600;
 		font-size: small;
-	}
+	}/* 
 	#body{
 		position: absolute;
 		top: 35%; left: 53%;
@@ -30,7 +30,7 @@ h2 {
 		width: 400px; height: 500px;
 		padding: 30px;
 
-	}
+	} */
 	#userId, #userPwd{
 		width: 350px;
 		height: 50px;
@@ -53,3 +53,15 @@ h2 {
 		color:#596180;
 		font-size: small;
 	}
+	
+      
+      main{
+        min-height: 700px;
+      }
+      
+      .main-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      height: 100%;
+      padding-top: 20px;
+      }
