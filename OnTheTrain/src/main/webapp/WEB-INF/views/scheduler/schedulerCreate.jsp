@@ -14,10 +14,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link href="${ path }/css/scheduler/schedulerCreate.css"
 	rel="stylesheet" type="text/css">
+<!-- 
 <link href="${ path }/css/scheduler/schedulerModal.css" rel="stylesheet"
 	type="text/css">
+ -->
+ <link rel="stylesheet" type="text/css"
+	href="${ path }/css/common/modal.css">
 <script src="${ path }/js/common/jquery-3.6.3.js"></script>
-
 <title>Document</title>
 <link>
 </head>
@@ -60,13 +63,8 @@
 			<div class="title">${componentName}일정조회</div>
 			<div id="searchComponent"></div>
 		</div>
-		<jsp:include page="schedulerEventModal.jsp" />
+		<jsp:include page="../common/modal.jsp" />
+		<script src="${ path }/js/common/modal.js"></script>
 	</article>
-	<!-- 모달창 열기 버튼 -->
-	<button class="open-modal-button">모달창 열기</button>
-
-	<!-- 모달창 닫기 버튼 -->
-	<button class="close-modal-button">모달창 닫기</button>
-	<script src="${ path }/js/scheduler/schedulerModal.js"></script>
 </body>
 </html>

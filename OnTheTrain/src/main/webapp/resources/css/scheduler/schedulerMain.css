@@ -2,12 +2,12 @@
 
 @font-face {
 	font-family: 'Noto Sans';
-	src: url('../../font/NotoSansKR-Medium.otf') format('truetype');
+	src: url('../../font/common/NotoSansKR-Medium.otf') format('truetype');
 }
 
 @font-face {
 	font-family: 'Noto Sans Bold';
-	src: url('../../font/NotoSansKR-Bold.otf') format('truetype');
+	src: url('../../font/common/NotoSansKR-Bold.otf') format('truetype');
 }
 
 article {
