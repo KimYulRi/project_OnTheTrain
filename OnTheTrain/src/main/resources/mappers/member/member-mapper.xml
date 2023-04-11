@@ -3,9 +3,53 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 
 <mapper namespace="com.kh.onthetrain.member.model.mapper.MemberMapper">
+<<<<<<< HEAD
+=======
+	
+	 <resultMap id="memberResultMap" type="Member">
+      <id property="no" column="NO"/>
+      <result property="membership" column="MEMBERSHIP_CODE" />
+      <result property="id" column="ID" />
+      <result property="password" column="PASSWORD" />
+      <result property="role" column="ROLE" />
+      <result property="nickname" column="NICKNAME" />
+      <result property="name" column="NAME" />
+      <result property="birth" column="BIRTH" />
+      <result property="email" column="EMAIL" />
+      <result property="phone" column="PHONE" />
+      <result property="address" column="ADDRESS" />
+      <result property="enrollDate" column="ENROLL_DATE" />
+      <result property="modifyDate" column="MODIFY_DATE" />
+      <result property="snsLogin" column="SNS_LOGIN" />
+      <result property="status" column="STATUS" />
+      <result property="amount" column="AMOUNT" />
+   </resultMap>
+	
+	<select id="selectMemberById" resultMap="memberResultMap">
+		SELECT NO,
+			   MEMBERSHIP_CODE,
+			   ID,
+			   PASSWORD,
+			   ROLE,
+			   NICKNAME,
+			   NAME,
+			   BIRTH,
+			   EMAIL,
+			   PHONE,
+			   ADDRESS,
+			   ENROLL_DATE,
+			   MODIFY_DATE,
+			   SNS_LOGIN,
+			   STATUS,
+			   AMOUNT
+    	FROM MEMBER
+   		WHERE ID = #{id} AND STATUS = 'Y'
+	</select>
+>>>>>>> FIR-30
 	
 	<select id="selectCount" resultType="_int">
 		SELECT COUNT(*) FROM MEMBER
 	</select>
+	
 
 </mapper>
