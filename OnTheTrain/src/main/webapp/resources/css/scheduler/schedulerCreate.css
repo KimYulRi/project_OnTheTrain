@@ -133,9 +133,11 @@ article {
 	width: 170.6px;
 }
 
+
 .addCard>button {
 	width: 26.35px;
 	height: 31.62px;
+	border : none;
 	font-family: 'Noto Sans KR';
 	font-style: normal;
 	font-weight: 700;
@@ -144,6 +146,7 @@ article {
 	display: flex;
 	align-items: center;
 	text-align: center;
+	background-color : #fff;
 	color: #596180;
 }
 
