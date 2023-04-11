@@ -1,5 +1,7 @@
 package com.kh.onthetrain.member.controller;
 
+import java.util.HashMap;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,6 +69,40 @@ public class MemberController {
 	   
 	   return "member/enroll";
    }
+   
+   @Autowired
+	private MemberService ms;
+		
+   @GetMapping(value="/login/kakao")
+   public ModelAndView kakaoLogin(ModelAndView modelAndView, @RequestParam(value="code", required=false) String code) throws Exception {
+		System.out.println("#########" + code);
+		String accessToken = ms.getAccessToken(code);
+		
+		HashMap<String, Object> userInfo = ms.getUserInfo(accessToken);
+		System.out.println("###accessToken### : " + accessToken);
+		System.out.println("###nickname### : " + userInfo.get("nickname"));
+		System.out.println("###email### : " + userInfo.get("email"));
+		System.out.println("###id### : " + userInfo.get("id"));
+		
+		String id = (String) userInfo.get("id");
+		String email = (String) userInfo.get("email");
+		String nickname = (String) userInfo.get("nickname");
+		
+		// 회원이 아니면 회원가입 페이지로 이동
+		
+		// 회원이면 로그인
+		Member loginMember = service.loginKakao(id, email);
+				
+		if(loginMember != null) {
+			modelAndView.addObject("loginMember", loginMember);
+			modelAndView.setViewName("redirect:/");
+		} else {
+			modelAndView.addObject("msg", "카카오 로그인 실패");
+			modelAndView.addObject("location", "/");
+			modelAndView.setViewName("common/msg");
+		}
+		return modelAndView;
+	}
    
    
 }
