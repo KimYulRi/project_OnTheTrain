@@ -39,6 +39,8 @@ public class SchedulerTicket {
 	private String peopleCount;
 	
 	// 비용
-	private int Cost;
+	private int cost;
 	
+	// 세부 내용
+	private String detail;
 }
