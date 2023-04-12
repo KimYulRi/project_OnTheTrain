@@ -20,9 +20,6 @@ public class SchedulerTicket {
 	// 스케줄러no
 	private int schedulerNo;
 	
-	// 종류코드
-	private String code;
-	
 	// 출발시간
 	private String depTime;
 	
@@ -41,6 +38,7 @@ public class SchedulerTicket {
 	// 비용
 	private int cost;
 	
-	// 세부 내용
+	// 세부내용
 	private String detail;
+	
 }

@@ -18,9 +18,6 @@ public class SchedulerEvent {
 	// 스케줄러no
 	private int schedulerNo;
 
-	// 종류코드
-	private String code;
-
 	// 이미지no
 	private int imageNo;
 
