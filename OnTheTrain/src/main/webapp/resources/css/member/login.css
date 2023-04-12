@@ -1,0 +1,61 @@
+@charset "UTF-8";
+
+	section{
+		width: 1200px;
+        min-height: 550px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+      	margin: 0 auto;
+    }
+
+	h2 {
+		color:#00008b;
+	}
+	.noneButton  {
+		border-radius: 4px;
+		margin: 5px 0 5px 0;
+		width: 350px;
+		height: 50px;
+	}
+	#loginbtn {
+		border-radius: 4px;
+		margin: 20px 0 10px 0;
+		width: 350px;
+		height: 40px;
+	}
+	.atag {
+		color:#00008b;
+		text-decoration: none;
+		margin: 10px 0 10px 0;
+		float: left;
+		font-weight: 600;
+		font-size: small;
+	}
+	
+	#userId, #userPwd{
+		width: 350px;
+		height: 40px;
+		border: 0.5px solid #D3D2D2;
+		margin: 5px 0 5px 0;
+		border-radius: 4px;
+	}
+	#enroll{
+		float: right;
+	}
+	.atag-wrrap{
+		width: 350px;
+		background-color: antiquewhite;
+	}
+	#rememberId{
+		margin:10px 0 0 0;
+		height: 10px;
+	}
+	#rememberLabel{
+		color:#596180;
+		font-size: small;
+	}
+	#body{
+      margin: 0 auto;
+
+   }

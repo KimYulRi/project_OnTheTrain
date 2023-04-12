@@ -1,0 +1,197 @@
+@charset "UTF-8";
+
+@font-face {
+	font-family: 'Noto Sans KR';
+	src: url('../../font/common/NotoSansKR-Medium.otf') format('truetype');
+}
+
+@font-face {
+	font-family: 'Noto Sans Bold';
+	src: url('../../font/common/NotoSansKR-Bold.otf') format('truetype');
+}
+
+@font-face {
+	font-family: 'Noto Sans thin';
+	src: url('../../font/common/NotoSansKR-Thin.otf') format('truetype');
+}
+
+article {
+	width: 1024px;
+}
+
+#schedulerBanner {
+	box-sizing: border-box;
+	display: flex;
+	align-items: center;
+	width: 1024px;
+	height: 88px;
+	padding-top: 5px;
+	padding-left: 21px;
+	margin-bottom: 54px;
+	background-image:
+		url("../../images/scheduler/schedulerBannerBackground_small.png");
+	font-family: 'Noto Sans thin';
+	font-style: normal;
+	font-weight: 400;
+	font-size: 30px;
+	line-height: 43px;
+	color: #FFFFFF;
+}
+
+#scheduler {
+	width: 100%;
+	margin-bottom: 20px;
+}
+
+#scheduler * {
+	float: left;
+}
+
+#schedulerTitle {
+	display: flex;
+	width: 1024px;
+	height: 50px;
+	align-items: center;
+	justify-content: center;
+	margin-bottom: 40px;
+}
+
+#schedulerCalender {
+	width: 970px;
+	height: 530px;
+	background-color: red;
+}
+
+#schedulerSidemenu {
+	width: 54px;
+	height: 530px;
+	background-color: green;
+}
+
+#selectComponent {
+	margin-top: 20px;
+	margin-bottom: 20px;
+	display: flex;
+	justify-content: center;
+	width: 1024px;
+	height: 41px;
+	display: flex;
+}
+
+.componentText {
+	width: 167px;
+	font-family: 'Noto Sans KR';
+	font-style: normal;
+	font-weight: 400;
+	font-size: 30px;
+	line-height: 43px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+}
+
+.title {
+	margin-top: 20px;
+	margin-bottom: 20px;
+	width: 1024px;
+	font-family: 'Noto Sans KR';
+	font-style: normal;
+	font-weight: 400;
+	font-size: 20px;
+	line-height: 29px;
+	width: 1024px;
+}
+
+.components {
+	width: 1024px;
+	display: inline-block;
+	margin-bottom: 20px;
+}
+
+.components>div {
+	float: left;
+}
+
+.card {
+	box-sizing: border-box;
+	width: 170.6px;
+	height: 227px;
+	padding-right: 5px;
+	padding-left: 5px;
+}
+
+.addCard {
+	box-sizing: border-box;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 170.6px;
+	height: 227px;
+	border: 1px solid #D3D2D2;
+	border-radius: 10px;
+	width: 170.6px;
+}
+
+
+.addCard>button {
+	width: 26.35px;
+	height: 31.62px;
+	border : none;
+	font-family: 'Noto Sans KR';
+	font-style: normal;
+	font-weight: 700;
+	font-size: 20px;
+	line-height: 58px;
+	display: flex;
+	align-items: center;
+	text-align: center;
+	background-color : #fff;
+	color: #596180;
+}
+
+.cardThumbnail {
+	box-sizing: border-box;
+	width: 100%;
+	height: 150px;
+	border: 1px solid #D3D2D2;
+	border-radius: 10px;
+}
+
+.cardBrief {
+	width: 100%;
+	height: 70px;
+}
+
+.cardTitle {
+	font-family: 'Noto Sans KR';
+	font-style: normal;
+	font-weight: 400;
+	font-size: 17px;
+	line-height: 17px;
+	color: #000000;
+	margin-top: 5px;
+	padding-left: 5px;
+}
+
+.cardRequiredDetail {
+	font-family: 'Noto Sans KR';
+	font-style: normal;
+	font-weight: 400;
+	font-size: 12px;
+	line-height: 17px;
+	COLOR: #000000;
+	margin-bottom: 17px;
+	padding-left: 5px;
+}
+
+.cardOptionalDetail {
+	font-family: 'Noto Sans KR';
+	font-style: normal;
+	font-weight: 400;
+	font-size: 12px;
+	line-height: 17px;
+	color: #717171;
+	padding-left: 5px;
+}
+}
