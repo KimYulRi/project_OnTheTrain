@@ -1,0 +1,157 @@
+@charset "UTF-8";
+
+@font-face {
+	font-family: 'Noto Sans';
+	src: url('../../font/common/NotoSansKR-Medium.otf') format('truetype');
+}
+
+@font-face {
+	font-family: 'Noto Sans Bold';
+	src: url('../../font/common/NotoSansKR-Bold.otf') format('truetype');
+}
+
+
+#banner {
+  background-image: url("../../images/trainTable/trainTableBanner.png");
+  height: 100px;
+  margin: 30px 60px 30px 60px;
+  border-radius: 10px;
+}
+#banner_text {
+  height: 63px;
+  width: 251px;
+  left: 104px;
+  top: 366px;
+  border-radius: nullpx;
+  color: #0a0a0a;
+  font-size: 30px;
+  font-weight: 700;
+  line-height: 43px;
+  letter-spacing: 0em;
+  padding: 30px 10px;
+}
+
+#ttable {
+  margin: 50px 60px 30px 60px;
+  border-radius: 10px;
+}
+
+#topTable {
+  padding-top: 150px;
+}
+
+@import url("https://fonts.googleapis.com/css?family=Questrial&display=swap");
+
+/* body { background-color : skyblue; }  */
+
+.field {
+  text-align: center;
+  padding-left: 200px;
+}
+#calcal {
+  background-color: white;
+  height: 180px;
+  width: 180px;
+  left: 757px;
+  top: 504px;
+  border-radius: 12px;
+  padding: 30px;
+  /* border-width: 10px; */
+  box-shadow: 40px 40px 40px 40px rgba(0.2, 0.2, 0.2, 0.2);
+}
+
+td {
+  width: 1px;
+  height: 1px;
+}
+
+.Calendar {
+  text-align: center;
+}
+
+.Calendar > thead > tr:first-child > td {
+  font-family: "Questrial", sans-serif;
+  font-size: 0.8em;
+  font-weight: bold;
+}
+
+.Calendar > thead > tr:last-child > td {
+  font-family: "Questrial", sans-serif;
+  font-weight: 100;
+}
+
+.Calendar > tbody > tr > td > p {
+  font-family: "Montserrat", sans-serif;
+  height: 20px;
+  width: 20px;
+  border-radius: 45px;
+  transition-duration: 0.2s;
+  line-height: 20px;
+  margin: 1px;
+  display: block;
+  text-align: center;
+  font-size: 0.9em;
+}
+
+.pastDay {
+  color: lightgray;
+}
+
+.today {
+  background-color: #8ea0df;
+  color: #fff;
+  font-weight: 60;
+  cursor: pointer;
+}
+
+.futureDay {
+  background-color: #ffffff;
+  cursor: pointer;
+}
+.futureDay:hover {
+  background: #eee;
+}
+
+.futureDay.choiceDay,
+.today.choiceDay {
+  background: #0a174e;
+  color: #fff;
+  font-weight: 40;
+  cursor: pointer;
+}
+
+#traintable_btn {
+  background-color: #8ea0df;
+  transition-duration: 0.2s;
+  border-radius: 5px;
+  width: 300px;
+  height: 50px;
+  font-size: larger;
+  font-weight: bolder;
+  color: #fff;
+  outline: none;
+  border: 0px;
+  cursor: pointer;
+}
+
+#depId {
+  background-color: #8ea0df;
+  color: #fff;
+  outline: none;
+  border: 0px;
+  cursor: pointer;
+  border-radius: 5px;
+  height: 30px;
+  font-size: large;
+}
+
+#arId {
+  background-color: #8ea0df;
+  color: #fff;
+  outline: none;
+  border: 0px;
+  cursor: pointer;
+  border-radius: 5px;
+  height: 30px;
+  font-size: large;
+}
