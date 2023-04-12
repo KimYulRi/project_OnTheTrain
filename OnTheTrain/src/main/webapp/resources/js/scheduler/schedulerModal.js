@@ -1,4 +1,6 @@
 $(document).ready(() => {
+
+  <!--   EventModal   -->
   const openEventModalButton = document.querySelector('[data-modal-target="#schedulerEventModal"]');
   const eventModal = document.querySelector('#schedulerEventModal');
   const eventModalBackdrop = eventModal.querySelector('.modal-backdrop');
@@ -16,6 +18,8 @@ $(document).ready(() => {
     eventModal.style.display = 'none';
   });
 
+
+  <!--   AccommodationModal   -->
   const openAccommodationModalButton = document.querySelector('[data-modal-target="#schedulerAccommodationModal"]');
   const accommodationModal = document.querySelector('#schedulerAccommodationModal');
   const accommodationModalBackdrop = accommodationModal.querySelector('.modal-backdrop');
@@ -33,6 +37,8 @@ $(document).ready(() => {
     accommodationModal.style.display = 'none';
   });
 
+
+  <!--   TicketModal   -->
   const openTicketModalButton = document.querySelector('[data-modal-target="#schedulerTicketModal"]');
   const ticketModal = document.querySelector('#schedulerTicketModal');
   const ticketModalBackdrop = ticketModal.querySelector('.modal-backdrop');
