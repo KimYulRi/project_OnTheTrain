@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper
+	namespace="com.kh.onthetrain.scheduler.model.mapper.SchedulerComponentMapper">
+
+	<sql id="selectSchedulerAccommodation">
+		SELECT 
+			NO, 
+			SCHEDULER_NO, 
+			IMAGE_NO, 
+			NAME, 
+			START_TIME, 
+			END_TIME, 
+			LOCATION,
+			STARS, 
+			COST, 
+			DETAIL
+		FROM SCHEDULER_ACCOMMODATION
+	</sql>
+	
+	<sql id="selectSchedulerEvent">
+		SELECT
+			NO,
+			SCHEDULER_NO,
+			IMAGE_NO,
+			TITLE,
+			START_TIME,
+			END_TIME,
+			LOCATION,
+			COST,
+			DETAIL
+		FROM SCHEDULER_EVENT
+	</sql>
+	
+	<sql id="selectSchedulerTicket">
+	    SELECT
+	        NO,
+	        SCHEDULER_NO,
+	        DEP_TIME,
+	        ARR_TIME,
+	        DEP_STATION,
+	        ARR_STATION,
+	        PEOPLE_COUNT,
+	        COST,
+	        DETAIL
+	    FROM SCHEDULER_TICKET
+	</sql>
+	
+	<sql id="selectSchedulerImage">
+		SELECT
+		    NO,
+		    ORIGINAL_FILENAME,
+		    RENAMED_FILENAME,
+		    CREATE_DATE
+	  	FROM
+	    	SCHEDULER_IMAGE
+	
+	</sql>
+	
+	<resultMap id="schedulerAccommodationMap"
+		type="SchedulerAccommodation">
+		<id column="NO" property="no" />
+		<result column="SCHEDULER_NO" property="schedulerNo" />
+		<result column="IMAGE_NO" property="imageNo" />
+		<result column="NAME" property="name" />
+		<result column="START_TIME" property="start" />
+		<result column="END_TIME" property="end" />
+		<result column="LOCATION" property="location" />
+		<result column="STARS" property="stars" />
+		<result column="COST" property="cost" />
+		<result column="DETAIL" property="detail" />
+	</resultMap>
+
+	<resultMap id="schedulerEventMap"
+		type="SchedulerEvent">
+		<id column="NO" property="no" />
+		<result column="SCHEDULER_NO" property="schedulerNo" />
+		<result column="IMAGE_NO" property="imageNo" />
+		<result column="TITLE" property="title" />
+		<result column="START_TIME" property="start" />
+		<result column="END_TIME" property="end" />
+		<result column="LOCATION" property="location" />
+		<result column="COST" property="cost" />
+		<result column="DETAIL" property="detail" />
+	</resultMap>
+
+	<resultMap id="schedulerTicketMap" type="SchedulerTicket">
+		  <id property="no" column="NO" />
+		  <result property="schedulerNo" column="SCHEDULER_NO" />
+		  <result property="depTime" column="DEP_TIME" />
+		  <result property="arrTime" column="ARR_TIME" />
+		  <result property="depStation" column="DEP_STATION" />
+		  <result property="arrStation" column="ARR_STATION" />
+		  <result property="peopleCount" column="PEOPLE_COUNT" />
+		  <result property="cost" column="COST" />
+		  <result property="detail" column="DETAIL" />
+	</resultMap>
+		
+	<resultMap id="imageResultMap" type="SchedulerImage">
+		  <id column="NO" property="no" />
+		  <result column="ORIGINAL_FILENAME" property="originalFilename" />
+		  <result column="RENAMED_FILENAME" property="renamedFilename" />
+		  <result column="CREATE_DATE" property="createDate" />
+	</resultMap>
+	
+	<select id="selectSchedulerAccommodationByNo"
+		resultMap="schedulerAccommodationMap" parameterType="_int">
+		<include refid="selectSchedulerAccommodation" />
+		WHERE 
+			NO = #{no}
+	</select>
+
+	<select id="selectSchedulerEventByNo"
+		resultMap="schedulerEventMap" parameterType="_int">
+		<include refid="selectSchedulerEvent" />
+		WHERE
+			NO = #{no}
+	</select>
+	
+	<select id="selectSchedulerTicketByNo"
+	 	resultMap="schedulerTicketMap" parameterType="_int">
+		<include refid="selectSchedulerTicket" />
+	 	 WHERE 
+	  		NO = #{no}
+	</select>
+	
+	<select id="selectImageByNo" resultMap="imageResultMap" parameterType="_int">
+	 <include refid="selectSchedulerImage" />
+	  WHERE
+	    NO = #{no}
+	</select>
+	
+</mapper>
