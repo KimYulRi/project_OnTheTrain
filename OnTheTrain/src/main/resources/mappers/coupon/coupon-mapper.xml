@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.kh.onthetrain.coupon.model.mapper.CouponMapper">
+
+	<sql id="selectCoupon">
+		SELECT COUPON_NO,
+			   MEMBER_NO,
+			   COUPON_NAME,
+			   EXPIRATION_DATE,
+			   DISCOUNT_RATE,
+			   DISCOUNT_AMOUNT
+		FROM COUPON
+	</sql>
+	
+	<resultMap id="couponResultMap" type="Coupon">
+		<id property="couponId" column="COUPON_NO"/>
+		<result property="memberId" column="MEMBER_NO"/>
+		<result property="couponName" column="COUPON_NAME"/>
+		<result property="expDate" column="EXPIRATION_DATE"/>
+		<result property="status" column="COUPON_STATUS"/>
+		<result property="disRate" column="DISCOUNT_RATE"/>
+		<result property="disAmount" column="DICOUNT_AMOUNT"/>
+	</resultMap>
+
+	<select id="selectCouponByMemberId" parameterType="_int" resultMap="couponResultMap">
+		<include refid="selectCoupon"/>
+		WHERE COUPON_STATUS = 'Y' AND MEMBER_NO = {no}
+	</select>
+	
+	<update id="updateExpiredOrUsedCoupon" parameterType="_int">
+		UPDATE COUPON
+		SET	   COUPON_STATUS = 'N'
+		WHERE  MEMBER_NO = #{m_no} AND COUPON_NO = {c_no}
+	</update>
+	
+
+</mapper>

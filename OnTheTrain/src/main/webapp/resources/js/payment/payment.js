@@ -24,7 +24,7 @@ window.payment.requestPay = function () {
       console.log(rsp);
       var msg = '결제가 완료되었습니다.';
       alert(msg);
-      
+      console.log
       
       
       
