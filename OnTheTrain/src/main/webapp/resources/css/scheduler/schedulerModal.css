@@ -1,0 +1,49 @@
+@charset "EUC-KR";
+
+.modal {
+	position: fixed;
+	z-index: 1;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+	width: 580px;
+	height: 818px;
+	background-color: #fff;
+	border-radius: 8px;
+}
+
+.modal-header {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 80px;
+	border-bottom: 1px solid #ccc;
+}
+
+.modal-title {
+	font-size: 24px;
+	font-weight: bold;
+	text-align: center;
+}
+
+.modal-body {
+	padding: 16px;
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.modal-image {
+	flex-basis: 50%;
+	padding: 16px;
+}
+
+.image-area {
+	width: 258px;
+	height: 251px;
+	border: 1px solid #ccc;
+}
+
+.modal-required {
+	flex-basis: 50%;
+	padding: 16
+}
