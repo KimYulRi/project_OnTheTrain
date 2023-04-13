@@ -14,8 +14,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link href="${ path }/css/scheduler/schedulerCreate.css"
 	rel="stylesheet" type="text/css">
- <link rel="stylesheet" type="text/css"
+<link rel="stylesheet" type="text/css"
 	href="${ path }/css/scheduler/schedulerModal.css">
+<link rel="stylesheet" type="text/css"
+	href="${ path }/css/scheduler/calender/onthetrain_theme.css">
 <script src="${ path }/js/common/jquery-3.6.3.js"></script>
 <title>Document</title>
 <link>
@@ -23,17 +25,32 @@
 <body>
 	<article>
 		<div id="schedulerBanner">스케줄러</div>
+		<div id="schedulerTitle">나의 멋진 일정</div>
+		<div></div>
 		<div id="scheduler">
-			<div id="schedulerTitle">나의 멋진 일정</div>
-			<div id="schedulerCalender"></div>
-			<div id="schedulerSidemenu"></div>
+			<div id="schedulerCalender" class="calendarContainer">
+				<div id="dp"></div>
+			</div>
+			<div id="schedulerSidemenu">
+				<div class="sideMenuIcon">아이콘1</div>
+				<div class="sideMenuIcon">아이콘2</div>
+				<div class="sideMenuIcon">아이콘3</div>
+				<div class="sideMenuIcon">아이콘4</div>
+			</div>
 		</div>
+		<br>
 		<div id="schedulerComponents">
 			<div id="selectComponent">
 				<button>prev</button>
-				<div class="componentText"><a href="${ path }/scheduler/create/event">일정</a></div>
-				<div class="componentText"><a href="${ path }/scheduler/create/accommodation">숙소</a></div>
-				<div class="componentText"><a href="${ path }/scheduler/create/ticket">승차권</a></div>
+				<div class="componentText">
+					<a href="${ path }/scheduler/create/event">일정</a>
+				</div>
+				<div class="componentText">
+					<a href="${ path }/scheduler/create/accommodation">숙소</a>
+				</div>
+				<div class="componentText">
+					<a href="${ path }/scheduler/create/ticket">승차권</a>
+				</div>
 				<button>next</button>
 			</div>
 			<hr>
@@ -50,17 +67,20 @@
 			</div>
 			<hr>
 			<div class="title">추가 대기 중인 ${currentComponent}</div>
-			<div id="waitComponent" class="components">
-				<div id="waitComponentList"></div>
-				<div class="addCard">
+			<div id="waitComponentList" class="components">
+			<div id="addCard">
+				<div id="addCard">
 					<button>+</button>
 				</div>
 			</div>
-			<hr>
-			<div class="title">${currentComponent} 조회</div>
-			<div id="searchComponent"></div>
+			</div>
+		</div>
+		<hr>
+		<div class="title">${currentComponent}조회</div>
+		<div id="searchComponent"></div>
 		</div>
 		<jsp:include page="./schedulerModal.jsp" />
+		<script src="${ path }/js/scheduler/calender/daypilot-all.min.js"></script>
 		<script src="${ path }/js/scheduler/schedulerModal.js"></script>
 		<script src="${ path }/js/scheduler/schedulerCreate.js"></script>
 	</article>
