@@ -68,16 +68,24 @@
 			<hr>
 			<div class="title">추가 대기 중인 ${currentComponent}</div>
 			<div id="waitComponentList" class="components">
-			<div id="addCard">
 				<div id="addCard">
-					<button>+</button>
+					<div id="addCard">
+						<button>+</button>
+					</div>
 				</div>
-			</div>
 			</div>
 		</div>
 		<hr>
 		<div class="title">${currentComponent}조회</div>
-		<div id="searchComponent"></div>
+		<div id="searchComponent">
+			<div>
+				지역 코드 조회 <select name="location">
+					<option value="">전체</option>
+					<c:forEach var="location" items="${locationCodeList}">
+						<option value="${location.code}">${location.name}</option>
+					</c:forEach>
+				</select>
+			</div>
 		</div>
 		<jsp:include page="./schedulerModal.jsp" />
 		<script src="${ path }/js/scheduler/calender/daypilot-all.min.js"></script>
