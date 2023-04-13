@@ -1,6 +1,8 @@
 
-<!-- 추가 대기 중인 요소에 요소 추가 -->
 
+
+
+<!-- 추가 대기 중인 요소에 요소 추가 -->
 const addCardButton = document.getElementById('addCard');
 const waitComponentList = document.getElementById('waitComponentList');
 

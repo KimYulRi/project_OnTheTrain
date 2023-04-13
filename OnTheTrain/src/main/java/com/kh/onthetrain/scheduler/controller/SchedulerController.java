@@ -1,5 +1,7 @@
 package com.kh.onthetrain.scheduler.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -7,7 +9,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.kh.onthetrain.scheduler.model.entity.APILocationCode;
 import com.kh.onthetrain.scheduler.model.entity.Scheduler;
+import com.kh.onthetrain.scheduler.service.SchedulerAPIService;
 import com.kh.onthetrain.scheduler.service.SchedulerService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -19,7 +23,10 @@ public class SchedulerController {
 
 	@Autowired
 	private SchedulerService service;
-
+	
+	@Autowired
+	private SchedulerAPIService APIservice;
+	
 	@GetMapping("/main")
 	// 스케줄러 메인으로 보내는 메소드
 	public String toMain() {
@@ -31,6 +38,10 @@ public class SchedulerController {
 	@RequestMapping(value= {"/create", "/create/event"})
 	public ModelAndView toCreate(ModelAndView modelAndView) {
 		log.info("toCreate/CreatEvent() 메소드 실행");
+		
+		// 일정 조회에 필요한 지역코드를 담아 설정
+		List<APILocationCode> allLocationCode = APIservice.getAllLocationCode();
+		modelAndView.addObject("locationCodeList", allLocationCode);
 		
 		// 기본으로 출력되는 스케줄러 요소는 '일정'
 		modelAndView.addObject("currentComponent", "일정");
