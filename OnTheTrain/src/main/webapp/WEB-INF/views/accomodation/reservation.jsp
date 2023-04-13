@@ -48,21 +48,87 @@
                     <!--왼쪽-->
                     <div id="top">
                         <div id="reviewLeft">
-                            
+	                        <div id="review1">
+		                        <div class="left" id="leftText">접근성</div>
+		                        <div><hr class="shortLine"></div>
+		                        <div class="right" id="reviewPoint">3.6</div>
+                    		</div>
+	                        <div id="review2">
+		                        <div class="left" id="leftText">서비스</div>
+		                        <div><hr class="shortLine"></div>
+		                        <div class="right" id="reviewPoint">3.6</div>
+                    		</div>
+	                        <div id="review3">
+		                        <div class="left" id="leftText">숙소 시설</div>
+		                        <div><hr class="shortLine"></div>
+		                        <div class="right" id="reviewPoint">3.6</div>
+                    		</div>
                         </div>
                         <!--오른쪽-->
                         <div id="reviewRight">
-                            
+	                        <div id="review1">
+		                        <div class="left" id="leftText">접근성</div>
+		                        <div><hr class="shortLine"></div>
+		                        <div class="right" id="reviewPoint">3.6</div>
+                    		</div>
+	                        <div id="review2">
+		                        <div class="left" id="leftText">서비스</div>
+		                        <div><hr class="shortLine"></div>
+		                        <div class="right" id="reviewPoint">3.6</div>
+                    		</div>
+	                        <div id="review3">
+		                        <div class="left" id="leftText">숙소 시설</div>
+		                        <div id="sl"><hr class="shortLine"></div>
+		                        <div class="right" id="reviewPoint">3.6</div>
+                    		</div>
                         </div>
                     </div>
                     <div id="bottom">
                         <!--왼쪽-->
-                        <div id="reviewLeft">
-                            
+                        <div id="reviewPerson">
+                            <div id="user">
+		                        <div class="left" id="userImg"></div>
+		                       	<div class="left">
+			                        <div id="reviewNick">닉네임</div>
+			                        <div id="cDate">2023.03.20</div>
+		                       	</div>
+                    		</div>
+                    		<div class="left"id="reviewContent">
+                    			너무 만족스러웠고 탁 트인 광경이 만족스러웠습니다.너무 만족스러웠고 탁 트인 광경이 만족스러웠습니다. 
+                    		</div>
+                            <div id="user">
+		                        <div class="left" id="userImg"></div>
+		                       	<div class="left">
+			                        <div id="reviewNick">닉네임</div>
+			                        <div id="cDate">2023.03.20</div>
+		                       	</div>
+                    		</div>
+                    		<div class="left"id="reviewContent">
+                    			 너무 만족스러웠고 탁 트인 광경이 만족스러웠습니다.너무 만족스러웠고 탁 트인 광경이 만족스러웠습니다. 너무 만족스러웠고 탁 트인 광경이 만족스러웠습니다. 너무 만족스러웠고 탁 트인 광경이 만족스러웠습니다. 너무 만족스러웠고 탁 트인 광경이 만족스러웠습니다.  
+                    		</div>
                         </div>
                         <!--오른쪽-->
                         <div id="reviewRight">
-                            
+                            <div id="user">
+		                        <div class="left" id="userImg"></div>
+		                       	<div class="left">
+			                        <div id="reviewNick">닉네임</div>
+			                        <div id="cDate">2023.03.20</div>
+		                       	</div>
+                    		</div>
+                    		<div class="left"id="reviewContent">
+                    			너무 만족스러웠고 탁 트인 광경이 만족스러웠습니다. 
+                    		</div>
+                            <div id="user">
+		                        <div class="left" id="userImg"></div>
+		                       	<div class="left">
+			                        <div id="reviewNick">닉네임</div>
+			                        <div id="cDate">2023.03.20</div>
+		                       	</div>
+                    		</div>
+                    		<div class="left"id="reviewContent">
+                    			너무 만족스러웠고 탁 트인 광경이 만족스러웠습니다. 
+                    		</div>
                         </div>
                         <div class="text" id="ExplanationMore">더보기></div>
                     </div>
@@ -79,20 +145,22 @@
                     <div class="optionFrame">
                         <div id="onedayPrice">290,000원</div>
                         <div id="accomodaionDay"> / 박</div>
-                        <div class="right">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="left" width="10" height="10" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                        <div class="right" id="topStar">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
                                 <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
-                            </svg>4.86
+                            </svg> 4.86
                         </div>
-                        <div class="right">후기22개</div>
+                        <div class="right" id="topReview">후기22개</div>
                     </div>
 <!--박스 체크인,아웃, 인원-->
                         <div id="accomodationStatus">
                             <div id="check">
 	                            <div id="checkIn">체크인</div>
+	                            <div id="vline"></div>
 	                            <div id="checkOut">체크아웃</div>
                             </div>
-                            <div id="pnum">인원</div>
+                            <div class="line" id="hline"></div>
+                            <div class="left" id="pnum">인원</div>
                         </div>
                         <button class="button" type="button" id="reservBtn">예약하기</button>
                         <div id="warning">결제 전에는 예약이 확정되지 않습니다.</div>
