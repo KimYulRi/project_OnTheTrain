@@ -52,7 +52,7 @@
 	                        <div id="review1">
 		                        <div class="left" id="leftText">접근성</div>
 		                        <div><hr class="shortLine"></div>
-		                        <div class="right" id="reviewPoint">3.6</div>
+		                        <div class="right reviewPoint" class=>3.6</div>
                     		</div>
 	                        <div id="review2">
 		                        <div class="left" id="leftText">서비스</div>
@@ -134,10 +134,18 @@
                         <div class="text" id="ExplanationMore">더보기></div>
                     </div>
                 </div>
+                <hr class="line">
+                	<div class="text" id="accomodationCall">전화번호
+	                	<div class="text" id="ExplanationMore">010-0000-0000</div>
+                	</div>
+                <hr class="line"><div class="text" id="address">주소</div>
+                <hr class="line">
+	                <div class="text" id="addressAdd">경기도 성남시 분당구
+	                	<div class="text" id="ExplanationMore">더보기></div>
+	                </div>
                 <!-- 지도 -->
                 <div id="map"><img src="${ path }/images/accomodation/" alt=""></div>
         </div> 
-
 
 <!--오른쪽 옵션창-->
             <div id="rightFrame">
