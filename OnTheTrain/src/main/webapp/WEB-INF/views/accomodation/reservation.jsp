@@ -31,10 +31,9 @@
         <div id="contentFrame">
 <!--왼쪽 내용 영역-->                
             <div id="leftContent">
-                <div class="text" id="accomodation">숙소</div>
-                <div class="text" id="accomodationExplanation">높은 층의 숙소에서 보는 주변 풍경과 함께 힐링이 가능한 시설입니다.높은 층의 숙소에서 보는 주변 풍경과 함께 힐링이 가능한 시설입니다.높은 층의 숙소에서 보는 주변 풍경과 함께 힐링이 가능한 시설입니다.</div>
-                <div class="text" id="ExplanationMore">더보기></div>
-                <div class="text" id="calendarClick"><hr class="line">날짜 선택</div>
+                <div class="font15">숙소</div>
+                <div class="font15" id="accomodationExplanation">높은 층의 숙소에서 보는 주변 풍경과 함께 힐링이 가능한 시설입니다.높은 층의 숙소에서 보는 주변 풍경과 함께 힐링이 가능한 시설입니다.</div>
+                <div class="font15" id="calendarClick"><hr class="line">날짜 선택</div>
                 <div id="calendarArea"><img id="cimg" src="${ path }/images/accomodation/calender.png" alt=""" alt=""></div>
                 <div id="reservStar"><hr class="line">
                     <div id="stara">
@@ -49,100 +48,97 @@
                     <!--왼쪽-->
                     <div id="top">
                         <div id="reviewLeft">
-	                        <div id="review1">
-		                        <div class="left" id="leftText">접근성</div>
+	                        <div class="reviewTop">
+		                        <div class="left leftText">접근성</div>
 		                        <div><hr class="shortLine"></div>
-		                        <div class="right reviewPoint" class=>3.6</div>
+		                        <div class="right reviewPoint">3.6</div>
                     		</div>
-	                        <div id="review2">
-		                        <div class="left" id="leftText">서비스</div>
+	                        <div class="reviewMiddle">
+		                        <div class="left leftText">접근성</div>
 		                        <div><hr class="shortLine"></div>
-		                        <div class="right" id="reviewPoint">3.6</div>
+		                        <div class="right reviewPoint">3.6</div>
                     		</div>
-	                        <div id="review3">
-		                        <div class="left" id="leftText">숙소 시설</div>
+	                        <div class="reviewBottom">
+		                        <div class="left leftText">접근성</div>
 		                        <div><hr class="shortLine"></div>
-		                        <div class="right" id="reviewPoint">3.6</div>
+		                        <div class="right reviewPoint">3.6</div>
                     		</div>
                         </div>
                         <!--오른쪽-->
                         <div id="reviewRight">
-	                        <div id="review1">
-		                        <div class="left" id="leftText">접근성</div>
+	                        <div class="reviewTop">
+		                        <div class="left leftText">접근성</div>
 		                        <div><hr class="shortLine"></div>
-		                        <div class="right" id="reviewPoint">3.6</div>
+		                        <div class="right reviewPoint">3.6</div>
                     		</div>
-	                        <div id="review2">
-		                        <div class="left" id="leftText">서비스</div>
+	                        <div class="reviewMiddle">
+		                        <div class="left leftText">접근성</div>
 		                        <div><hr class="shortLine"></div>
-		                        <div class="right" id="reviewPoint">3.6</div>
+		                        <div class="right reviewPoint">3.6</div>
                     		</div>
-	                        <div id="review3">
-		                        <div class="left" id="leftText">숙소 시설</div>
-		                        <div id="sl"><hr class="shortLine"></div>
-		                        <div class="right" id="reviewPoint">3.6</div>
+	                        <div class="reviewBottom">
+		                        <div class="left leftText">접근성</div>
+		                        <div><hr class="shortLine"></div>
+		                        <div class="right reviewPoint">3.6</div>
                     		</div>
                         </div>
                     </div>
                     <div id="bottom">
                         <!--왼쪽-->
-                        <div id="reviewPerson">
-                            <div id="user">
-		                        <div class="left" id="userImg"></div>
+                        <div id="reviewArea">
+                            <div>
+		                        <div class="left userImg"></div>
 		                       	<div class="left">
-			                        <div id="reviewNick">닉네임</div>
-			                        <div id="cDate">2023.03.20</div>
+			                        <div class="reviewNick">닉네임</div>
+			                        <div class="cDate">2023.03.20</div>
 		                       	</div>
                     		</div>
-                    		<div class="left"id="reviewContent">
+                    		<div class="left reviewContent">
                     			너무 만족스러웠고 탁 트인 광경이 만족스러웠습니다.너무 만족스러웠고 탁 트인 광경이 만족스러웠습니다. 
                     		</div>
-                            <div id="user">
-		                        <div class="left" id="userImg"></div>
+                            <div>
+		                        <<div class="left userImg"></div>
 		                       	<div class="left">
-			                        <div id="reviewNick">닉네임</div>
-			                        <div id="cDate">2023.03.20</div>
+			                        <div class="reviewNick">닉네임</div>
+			                        <div class="cDate">2023.03.20</div>
 		                       	</div>
                     		</div>
-                    		<div class="left"id="reviewContent">
+                    		<div class="left reviewContent">
                     			 너무 만족스러웠고 탁 트인 광경이 만족스러웠습니다.너무 만족스러웠고 탁 트인 광경이 만족스러웠습니다. 너무 만족스러웠고 탁 트인 광경이 만족스러웠습니다. 너무 만족스러웠고 탁 트인 광경이 만족스러웠습니다. 너무 만족스러웠고 탁 트인 광경이 만족스러웠습니다.  
                     		</div>
                         </div>
                         <!--오른쪽-->
                         <div id="reviewRight">
-                            <div id="user">
-		                        <div class="left" id="userImg"></div>
+                            <div>
+		                        <div class="left userImg"></div>
 		                       	<div class="left">
-			                        <div id="reviewNick">닉네임</div>
-			                        <div id="cDate">2023.03.20</div>
+			                        <div class="reviewNick">닉네임</div>
+			                        <div class="cDate">2023.03.20</div>
 		                       	</div>
                     		</div>
-                    		<div class="left"id="reviewContent">
+                    		<div class="left reviewContent">
                     			너무 만족스러웠고 탁 트인 광경이 만족스러웠습니다. 
                     		</div>
-                            <div id="user">
-		                        <div class="left" id="userImg"></div>
+                            <div>
+		                        <div class="left userImg"></div>
 		                       	<div class="left">
-			                        <div id="reviewNick">닉네임</div>
-			                        <div id="cDate">2023.03.20</div>
+			                        <div class="reviewNick">닉네임</div>
+			                        <div class="cDate">2023.03.20</div>
 		                       	</div>
                     		</div>
-                    		<div class="left"id="reviewContent">
+                    		<div class="left reviewContent">
                     			너무 만족스러웠고 탁 트인 광경이 만족스러웠습니다. 
                     		</div>
                         </div>
-                        <div class="text" id="ExplanationMore">더보기></div>
                     </div>
                 </div>
                 <hr class="line">
-                	<div class="text" id="accomodationCall">전화번호
-	                	<div class="text" id="ExplanationMore">010-0000-0000</div>
-                	</div>
-                <hr class="line"><div class="text" id="address">주소</div>
+                	<div class="font15">전화번호</div>
+	                <div class="font15 left" id="call">010-0000-0000</div>
                 <hr class="line">
-	                <div class="text" id="addressAdd">경기도 성남시 분당구
-	                	<div class="text" id="ExplanationMore">더보기></div>
-	                </div>
+                <div class="font15" id="address">주소</div>
+	            <div class="font15" id="addressData">서울특별시 마포구 상수동 678-10
+	            </div>
                 <!-- 지도 -->
                 <div id="map"><img src="${ path }/images/accomodation/" alt=""></div>
         </div> 
@@ -185,9 +181,8 @@
                     
                     <div id="bottom2">
                         <div class="left">총합계</div>
-                        <div class="right">1,675,138원</div>
+                        <div class="right" id="totalPrice">1,675,138원</div>
                     </div>
-                    
                 </div>               
             </div>
 </div>
