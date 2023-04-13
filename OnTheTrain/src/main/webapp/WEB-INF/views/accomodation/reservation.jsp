@@ -17,13 +17,14 @@
     <link href="${ path }/css/accomodation/accomodationReservation.css"
 	rel="stylesheet" type="text/css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+	<%@ include file="../common/header.jsp" %>
 </head>
 <body>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
     <section>
         <div id="body">           
             <div id="accomodationName">하루 감성 수영장 숙소</div>
-            <div id="reviewCount">후기${ path }개</div>
+            <div id="reviewCount">후기22개</div>
             <div id="topImage"><img src="${ path }/images/accomodation/topImage.png" alt=""></div>
         </div>    
 <!--사진 아래 영역-->            
