@@ -37,10 +37,17 @@ public class Member {
 	private Date enrollDate;
 	
 	private Date modifyDate;
-
+	
+	// 간편로그인여부
 	private String snsLogin;
 	
 	private String status;
 	
 	private int amount;
+	
+	// 간편로그인 유형 (카카오, 네이버)
+	private String loginType;
+	
+	// 간편로그인 id
+	private String snsId;
 }

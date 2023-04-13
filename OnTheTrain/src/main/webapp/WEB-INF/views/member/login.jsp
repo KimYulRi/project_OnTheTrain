@@ -18,15 +18,17 @@
 	<div id="body">
 		<form action="${path}/login/in" method="POST">
 			<h2>로그인</h2>
-				<input type="text" id="userId" name="id" placeholder=" 아이디" required>
-				
+				<input type="text" id="userId" name="id" placeholder=" 아이디" 
+				value="${ empty cookie.rememberId ? '' : cookie.rememberId.value }" required>
+					
 				<br>
 
 				<input type="password" id="userPwd" name="password" placeholder=" 비밀번호"  required>
 
 				<br>
 				
-				<input type="checkbox" id="rememberId" name="remember"> <label for="rememberId" id=rememberLabel>아이디 저장</label>
+				<input type="checkbox" id="rememberId" name="rememberId" 
+				${ empty cookie.rememberId ? "" : "checked" }> <label for="rememberId" id=rememberLabel>아이디 저장</label>
 				
 				<br>
 				
@@ -42,9 +44,9 @@
 			</div>
 			
 			<br>
-
-			<a href="https://kauth.kakao.com/oauth/authorize?client_id=***REMOVED***&redirect_uri=http://localhost:8088/final/login/kakao&response_type=code"><img class="noneButton" src="${ path }/images/member/kakao.png"></a><br>
-			<a href="${url}"><img class="noneButton" src="${ path }/images/member/naver.png"></a><br>
+			
+			<a href="${Kurl}"><img class="noneButton" src="${ path }/images/member/kakao.png"></a><br>
+			<a href="${Nurl}"><img class="noneButton" src="${ path }/images/member/naver.png"></a><br>
 
 	</div>
 	</section>

@@ -19,10 +19,17 @@
 		height: 50px;
 	}
 	#loginbtn {
+		border: 0px;
 		border-radius: 4px;
 		margin: 20px 0 10px 0;
 		width: 350px;
 		height: 40px;
+		background-color:#596180;
+		color: #ffffff;
+	}
+	#loginbtn:hover{
+		background-color:#00008B;
+		color: #ffffff;
 	}
 	.atag {
 		color:#00008b;

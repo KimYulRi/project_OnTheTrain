@@ -12,6 +12,6 @@
 <title>온더트레인</title>
 </head>
 <body>
-	
+	<h1>회원가입페이지입니다.</h1>
 </body>
 </html>

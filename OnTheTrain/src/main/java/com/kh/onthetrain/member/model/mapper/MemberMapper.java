@@ -8,4 +8,5 @@ import com.kh.onthetrain.member.model.vo.Member;
 @Mapper
 public interface MemberMapper {
 	Member selectMemberById(@Param("id") String id);
+	Member selectSnsMemberById(@Param("id") String id);
 }

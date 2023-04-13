@@ -3,6 +3,23 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 
 <mapper namespace="com.kh.onthetrain.member.model.mapper.MemberMapper">
+	<sql id="selectMemberSql">
+	      SELECT NO,
+	      		 NICKNAME,
+	             ID,
+	             PASSWORD,
+	             ROLE,
+	             NAME,
+	             BIRTH,
+	             EMAIL,
+	             PHONE,
+	             ADDRESS,
+	             SNS_TYPE,
+	             ENROLL_DATE,
+	             STATUS,
+	             AMOUNT
+	      FROM MEMBER
+	   </sql>
 	
 	 <resultMap id="memberResultMap" type="Member">
       <id property="no" column="NO"/>
@@ -21,9 +38,11 @@
       <result property="snsLogin" column="SNS_LOGIN" />
       <result property="status" column="STATUS" />
       <result property="amount" column="AMOUNT" />
+      <result property="loginType" column="CODE" />
+      <result property="snsId" column="SNS_ID" />
    </resultMap>
 	
-	<select id="selectMemberById" resultMap="memberResultMap">
+	<select id="selectMemberById" parameterType="string" resultMap="memberResultMap">
 		SELECT NO,
 			   MEMBERSHIP_CODE,
 			   ID,
@@ -44,9 +63,36 @@
    		WHERE ID = #{id} AND STATUS = 'Y'
 	</select>
 	
+	
+	 <select id="selectSnsMemberById" parameterType="string" resultMap="memberResultMap">
+		SELECT M.NO,
+		       M.MEMBERSHIP_CODE,
+		       M.ID,
+		       M.PASSWORD,
+		       M.ROLE,
+		       M.NICKNAME,
+		       M.NAME,
+		       M.BIRTH,
+		       M.EMAIL,
+		       M.PHONE,
+		       M.ADDRESS,
+		       M.ENROLL_DATE,
+		       M.MODIFY_DATE,
+		       M.SNS_LOGIN,
+		       M.STATUS,
+		       M.AMOUNT,
+		       S.CODE,
+		       S.SNS_ID
+		FROM MEMBER M
+		JOIN SNS_MEMBER S ON (M.NO = S.MEMBER_NO)
+		WHERE SNS_ID = #{id} AND STATUS = 'Y'
+      </select>
+	
+	
 	<select id="selectCount" resultType="_int">
 		SELECT COUNT(*) FROM MEMBER
 	</select>
+	
 	
 
 </mapper>
