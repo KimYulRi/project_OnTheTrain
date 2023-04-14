@@ -12,7 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import com.kh.onthetrain.scheduler.model.entity.APILocationCode;
+import com.kh.onthetrain.API.model.entity.APILocationCode;
+import com.kh.onthetrain.API.service.SchedulerAPIService;
 import com.kh.onthetrain.scheduler.model.entity.Scheduler;
 import com.kh.onthetrain.scheduler.model.entity.SchedulerAccommodation;
 import com.kh.onthetrain.scheduler.model.entity.SchedulerEvent;

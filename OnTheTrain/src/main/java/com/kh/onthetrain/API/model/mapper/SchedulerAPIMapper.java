@@ -1,10 +1,10 @@
-package com.kh.onthetrain.scheduler.model.mapper;
+package com.kh.onthetrain.API.model.mapper;
 
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.kh.onthetrain.scheduler.model.entity.APILocationCode;
+import com.kh.onthetrain.API.model.entity.APILocationCode;
 
 @Mapper
 public interface SchedulerAPIMapper {
