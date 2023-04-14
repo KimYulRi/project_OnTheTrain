@@ -85,6 +85,7 @@
 						<option value="${location.code}">${location.name}</option>
 					</c:forEach>
 				</select>
+				<button id="event">행사 조회</button>
 			</div>
 		</div>
 		<jsp:include page="./schedulerModal.jsp" />
