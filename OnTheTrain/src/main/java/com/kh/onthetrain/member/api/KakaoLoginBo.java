@@ -1,132 +1,100 @@
 package com.kh.onthetrain.member.api;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.util.HashMap;
+import java.util.UUID;
+
+import javax.servlet.http.HttpSession;
+
+import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 
 import com.github.scribejava.core.builder.ServiceBuilder;
+import com.github.scribejava.core.model.OAuth2AccessToken;
+import com.github.scribejava.core.model.OAuthRequest;
+import com.github.scribejava.core.model.Response;
+import com.github.scribejava.core.model.Verb;
 import com.github.scribejava.core.oauth.OAuth20Service;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
  
+@Component
 public class KakaoLoginBo {
 	
-	    private static final String CLIENT_ID="***REMOVED***";
-	    private static final String CLIENT_SECRET = "***REMOVED***";
-	    private final static String REDIRECT_URI = "http://localhost:8088/onthetrain/login/kakao";
-	
-	    // 카카오 로그인 Url 생성
-		public String getAuthorizationUrl() {
-			
-			// Scribe에서 제공하는 인증 URL 생성 기능을 이용하여 Url 생성
-	        OAuth20Service oauthService = new ServiceBuilder()                                                   
-	                .apiKey(CLIENT_ID)
-	                .apiSecret(CLIENT_SECRET)
-	                .callback(REDIRECT_URI)
-	                .responseType("code")
-	                .build(KakaoLoginApi.instance());
- 
-	        return oauthService.getAuthorizationUrl();
+	private static final String CLIENT_ID="***REMOVED***";
+    private static final String CLIENT_SECRET = "***REMOVED***";
+    private final static String REDIRECT_URI = "http://localhost:8088/onthetrain/login/kakao";
+    private final static String SESSION_STATE = "k_oauth_state";
+    private final static String PROFILE_API_URL = "https://kapi.kakao.com/v2/user/me";
+    
+    // 카카오 로그인 Url 생성
+	public String getAuthorizationUrl(HttpSession session) {
+		
+		// 세션 유효성 검증을 위하여 난수 생성, session에 저장
+		String state = generateRandomString();
+		setSession(session,state);        
+    	
+		// Scribe에서 제공하는 인증 URL 생성 기능을 이용하여 Url 생성
+        OAuth20Service oauthService = new ServiceBuilder()                                                   
+                .apiKey(CLIENT_ID)
+                .apiSecret(CLIENT_SECRET)
+                .callback(REDIRECT_URI)
+                .state(state) 
+                .responseType("code")
+	            .build(KakaoLoginApi.instance());
+
+        return oauthService.getAuthorizationUrl();
 	    }
 		
-		// 카카오 로그인 - access 토큰 가져오기
-        public String getAccessToken(String authorizeCode) {
-    		String accessToken = "";
-//	        String refreshToken = "";
-    		String reqURL = "https://kauth.kakao.com/oauth/token";
-    		try {
-    			URL url = new URL(reqURL);
-                
-    			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-    			
-    			// POST 요청을 위해 기본값이 false인 setDoOutput을 true로
-    			conn.setRequestMethod("POST");
-    			conn.setDoOutput(true);
-    			
-    			// POST 요청에 필요로 요구하는 파라미터 스트림을 통해 전송
-    			BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream()));
-    			StringBuilder sb = new StringBuilder();
-    			
-    			// 발급받은 key값 & 설정한 주소
-    			sb.append("grant_type=authorization_code");	
-    			sb.append("&client_id="+CLIENT_ID);
-    			sb.append("&redirect_uri="+REDIRECT_URI);
-    			sb.append("&client_secret="+CLIENT_SECRET);
-    			sb.append("&code=" + authorizeCode);
-    			
-    			bw.write(sb.toString());
-    			bw.flush();
-                
-    			// 요청을 통해 얻은 JSON타입의 Response 메세지 읽어오기
-    			BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-    			String line = "";
-    			String result = "";
-                
-    			while ((line = br.readLine()) != null) {
-    				result += line;
-    			}
-    			
-    			// Gson 라이브러리에 포함된 클래스로 JSON파싱 객체 생성
-    			JsonParser parser = new JsonParser();
-    			JsonElement element = parser.parse(result);
-                
-    			accessToken = element.getAsJsonObject().get("access_token").getAsString();
-//	        	refreshToken = element.getAsJsonObject().get("refresh_token").getAsString();
-                
-    			br.close();
-    			bw.close();
-    			
-    		} catch (IOException e) {
-    			e.printStackTrace();
-    		}
-    		return accessToken;
-}
-        // 카카오로그인 - api로 유저정보 가져와서 HashMap에 저장
-    	public HashMap<String, Object> getUserInfo(String access_Token) {
+	
+	// 카카오 로그인 - access 토큰 가져오기
+    public OAuth2AccessToken getAccessToken(HttpSession session, String authorizeCode, String state) throws IOException{
+    		 	
+    	// Callback으로 전달받은 세선검증용 난수값과 세션에 저장되어있는 값이 일치하는지 확인
+    	String sessionState = getSession(session);
+    	
+		// access토큰 획득
+		if(StringUtils.pathEquals(sessionState, state)){
+			OAuth20Service oauthService = new ServiceBuilder()
+					.apiKey(CLIENT_ID)
+					.apiSecret(CLIENT_SECRET)
+					.callback(REDIRECT_URI)
+					.state(state)
+					.build(KakaoLoginApi.instance());
+ 
+            //Scribe에서 제공하는 AccessToken 획득 기능
+            OAuth2AccessToken accessToken = oauthService.getAccessToken(authorizeCode);
+            return accessToken;
+            }
+		
+        return null;
+        }
 
-    		HashMap<String, Object> userInfo = new HashMap<String, Object>();
-    		String reqURL = "https://kapi.kakao.com/v2/user/me";
-    		try {
-    			URL url = new URL(reqURL);
-    			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-    			
-    			conn.setRequestMethod("GET");
-    			// 요청에 필요한 Header에 포함될 내용
-    			conn.setRequestProperty("Authorization", "Bearer " + access_Token);
+    // Access Token을 이용하여 사용자 정보 받아오기
+    public String getUserInfo(OAuth2AccessToken oauthToken) throws IOException{
+		OAuth20Service oauthService = new ServiceBuilder()
+				.apiKey(CLIENT_ID)
+				.apiSecret(CLIENT_SECRET)
+				.callback(REDIRECT_URI).build(KakaoLoginApi.instance());
+		
+		// 로그인 사용자 정보를 읽어온다.
+		OAuthRequest request = new OAuthRequest(Verb.GET, PROFILE_API_URL, oauthService);
+		oauthService.signRequest(oauthToken, request);
+		Response response = request.send();
+ 		
+		return response.getBody();
+	}
+	
+	// 세션 유효성 검증을 위한 난수 생성기
+    private String generateRandomString() {
+        return UUID.randomUUID().toString();
+    }
+ 
+    // 세션 데이터 저장
+    private void setSession(HttpSession session,String state){
+        session.setAttribute(SESSION_STATE, state);     
+    }
+ 
+    // 세션 데이터 가져오기
+    private String getSession(HttpSession session){
+        return (String) session.getAttribute(SESSION_STATE);
+    }
 
-    			BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-    			String line = "";
-    			String result = "";
-
-    			while ((line = br.readLine()) != null) {
-    				result += line;
-    			}
-    			
-    			JsonParser parser = new JsonParser();
-    			JsonElement element = parser.parse(result);
-
-    			JsonObject properties = element.getAsJsonObject().get("properties").getAsJsonObject();
-    			JsonObject kakao_account = element.getAsJsonObject().get("kakao_account").getAsJsonObject();
-
-    			String nickname = properties.getAsJsonObject().get("nickname").getAsString();
-    			String email = kakao_account.getAsJsonObject().get("email").getAsString();
-    			String id = element.getAsJsonObject().get("id").getAsString();
-
-    			userInfo.put("nickname", nickname);
-    			userInfo.put("email", email);
-    			userInfo.put("id", id);
-
-    		} catch (IOException e) {
-    			e.printStackTrace();
-    		}
-    		return userInfo;
-    	}
-
-        
 }

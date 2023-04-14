@@ -21,6 +21,9 @@ import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.github.scribejava.core.model.OAuth2AccessToken;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.kh.onthetrain.member.api.KakaoLoginBo;
 import com.kh.onthetrain.member.api.NaverLoginBo;
 import com.kh.onthetrain.member.model.vo.Member;
@@ -39,6 +42,7 @@ public class MemberController {
    /* NaverLoginBo */
    private NaverLoginBo naverLoginBO;
    private KakaoLoginBo kakaoLoginBO;
+   private String apiResult = null;
 	
    @Autowired
    private void setNaverLoginBO(NaverLoginBo naverLoginBO) {
@@ -55,7 +59,7 @@ public class MemberController {
 	   
 	    // 간편로그인 Url 생성
 		String naverAuthUrl = naverLoginBO.getAuthorizationUrl(session);
-		String kakaoAuthUrl = kakaoLoginBO.getAuthorizationUrl();
+		String kakaoAuthUrl = kakaoLoginBO.getAuthorizationUrl(session);
 		
 		//네이버 
 		model.addAttribute("Nurl", naverAuthUrl);
@@ -107,32 +111,42 @@ public class MemberController {
    }
    
    // 회원가입
-   @PostMapping(value="/enroll")
+   @RequestMapping(value = "/enroll", method = {RequestMethod.GET, RequestMethod.POST} )
    public String enroll() {
-	   log.info("login() = 호출");
+	   log.info("enroll() = 호출");
 	   
 	   return "member/enroll";
    }
    
    // 카카오 로그인
    @GetMapping(value="/login/kakao")
-   public ModelAndView kakaoLogin(ModelAndView modelAndView, @RequestParam(value="code", required=false) String code) throws Exception {
+   public ModelAndView kakaoLogin(ModelAndView modelAndView, @RequestParam(value="code", required=false) String code, @RequestParam String state, HttpSession session) throws Exception {
 	   
-		// 인가 코드로 토큰 획득
-		String accessToken = kakaoLoginBO.getAccessToken(code);
+	   // 인가 코드로 토큰 획득
+	   OAuth2AccessToken oauthToken;
+	   oauthToken = kakaoLoginBO.getAccessToken(session, code, state);
+	   System.out.println("카카오토큰"+oauthToken);
+	   
+	   // 토큰으로 사용자 정보 받아오기
+       String apiResult = kakaoLoginBO.getUserInfo(oauthToken);
+       System.out.println("카카오사용자정보"+apiResult);
+       
+       // JSON 파싱
+       JsonParser parser = new JsonParser();
+       JsonElement element = parser.parse(apiResult);
+       
+       JsonObject properties = element.getAsJsonObject().get("properties").getAsJsonObject();
+       JsonObject kakao_account = element.getAsJsonObject().get("kakao_account").getAsJsonObject();
+       
+       String id = element.getAsJsonObject().get("id").getAsString();
+       String nickname = properties.getAsJsonObject().get("nickname").getAsString();
+       String email = kakao_account.getAsJsonObject().get("email").getAsString();
 		
-		// 사용자 정보 받아오기
-		HashMap<String, Object> userInfo = kakaoLoginBO.getUserInfo(accessToken);
-		
-		String id = (String) userInfo.get("id");
-		String email = (String) userInfo.get("email");
-		String nickname = (String) userInfo.get("nickname");
-		
-		// 회원이면 로그인
-		Member loginMember = service.snsLogin(id);
+       // 회원이면 로그인
+       Member loginMember = service.snsLogin(id);
 				
-//		 회원이 아니면 회원가입 페이지로 이동
-		if(loginMember != null) {
+       // 회원이 아니면 회원가입 페이지로 이동
+       if(loginMember != null) {
 			System.out.println(loginMember);
 			modelAndView.addObject("loginMember", loginMember);
 			modelAndView.setViewName("redirect:/");
@@ -141,7 +155,8 @@ public class MemberController {
 			modelAndView.addObject("location", "/login");
 			modelAndView.setViewName("common/msg");
 		}
-		return modelAndView;
+	
+       return modelAndView;
 	}
    
    
@@ -152,14 +167,20 @@ public class MemberController {
 		// 인가 코드로 토큰 획득
  		OAuth2AccessToken oauthToken;
         oauthToken = naverLoginBO.getAccessToken(session, code, state);
-          
+         
+        // 토큰으로 사용자 정보 받아오기
+        String apiResult = naverLoginBO.getUserInfo(oauthToken);
         
-       // 사용자 정보 받아오기
-        HashMap<String, Object> userInfo = naverLoginBO.getUserInfo(oauthToken);
-
-		String id = (String) userInfo.get("id");
-		String email = (String) userInfo.get("email");
-		String nickname = (String) userInfo.get("nickname");
+        System.out.println("네이버 컨트롤러 apiResult");
+        
+        // JSON 파싱
+ 		JsonParser parser = new JsonParser();
+		JsonElement element = parser.parse(apiResult);
+		JsonObject jsonObj = element.getAsJsonObject().get("response").getAsJsonObject();
+		
+		String id = jsonObj.getAsJsonObject().get("id").getAsString();
+		String email = jsonObj.getAsJsonObject().get("email").getAsString();
+		String nickname = jsonObj.getAsJsonObject().get("nickname").getAsString();
 
 		// 회원이면 로그인
 		Member loginMember = service.snsLogin(id);

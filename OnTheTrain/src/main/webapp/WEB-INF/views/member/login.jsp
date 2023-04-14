@@ -40,7 +40,7 @@
 				<span class="atag">|</span>
 				<a href="#" class="atag">&nbsp;비밀번호 찾기</a>
 				
-				<a href="#" class="atag" id="enroll">회원가입</a>
+				<a href="${path}/enroll" class="atag" id="enroll">회원가입</a>
 			</div>
 			
 			<br>
