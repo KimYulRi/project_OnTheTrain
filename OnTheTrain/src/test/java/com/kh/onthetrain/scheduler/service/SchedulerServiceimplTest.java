@@ -83,4 +83,6 @@ class SchedulerServiceimplTest {
 		System.out.println(allLocationCode.toString());
 		assertThat(allLocationCode).isNotNull();
 	}
+	
+	
 }
