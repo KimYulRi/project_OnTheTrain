@@ -1,5 +1,56 @@
-<!-- 일정 검색을 눌렀을 때 조회 -->
+ var ctx = getContextPath();
+  function getContextPath() {
+  return sessionStorage.getItem("contextpath");
+}
 
+// select 태그의 값이 변경될 때마다 실행되는 함수
+    $("select[name='locationCode']").on('change', function(){
+        var locationCode = $(this).val(); // 선택된 값 가져오기
+        $.ajax({
+            type: "GET",
+            url: ctx + "/api/scheduler/events",
+            data: { locationCode: locationCode }, // 선택된 값 전달
+            dataType: "json",
+            success: function(response){
+                // 가져온 데이터를 이용해 이벤트 리스트를 만듦
+                var eventList = "";
+                for(var i=0; i<response.length; i++){
+                    eventList += "<div class='card'>" +
+                                    "<div class='cardThumbnail'><img src='" + response[i].firstimage + "'></div>" +
+                                    "<div class='cardBrief'>" +
+                                        "<div class='cardTitle'>" + response[i].title + "</div>" +
+                                        "<div class='cardRequiredDetail'>" + response[i].addr1 + "</div>" +
+                                        "<div class='cardOptionalDetail'>" + response[i].optionalDetail + "</div>" +
+                                    "</div>" +
+                                "</div>";
+                }
+                $("#eventList").html(eventList); // 이벤트 리스트 업데이트
+            },
+            error: function(){
+                alert("API로 이벤트를 가져오는 중에 문제가 발생했습니다.");
+            }
+        });
+    });
+
+
+// 각 카드에 대해 마우스 이벤트 리스너 추가
+$(".card").on("mouseenter", function(){
+    var tooltip = $("<div class='tooltip'></div>"); // 툴팁을 담을 요소 생성
+    var title = $(this).find(".cardTitle").text(); // 카드의 제목 가져오기
+    var address = $(this).find(".cardRequiredDetail").text(); // 카드의 주소 가져오기
+    var optionalDetail = $(this).find(".cardOptionalDetail").text(); // 카드의 추가 정보 가져오기
+
+    // 툴팁에 제목, 주소, 추가 정보를 추가
+    tooltip.append("<div class='tooltipTitle'>" + title + "</div>");
+    tooltip.append("<div class='tooltipAddress'>" + address + "</div>");
+    tooltip.append("<div class='tooltipOptionalDetail'>" + optionalDetail + "</div>");
+
+    // 툴팁을 카드에 추가
+    $(this).append(tooltip);
+
+}).on("mouseleave", function(){
+    $(this).find(".tooltip").remove(); // 마우스가 벗어나면 툴팁 삭제
+});
 
 
 <!-- 추가 대기 중인 요소에 요소 추가 -->
@@ -35,7 +86,6 @@ addCardButton.addEventListener('click', () => {
 
   waitComponentList.appendChild(newCard);
 });
-
 
 /* calender */
 
