@@ -34,7 +34,7 @@
                 <div class="font15">숙소</div>
                 <div class="font15" id="accomodationExplanation">높은 층의 숙소에서 보는 주변 풍경과 함께 힐링이 가능한 시설입니다.높은 층의 숙소에서 보는 주변 풍경과 함께 힐링이 가능한 시설입니다.</div>
                 <div class="font15" id="calendarClick"><hr class="line">날짜 선택</div>
-                <div id="calendarArea"><img id="cimg" src="${ path }/images/accomodation/calender.png" alt=""" alt=""></div>
+                <div id="calendarArea"><img id="cimg" src="${ path }/images/accomodation/calender.png" alt="" alt=""></div>
                 <div id="reservStar"><hr class="line">
                     <div id="stara">
                         <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
@@ -97,7 +97,7 @@
                     			너무 만족스러웠고 탁 트인 광경이 만족스러웠습니다.너무 만족스러웠고 탁 트인 광경이 만족스러웠습니다. 
                     		</div>
                             <div>
-		                        <<div class="left userImg"></div>
+		                        <div class="left userImg"></div>
 		                       	<div class="left">
 			                        <div class="reviewNick">닉네임</div>
 			                        <div class="cDate">2023.03.20</div>
@@ -206,6 +206,10 @@
     </ul>
     </nav>
 </div>        
-    </section>                
+    </section>
+    
+    <script type="text/javascript">
+    
+    </script>                
 </body>
 </html>

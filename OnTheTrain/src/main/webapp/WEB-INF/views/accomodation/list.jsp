@@ -156,7 +156,7 @@
 					
 					$(obj).find('list').each(function(index) {
 						result += 
-							'<div class="product" >' + 
+							'<div class="product" onclick="location.href=\'${ path }/accomodation/reservation?no=' + $(this).find('lodgeId').text() + '\'">' + 
 		                        '<div id=""><img src="${ path }/images/accomodation/accomodation' + (index + 1) + '.png" alt=""></div>' +
 		                        /* '<div id=""><img src="' + $(this).find('lodgeMainImg').text() + '" alt=""></div>' + */
 		                        '<div class="accfont acctitle" id="">' + $(this).find('lodgeNm').text() + '</div>' + 
