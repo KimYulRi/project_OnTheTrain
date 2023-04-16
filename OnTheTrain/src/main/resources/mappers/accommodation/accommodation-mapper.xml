@@ -24,7 +24,7 @@
 		          A.EXPLAIN,
 		          A.LOCATION
 		  FROM ACCOMMODATION A
-		  WHERE A.STATUS = 'Y' AND A.NO = #{no};
+		  WHERE A.STATUS = 'Y' AND A.NO = #{no}
 	</select>
 
 
