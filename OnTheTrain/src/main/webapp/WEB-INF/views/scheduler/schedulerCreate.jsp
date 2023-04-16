@@ -55,16 +55,14 @@
 			</div>
 			<hr>
 			<div class="title">추가된 ${currentComponent}</div>
-			<div id="addedComponent" class="components">
-				<div class="card">
-					<div class="cardThumbnail"></div>
-					<div class="cardBrief">
-						<div class="cardTitle">cardTitle</div>
-						<div class="cardRequiredDetail">cardRequiredDetail</div>
-						<div class="cardOptionalDetail">cardOptionalDetail</div>
-					</div>
+			<div id="noAddedComponent">
+				<div class="noResult">
+					<div class="noResultImg"></div>
+					<div class="line-break"></div>
+					<div class="noResultMsg">조회된 결과가 없습니다.</div>
 				</div>
 			</div>
+			<div id="addedComponent" class="components"></div>
 			<hr>
 			<div class="title">추가 대기 중인 ${currentComponent}</div>
 			<div id="waitComponentList" class="components">
@@ -76,7 +74,7 @@
 			</div>
 		</div>
 		<hr>
-		<div class="title">${currentComponent} 조회</div>
+		<div class="title">${currentComponent}조회</div>
 		<div id="searchComponent">
 			<select name="locationCode">
 				<option>지역 선택</option>
@@ -88,6 +86,13 @@
 		</div>
 		<br>
 		<div id="eventList" class="components"></div>
+		<div id="noResultArea">
+			<div class="noResult">
+				<div class="noResultImg"></div>
+				<div class="line-break"></div>
+				<div class="noResultMsg">조회된 결과가 없습니다.</div>
+			</div>
+		</div>
 		<jsp:include page="./schedulerModal.jsp" />
 		<script src="${ path }/js/scheduler/calender/daypilot-all.min.js"></script>
 		<script src="${ path }/js/scheduler/schedulerModal.js"></script>
