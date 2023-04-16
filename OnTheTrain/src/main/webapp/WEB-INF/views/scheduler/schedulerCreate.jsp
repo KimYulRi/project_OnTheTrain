@@ -55,11 +55,10 @@
 			</div>
 			<hr>
 			<div class="title">추가된 ${currentComponent}</div>
-			<div id="noAddedComponent">
-				<div class="noResult">
-					<div class="noResultImg"></div>
-					<div class="line-break"></div>
-					<div class="noResultMsg">조회된 결과가 없습니다.</div>
+			<div id="noAddedComponentArea">
+				<div class="noAddedComponent">
+					<div class="noComponentImg"></div>
+					<div class="noComponentMsg">추가된 ${currentComponent} 없음</div>
 				</div>
 			</div>
 			<div id="addedComponent" class="components"></div>
@@ -97,6 +96,7 @@
 		<script src="${ path }/js/scheduler/calender/daypilot-all.min.js"></script>
 		<script src="${ path }/js/scheduler/schedulerModal.js"></script>
 		<script src="${ path }/js/scheduler/schedulerCreate.js"></script>
+		<script src="${ path }/js/scheduler/calender/schedulerCreateCalender.js"></script>
 	</article>
 </body>
 </html>
