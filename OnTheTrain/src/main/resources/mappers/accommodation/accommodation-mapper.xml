@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.kh.onthetrain.accommodation.model.mapper.AccommodationMapper">
+
+  <resultMap type="com.kh.onthetrain.accommodation.model.vo.Accommodation" id="accommodationResultMap">
+    <id property="no" column="NO" />
+    <result property="price" column="PRICE" />
+    <result property="name" column="NAME" />
+    <result property="status" column="STATUS" />
+    <result property="maxValue" column="MAXVALUE" />
+    <result property="explain" column="EXPLAIN" />
+    <result property="location" column="LOCATION" />
+  </resultMap>
+  
+	<select id="findProductByNo" parameterType="String" resultMap="accommodationResultMap">
+		  SELECT  A.NO,
+		          A.PRICE,
+		          A.NAME,
+		          A.STATUS,
+		          A.MAXVALUE,
+		          A.EXPLAIN,
+		          A.LOCATION
+		  FROM ACCOMMODATION A
+		  WHERE A.STATUS = 'Y' AND A.NO = #{no};
+	</select>
+
+
+</mapper>

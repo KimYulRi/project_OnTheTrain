@@ -14,7 +14,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ACCOMMODATION_RESERVATION</title>
     <script src="${ path }/js/common/jquery-3.6.3.js"></script>
-    <link href="${ path }/css/accomodation/accomodationReservation.css"
+    <link href="${ path }/css/accommodation/accommodationReservation.css"
 	rel="stylesheet" type="text/css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
 	<%@ include file="../common/header.jsp" %>
@@ -25,7 +25,7 @@
         <div id="body">           
             <div id="accomodationName">하루 감성 수영장 숙소</div>
             <div id="reviewCount">후기22개</div>
-            <div id="topImage"><img src="${ path }/images/accomodation/topImage.png" alt=""></div>
+            <div id="topImage"><img src="${ path }/images/accommodation/topImage.png" alt=""></div>
         </div>    
 <!--사진 아래 영역-->            
         <div id="contentFrame">
@@ -34,7 +34,7 @@
                 <div class="font15">숙소</div>
                 <div class="font15" id="accomodationExplanation">높은 층의 숙소에서 보는 주변 풍경과 함께 힐링이 가능한 시설입니다.높은 층의 숙소에서 보는 주변 풍경과 함께 힐링이 가능한 시설입니다.</div>
                 <div class="font15" id="calendarClick"><hr class="line">날짜 선택</div>
-                <div id="calendarArea"><img id="cimg" src="${ path }/images/accomodation/calender.png" alt="" alt=""></div>
+                <div id="calendarArea"><img id="cimg" src="${ path }/images/accommodation/calender.png" alt="" alt=""></div>
                 <div id="reservStar"><hr class="line">
                     <div id="stara">
                         <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
@@ -140,7 +140,7 @@
 	            <div class="font15" id="addressData">서울특별시 마포구 상수동 678-10
 	            </div>
                 <!-- 지도 -->
-                <div id="map"><img src="${ path }/images/accomodation/" alt=""></div>
+                <div id="map"><img src="${ path }/images/accommodation/" alt=""></div>
         </div> 
 
 <!--오른쪽 옵션창-->

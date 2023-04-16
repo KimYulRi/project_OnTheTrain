@@ -14,10 +14,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ACCOMMODATION_LIST</title>
     <script src="${ path }/js/common/jquery-3.6.3.js"></script>
-    <link href="${ path }/css/accomodation/accomodationList.css"
+    <link href="${ path }/css/accommodation/accommodationList.css"
 	rel="stylesheet" type="text/css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
-<%-- 	<%@ include file="../common/header.jsp" %> --%>
+	<%@ include file="../common/header.jsp" %>
 </head>
 <body>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
@@ -28,13 +28,13 @@
                         <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
                             <div class="carousel-inner">
                                 <div class="carousel-item active">
-                                <img src="${ path }/images/accomodation/banner1.png" class="d-block w-100" alt="...">
+                                <img src="${ path }/images/accommodation/banner1.png" class="d-block w-100" alt="...">
                             </div>
                             <div class="carousel-item">
-                                <img src="${ path }/images/accomodation/banner2.png" class="d-block w-100" alt="...">
+                                <img src="${ path }/images/accommodation/banner2.png" class="d-block w-100" alt="...">
                             </div>
                             <div class="carousel-item">
-                                <img src="${ path }/images/accomodation/banner3.png" class="d-block w-100" alt="...">
+                                <img src="${ path }/images/accommodation/banner3.png" class="d-block w-100" alt="...">
                             </div>
                             </div>
                             <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
@@ -49,7 +49,7 @@
                     </div>              
 <!--검색바-->
                     <div> 
-                        <div id="searchArea">
+                        <div id="searchAreab">
                             <form class="search-form" id="searchKey">
                                 <div class="dropdown">
                                     <button  type="button" data-bs-toggle="dropdown" aria-expanded="false">도착지 검색</button>
@@ -101,11 +101,11 @@
                     </div> 
                     </div>
                     <div class="gray_line"></div>           
-                    <div class="font12">
+                    <div >
                         현재 예약 가능한 숙소가 얼마 남지 않았으므로, 서둘러 예약하세요.
                     </div>
-                    <div class="font12" id="pCount">
-                        숙소9개
+                    <div id="pCount">
+                        숙소45개
                     </div>    
                 </div>      
 <!-- 숙박 목록 -->
@@ -156,12 +156,12 @@
 					
 					$(obj).find('list').each(function(index) {
 						result += 
-							'<div class="product" onclick="location.href=\'${ path }/accomodation/reservation?no=' + $(this).find('lodgeId').text() + '\'">' + 
-		                        '<div id=""><img src="${ path }/images/accomodation/accomodation' + (index + 1) + '.png" alt=""></div>' +
+							'<div class="product" onclick="location.href=\'${ path }/accommodation/reservation?no=' + $(this).find('lodgeId').text() + '\'">' + 
+		                        '<div><img src="${ path }/images/accommodation/accomodation' + (index + 1) + '.png" alt=""></div>' +
 		                        /* '<div id=""><img src="' + $(this).find('lodgeMainImg').text() + '" alt=""></div>' + */
-		                        '<div class="accfont acctitle" id="">' + $(this).find('lodgeNm').text() + '</div>' + 
-		                        '<div class="accfont acccontent" id="">' + $(this).find('lodgeAddr').text() + '</div>' + 
-		                        '<div class="accfont accprice" id="">' + $(this).find('lodgeTel').text() + '</div>' + 
+		                        '<div class="acctitle">' + $(this).find('lodgeNm').text() + '</div>' + 
+		                        '<div class="accfont acccontent">' + $(this).find('lodgeAddr').text() + '</div>' + 
+		                        '<div class="accfont accprice">' + $(this).find('lodgeTel').text() + '</div>' + 
 		                    '</div>';
 				   	});
 					
