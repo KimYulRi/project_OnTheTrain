@@ -1,0 +1,186 @@
+@charset "UTF-8";
+
+html, body{
+    width: 1200px;
+    height: 100%;
+    /* border: 1px solid black; */
+    margin: 0 auto;
+
+}
+div{
+    font-family: 'Noto Sans KR';
+    
+}
+
+
+section{
+    width: 1024px;
+    height: 100%;
+    /* border: 1px solid red; */
+    margin: 0 auto;
+
+}
+
+a {
+	text-decoration:none !important;
+	color:black !important;
+	
+	}
+a:hover {
+	text-decoration:none !important 
+	}
+
+#container{
+    width: 100%;
+    height: 100%;
+
+
+}
+
+
+#toolbartitle{
+    font-size: larger;
+    font-weight: 900;
+    padding-bottom: 10px;
+    border-bottom: 2px solid;
+}
+
+#letftoolbar{
+    height: 100%;
+    width: 15%;
+    float: left;
+}
+
+#toolbartable{
+    height: 100%;
+}
+
+
+#toptoolbar{
+    width: 78%;
+    height: 20%;
+    float: left;
+    margin-left: 70px;
+}
+
+#toptoolbar>div{
+    text-align: center;
+    
+}
+
+
+.toolbarcontent{
+    border-bottom: 1px solid gray;
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
+
+
+
+#toptoolbar>div{
+
+    width: 50%;
+    float: left;
+
+
+}
+#ticket{
+    color: black;
+    border-collapse: collapse;
+    border: 1px ;
+    
+    border-top: 1px solid gray;
+    border-left: 1px solid gray;
+    border-bottom: 2px solid black;
+}
+
+#accommodation{
+    color: rgb(39, 76, 227);
+    font-weight: 800;
+    border-left: 2px solid black;
+    border-top: 2px solid black;
+    border-right: 2px solid black;
+}
+
+#mypagechoose{
+    color: rgb(39, 76, 227);
+    font-weight: 700;
+}
+
+
+
+#accbody{
+    float: left;
+    width: 200px;
+    height: 400px;
+    margin-left: 85px;
+}
+
+#accimage{
+    width: 100%;
+    height: 180px;
+    border-radius: 30px;
+    text-align: center;
+}
+#accimages{
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+}
+
+#acctitle{
+    float: left;
+    width: 100px;
+    font-weight: 700;
+    white-space: normal;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+#accstar{
+    float: right;
+    
+}
+
+.accfont{
+    font-size: 12px;
+}
+
+#acccontent{
+    clear: both;
+    color: #717171;
+    white-space: normal;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+
+#acccheck{
+    width: 90px;
+    height: 40px;
+    margin-left: 1px;
+    border: rgb(89, 97, 128);
+    background-color: 	rgb(89, 97, 128);
+    
+}
+
+#acccheck:hover{
+    background: #00008B;
+}
+
+#acccancle{
+    width: 90px;
+    height: 40px;
+    background-color: rgb(212,6,43);
+    float: right;
+    margin-right: 1px;
+}
+
+#acccancle:hover{
+    background: #770B1E;
+}

@@ -14,12 +14,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link href="${ path }/css/scheduler/schedulerCreate.css"
 	rel="stylesheet" type="text/css">
-<!-- 
-<link href="${ path }/css/scheduler/schedulerModal.css" rel="stylesheet"
-	type="text/css">
- -->
  <link rel="stylesheet" type="text/css"
-	href="${ path }/css/common/modal.css">
+	href="${ path }/css/scheduler/schedulerModal.css">
 <script src="${ path }/js/common/jquery-3.6.3.js"></script>
 <title>Document</title>
 <link>
@@ -63,8 +59,8 @@
 			<div class="title">${componentName}일정조회</div>
 			<div id="searchComponent"></div>
 		</div>
-		<jsp:include page="../common/modal.jsp" />
-		<script src="${ path }/js/common/modal.js"></script>
+		<jsp:include page="./schedulerModal.jsp" />
+		<script src="${ path }/js/scheduler/schedulerModal.js"></script>
 	</article>
 </body>
 </html>

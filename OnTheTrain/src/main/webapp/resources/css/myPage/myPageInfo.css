@@ -1,0 +1,121 @@
+@charset "UTF-8";
+
+html, body{
+    width: 1200px;
+    height: 100%;
+    /* border: 1px solid black; */
+    margin: 0 auto;
+
+}
+div{
+    font-family: 'Noto Sans KR';
+    
+}
+
+
+section{
+    width: 1024px;
+    height: 100%;
+    /* border: 1px solid red; */
+    margin: 0 auto;
+
+}
+
+a {
+	text-decoration:none !important;
+	color:black !important;
+	
+	}
+a:hover {
+	text-decoration:none !important 
+	}
+
+#container{
+    width: 100%;
+    height: 100%;
+
+
+}
+
+#mypagechoose{
+    color: rgb(39, 76, 227);
+    font-weight: 700;
+}
+
+
+#toolbartitle{
+    font-size: larger;
+    font-weight: 900;
+    padding-bottom: 10px;
+    border-bottom: 2px solid;
+}
+
+#letftoolbar{
+    height: 100%;
+    width: 15%;
+    float: left;
+}
+
+
+
+.toolbarcontent{
+    border-bottom: 1px solid gray;
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
+
+
+
+
+
+#toptoolbar{
+    width: 80%;
+    height: 8%;
+    float: left;
+    margin-left: 50px;
+}
+
+#toptoolbartitle{
+    text-align: left;
+    font-weight: 900;
+    font-size: larger;
+}
+
+
+
+tr>th{
+    width: 20%;
+    border: 0.5px solid #717177 ;
+    text-align: center;
+    background-color: gray;
+    border-collapse: separate;
+    border-radius: 10px;
+}
+tr>td{
+    width: 80%;
+    border-collapse: separate;
+    border-radius: 10px;
+    border: 0.5px solid #717177 ;
+    padding-left: 50px;
+    text-align: left;
+}
+
+#infotable{
+    border-collapse: separate;
+    border: #717177 solid 0.5px;
+    border-radius: 10px;
+    height: 500px;
+    width: 75%;
+    float: left;
+    margin-left: 70px;
+}
+
+#benefitbtn{
+    border-radius: 7px;
+    background-color: rgb(89, 97, 128);
+    border: rgb(89, 97, 128);
+    color: white;
+    width: 150px;
+}
+
+
