@@ -13,11 +13,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ACCOMMODATION_RESERVATION</title>
-    <script src="${ path }/js/common/jquery-3.6.3.js"></script>
-    <link href="${ path }/css/accommodation/accommodationReservation.css"
-	rel="stylesheet" type="text/css">
+    <link href="${ path }/css/accommodation/accommodationReservation.css" rel="stylesheet" type="text/css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
-	<link href="${ path }/css/accommodation/accModal.css"rel="stylesheet" type="text/css">
+	<link href="${ path }/css/accommodation/accModal.css" rel="stylesheet" type="text/css">
+    <script src="${ path }/js/common/jquery-3.6.3.js"></script>
 	<%@ include file="../common/header.jsp" %>
 </head>
 <body>
@@ -132,6 +131,8 @@
                     		</div>
                         </div>
                     </div>
+                    
+                    <button class="open-modal-button">작성하기</button>
                 </div>
                 <hr class="line">
                 	<div class="font15">전화번호</div>
@@ -210,6 +211,7 @@
     </section>
     
     <jsp:include page="./accModal.jsp" />
+    
     <script src="${ path }/js/accommodation/accModal.js"></script>
     <script type="text/javascript">
 	    $(document).ready(() => {
@@ -247,6 +249,7 @@
 				}
 			});
 		}
-    </script>                
+    </script>    
+                
 </body>
 </html>
