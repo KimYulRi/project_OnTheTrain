@@ -6,22 +6,6 @@ const dp = new DayPilot.Calendar("dp", {
   startDate: "2022-03-21",
   columnWidth: 200,
   eventDeleteHandling: "Update",
-  headerHeight: 80,
-  headerToolbar: [
-    {
-      start: "2022-03-21",
-      end: "2022-03-27",
-      cells: [
-        { text: "Monday", cssClass: "header-day" },
-        { text: "Tuesday", cssClass: "header-day" },
-        { text: "Wednesday", cssClass: "header-day" },
-        { text: "Thursday", cssClass: "header-day" },
-        { text: "Friday", cssClass: "header-day" },
-        { text: "Saturday", cssClass: "header-day" },
-        { text: "Sunday", cssClass: "header-day" },
-      ],
-    },
-  ],
 
   onEventClick: async (args) => {
     const colors = [

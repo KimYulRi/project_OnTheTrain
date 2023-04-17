@@ -4,6 +4,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 
+
 <c:set var="path" value="${ pageContext.request.contextPath }" />
 
 <!DOCTYPE html>
@@ -41,39 +42,32 @@
 		<br>
 		<div id="schedulerComponents">
 			<div id="selectComponent">
-				<button>prev</button>
-				<div class="componentText">
-					<a href="${ path }/scheduler/create/event">일정</a>
-				</div>
-				<div class="componentText">
-					<a href="${ path }/scheduler/create/accommodation">숙소</a>
-				</div>
-				<div class="componentText">
-					<a href="${ path }/scheduler/create/ticket">승차권</a>
-				</div>
-				<button>next</button>
-			</div>
-			<hr>
-			<div class="title">추가된 ${currentComponent}</div>
-			<div id="noAddedComponentArea">
-				<div class="noAddedComponent">
-					<div class="noComponentImg"></div>
-					<div class="noComponentMsg">추가된 ${currentComponent} 없음</div>
-				</div>
-			</div>
-			<div id="addedComponent" class="components"></div>
-			<hr>
-			<div class="title">추가 대기 중인 ${currentComponent}</div>
-			<div id="waitComponentList" class="components">
-				<div id="addCard">
-					<div id="addCard">
-						<button>+</button>
-					</div>
-				</div>
+				<div class="componentText" data-component="event">일정</div>
+				<div class="componentText" data-component="accommodation">숙소</div>
+				<div class="componentText" data-component="ticket">승차권</div>
 			</div>
 		</div>
 		<hr>
-		<div class="title">${currentComponent}조회</div>
+		<div class="title">추가된 <div class="componentName">${basicComponent}</div></div>
+		<div id="noAddedComponentArea">
+			<div class="noAddedComponent">
+				<div class="noComponentImg"></div>
+				<div class="noComponentMsg">추가된 <div class="componentName">${basicComponent}</div> 없음</div>
+			</div>
+		</div>
+		<div id="addedComponent" class="components"></div>
+		<hr>
+		<div class="title">추가 대기 중인 <div class="componentName">${basicComponent}</div></div>
+		<div id="waitComponentList" class="components">
+			<div id="addCard">
+				<div id="addCard">
+					<button>+</button>
+				</div>
+			</div>
+		</div>
+		</div>
+		<hr>
+		<div class="title"><div class="componentName">${basicComponent}</div> 조회</div>
 		<div id="searchComponent">
 			<select name="locationCode">
 				<option>지역 선택</option>
@@ -93,10 +87,14 @@
 			</div>
 		</div>
 		<jsp:include page="./schedulerModal.jsp" />
+		<script type="text/javascript" charset="utf-8">
+			sessionStorage.setItem("currentComponent", "${currentComponent}");
+		</script>
 		<script src="${ path }/js/scheduler/calender/daypilot-all.min.js"></script>
 		<script src="${ path }/js/scheduler/schedulerModal.js"></script>
 		<script src="${ path }/js/scheduler/schedulerCreate.js"></script>
-		<script src="${ path }/js/scheduler/calender/schedulerCreateCalender.js"></script>
+		<script
+			src="${ path }/js/scheduler/calender/schedulerCreateCalender.js"></script>
 	</article>
 </body>
 </html>

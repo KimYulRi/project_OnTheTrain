@@ -3,6 +3,43 @@ function getContextPath() {
   return sessionStorage.getItem("contextpath");
 }
 
+// 요소 클릭 시 발생하는 함수
+$(".componentText").click(function () {
+  var component = $(this).data("component");
+  $.ajax({
+    url: ctx + "/scheduler/component",
+    type: "GET",
+    data: { component: component },
+    success: function (result) {
+      // 세션에 currentComponent 값 저장
+      sessionStorage.setItem("currentComponent", result.component);
+
+      // 표시 요소 변경
+      $(".componentName").text(result.name);
+
+      // 아무 것도 없을 때 이미지 변경
+      let imgUrl;
+
+      switch (result.component) {
+        case "event":
+          imgUrl = "/images/scheduler/noEvent.png";
+          break;
+        case "accommodation":
+          imgUrl = "/images/scheduler/noAccommodation.png";
+          break;
+        case "ticket":
+          imgUrl = "/images/scheduler/noTicket.png";
+          break;
+      }
+
+      $(".noComponentImg").css("background-image", "url(" + ctx + imgUrl + ")");
+    },
+    error: function () {
+      alert("요청에 실패했습니다.");
+    },
+  });
+});
+
 // card 아이디 생성 함수
 function getCardId(index) {
   return "searchCard_" + index;
@@ -124,4 +161,45 @@ addCardButton.addEventListener("click", () => {
   cardBrief.appendChild(cardOptionalDetail);
 
   waitComponentList.appendChild(newCard);
+});
+
+// addCard를 눌렀을 때 모달창 열기
+$("#addCard").on("click", () => {
+  let currentComponent = getCurrentComponent();
+  function getCurrentComponent() {
+    return sessionStorage.getItem("currentComponent");
+  }
+
+  if (currentComponent === "event") {
+    $("#schedulerEventModal").show();
+  } else if (currentComponent === "accommodation") {
+    $("#schedulerAccommodationModal").show();
+  } else if (currentComponent === "ticket") {
+    $("#schedulerTicketModal").show();
+  }
+
+  // 모달 창 이미지 미리보기
+  console.log(currentComponent);
+
+  const imageUploadInput = document.querySelector(
+    "#" + currentComponent + "-image-upload"
+  );
+  const previewImage = document.querySelector(
+    "#" + currentComponent + "-preview-image"
+  );
+  const imageCaption = document.querySelector(
+    "#" + currentComponent + "-image-caption"
+  );
+
+  imageUploadInput.addEventListener("change", (event) => {
+    const file = event.target.files[0];
+    const reader = new FileReader();
+
+    reader.onload = (event) => {
+      previewImage.src = event.target.result;
+    };
+
+    reader.readAsDataURL(file);
+    imageCaption.innerText = file.name;
+  });
 });
