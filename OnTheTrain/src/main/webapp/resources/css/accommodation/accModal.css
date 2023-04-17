@@ -1,0 +1,271 @@
+@charset "UTF-8";
+
+@font-face {
+	font-family: 'Noto Sans';
+	src: url('../../font/common/NotoSansKR-Medium.otf') format('truetype');
+}
+
+@font-face {
+	font-family: 'Noto Sans Bold';
+	src: url('../../font/common/NotoSansKR-Bold.otf') format('truetype');
+}
+
+/* 공통 스타일 */
+.modal-body {
+	padding: 20px;
+	display: block;
+}
+
+h3.modal-subtitle {
+	margin-top: 0;
+	margin-bottom: 10px;
+	font-weight: bold;
+	text-align: center;
+}
+
+label {
+	display: block;
+	margin-bottom: 5px;
+	font-weight: bold;
+}
+
+input[type="text"], input[type="number"], textarea {
+	width: 100%;
+	padding: 10px;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	box-sizing: border-box;
+	font-size: 16px;
+	margin-bottom: 10px;
+}
+
+input[type="date"], input[type="datetime-local"] {
+	box-sizing: border-box;
+	width: 275px;
+	padding: 10px;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	box-sizing: border-box;
+	font-size: 16px;
+	margin-bottom: 10px;
+}
+
+/*
+input[type="file"] {
+	display: none;
+}
+*/
+.image-preview {
+	position: relative;
+	margin-bottom: 20px;
+	width: 258px;
+	height: 251px;
+	border: 1px solid #D3D2D2;
+	border-radius: 10px;
+	cursor: pointer
+}
+
+#image-caption {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	font-size: 16px;
+	color: #aaa;
+}
+
+#image-upload {
+	font-size: 16px;
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	opacity: 0;
+	width: 100%;
+	height: 100%;
+}
+
+.modal {
+	display: none;
+	position: fixed;
+	z-index: 1;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	overflow: auto;
+	background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-backdrop {
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-dialog {
+	position: relative;
+	margin: auto;
+	top: 15%;
+	max-width: 600px;
+	background-color: #fff;
+	border-radius: 4px;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+	border-radius: 10px;
+}
+
+.modal-header {
+	padding: 10px 20px;
+	background-color: #FFF;
+	border-bottom: 1px solid #ddd;
+	border-radius: 4px 4px 0 0;
+	color: #000000;
+	text-align: center;
+}
+
+.modal-title {
+	font-family: 'Noto Sans';
+	font-size: 1.5rem;
+	font-weight: 700;
+	margin: 0;
+}
+
+.modal-body {
+	padding: 20px;
+	font-family: 'Noto Sans';
+}
+
+.schedulerTimes {
+	display: flex;
+	flex-direction: row;
+	margin-bottom: 5px;
+	font-weight: bold;
+	flex-wrap: wrap;
+}
+
+.schedulerTimes label {
+	width: 275px;
+}
+
+.timelabel {
+	margin-right: 10px;
+}
+
+.endtime {
+	margin-left: 10px;
+}
+
+.modal-footer {
+	padding: 10px 20px;
+	background-color: #FFF;
+	border-top: 1px solid #ddd;
+	border-radius: 0 0 4px 4px;
+	text-align: right;
+}
+
+.apply-button, .cancel-button {
+	font-family: 'Noto Sans';
+	margin: 0 auto;
+	padding: 6px 12px;
+	border-radius: 4px;
+	border: none;
+	color: #fff;
+	background-color: #00008B;
+	cursor: pointer;
+	display: inline-block;
+}
+
+.cancel-button {
+	background-color: #6c757d;
+}
+
+.line-break {
+	height: 3px;
+	flex-basis: 100%;
+}
+
+/* Event Modal */
+.schedulerEvent .modal-header {
+	background-color: #FFC107;
+}
+
+.schedulerEvent .apply-button {
+	background-color: #FFC107;
+}
+
+.eventImage, .accomodationImage {
+	display: flex;
+	justify-content: center;
+}
+
+/* 필수 항목에 대한 스타일 */
+.eventRequired {
+	margin-bottom: 25px;
+}
+
+#event-title, #event-start-time, #event-end-time {
+	margin-bottom: 10px;
+}
+
+/* 선택 항목에 대한 스타일 */
+.eventOptional {
+	margin-bottom: 25px;
+}
+
+#event-price {
+	margin-bottom: 10px;
+}
+
+#event-details {
+	height: 150px;
+}
+
+/* Accommodation Modal */
+.schedulerAccommodation .modal-header {
+	background-color: #4CAF50;
+}
+
+.schedulerAccommodation .apply-button {
+	background-color: #4CAF50;
+}
+
+#accommodation-title {
+	margin-top: 5px;
+	margin-bottom: 10px;
+}
+
+/* Ticket Modal */
+.schedulerTicket .modal-header {
+	background-color: #2196F3;
+}
+
+.schedulerTicket .apply-button {
+	background-color: #2196F3;
+}
+
+.schedulerTicketStation {
+	display: flex;
+	flex-direction: row;
+	margin-bottom: 5px;
+	font-weight: bold;
+	flex-wrap: wrap;
+}
+
+.schedulerTicketStation input[type="text"] {
+	box-sizing: border-box;
+	width: 275px;
+	padding: 10px;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	box-sizing: border-box;
+	font-size: 16px;
+	margin-bottom: 10px;
+}
+
+.schedulerTicketStation label {
+	width: 275px;
+}

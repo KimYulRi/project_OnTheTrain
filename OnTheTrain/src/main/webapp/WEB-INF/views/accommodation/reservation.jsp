@@ -17,6 +17,7 @@
     <link href="${ path }/css/accommodation/accommodationReservation.css"
 	rel="stylesheet" type="text/css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+	<link href="${ path }/css/accommodation/accModal.css"rel="stylesheet" type="text/css">
 	<%@ include file="../common/header.jsp" %>
 </head>
 <body>
@@ -34,7 +35,7 @@
                 <div class="font15">숙소</div>
                 <div class="font15" id="accomodationExplanation">높은 층의 숙소에서 보는 주변 풍경과 함께 힐링이 가능한 시설입니다.높은 층의 숙소에서 보는 주변 풍경과 함께 힐링이 가능한 시설입니다.</div>
                 <div class="font15" id="calendarClick"><hr class="line">날짜 선택</div>
-                <div id="calendarArea"><img id="cimg" src="${ path }/images/accommodation/calender.png" alt="" alt=""></div>
+                <div id="calendarArea"><input type="datetime-local"><img id="cimg" src="${ path }/images/accommodation/calender.png" alt="" alt=""></div>
                 <div id="reservStar"><hr class="line">
                     <div id="stara">
                         <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
@@ -208,8 +209,44 @@
 </div>        
     </section>
     
+    <jsp:include page="./accModal.jsp" />
+    <script src="${ path }/js/accommodation/accModal.js"></script>
     <script type="text/javascript">
-    
+	    $(document).ready(() => {
+			lodgeList('0');
+		});
+		
+		function lodgeList(page) {
+			$.ajax({
+				type:'GET',
+				url:'http://apis.data.go.kr/6460000/jnLodgeist/getNdLodgeList',
+				data: {
+					ServiceKey:'2mKT3qQbDj6GzbgHRR6zV6nFDrZLqYMyFxWCrU+eb1JGQPP/zcCZ1kLYfli0m/UwxCy3AhHp7SqyLEm7n9kYLw==',
+					menuCd: '01',
+					startPage: page,
+					pageSize:'20'
+				},
+				success: (obj) => {
+					let result = '';
+					
+					$(obj).find('list').each(function(index) {
+						result += 
+							'<div class="product" onclick="location.href=\'${ path }/accommodation/reservation?no=' + $(this).find('lodgeId').text() + '\'">' + 
+		                        '<div><img src="${ path }/images/accommodation/accomodation' + (index + 1) + '.png" alt=""></div>' +
+		                        /* '<div id=""><img src="' + $(this).find('lodgeMainImg').text() + '" alt=""></div>' + */
+		                        '<div class="acctitle">' + $(this).find('lodgeNm').text() + '</div>' + 
+		                        '<div class="accfont acccontent">' + $(this).find('lodgeAddr').text() + '</div>' + 
+		                        '<div class="accfont accprice">' + $(this).find('lodgeTel').text() + '</div>' + 
+		                    '</div>';
+				   	});
+					
+					$('.listImg').html(result);
+				}, 
+				error : (e) => {
+					console.log(e);
+				}
+			});
+		}
     </script>                
 </body>
 </html>
