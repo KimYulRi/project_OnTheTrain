@@ -34,7 +34,10 @@
   <table align="center">
     <tr id="topTable">
       <th colspan="2" width="100px" style="font-size: 20px">출발</th>
-      <td><input style="height: 25px;" type="text" name="" id="depPlaceId"></td>
+      <td>
+      <input style="height: 25px;" type="text" id="depPlaceText">
+      <input style="height: 25px;" type="hidden" id="depPlaceId">
+      </td>
       <td>
         <button id="depId">
         <a href="javascript:openPopup()">조회</a>  
@@ -50,8 +53,15 @@
     </tr>
     <tr>
       <th colspan="2" width="100px" style="font-size: 20px;">도착</th>
-      <td><input style="height: 25px;" type="text" name="" id="arrPlaceId"></td>
-      <td><input type="submit" value="조회" id="arId"></td>
+      <td>
+      <input style="height: 25px;" type="text" id="arrPlaceText">
+      <input style="height: 25px;" type="hidden" id="arrPlaceId">
+      </td>
+      <td>
+        <button id="depId">
+        <a href="javascript:openPopup1()">조회</a>  
+        </button>
+      </td>
       <td></td>
       <td></td>
       <td colspan="2" rowspan="3">
@@ -135,7 +145,8 @@
         <p id="chargetable"></p>
         <p id="train"></p>
         
-	<script src="${ path }/js/trainTable/popUp.js"></script>
+	<script src="${ path }/js/trainTable/popUpDep.js"></script>
+	<script src="${ path }/js/trainTable/popUpArr.js"></script>
 	<script src="${ path }/js/trainTable/chargeModal.js"></script>
     <script src="${ path }/js/trainTable/trainMain.js"></script>
     <script src="${ path }/js/trainTable/calendar.js"></script>

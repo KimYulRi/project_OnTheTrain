@@ -16,9 +16,11 @@
 <body>
 	
 	
-	<button id="cityBtn">도시선택</button>
+	
     <p id="citycode"></p>
+    <p id="stationcode"></p>
     
 	<script src="${ path }/js/trainTable/station.js"></script>
+	<script src="${ path }/js/trainTable/popUp.js"></script>
 </body>
 </html>

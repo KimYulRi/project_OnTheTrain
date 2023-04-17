@@ -1,5 +1,5 @@
 #banner {
-  background-image: url("png/goods03\ 1.png");
+  background-image: url("../../images/trainTable/trainTableBanner.png");
   height: 100px;
   margin: 30px 60px 30px 60px;
   border-radius: 10px;
@@ -142,6 +142,18 @@ td {
 a {
   text-decoration: none;
   color: white;
+}
+
+#depId {
+  background-color: rgb(89, 97, 128);;
+  color: #fff;
+  outline: none;
+  border: 0px;
+  cursor: pointer;
+  border-radius: 5px;
+  height: 30px;
+  width: 50px;
+  font-size: large;
 }
 
 #arId {
