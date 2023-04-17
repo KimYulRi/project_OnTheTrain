@@ -15,87 +15,28 @@
 						<div class="modal-title">후기작성</div>
 					</div>
 					<div class="modal-body">
-						<ul class="reviewList">접근성</ul>
-						<div class="star-rating space-x-4 mx-auto">
-							<input type="radio" id="5-stars" name="rating" value="5" v-model="ratings"/>
-							<label for="5-stars" class="star pr-4">★</label>
-							<input type="radio" id="4-stars" name="rating" value="4" v-model="ratings"/>
-							<label for="4-stars" class="star">★</label>
-							<input type="radio" id="3-stars" name="rating" value="3" v-model="ratings"/>
-							<label for="3-stars" class="star">★</label>
-							<input type="radio" id="2-stars" name="rating" value="2" v-model="ratings"/>
-							<label for="2-stars" class="star">★</label>
-							<input type="radio" id="1-star" name="rating" value="1" v-model="ratings" />
-							<label for="1-star" class="star">★</label>
-						</div>
-						<ul class="reviewList">가격</ul>
-						<div class="star-rating space-x-4 mx-auto">
-							<input type="radio" id="5-stars" name="rating" value="5" v-model="ratings"/>
-							<label for="5-stars" class="star pr-4">★</label>
-							<input type="radio" id="4-stars" name="rating" value="4" v-model="ratings"/>
-							<label for="4-stars" class="star">★</label>
-							<input type="radio" id="3-stars" name="rating" value="3" v-model="ratings"/>
-							<label for="3-stars" class="star">★</label>
-							<input type="radio" id="2-stars" name="rating" value="2" v-model="ratings"/>
-							<label for="2-stars" class="star">★</label>
-							<input type="radio" id="1-star" name="rating" value="1" v-model="ratings" />
-							<label for="1-star" class="star">★</label>
-						</div>
-						<ul class="reviewList">서비스</ul>
-						<div class="star-rating space-x-4 mx-auto">
-							<input type="radio" id="5-stars" name="rating" value="5" v-model="ratings"/>
-							<label for="5-stars" class="star pr-4">★</label>
-							<input type="radio" id="4-stars" name="rating" value="4" v-model="ratings"/>
-							<label for="4-stars" class="star">★</label>
-							<input type="radio" id="3-stars" name="rating" value="3" v-model="ratings"/>
-							<label for="3-stars" class="star">★</label>
-							<input type="radio" id="2-stars" name="rating" value="2" v-model="ratings"/>
-							<label for="2-stars" class="star">★</label>
-							<input type="radio" id="1-star" name="rating" value="1" v-model="ratings" />
-							<label for="1-star" class="star">★</label>
-						</div>
-						<ul class="reviewList">청결도</ul>
-						<div class="star-rating space-x-4 mx-auto">
-							<input type="radio" id="5-stars" name="rating" value="5" v-model="ratings"/>
-							<label for="5-stars" class="star pr-4">★</label>
-							<input type="radio" id="4-stars" name="rating" value="4" v-model="ratings"/>
-							<label for="4-stars" class="star">★</label>
-							<input type="radio" id="3-stars" name="rating" value="3" v-model="ratings"/>
-							<label for="3-stars" class="star">★</label>
-							<input type="radio" id="2-stars" name="rating" value="2" v-model="ratings"/>
-							<label for="2-stars" class="star">★</label>
-							<input type="radio" id="1-star" name="rating" value="1" v-model="ratings" />
-							<label for="1-star" class="star">★</label>
-						</div>
-						<ul class="reviewList">시설</ul>
-						<div class="star-rating space-x-4 mx-auto">
-							<input type="radio" id="5-stars" name="rating" value="5" v-model="ratings"/>
-							<label for="5-stars" class="star pr-4">★</label>
-							<input type="radio" id="4-stars" name="rating" value="4" v-model="ratings"/>
-							<label for="4-stars" class="star">★</label>
-							<input type="radio" id="3-stars" name="rating" value="3" v-model="ratings"/>
-							<label for="3-stars" class="star">★</label>
-							<input type="radio" id="2-stars" name="rating" value="2" v-model="ratings"/>
-							<label for="2-stars" class="star">★</label>
-							<input type="radio" id="1-star" name="rating" value="1" v-model="ratings" />
-							<label for="1-star" class="star">★</label>
-						</div>
-						<ul class="reviewList">재방문 의사</ul>
-						<div class="star-rating space-x-4 mx-auto">
-							<input type="radio" id="5-stars" name="rating" value="5" v-model="ratings"/>
-							<label for="5-stars" class="star pr-4">★</label>
-							<input type="radio" id="4-stars" name="rating" value="4" v-model="ratings"/>
-							<label for="4-stars" class="star">★</label>
-							<input type="radio" id="3-stars" name="rating" value="3" v-model="ratings"/>
-							<label for="3-stars" class="star">★</label>
-							<input type="radio" id="2-stars" name="rating" value="2" v-model="ratings"/>
-							<label for="2-stars" class="star">★</label>
-							<input type="radio" id="1-star" name="rating" value="1" v-model="ratings" />
-							<label for="1-star" class="star">★</label>
-						</div>
-						<input type="text" placeholder="숙소의 후기를 작성해주세요.">
-					
+						<div>
+		                     <div class="left userImg"></div>
+		                     <div class="left">
+			                     <div class="reviewNick">닉네임</div>
+			                     <div class="cDate">2023.03.20</div>
+		                 	</div>
+                    	</div>
+                    	
+					<div class="star-rating space-x-4 mx-auto">
+						<input type="radio" id="5-stars" name="rating" value="5" v-model="ratings"/>
+						<label for="5-stars" class="star pr-4">★</label>
+						<input type="radio" id="4-stars" name="rating" value="4" v-model="ratings"/>
+						<label for="4-stars" class="star">★</label>
+						<input type="radio" id="3-stars" name="rating" value="3" v-model="ratings"/>
+						<label for="3-stars" class="star">★</label>
+						<input type="radio" id="2-stars" name="rating" value="2" v-model="ratings"/>
+						<label for="2-stars" class="star">★</label>
+						<input type="radio" id="1-star" name="rating" value="1" v-model="ratings" />
+						<label for="1-star" class="star">★</label>
 					</div>
+						<input class="keyword" type="text" placeholder="리뷰를 입력하세요" id="searchKeyword" name="searchKeyword">
+						<input type="text" id="textLengthCheck" disabled> 
 					<div class="modal-footer">
 						<button class="apply-button">Apply</button>
 						<button class="cancel-button">Cancel</button>

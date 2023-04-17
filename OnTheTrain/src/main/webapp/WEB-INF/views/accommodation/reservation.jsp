@@ -23,7 +23,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
     <section>
         <div id="body">           
-            <div id="accomodationName">하루 감성 수영장 숙소</div>
+            <div id="accomodationName">${ accommodation.name }</div>
             <div id="reviewCount">후기22개</div>
             <div id="topImage"><img src="${ path }/images/accommodation/topImage.png" alt=""></div>
         </div>    
@@ -31,8 +31,6 @@
         <div id="contentFrame">
 <!--왼쪽 내용 영역-->                
             <div id="leftContent">
-                <div class="font15">숙소</div>
-                <div class="font15" id="accomodationExplanation">높은 층의 숙소에서 보는 주변 풍경과 함께 힐링이 가능한 시설입니다.높은 층의 숙소에서 보는 주변 풍경과 함께 힐링이 가능한 시설입니다.</div>
                 <div class="font15" id="calendarClick"><hr class="line">날짜 선택</div>
                 <div id="calendarArea"><input type="datetime-local"><img id="cimg" src="${ path }/images/accommodation/calender.png" alt="" alt=""></div>
                 <div id="reservStar"><hr class="line">
@@ -131,16 +129,26 @@
                     		</div>
                         </div>
                     </div>
+                    <div class="star-ratings">
+						<div 
+					    class="star-ratings-fill space-x-2 text-lg"
+					    :style="{ width: ratingToPercent + '%' }"
+						>
+							<span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+						</div>
+						<div class="star-ratings-base space-x-2 text-lg">
+							<span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+						</div>
+					</div>
                     
                     <button class="open-modal-button">작성하기</button>
                 </div>
                 <hr class="line">
                 	<div class="font15">전화번호</div>
-	                <div class="font15 left" id="call">010-0000-0000</div>
+	                <div class="font15 left" id="call">${ accommodation.explain }</div>
                 <hr class="line">
                 <div class="font15" id="address">주소</div>
-	            <div class="font15" id="addressData">서울특별시 마포구 상수동 678-10
-	            </div>
+	            <div class="font15" id="addressData">${ accommodation.location } </div>
                 <!-- 지도 -->
                 <div id="map"><img src="${ path }/images/accommodation/" alt=""></div>
         </div> 
@@ -150,7 +158,7 @@
                 <div id="optionBox">
 <!--첫번째 줄-->                    
                     <div class="optionFrame">
-                        <div id="onedayPrice">290,000원</div>
+                        <div id="onedayPrice">${ accommodation.price }</div>
                         <div id="accomodaionDay"> / 박</div>
                         <div class="right" id="topStar">
                             <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
@@ -173,9 +181,9 @@
                         <div id="warning">결제 전에는 예약이 확정되지 않습니다.</div>
                         
 					<div class="optionFrame" id="bottom1">
-                        <div id="onedayPrice">290,000원</div>
-                        <div id="accomodaionDay"> x 박</div>
-                        <div class="right">1,450,000원</div>
+                        <div id="onedayPrice">${ accommodation.price }</div>
+                        <div id="accomodaionDay"> x 1박</div>
+                        <div class="right">${ accommodation.price }원</div>
                     </div>
                     
                     <div id="refund">환불약관</div>
@@ -183,7 +191,7 @@
                     
                     <div id="bottom2">
                         <div class="left">총합계</div>
-                        <div class="right" id="totalPrice">1,675,138원</div>
+                        <div class="right" id="totalPrice">${ accommodation.price }원</div>
                     </div>
                 </div>               
             </div>
@@ -212,6 +220,21 @@
     
     <jsp:include page="./accModal.jsp" />
     
+    <script>
+		$("#searchKeyword").keyup(function(e) {
+		    console.log("키업!");
+			var content = $(this).val();
+			$("#textLengthCheck").val("(" + content.length + "/ 200)"); //실시간 글자수 카운팅
+			if (content.length > 200) {
+				Alert("최대 200자까지 입력 가능합니다.");
+				$(this).val(content.substring(0, 200));
+				$('#textLengthCheck').html("(200 / 최대 200자)");
+			}
+		});
+		
+		
+	</script>
+	
     <script src="${ path }/js/accommodation/accModal.js"></script>
     <script type="text/javascript">
 	    $(document).ready(() => {
