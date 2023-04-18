@@ -48,16 +48,27 @@
 			</div>
 		</div>
 		<hr>
-		<div class="title">추가된 <div class="componentName">${basicComponent}</div></div>
+		<div class="title">
+			추가된
+			<div class="componentName">${basicComponent}</div>
+		</div>
 		<div id="noAddedComponentArea">
 			<div class="noAddedComponent">
 				<div class="noComponentImg"></div>
-				<div class="noComponentMsg">추가된 <div class="componentName">${basicComponent}</div> 없음</div>
+				<div class="noComponentMsg">
+					추가된
+					<div class="componentName">${basicComponent}</div>
+					없음
+				</div>
 			</div>
 		</div>
 		<div id="addedComponent" class="components"></div>
 		<hr>
-		<div class="title">추가 대기 중인 <div class="componentName">${basicComponent}</div></div>
+		<div class="title">
+			추가 대기 중인
+			<div class="componentName">${basicComponent}</div>
+			<button id="waitDeleteMode-button" class="delete-button">삭제모드</button>
+		</div>
 		<div id="waitComponentList" class="components">
 			<div id="addCard">
 				<div id="addCard">
@@ -65,9 +76,11 @@
 				</div>
 			</div>
 		</div>
-		</div>
 		<hr>
-		<div class="title"><div class="componentName">${basicComponent}</div> 조회</div>
+		<div class="title">
+			<div class="componentName">${basicComponent}</div>
+			조회
+		</div>
 		<div id="searchComponent">
 			<select name="locationCode">
 				<option>지역 선택</option>
@@ -91,6 +104,7 @@
 			sessionStorage.setItem("currentComponent", "${currentComponent}");
 		</script>
 		<script src="${ path }/js/scheduler/calender/daypilot-all.min.js"></script>
+		<script type="module" src="${ path }/js/scheduler/schedulerModal.js">
 		<script src="${ path }/js/scheduler/schedulerModal.js"></script>
 		<script src="${ path }/js/scheduler/schedulerCreate.js"></script>
 		<script

@@ -3,7 +3,9 @@ function getContextPath() {
   return sessionStorage.getItem("contextpath");
 }
 
-// 요소 클릭 시 발생하는 함수
+let waitDeleteMode = false;
+
+// 요소 클릭 시 해당 요소와 관련된 내용을 표시하도록 하는 함수
 $(".componentText").click(function () {
   var component = $(this).data("component");
   $.ajax({
@@ -40,12 +42,7 @@ $(".componentText").click(function () {
   });
 });
 
-// card 아이디 생성 함수
-function getCardId(index) {
-  return "searchCard_" + index;
-}
-
-// select 태그의 값이 변경될 때마다 실행되는 함수
+// locationCode가 바뀔 때마다 실행되는 함수
 $("select[name='locationCode']").on("change", function () {
   var locationCode = $(this).val(); // 선택된 값 가져오기
   $.ajax({
@@ -72,9 +69,7 @@ $("select[name='locationCode']").on("change", function () {
           : ctx + "/images/common/OnTheTrain_Logo.png";
 
         eventList +=
-          "<div class='card' id='" +
-          getCardId(i) +
-          "'>" +
+          "<div class='card'>" +
           "<div class='cardThumbnail'><img src='" +
           imageUrl +
           "'></div>" +
@@ -92,36 +87,6 @@ $("select[name='locationCode']").on("change", function () {
           "</div>";
       }
       $("#eventList").html(eventList); // 이벤트 리스트 업데이트
-
-      // 카드에 마우스가 올라갈 때와 내려갈 때 툴팁을 생성하고 제거하는 이벤트 처리
-      $(".card").hover(
-        function () {
-          // 마우스가 올라갔을 때
-          // 기존 CardBrief 영역 숨기기
-          $(this).find(".cardBrief").hide();
-
-          var tooltip =
-            "<div class='cardTooltip'>" +
-            "<div class='cardTitle cardTooltip'>" +
-            $(this).find(".cardTitle").text() +
-            "</div>" +
-            "<div class='cardRequiredDetail cardTooltip'>" +
-            $(this).find(".cardRequiredDetail").text() +
-            "</div>" +
-            "<div class='cardOptionalDetail cardTooltip'>" +
-            $(this).find(".cardOptionalDetail").text() +
-            "</div>" +
-            "</div>";
-          $(this).append(tooltip);
-        },
-        function () {
-          // 마우스가 내려갔을 때
-          // 기존 CardBrief 영역 보이기
-          $(this).find(".cardBrief").show();
-
-          $(this).find(".cardTooltip").remove();
-        }
-      );
     },
     error: function () {
       alert("API로 이벤트를 가져오는 중에 문제가 발생했습니다.");
@@ -129,77 +94,45 @@ $("select[name='locationCode']").on("change", function () {
   });
 });
 
-// 추가 대기 중인 요소에 요소 추가
-const addCardButton = document.getElementById("addCard");
-const waitComponentList = document.getElementById("waitComponentList");
-
-addCardButton.addEventListener("click", () => {
-  const newCard = document.createElement("div");
-  newCard.classList.add("card");
-
-  const cardThumbnail = document.createElement("div");
-  cardThumbnail.classList.add("cardThumbnail");
-  newCard.appendChild(cardThumbnail);
-
-  const cardBrief = document.createElement("div");
-  cardBrief.classList.add("cardBrief");
-  newCard.appendChild(cardBrief);
-
-  const cardTitle = document.createElement("div");
-  cardTitle.classList.add("cardTitle");
-  cardTitle.textContent = "cardTitle";
-  cardBrief.appendChild(cardTitle);
-
-  const cardRequiredDetail = document.createElement("div");
-  cardRequiredDetail.classList.add("cardRequiredDetail");
-  cardRequiredDetail.textContent = "cardRequiredDetail";
-  cardBrief.appendChild(cardRequiredDetail);
-
-  const cardOptionalDetail = document.createElement("div");
-  cardOptionalDetail.classList.add("cardOptionalDetail");
-  cardOptionalDetail.textContent = "cardOptionalDetail";
-  cardBrief.appendChild(cardOptionalDetail);
-
-  waitComponentList.appendChild(newCard);
-});
-
-// addCard를 눌렀을 때 모달창 열기
-$("#addCard").on("click", () => {
-  let currentComponent = getCurrentComponent();
-  function getCurrentComponent() {
-    return sessionStorage.getItem("currentComponent");
+// 삭제 모드 버튼 클릭 이벤트
+const deleteModeBtn = $("#waitDeleteMode-button");
+deleteModeBtn.on("click", () => {
+  waitDeleteMode = !waitDeleteMode;
+  if (waitDeleteMode) {
+    $("#waitDeleteMode-button").text("삭제모드ON").addClass("delete-buttonOn");
+  } else {
+    $("#waitDeleteMode-button").text("삭제모드").removeClass("delete-buttonOn");
   }
 
-  if (currentComponent === "event") {
-    $("#schedulerEventModal").show();
-  } else if (currentComponent === "accommodation") {
-    $("#schedulerAccommodationModal").show();
-  } else if (currentComponent === "ticket") {
-    $("#schedulerTicketModal").show();
-  }
+  // 추가 대기 중인 요소 카드에 필터 추가
+  const waitComponentCards = $("#waitComponentList .card");
+  waitComponentCards.each((index, card) => {
+    if (waitDeleteMode) {
+      const filter = $("<div>")
+        .addClass("componentFilter")
+        .on("click", (event) => {
+          event.stopPropagation();
+          $(card).remove();
+        });
+      $(card).addClass("filtered");
+      $(card).append(filter);
+    } else {
+      $(card).removeClass("filtered");
+      $(card).find(".componentFilter").remove();
+    }
+  });
 
-  // 모달 창 이미지 미리보기
-  console.log(currentComponent);
+  // #noAddedComponentArea나 #addedComponent에 .card가 드래그앤 드롭되었을 때 이벤트 발생
+  $("#noAddedComponentArea, #addedComponent").on("drop", function (event) {
+    event.preventDefault();
+    const card = event.originalEvent.dataTransfer.getData("text");
+    if ($("#waitComponentList").has(`#${card}`).length) {
+      $(document).trigger("cardDropped", card);
+    }
+  });
 
-  const imageUploadInput = document.querySelector(
-    "#" + currentComponent + "-image-upload"
-  );
-  const previewImage = document.querySelector(
-    "#" + currentComponent + "-preview-image"
-  );
-  const imageCaption = document.querySelector(
-    "#" + currentComponent + "-image-caption"
-  );
-
-  imageUploadInput.addEventListener("change", (event) => {
-    const file = event.target.files[0];
-    const reader = new FileReader();
-
-    reader.onload = (event) => {
-      previewImage.src = event.target.result;
-    };
-
-    reader.readAsDataURL(file);
-    imageCaption.innerText = file.name;
+  // #noAddedComponentArea나 #addedComponent에 .card가 드래그앤 드롭되었을 때 기본 이벤트 제거
+  $("#noAddedComponentArea, #addedComponent").on("dragover", function (event) {
+    event.preventDefault();
   });
 });

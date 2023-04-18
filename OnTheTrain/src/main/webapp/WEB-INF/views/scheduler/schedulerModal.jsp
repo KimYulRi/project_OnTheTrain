@@ -3,6 +3,9 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <c:set var="path" value="${ pageContext.request.contextPath }" />
+<script type="module"
+	src="${ path }/js/scheduler/schedulerComponent/schedulerEvent.js"></script>
+
 
 <div id="schedulerEventModal" class="modal">
 	<div class="modal-backdrop"></div>
@@ -14,9 +17,9 @@
 			<div class="modal-body">
 				<div class="eventImage">
 					<div class="image-preview">
-						<span id="event-image-caption" class="image-caption">이미지 등록</span>
-						<input id="event-image-upload" class="image-upload" type="file">
-						<img id="event-preview-image" class="preview-image"
+						<span class="image-caption">이미지 등록</span>
+						<input class="image-upload" type="file">
+						<img class="preview-image"
 							src="${ path }/images/common/OnTheTrain_Logo.png"
 							alt="Preview Image" />
 					</div>
@@ -44,7 +47,8 @@
 				</div>
 			</div>
 			<div class="modal-footer">
-				<button class="apply-button">Apply</button>
+				<button class="add-button">Apply</button>
+				<button class="reset-button">Reset</button>
 				<button class="cancel-button">Cancel</button>
 			</div>
 		</div>
@@ -97,7 +101,7 @@
 			</div>
 		</div>
 		<div class="modal-footer">
-			<button class="apply-button">Apply</button>
+			<button class="add-button">Apply</button>
 			<button class="cancel-button">Cancel</button>
 		</div>
 	</div>
@@ -123,8 +127,8 @@
 						<label for="ticket-start-time" class="timelabel">출발 시간</label> <label
 							for="ticket-end-time">도착 시간</label>
 						<div class="line-break"></div>
-						<input type="date" id="ticket-start-time" required>
-						<input type="date" id="ticket-end-time" class="endtime" required>
+						<input type="datetime-local" id="ticket-start-time" required>
+						<input type="datetime-local" id="ticket-end-time" class="endtime" required>
 					</div>
 				</div>
 				<div class="accommodationOptional">
@@ -138,7 +142,7 @@
 				</div>
 			</div>
 			<div class="modal-footer">
-				<button class="apply-button">Apply</button>
+				<button class="add-button">Apply</button>
 				<button class="cancel-button">Cancel</button>
 			</div>
 		</div>

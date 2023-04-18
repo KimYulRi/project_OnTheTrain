@@ -104,6 +104,7 @@ input[type="date"], input[type="datetime-local"] {
 	height: 100%;
 	overflow: auto;
 	background-color: rgba(0, 0, 0, 0.4);
+	z-index: 999;
 }
 
 .modal-backdrop {
@@ -175,7 +176,7 @@ input[type="date"], input[type="datetime-local"] {
 	text-align: right;
 }
 
-.apply-button, .cancel-button {
+.add-button, .reset-button, .cancel-button {
 	font-family: 'Noto Sans';
 	margin: 0 auto;
 	padding: 6px 12px;
@@ -194,15 +195,6 @@ input[type="date"], input[type="datetime-local"] {
 .line-break {
 	height: 3px;
 	flex-basis: 100%;
-}
-
-/* Event Modal */
-.schedulerEvent .modal-header {
-	background-color: #FFC107;
-}
-
-.schedulerEvent .apply-button {
-	background-color: #FFC107;
 }
 
 .eventImage, .accommodationImage {
@@ -232,27 +224,9 @@ input[type="date"], input[type="datetime-local"] {
 	height: 150px;
 }
 
-/* Accommodation Modal */
-.schedulerAccommodation .modal-header {
-	background-color: #4CAF50;
-}
-
-.schedulerAccommodation .apply-button {
-	background-color: #4CAF50;
-}
-
 #accommodation-title {
 	margin-top: 5px;
 	margin-bottom: 10px;
-}
-
-/* Ticket Modal */
-.schedulerTicket .modal-header {
-	background-color: #2196F3;
-}
-
-.schedulerTicket .apply-button {
-	background-color: #2196F3;
 }
 
 .schedulerTicketStation {
