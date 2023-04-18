@@ -22,10 +22,4 @@ public class trainTableController {
 		log.info("main start");
 		return "trainTable/trainMain";
 	}
-	
-	@GetMapping("/station")
-	public String station() {
-		log.info("팝업창");
-		return "trainTable/station";
-	}
 }
