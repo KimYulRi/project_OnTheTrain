@@ -5,20 +5,43 @@
 <mapper namespace="com.kh.onthetrain.member.model.mapper.MemberMapper">
 	<sql id="selectMemberSql">
 	      SELECT NO,
-	      		 NICKNAME,
-	             ID,
-	             PASSWORD,
-	             ROLE,
-	             NAME,
-	             BIRTH,
-	             EMAIL,
-	             PHONE,
-	             ADDRESS,
-	             SNS_TYPE,
-	             ENROLL_DATE,
-	             STATUS,
-	             AMOUNT
-	      FROM MEMBER
+			   MEMBERSHIP_CODE,
+			   ID,
+			   PASSWORD,
+			   ROLE,
+			   NICKNAME,
+			   NAME,
+			   BIRTH,
+			   EMAIL,
+			   PHONE,
+			   ADDRESS,
+			   ENROLL_DATE,
+			   MODIFY_DATE,
+			   SNS_LOGIN,
+			   STATUS,
+			   AMOUNT
+    	FROM MEMBER
+	   </sql>
+	   <sql id="selectJoinMemberSql">
+	      SELECT M.NO,
+		       M.MEMBERSHIP_CODE,
+		       M.ID,
+		       M.PASSWORD,
+		       M.ROLE,
+		       M.NICKNAME,
+		       M.NAME,
+		       M.BIRTH,
+		       M.EMAIL,
+		       M.PHONE,
+		       M.ADDRESS,
+		       M.ENROLL_DATE,
+		       M.MODIFY_DATE,
+		       M.SNS_LOGIN,
+		       M.STATUS,
+		       M.AMOUNT,
+		       S.CODE,
+		       S.SNS_ID
+			FROM MEMBER M
 	   </sql>
 	
 	 <resultMap id="memberResultMap" type="Member">
@@ -41,58 +64,130 @@
       <result property="loginType" column="CODE" />
       <result property="snsId" column="SNS_ID" />
    </resultMap>
-	
+   
+	<!-- id(일반)로 회원 찾기 -->
 	<select id="selectMemberById" parameterType="string" resultMap="memberResultMap">
-		SELECT NO,
-			   MEMBERSHIP_CODE,
-			   ID,
-			   PASSWORD,
-			   ROLE,
-			   NICKNAME,
-			   NAME,
-			   BIRTH,
-			   EMAIL,
-			   PHONE,
-			   ADDRESS,
-			   ENROLL_DATE,
-			   MODIFY_DATE,
-			   SNS_LOGIN,
-			   STATUS,
-			   AMOUNT
-    	FROM MEMBER
-   		WHERE ID = #{id} AND STATUS = 'Y'
+		 <include refid="selectMemberSql" />
+   		WHERE ID = #{id} AND (STATUS='Y' OR STATUS='N')
 	</select>
 	
-	
-	 <select id="selectSnsMemberById" parameterType="string" resultMap="memberResultMap">
-		SELECT M.NO,
-		       M.MEMBERSHIP_CODE,
-		       M.ID,
-		       M.PASSWORD,
-		       M.ROLE,
-		       M.NICKNAME,
-		       M.NAME,
-		       M.BIRTH,
-		       M.EMAIL,
-		       M.PHONE,
-		       M.ADDRESS,
-		       M.ENROLL_DATE,
-		       M.MODIFY_DATE,
-		       M.SNS_LOGIN,
-		       M.STATUS,
-		       M.AMOUNT,
-		       S.CODE,
-		       S.SNS_ID
-		FROM MEMBER M
+	<!-- id(sns)로 간편로그인 회원 찾기 -->
+	<select id="selectSnsMemberById" parameterType="string" resultMap="memberResultMap">
+		<include refid="selectJoinMemberSql" />
 		JOIN SNS_MEMBER S ON (M.NO = S.MEMBER_NO)
-		WHERE SNS_ID = #{id} AND STATUS = 'Y'
+		WHERE SNS_ID = #{id} AND (STATUS='Y' OR STATUS='N')
       </select>
+      
+    <!-- 전체회원에서 email로 회원찾기 -->
+	<select id="findMemberByEmail" parameterType="string" resultMap="memberResultMap">
+		<include refid="selectJoinMemberSql" />
+		LEFT OUTER JOIN SNS_MEMBER S ON (M.NO = S.MEMBER_NO)
+		WHERE EMAIL = #{email} AND (STATUS='Y' OR STATUS='N')
+    </select>
 	
-	
-	<select id="selectCount" resultType="_int">
+	<!-- <select id="selectCount" resultType="_int">
 		SELECT COUNT(*) FROM MEMBER
+	</select> -->
+	
+	<!-- id(일반)로 회원 찾기(중복확인) -->
+	<select id="selectMemberByIdAll" parameterType="string" resultMap="memberResultMap">
+		 <include refid="selectMemberSql" />
+   		WHERE ID = #{id} AND (STATUS='Y' OR STATUS='N')
 	</select>
 	
+	<!-- nickname으로 회원 찾기(중복확인) -->
+	<select id="selectMemberByNicknameAll" parameterType="string" resultMap="memberResultMap">
+		 <include refid="selectMemberSql" />
+   		WHERE NICKNAME = #{nickname} AND (STATUS='Y' OR STATUS='N')
+	</select>
 	
+	<!-- email으로 회원 찾기(중복확인) -->
+	<select id="selectMemberByEmailAll" parameterType="string" resultMap="memberResultMap">
+		 <include refid="selectMemberSql" />
+   		WHERE EMAIL = #{email} AND (STATUS='Y' OR STATUS='N')
+	</select>
+	
+	<!-- 회원삽입 (일반 회원가입) -->
+	<insert id="insertMember" parameterType="Member"
+	       useGeneratedKeys="true" keyColumn="NO" keyProperty="no">
+	    	INSERT INTO MEMBER (
+			    NO,
+			    MEMBERSHIP_CODE,
+			    ID, 
+			    PASSWORD, 
+			    ROLE,
+			    NICKNAME,
+			    NAME,
+			    BIRTH,
+			    EMAIL,
+			    PHONE, 
+			    ADDRESS,
+			    ENROLL_DATE,
+			    SNS_LOGIN,
+			    STATUS, 
+			    AMOUNT
+			) VALUES(
+			    SEQ_MEMBER_NO.NEXTVAL,
+			    DEFAULT,
+			    #{id},
+			    #{password}, 
+			    DEFAULT, 
+			    #{nickname}, 
+			    #{name},
+			    #{birth},
+			    #{email},
+			    #{phone},
+			    #{address},
+			    DEFAULT,
+			    DEFAULT,
+			    DEFAULT,
+			    DEFAULT
+			)
+    </insert>
+    <!-- 회원삽입 (SNS 회원가입) -->
+	<insert id="insertMemberBySns" parameterType="Member"
+	       useGeneratedKeys="true" keyColumn="NO" keyProperty="no">
+	    	INSERT INTO MEMBER (
+			    NO,
+			    MEMBERSHIP_CODE,
+			    ROLE,
+			    NICKNAME,
+			    NAME,
+			    BIRTH,
+			    EMAIL,
+			    PHONE, 
+			    ADDRESS,
+			    ENROLL_DATE,
+			    SNS_LOGIN,
+			    STATUS, 
+			    AMOUNT
+			) VALUES(
+			    SEQ_MEMBER_NO.NEXTVAL,
+			    DEFAULT,
+			    DEFAULT, 
+			    #{nickname}, 
+			    #{name},
+			    #{birth},
+			    #{email},
+			    #{phone},
+			    #{address},
+			    DEFAULT,
+			    'Y',
+			    DEFAULT,
+			    DEFAULT
+			)
+    </insert>
+    <!-- 회원삽입 (SNS_MEMBER 테이블) -->
+	<insert id="insertLinkedSns" parameterType="Member">
+	    	INSERT INTO SNS_MEMBER (
+			    MEMBER_NO,
+			    CODE, 
+			    SNS_ID
+			) VALUES(
+			    #{no},
+			    #{loginType}, 
+			    #{snsId}
+			)
+    </insert>
 
 </mapper>

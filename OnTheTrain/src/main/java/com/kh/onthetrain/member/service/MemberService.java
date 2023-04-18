@@ -9,5 +9,24 @@ public interface MemberService {
 	
 	// 간편 로그인
 	Member snsLogin(String id);
+
+	// 아이디 중복 체크
+	boolean isDuplicateId(String id);
+
+	// 닉네임 중복 체크
+	boolean isDuplicateNickname(String nickname);
+
+	// 이메일 중복 체크
+	boolean isDuplicateEmail(String email);
+
+	// 회원저장
+	int save(Member member);
+	
+	// sns회원 저장
+	int saveSns(Member member);
+	
+	// email으로 회원찾기(snsMember 연결해서 조회)
+	Member findMemberByEmail(String email);
+
 	
 }

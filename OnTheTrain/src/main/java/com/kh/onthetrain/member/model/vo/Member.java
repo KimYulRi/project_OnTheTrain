@@ -2,8 +2,6 @@ package com.kh.onthetrain.member.model.vo;
 
 import java.sql.Date;
 
-import org.springframework.stereotype.Component;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -38,14 +36,15 @@ public class Member {
 	
 	private Date modifyDate;
 	
-	// 간편로그인여부
+	// 간편로그인여부 (Y, N)
 	private String snsLogin;
 	
+	// 상태값 (활성화 Y, 정지회원 N, 탈퇴회원 X)
 	private String status;
 	
 	private int amount;
 	
-	// 간편로그인 유형 (카카오, 네이버)
+	// 간편로그인 유형 (카카오 K, 네이버 N)
 	private String loginType;
 	
 	// 간편로그인 id

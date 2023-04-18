@@ -1,9 +1,10 @@
 package com.kh.onthetrain.member.controller;
 
 import java.io.IOException;
-import java.util.HashMap;
+import java.sql.Date;
 
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -12,13 +13,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.github.scribejava.core.model.OAuth2AccessToken;
 import com.google.gson.JsonElement;
@@ -97,8 +101,16 @@ public class MemberController {
       
       // 로그인
       if(loginMember != null) {
-         modelAndView.addObject("loginMember", loginMember);
-         modelAndView.setViewName("redirect:/");
+    	 if(loginMember.getStatus().equals("N")){
+    		 // 정지된 회원인 경우
+    		 modelAndView.addObject("msg", "정지된 회원입니다. 관리자에게 문의하세요");
+             modelAndView.addObject("location", "/login");
+             modelAndView.setViewName("common/msg");
+    	 }else {
+    		 // 로그인 성공
+	         modelAndView.addObject("loginMember", loginMember);
+	         modelAndView.setViewName("redirect:/");
+    	 }
 
       } else {
          modelAndView.addObject("msg", "아이디 혹은 비밀번호를 잘못 입력 하셨습니다.");
@@ -110,26 +122,16 @@ public class MemberController {
       
    }
    
-   // 회원가입
-   @RequestMapping(value = "/enroll", method = {RequestMethod.GET, RequestMethod.POST} )
-   public String enroll() {
-	   log.info("enroll() = 호출");
-	   
-	   return "member/enroll";
-   }
-   
    // 카카오 로그인
    @GetMapping(value="/login/kakao")
-   public ModelAndView kakaoLogin(ModelAndView modelAndView, @RequestParam(value="code", required=false) String code, @RequestParam String state, HttpSession session) throws Exception {
+   public ModelAndView kakaoLogin(ModelAndView modelAndView, @RequestParam(value="code", required=false) String code, @RequestParam String state, HttpSession session, RedirectAttributes redirectAttributes,  HttpServletRequest request) throws Exception {
 	   
 	   // 인가 코드로 토큰 획득
 	   OAuth2AccessToken oauthToken;
 	   oauthToken = kakaoLoginBO.getAccessToken(session, code, state);
-	   System.out.println("카카오토큰"+oauthToken);
 	   
 	   // 토큰으로 사용자 정보 받아오기
        String apiResult = kakaoLoginBO.getUserInfo(oauthToken);
-       System.out.println("카카오사용자정보"+apiResult);
        
        // JSON 파싱
        JsonParser parser = new JsonParser();
@@ -142,27 +144,62 @@ public class MemberController {
        String nickname = properties.getAsJsonObject().get("nickname").getAsString();
        String email = kakao_account.getAsJsonObject().get("email").getAsString();
 		
-       // 회원이면 로그인
+       // 회원찾기
        Member loginMember = service.snsLogin(id);
 				
-       // 회원이 아니면 회원가입 페이지로 이동
+       // 회원찾기 성공
        if(loginMember != null) {
-			System.out.println(loginMember);
-			modelAndView.addObject("loginMember", loginMember);
-			modelAndView.setViewName("redirect:/");
-		} else {
-			modelAndView.addObject("msg", "카카오 로그인 실패");
+			if(loginMember.getStatus().equals("N")){
+	    		 // 정지된 회원인 경우
+	    		 modelAndView.addObject("msg", "정지된 회원입니다. 관리자에게 문의하세요");
+	             modelAndView.addObject("location", "/login");
+	             modelAndView.setViewName("common/msg");
+			}else {
+				// 로그인 성공
+				session = request.getSession();
+				session.setAttribute("loginMember", loginMember);
+				modelAndView.setViewName("redirect:/");
+			}
+			
+		// 회원찾기 실패
+		}else {
+			// 회원정보를 찾지 못했을 때 email을 통해 다른 로그인회원인지 확인
+			Member findMember = service.findMemberByEmail(email);
+			
+			// 회원이 아니면(email로 못찾았을때) 회원가입 페이지로 이동
+			if(findMember == null) {
+				Member member = new Member();
+				member.setSnsId(id);
+				member.setEmail(email);
+				member.setNickname(nickname);
+				member.setLoginType("K");
+				
+				redirectAttributes.addFlashAttribute("member", member);
+				modelAndView.setViewName("redirect:/enroll/sns");
+				return modelAndView;
+				
+			}else if(findMember.getLoginType()==null) {
+			// 일반회원
+				modelAndView.addObject("msg", "일반회원으로 이미 가입된 계정입니다."+ email + "일반 로그인 해주세요");
+			}else if(findMember.getLoginType().equals("N")) {
+			// 네이버
+				modelAndView.addObject("msg", "네이버로 이미 가입된 계정입니다."+ email + "네이버로 로그인 해주세요");
+			}else if(findMember.getStatus().equals("N")) {
+			// status == N 이면 정지된 회원
+				modelAndView.addObject("msg", "정지된 회원입니다. 관리자에게 문의해주세요.");
+			}else {
+				modelAndView.addObject("msg", "로그인에 실패 하셨습니다.");
+			}
 			modelAndView.addObject("location", "/login");
 			modelAndView.setViewName("common/msg");
 		}
-	
        return modelAndView;
 	}
    
    
    // 네이버 로그인
  	@RequestMapping(value = "/login/naver", method = { RequestMethod.GET, RequestMethod.POST })
- 	public ModelAndView naverLogin(ModelAndView modelAndView, @RequestParam String code, @RequestParam String state, HttpSession session) throws IOException, ParseException {
+ 	public ModelAndView naverLogin(ModelAndView modelAndView, @RequestParam String code, @RequestParam String state, HttpSession session, RedirectAttributes redirectAttributes, HttpServletRequest request) throws IOException, ParseException {
  		
 		// 인가 코드로 토큰 획득
  		OAuth2AccessToken oauthToken;
@@ -171,7 +208,6 @@ public class MemberController {
         // 토큰으로 사용자 정보 받아오기
         String apiResult = naverLoginBO.getUserInfo(oauthToken);
         
-        System.out.println("네이버 컨트롤러 apiResult");
         
         // JSON 파싱
  		JsonParser parser = new JsonParser();
@@ -181,23 +217,140 @@ public class MemberController {
 		String id = jsonObj.getAsJsonObject().get("id").getAsString();
 		String email = jsonObj.getAsJsonObject().get("email").getAsString();
 		String nickname = jsonObj.getAsJsonObject().get("nickname").getAsString();
-
-		// 회원이면 로그인
+		String phone = jsonObj.getAsJsonObject().get("mobile").getAsString();
+		String name = jsonObj.getAsJsonObject().get("name").getAsString();
+		String birthS = jsonObj.getAsJsonObject().get("birthyear").getAsString() + "-" +jsonObj.getAsJsonObject().get("birthday").getAsString();
+		Date birth = Date.valueOf(birthS);
+		
+		// 회원찾기
 		Member loginMember = service.snsLogin(id);
-				
-//		 회원이 아니면 회원가입 페이지로 이동
+		
+		// 회원찾기 성공
 		if(loginMember != null) {
-			System.out.println(loginMember);
-			modelAndView.addObject("loginMember", loginMember);
-			modelAndView.setViewName("redirect:/");
+			if(loginMember.getStatus().equals("N")){
+	    		 // 정지된 회원인 경우
+	    		 modelAndView.addObject("msg", "정지된 회원입니다. 관리자에게 문의하세요");
+	             modelAndView.addObject("location", "/login");
+	             modelAndView.setViewName("common/msg");
+			}else {
+				// 로그인 성공
+				session = request.getSession();
+				session.setAttribute("loginMember", loginMember);
+				modelAndView.setViewName("redirect:/");
+			}
+		// 회원찾기 실패
 		} else {
-			modelAndView.addObject("msg", "네이버 로그인 실패");
+			// 회원정보를 찾지 못했을 때 email을 통해 다른 로그인회원인지 확인
+			Member findMember = service.findMemberByEmail(email);
+			
+			// 회원이 아니면(email로 못찾았을때) 회원가입 페이지로 이동
+			if(findMember == null) {
+				Member member = new Member();
+				member.setSnsId(id);
+				member.setEmail(email);
+				member.setNickname(nickname);
+				member.setLoginType("N");
+				member.setPhone(phone);
+				member.setName(name);
+				member.setBirth(birth);
+				redirectAttributes.addFlashAttribute("member", member);
+				modelAndView.setViewName("redirect:/enroll/sns");
+				return modelAndView;
+				
+			}else if(findMember.getLoginType()==null) {
+			// 일반회원
+				modelAndView.addObject("msg", "일반회원으로 이미 가입된 계정입니다."+ email + "일반 로그인 해주세요");
+			}else if(findMember.getLoginType().equals("K")) {
+			// 카카오
+				modelAndView.addObject("msg", "카카오로 이미 가입된 계정입니다."+ email + "카카오로 로그인 해주세요");
+			}else if(findMember.getStatus().equals("N")) {
+			// status == N 이면 정지된 회원
+				modelAndView.addObject("msg", "정지된 회원입니다. 관리자에게 문의해주세요.");
+			}else {
+				modelAndView.addObject("msg", "로그인에 실패 하셨습니다.");
+			}
 			modelAndView.addObject("location", "/login");
 			modelAndView.setViewName("common/msg");
 		}
-		
 		return modelAndView;
-
  	}
+    
+    // 일반 회원가입
+    @GetMapping(value="/enroll")
+    public String enroll(Model model) {
+ 	   log.info("enroll() = 호출");
+ 	   
+ 	   return "member/enroll";
+    }
+    
+    // 간편 회원가입
+    @GetMapping(value="/enroll/sns")
+    public String enrollSns(Model model,  @ModelAttribute("member") Member member) {
+ 	   log.info("enroll()간편로그인 = 호출");
+ 	   if(member.getLoginType() == null){
+ 		  model.addAttribute("msg", "다시 시도해 주세요.");
+ 		  model.addAttribute("location", "/login");
+ 		 return "common/msg";
+ 	   }else {
+ 		   model.addAttribute("msg",  "가입된 계정이 아닙니다. 회원가입을 먼저 진행해주세요.");
+ 		   model.addAttribute("member", member);
+ 		   return "member/enroll";
+ 	   }
+    }
+    
+    // 회원가입(Insert)
+    @PostMapping(value="/enroll")
+    public ModelAndView enrollInsert(ModelAndView modelAndView, @ModelAttribute Member member) {
+    	int result = 0;
+		
+    	if(member.getLoginType()==null) {
+    		result = service.save(member);
+    	}
+    	// 간편회원가입
+    	else {
+    		result = service.saveSns(member);
+    	}
+		
+		if(result > 0) {
+			modelAndView.addObject("msg", "환영합니다! 회원가입이 성공적으로 완료되었습니다.");
+			modelAndView.addObject("location", "/");
+		} else {
+			modelAndView.addObject("msg", "회원가입에 실패하였습니다.  다시 시도해주세요.");
+			modelAndView.addObject("location", "/enroll");
+			
+		}
+		
+		modelAndView.setViewName("common/msg");
+ 	   
+ 	   return modelAndView;
+    }
+ 	
+ 	// 아이디 중복확인
+ 	@ResponseBody
+	@PostMapping("/idCheck")
+	public boolean idCheck(@RequestParam String userId) {
+		
+ 		//아이디가 없으면 true, 있으면 false
+		return service.isDuplicateId(userId);
+	}
+ 	
+ 	// 닉네임 중복확인
+ 	@ResponseBody
+	@PostMapping("/nicknameCheck")
+	public boolean nicknameCheck(@RequestParam String nickname) {
+		
+ 		//닉네임이 없으면 true, 있으면 false
+		return service.isDuplicateNickname(nickname);
+	}
+ 	
+ 	// 이메일 중복확인
+  	@ResponseBody
+ 	@PostMapping("/emailCheck")
+ 	public boolean emailCheck(@RequestParam String email) {
+ 		
+  		//이메일이 없으면 true, 있으면 false
+ 		return service.isDuplicateEmail(email);
+ 	}
+	
    
 }

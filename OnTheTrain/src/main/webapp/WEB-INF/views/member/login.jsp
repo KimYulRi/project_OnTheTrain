@@ -16,6 +16,7 @@
 <body>
 	<section>
 	<div id="body">
+		<div id="content1">
 		<form action="${path}/login/in" method="POST">
 			<h2>로그인</h2>
 				<input type="text" id="userId" name="id" placeholder=" 아이디" 
@@ -34,19 +35,19 @@
 				
 				<input type="submit" id="loginbtn" value="로그인">
 			</form>
-			
-			<div class="atag-wrrap">
+		</div>
+		<div class="atag-wrrap">
 				<a href="#" class="atag" >아이디 찾기&nbsp;</a>
 				<span class="atag">|</span>
 				<a href="#" class="atag">&nbsp;비밀번호 찾기</a>
 				
 				<a href="${path}/enroll" class="atag" id="enroll">회원가입</a>
-			</div>
+		</div>
 			
-			<br>
 			
-			<a href="${Kurl}"><img class="noneButton" src="${ path }/images/member/kakao.png"></a><br>
-			<a href="${Nurl}"><img class="noneButton" src="${ path }/images/member/naver.png"></a><br>
+			<div><a href="${Kurl}"><img class="noneButton" src="${ path }/images/member/kakao.png"></a></div>
+			<div><a href="${Nurl}"><img class="noneButton" src="${ path }/images/member/naver.png"></a></div>
+			<div><a href="#"><img class="noneButton" src="${ path }/images/member/google.png"></a></div>
 
 	</div>
 	</section>
