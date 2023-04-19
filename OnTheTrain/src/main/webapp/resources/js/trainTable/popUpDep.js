@@ -98,6 +98,7 @@
     let selectedStationname = $(this).text(); // 수정된 부분
     $("#depPlaceId").val(selectedStationcode);
     $("#depPlaceText").val(selectedStationname);    
+    
       
 });
 			
@@ -109,7 +110,12 @@
 	          });
 	          });
 	          };
-	          
+	         
+function closePopup() {
+	$("#confirm").on('click' , function() {
+		winsdow.close();
+	})
+};
 
 	          
 	          

@@ -1,8 +1,11 @@
 #banner {
   background-image: url("../../images/trainTable/trainTableBanner.png");
   height: 100px;
-  margin: 30px 60px 30px 60px;
+  margin: 30px 60px 30px 180px;
   border-radius: 10px;
+  width: 1024px;
+ 
+  
 }
 #banner_text {
   height: 63px;
@@ -19,8 +22,8 @@
 }
 
 #ttable {
-  margin: 50px 60px 30px 60px;
   border-radius: 10px;
+  width:400px;
 }
 
 #topTable {
@@ -31,87 +34,43 @@
 
 /* body { background-color : skyblue; }  */
 
-.field {
+#field {
   text-align: center;
-  padding-left: 200px;
-}
-#calcal {
-  background-color: white;
-  height: 180px;
-  width: 180px;
-  left: 757px;
-  top: 504px;
-  border-radius: 12px;
-  padding: 30px;
-  /* border-width: 10px; */
-  box-shadow: 10px 10px 10px 10px rgba(0.2, 0.2, 0.2, 0.2);
+  padding-left: 10px;
 }
 
-td {
-  width: 1px;
-  height: 1px;
+fieldset {
+  display: inline-block;
+  width: 45%;
+  margin-right: 0px;
+  vertical-align: top;
 }
 
-.Calendar {
-  text-align: center;
+#ptable{
+  border-radius: 10px;
+  width: 300px;
+  height: 435px;
 }
 
-.Calendar > thead > tr:first-child > td {
-  font-family: "Questrial", sans-serif;
-  font-size: 0.8em;
-  font-weight: bold;
+
+#fields{
+  margin-left: 50px;
+
 }
 
-.Calendar > thead > tr:last-child > td {
-  font-family: "Questrial", sans-serif;
-  font-weight: 100;
+select{
+  margin: 10px;
 }
 
-.Calendar > tbody > tr > td > p {
-  font-family: "Montserrat", sans-serif;
-  height: 20px;
-  width: 20px;
-  border-radius: 45px;
-  transition-duration: 0.2s;
-  line-height: 20px;
-  margin: 1px;
-  display: block;
-  text-align: center;
-  font-size: 0.9em;
+option{
+  font-size: 15px;
 }
 
-.pastDay {
-  background-color: #ffffff;
-  cursor: pointer;
+#searchTrain{
+  margin-top: 30px;
+
 }
 
-.pastDay:hover{
-  background: #eee;
-}
-
-.today {
-  background-color: #8ea0df;
-  color: #fff;
-  font-weight: 60;
-  cursor: pointer;
-}
-
-.futureDay {
-  background-color: #ffffff;
-  cursor: pointer;
-}
-.futureDay:hover {
-  background: #eee;
-}
-
-.futureDay.choiceDay,
-.today.choiceDay,
-.pastDay.choiceDay {
-  background: #0a174e;
-  color: #fff;
-  font-weight: 40;
-  cursor: pointer;
-}
 
 #traintable_btn {
   background-color: #8ea0df;
@@ -166,6 +125,11 @@ a {
   height: 30px;
   width: 50px;
   font-size: large;
+}
+
+#depPlandTime{
+	margin:10px;
+	
 }
 
 #charge{

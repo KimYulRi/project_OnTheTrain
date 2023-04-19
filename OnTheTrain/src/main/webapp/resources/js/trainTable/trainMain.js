@@ -34,24 +34,43 @@ click: (event) =>
             let depname = rows[i]["depplacename"];
             let deptime = rows[i]["depplandtime"];
             let no = rows[i]["trainno"];
-            let time = arrtime - deptime;
+            
+			let deptimeString = deptime.toString(); // deptime을 문자열로 변환
+            let deptimeFormatted = `${deptimeString.substring(8, 10)}:${deptimeString.substring(10, 12)}`;
 
-            let chiChargeN = charge*(5-10/100) ;
-            let oldChargeN = charge*(7-10/100) ;
+            let arrtimeString = arrtime.toString(); // deptime을 문자열로 변환
+            let arrtimeFormatted = `${arrtimeString.substring(8, 10)}:${arrtimeString.substring(10, 12)}`;
+            
+            let duration = parseInt((arrtime - deptime) / 100); // 분 단위로 변환
+            let hours = Math.floor(duration / 60); // 시간 계산
+            let minutes = duration % 60; // 분 계산
+            
+            // 시간과 분을 문자열로 변환
+            let durationString = `${hours}시간 ${minutes}분`;
+
+            // 만약 분이 0분이면 "시간"이라는 단어를 생략합니다.
+            if (minutes === 0) {
+                durationString = `${hours}시간`;
+            }
+
+            if (hours === 0) {
+                durationString = `${minutes}분`
+            }
+            
 
         let html = `<table border="1px" align="center" id="myTable">
         <thead>
         <tr>
             <th width="50px">구분</th>
-            <th width="100px">열차 번호</th>
+            <th width="50px">열차 번호</th>
             <th width="80px">출발역</th>
             <th width="80px">도착역</th>
             <th>특실</th>
             <th>일반실</th>
-            <th width="50px">운임요금</th>
-            <th width="50px">소요시간</th>
-            <th width="50px">출발시간</th>
-            <th width="50px">도착시간</th>
+            <th width="80px">운임요금</th>
+            <th width="100px">소요시간</th>
+            <th width="80px">출발시간</th>
+            <th width="80px">도착시간</th>
         </tr>
         </thead>
         <tbody>
@@ -71,11 +90,11 @@ click: (event) =>
             <input type="submit" value="예약하기" style="cursor: pointer;">
           </td>
           <td>
-          ${charge}
+          ${charge}원
           </td>
-          <td>${time}</td>
-          <td>${arrtime}</td>
-          <td>${deptime}</td>
+          <td>${durationString}</td>
+          <td>${deptimeFormatted}</td>
+          <td>${arrtimeFormatted}</td>
           </tr>
         </tbody>
       </table>`;
@@ -107,8 +126,7 @@ click: (event) =>
             <td></td>
             <td></td>
             <td>${charge}</td>
-            <td>${chiChargeN}</td>
-            <td>${oldChargeN}</td>
+            
         </tr>
         <tr>
             <td>합계</td>

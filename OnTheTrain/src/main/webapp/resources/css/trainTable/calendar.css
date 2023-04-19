@@ -10,14 +10,16 @@
 }
 #calcal {
   background-color: white;
-  height: 180px;
-  width: 180px;
+  height: 200px;
+  width: 200px;
   left: 757px;
   top: 504px;
   border-radius: 12px;
   padding: 30px;
   /* border-width: 10px; */
   box-shadow: 10px 10px 10px 10px rgba(0.2, 0.2, 0.2, 0.2);
+  margin-left: 10px;
+  margin : 10px;
 }
 
 td {
@@ -27,11 +29,12 @@ td {
 
 .Calendar {
   text-align: center;
+  margin-left: 10px;
 }
 
 .Calendar > thead > tr:first-child > td {
   font-family: "Questrial", sans-serif;
-  font-size: 0.8em;
+  font-size: 1em;
   font-weight: bold;
 }
 

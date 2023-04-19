@@ -20,6 +20,8 @@
     <p id="citycode"></p>
     <p id="stationcode"></p>
     
+    <button id="confirm"><a href="javascript:closePopup()">확인</a></button>
+    
 	<script src="${ path }/js/trainTable/station.js"></script>
 	<script src="${ path }/js/trainTable/popUp.js"></script>
 </body>
