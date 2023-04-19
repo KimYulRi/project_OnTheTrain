@@ -15,3 +15,8 @@ const openModalButton = document.querySelector('.open-modal-button');
 		cancelButton.addEventListener('click', () => {
 			modal.style.display = 'none';
 		});
+		
+		
+		
+	
+});

@@ -206,22 +206,7 @@
     
     <jsp:include page="./accModal.jsp" />
     
-    <script>
-		$("#searchKeyword").keyup(function(e) {
-		    console.log("키업!");
-			var content = $(this).val();
-			$("#textLengthCheck").val("(" + content.length + "/ 200)"); //실시간 글자수 카운팅
-			if (content.length > 200) {
-				Alert("최대 200자까지 입력 가능합니다.");
-				$(this).val(content.substring(0, 200));
-				$('#textLengthCheck').html("(200 / 최대 200자)");
-			}
-		});
-		
-		
-	</script>
 	
-    <script src="${ path }/js/accommodation/accModal.js"></script>
     <script type="text/javascript">
 	    $(document).ready(() => {
 			lodgeList('0');
