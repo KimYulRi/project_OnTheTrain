@@ -1,4 +1,4 @@
-import { ctx, getCurrentComponent, } from "./schedulerCreate.js";
+import { ctx, getCurrentComponent } from "./schedulerCreate.js";
 
 import {
   addedEvents,
@@ -11,14 +11,16 @@ import {
 const addedComponentList = $("#addedComponent");
 const waitComponentList = $("#waitComponentList");
 const addcard_btn = $("#addCard");
-const deleteAllWait_btn = $("#deleteAllWait-button")
+const deleteAllWait_btn = $("#deleteAllWait-button");
 
 // 카드를 추가하는 함수
 // 카드 div 생성 함수
 function createNewCard(id, imgSrc, title, requiredDetail, optionalDetail) {
   // 아이디와 속성값 부여, 스타일을 위한 카드 클래스 부여
-  const newCard = $("<div>").addClass("card").attr("id", id).draggable();
-
+  const newCard = $("<div>").addClass("card").attr("id", id);
+  /*
+  .draggable();
+  */
   const cardThumbnail = $("<div>").addClass("cardThumbnail");
   const img = $("<img>").attr("src", imgSrc);
   cardThumbnail.append(img);
@@ -178,11 +180,11 @@ $(document).ready(() => {
     );
 
     waitEvents.push(event);
+    sessionStorage.setItem("waitEvents", waitEvents);
     console.log(waitEvents);
 
     hideModal("event");
   });
-
 });
 
-export { createNewCard, addNewCardtoArea, };
+export { createNewCard, addNewCardtoArea };

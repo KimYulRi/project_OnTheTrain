@@ -1,11 +1,11 @@
-import {
-  createNewCard,
-  addNewCardtoArea,
-} from "./schedulerModalModule.js";
+import { createNewCard, addNewCardtoArea } from "./schedulerModalModule.js";
+
+import { waitEvents } from "./schedulerComponent/schedulerEventModule.js";
 
 const addedComponentList = $("#addedComponent");
 const waitComponentList = $("#waitComponentList");
 const addcard_btn = $("#addCard");
+const noComponentArea = $("#noAddedComponentArea");
 
 function getContextPath() {
   return sessionStorage.getItem("contextpath");
@@ -13,6 +13,10 @@ function getContextPath() {
 
 function getCurrentComponent() {
   return sessionStorage.getItem("currentComponent");
+}
+
+function getWaitEvents() {
+  return sessionStorage.getItem("waitEvents");
 }
 
 const ctx = getContextPath();
@@ -124,7 +128,6 @@ $(document).ready(function () {
         .text("삭제모드ON")
         .addClass("delete-buttonOn");
       $("#deleteAllWait-button").show();
-
     } else {
       $("#waitDeleteMode-button")
         .text("삭제모드OFF")
@@ -162,8 +165,89 @@ $(document).ready(function () {
   });
 
   // 추가된 일정에 일정을 추가하는 함수
+  // waitComponent 에 등록된 요소를 찾아 내용을 가져오는 함수
+  function findIndexById(arr, id) {
+    for (let i = 0; i < arr.length; i++) {
+      if (arr[i].id === id) {
+        return i;
+      }
+    }
+    return -1; // 해당 id 값을 가진 요소가 없을 경우 -1 반환
+  }
 
-  createNewCard();
+  function findComponentByID(currentComponent, id) {
+    if (currentComponent === "event") {
+      let we = getWaitEvents();
+
+      let component = events[findIndexById(we, id)];
+      return component;
+    } else if (currentComponent === "accommodation") {
+      console.log("숙박 구현 중");
+    } else {
+      console.log("승차권 구현중");
+    }
+    return;
+  }
+
+  function findEventById(id) {
+    const event = waitEvents.find((event) => event.id === id);
+    return event ? { ...event } : null;
+  }
+
+  function addedComponentListVisable() {
+    noComponentArea.hide();
+    addedComponentList.show();
+  }
+
+  function noComponentAreaVisable() {
+    noComponentArea.show();
+  }
+
+  $(document).on("DOMNodeInserted", ".card", function () {
+    // 새로운 요소가 생성될 때마다 실행되는 이벤트 처리 함수
+
+    // 드래그 앤드 드롭 처리
+    $("#waitComponentList .card").draggable({
+      revert: true, // 드래그가 취소될 경우 원래 위치로 이동
+      zIndex: 100, // 드래그 중인 요소의 z-index 값
+      cursor: "move", // 드래그 커서 모양
+      start: function (event, ui) {
+        addedComponentListVisable();
+      
+      },
+      stop: function (event, ui) {
+        // 드래그가 종료될 때 실행될 콜백 함수
+
+        if (addedComponentList.find(".card").length === 0) {
+          // card 클래스를 가진 요소가 없는 경우
+          noComponentAreaVisable();
+        }
+      },
+    });
+
+    $("#noAddedComponentArea, #addedComponent, #waitComponentList").droppable({
+      drop: function (event, ui) {
+        let draggable = ui.draggable; // 드래그한 요소
+        let droppable = $(this); // 드롭 대상 요소
+
+        // 드래그한 요소를 드롭 대상 요소의 자식으로 추가
+        draggable.appendTo(droppable);
+      },
+    });
+
+    $(this).click(function () {
+      // 클릭 이벤트 처리
+      let eventId = $(this).attr("id"); // id 속성값 가져오기
+      console.log(eventId);
+      let selectedEvent = findEventById(eventId);
+
+      if (selectedEvent) {
+        console.log(selectedEvent.title);
+      } else {
+        console.log("해당 id를 가진 이벤트를 찾을 수 없습니다.");
+      }
+    });
+  });
 });
 
 export { ctx, getCurrentComponent };

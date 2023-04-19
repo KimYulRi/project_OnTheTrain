@@ -20,7 +20,8 @@
 <link rel="stylesheet" type="text/css"
 	href="${ path }/css/scheduler/calender/onthetrain_theme.css">
 <script src="${ path }/js/common/jquery-3.6.3.js"></script>
-<link rel="stylesheet" href="${ path }/css/common/jquery-ui.min.css">
+<link rel="stylesheet"
+	href="${ path }/css/scheduler/jquery-ui.schdeuler.css">
 <script src="${ path }/js/common/jquery-ui.min.js"></script>
 <title>Document</title>
 <link>
@@ -54,17 +55,18 @@
 			추가된
 			<div class="componentName">${basicComponent}</div>
 		</div>
-		<div id="noAddedComponentArea">
-			<div class="noAddedComponent">
-				<div class="noComponentImg"></div>
-				<div class="noComponentMsg">
-					추가된
-					<div class="componentName">${basicComponent}</div>
-					없음
+		<div id="addedComponent" class="components">
+			<div id="noAddedComponentArea">
+				<div class="noAddedComponent">
+					<div class="noComponentImg"></div>
+					<div class="noComponentMsg">
+						추가된
+						<div class="componentName">${basicComponent}</div>
+						없음
+					</div>
 				</div>
 			</div>
 		</div>
-		<div id="addedComponent" class="components"></div>
 		<hr>
 		<div class="title">
 			추가 대기 중인
@@ -86,6 +88,7 @@
 			<div class="componentName">${basicComponent}</div>
 			조회
 		</div>
+
 		<div id="searchComponent">
 			<select name="locationCode">
 				<option>지역 선택</option>
@@ -109,7 +112,8 @@
 			sessionStorage.setItem("currentComponent", "${currentComponent}");
 		</script>
 		<script src="${ path }/js/scheduler/calender/daypilot-all.min.js"></script>
-		<script type="module" src="${ path }/js/scheduler/schedulerModalModule.js"></script>
+		<script type="module"
+			src="${ path }/js/scheduler/schedulerModalModule.js"></script>
 		<script type="module" src="${ path }/js/scheduler/schedulerCreate.js"></script>
 		<script
 			src="${ path }/js/scheduler/calender/schedulerCreateCalender.js"></script>

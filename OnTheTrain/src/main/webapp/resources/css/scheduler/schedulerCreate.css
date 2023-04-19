@@ -112,6 +112,7 @@ article {
   text-align: center;
 }
 
+
 .title {
   margin-top: 20px;
   margin-bottom: 20px;
@@ -122,6 +123,10 @@ article {
   font-size: 20px;
   line-height: 29px;
   width: 1024px;
+}
+
+#noAddedComponentArea {
+  width: 100%;
 }
 
 .noAddedComponent {
@@ -151,7 +156,8 @@ article {
 
 #addedComponent {
   width: 100%;
-  display: none;
+  min-height: 250px;
+  
 }
 
 .components {
