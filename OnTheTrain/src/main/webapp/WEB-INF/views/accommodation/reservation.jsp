@@ -27,153 +27,135 @@
         </div>    
 <!--사진 아래 영역-->            
         <div id="contentFrame">
-<!--왼쪽 내용 영역-->                
-            <div id="accomodationName">${ accommodation.name }</div>
-            <div id="reviewCount">후기22개</div>
-
-            <div id="leftContent">
-                <div class="font15" id="calendarClick"><hr class="line">날짜 선택</div>
-                <div>체크인 <input type="datetime-local"></div>
-                <div>체크아웃 <input type="datetime-local"></div>
-                <div id="reservStar"><hr class="line">
-                    <div id="stara">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
-                        <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
-                        </svg> 4.86(466)
-                    </div>
-                    <div id="reviewAccounta">후기22개</div>
+<!--왼쪽 내용 영역-->         
+	<div id="leftContent">       
+    	<div id="accomodationName">${ accommodation.name }</div>
+        <hr class="line">
+        <div class="font15">전화번호</div>
+	    <div class="font15 left" id="call">${ accommodation.explain }</div>
+	    
+	    <br>
+        <hr class="line">
+        <div class="font15" id="address">주소</div>
+     	<div class="font15" id="addressData">${ accommodation.location } </div>
+     	
+        <!-- 지도 위도 경 -->
+        <%-- <div id="map"><img src="${ path }/images/accommodation/" alt=""></div> --%>
+        <div class="font15" id="calendarClick"><hr class="line">날짜 선택</div>
+        <div>체크인 <input type="datetime-local"></div>
+        <div>체크아웃 <input type="datetime-local"></div>
+        <div id="reservStar"><hr class="line"></div>
+        <div id="stara">
+            <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+            <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+            </svg> 4.86(466)
+        </div>
+        <div id="reviewAccounta">후기22개</div>
+        
+        <!-- 후기 -->
+        <div id="reviewFrame">
+        	<!--왼쪽-->	
+            <div id="top">
+            	<div id="reviewLeft">
+	                <div class="reviewTop">
+		                <div class="left leftText">접근성</div>
+		                <div><hr class="shortLine"></div>
+		                <div class="right reviewPoint">3.6</div>
+	            	</div>
+	                <div class="reviewMiddle">
+		                <div class="left leftText">접근성</div>
+		                <div><hr class="shortLine"></div>
+		                <div class="right reviewPoint">3.6</div>
+	            	</div>
+	                <div class="reviewBottom">
+		                <div class="left leftText">접근성</div>
+		                <div><hr class="shortLine"></div>
+		                <div class="right reviewPoint">3.6</div>
+	            	</div>
                 </div>
-                <!-- 후기 -->
-                <div id="reviewFrame">
-                    <!--왼쪽-->
-                    <div id="top">
-                        <div id="reviewLeft">
-	                        <div class="reviewTop">
-		                        <div class="left leftText">접근성</div>
-		                        <div><hr class="shortLine"></div>
-		                        <div class="right reviewPoint">3.6</div>
-                    		</div>
-	                        <div class="reviewMiddle">
-		                        <div class="left leftText">접근성</div>
-		                        <div><hr class="shortLine"></div>
-		                        <div class="right reviewPoint">3.6</div>
-                    		</div>
-	                        <div class="reviewBottom">
-		                        <div class="left leftText">접근성</div>
-		                        <div><hr class="shortLine"></div>
-		                        <div class="right reviewPoint">3.6</div>
-                    		</div>
-                        </div>
-                        <!--오른쪽-->
-                        <div id="reviewRight">
-	                        <div class="reviewTop">
-		                        <div class="left leftText">접근성</div>
-		                        <div><hr class="shortLine"></div>
-		                        <div class="right reviewPoint">3.6</div>
-                    		</div>
-	                        <div class="reviewMiddle">
-		                        <div class="left leftText">접근성</div>
-		                        <div><hr class="shortLine"></div>
-		                        <div class="right reviewPoint">3.6</div>
-                    		</div>
-	                        <div class="reviewBottom">
-		                        <div class="left leftText">접근성</div>
-		                        <div><hr class="shortLine"></div>
-		                        <div class="right reviewPoint">3.6</div>
-                    		</div>
-                        </div>
-                    </div>
-                    <div id="bottom">
-                        <!--왼쪽-->
-                        <div id="reviewArea">
-                            <div>
-		                        <div class="left userImg"></div>
-		                       	<div class="left">
-			                        <div class="reviewNick">닉네임</div>
-			                        <div class="cDate">${ reviews.createDate }</div>
-			                        <div class="starPoint">${ reviews.starPoint }</div>
-		                       	</div>
-                    		</div>
-                    		<div class="left reviewContent">${ reviews.content }</div>
-                            <div>
-		                        <div class="left userImg"></div>
-		                       	<div class="left">
-			                        <div class="reviewNick">닉네임</div>
-			                        <div class="cDate">2023.03.20</div>
-		                       	</div>
-                    		</div>
-                    		<div class="left reviewContent">
-                    			 너무 만족스러웠고 탁 트인 광경이 만족스러웠습니다.너무 만족스러웠고 탁 트인 광경이 만족스러웠습니다. 너무 만족스러웠고 탁 트인 광경이 만족스러웠습니다. 너무 만족스러웠고 탁 트인 광경이 만족스러웠습니다. 너무 만족스러웠고 탁 트인 광경이 만족스러웠습니다.  
-                    		</div>
-                        </div>
-                        <!--오른쪽-->
-                        <div id="reviewRight">
-                            <div>
-		                        <div class="left userImg"></div>
-		                       	<div class="left">
-			                        <div class="reviewNick">닉네임</div>
-			                        <div class="cDate">2023.03.20</div>
-		                       	</div>
-                    		</div>
-                    		<div class="left reviewContent">
-                    			너무 만족스러웠고 탁 트인 광경이 만족스러웠습니다. 
-                    		</div>
-                            <div>
-		                        <div class="left userImg"></div>
-		                       	<div class="left">
-			                        <div class="reviewNick">닉네임</div>
-			                        <div class="cDate">2023.03.20</div>
-		                       	</div>
-                    		</div>
-                    		<div class="left reviewContent">
-                    			너무 만족스러웠고 탁 트인 광경이 만족스러웠습니다. 
-                    		</div>
-                        </div>
-                    </div>
-                    <div class="star-ratings">
-						<div 
-					    class="star-ratings-fill space-x-2 text-lg"
-					    :style="{ width: ratingToPercent + '%' }"
-						>
-							<span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
-						</div>
-						<div class="star-ratings-base space-x-2 text-lg">
-							<span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
-						</div>
-					</div>
-					
-                    <!-- 리뷰 작성하기 버튼 -->
-					<a href="${ path }/accommodation/review?no=${accommodation.no}" class="btn btn-primary">리뷰작성</a>
-                    
-                    <button class="open-modal-button">작성하기</button>
-                    
+                <!--오른쪽-->
+                <div id="reviewRight">
+	                <div class="reviewTop">
+		                <div class="left leftText">접근성</div>
+		                <div><hr class="shortLine"></div>
+		                <div class="right reviewPoint">3.6</div>
+	            	</div>
+	                <div class="reviewMiddle">
+		                <div class="left leftText">접근성</div>
+		                <div><hr class="shortLine"></div>
+		                <div class="right reviewPoint">3.6</div>
+	            	</div>
+                 	<div class="reviewBottom">
+		                 <div class="left leftText">접근성</div>
+		                 <div><hr class="shortLine"></div>
+		                 <div class="right reviewPoint">3.6</div>
+            		</div>
                 </div>
-               
-                <hr class="line">
-                	<div class="font15">전화번호</div>
-	                <div class="font15 left" id="call">${ accommodation.explain }</div>
-                <hr class="line">
-                <div class="font15" id="address">주소</div>
-	            <div class="font15" id="addressData">${ accommodation.location } </div>
-                <!-- 지도 -->
-                <%-- <div id="map"><img src="${ path }/images/accommodation/" alt=""></div> --%>
-        </div> 
+            </div>
+            <div id="bottom">
+                <div id="reviewArea">
+                	<!--왼쪽-->
+                	<div id="reviewLeft">
+                   		<div class="left userImg"></div>
+                  		<div class="left">
+		                    <div class="reviewNick">${ reviews[0].nickname }</div>
+		                    <div class="cDate"><fmt:formatDate type="date" value="${ reviews[0].createDate }"/></div>
+                  		</div>
+	             		<div class="left reviewContent">
+	             			${ reviews[0].content } 
+	             		</div>
+             		
+	             		<div class="left userImg"></div>
+	                  	<div class="left">
+		                    <div class="reviewNick">${ reviews[1].nickname }</div>
+		                     <div class="cDate"><fmt:formatDate type="date" value="${ reviews[1].createDate }"/></div>
+	                  	</div>
+	             		<div class="left reviewContent">
+	             			${ reviews[1].content } 
+	             		</div>
+            		</div>
+            		
+            		<!--오른쪽-->
+            		<div id="reviewRight">
+                   		<div class="left userImg"></div>
+                  		<div class="left">
+		                    <div class="reviewNick">${ reviews[2].nickname }</div>
+		                    <div class="cDate"><fmt:formatDate type="date" value="${ reviews[2].createDate }"/></div>
+                  		</div>
+	             		<div class="left reviewContent">
+	             			${ reviews[2].content }  
+	             		</div>
+             		
+	             		<div class="left userImg"></div>
+	                  	<div class="left">
+		                    <div class="reviewNick">${ reviews[3].nickname }</div>
+		                     <div class="cDate"><fmt:formatDate type="date" value="${ reviews[3].createDate }"/></div>
+	                  	</div>
+	             		<div class="left reviewContent">
+	             			${ reviews[3].content }  
+	             		</div>
+            		</div>
+            		
+           		</div>
+             </div>
+       	</div>
+            <!-- 리뷰 작성하기 버튼 -->
+		<a href="${ path }/accommodation/review?no=${accommodation.no}" class="btn btn-primary">리뷰작성</a>
+	</div> 
 
 <!--오른쪽 옵션창-->
             <div id="rightFrame">
                 <div id="optionBox">
-<!--첫번째 줄-->                    
                     <div class="optionFrame">
-                        <div id="onedayPrice">${ accommodation.price }</div>
+                        <div id="onedayPrice"><fmt:formatNumber value="${ accommodation.price }"/>원</div>
                         <div id="accomodaionDay"> / 박</div>
                         <div class="right" id="topStar">
                             <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
                                 <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
                             </svg> 4.86
                         </div>
-                        <div class="right" id="topReview">${reviews.starPoint }</div>
+                        <div class="right" id="topReview">${reviews[0].starPoint }</div>
                     </div>
-<!--박스 체크인,아웃, 인원-->
                         <div id="accomodationStatus">
                             <div id="check">
 	                            <div id="checkIn">체크인</div>
@@ -185,19 +167,16 @@
                         </div>
                         <button class="button" type="button" id="reservBtn">예약하기</button>
                         <div id="warning">결제 전에는 예약이 확정되지 않습니다.</div>
-                        
 					<div class="optionFrame" id="bottom1">
-                        <div id="onedayPrice">${ accommodation.price }</div>
+                        <div id="onedayPrice"><fmt:formatNumber value="${ accommodation.price }"/>원</div>
                         <div id="accomodaionDay"> x 1박</div>
-                        <div class="right">${ accommodation.price }원</div>
+                        <div class="right"><fmt:formatNumber value="${ accommodation.price }"/>원</div>
                     </div>
-                    
                     <div id="refund">환불약관</div>
                     <hr class="line">
-                    
                     <div id="bottom2">
                         <div class="left">총합계</div>
-                        <div class="right" id="totalPrice">${ accommodation.price }원</div>
+                        <div class="right" id="totalPrice"><fmt:formatNumber value="${ accommodation.price }"/>원</div>
                     </div>
                 </div>               
             </div>

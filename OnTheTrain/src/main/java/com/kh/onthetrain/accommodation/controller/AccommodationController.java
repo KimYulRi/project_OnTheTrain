@@ -41,8 +41,10 @@ public class AccommodationController {
 		List<Review> reviews = service.getReviewsByNo(no);
 		
 		System.out.println(accommodation);
+		System.out.println(reviews);
 		
 		modelAndView.addObject("accommodation", accommodation);
+		modelAndView.addObject("reviews", reviews);
 		modelAndView.setViewName("accommodation/reservation");
 		
 		return modelAndView;
