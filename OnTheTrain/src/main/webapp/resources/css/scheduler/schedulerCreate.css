@@ -150,6 +150,7 @@ article {
 }
 
 #addedComponent {
+  width: 100%;
   display: none;
 }
 
@@ -197,6 +198,10 @@ article {
   background: #D4062B;
   color: white;
   border : none;
+}
+
+#deleteAllWait-button {
+  display: none;
 }
 
 .components > div {
@@ -249,6 +254,7 @@ article {
 #addCard > div {
   box-sizing: border-box;
   width: 100%;
+  height: 100%;
   border: 1px solid #d3d2d2;
   border-radius: 10px;
   display: flex;
@@ -256,7 +262,7 @@ article {
   justify-content: center;
 }
 
-#addCard > div > button {
+#addCard button {
   width: 26.35px;
   height: 31.62px;
   border: none;

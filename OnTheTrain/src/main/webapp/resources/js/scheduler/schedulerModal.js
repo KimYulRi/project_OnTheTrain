@@ -32,7 +32,11 @@ $(document).ready(() => {
     requiredDetail,
     optionalDetail
   ) {
-    const newCard = $("<div>").addClass("card").attr("id", id);
+    // 아이디와 속성값 부여, 스타일을 위한 카드 클래스 부여
+    const newCard = $("<div>")
+      .addClass("card")
+      .attr("id", id)
+      .draggable();
 
     const cardThumbnail = $("<div>").addClass("cardThumbnail");
     const img = $("<img>").attr("src", imgSrc);

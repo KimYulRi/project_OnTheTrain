@@ -20,6 +20,8 @@
 <link rel="stylesheet" type="text/css"
 	href="${ path }/css/scheduler/calender/onthetrain_theme.css">
 <script src="${ path }/js/common/jquery-3.6.3.js"></script>
+<link rel="stylesheet" href="${ path }/css/common/jquery-ui.min.css">
+<script src="${ path }/js/common/jquery-ui.min.js"></script>
 <title>Document</title>
 <link>
 </head>
@@ -67,14 +69,17 @@
 		<div class="title">
 			추가 대기 중인
 			<div class="componentName">${basicComponent}</div>
-			<button id="waitDeleteMode-button" class="delete-button">삭제모드</button>
+			<button id="waitDeleteMode-button" class="delete-button">삭제모드OFF</button>
+			<button id="deleteAllWait-button" class="delete-button">모두
+				삭제</button>
 		</div>
 		<div id="waitComponentList" class="components">
 			<div id="addCard">
-				<div id="addCard">
+				<div>
 					<button>+</button>
 				</div>
 			</div>
+			<div class="card" draggable="true">TestCard</div>
 		</div>
 		<hr>
 		<div class="title">
