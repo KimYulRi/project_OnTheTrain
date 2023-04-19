@@ -25,6 +25,17 @@
 	    <result property="modifyDate" column="MODIFY_DATE" />
   </resultMap>
   
+  <resultMap id="reviewResultMap" type="com.kh.onthetrain.accommodation.model.vo.Review">
+	    <id column="NO" property="no" />
+	    <result column="MEMBER_NO" property="memberNo" />
+	    <result column="ACCOMMODATION_NO" property="accommodationNo" />
+	    <result column="CONTENT" property="content" />
+	    <result column="STARPOINT" property="starPoint" />
+	    <result column="CREATE_DATE" property="createDate" />
+	    <result column="MODIFY_DATE" property="modifyDate" />
+ </resultMap>
+  
+  
 	<select id="findProductByNo" parameterType="String" resultMap="accommodationResultMap">
 		  SELECT  NO,
 		          PRICE,
@@ -48,4 +59,27 @@
 		FROM REVIEW 
 		WHERE ACCOMMODATION_NO = #{no}
 	</select>
+	
+	<insert id="insertReview" parameterType="Review" 
+	 useGeneratedKeys="true" keyColumn="NO" keyProperty="no">
+	    INSERT INTO REVIEW (
+						    NO,   
+						    MEMBER_NO, 
+						    ACCOMMODATION_NO, 
+						    CONTENT,
+						    STARPOINT,
+						    CREATE_DATE,
+						    MODIFY_DATE
+							)
+							VALUES(
+							    SEQ_REVIEW_NO.NEXTVAL, 
+							    #{ memberNo }, 
+							    #{ accommodationNo }, 
+							    #{ content },
+							    #{ starPoint },
+							    SYSDATE,
+        						SYSDATE
+							)
+     </insert>
+     
 </mapper>

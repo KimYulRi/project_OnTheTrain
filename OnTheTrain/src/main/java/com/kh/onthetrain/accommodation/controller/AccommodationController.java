@@ -50,24 +50,37 @@ public class AccommodationController {
 	
 	@GetMapping("/accommodation/review")
 	public String review(Model model, @RequestParam String no) {
-		System.out.println("여기로?");
 	    Accommodation accommodation = service.findProductByNo(no);
 	    model.addAttribute("accommodation", accommodation);
 	    return "accommodation/review";
 	}
 	
+	//리뷰작성 업로드 
 	@PostMapping("/accommodation/review")
-	public String createReview(@Validated Review review, BindingResult bindingResult, Model model) {
-	    if (bindingResult.hasErrors()) {
-	        // 검증 오류가 발생한 경우
+	public ModelAndView createReview(ModelAndView modelAndView, @Validated Review review, BindingResult bindingResult, Model model) {
+		// 검증 오류가 발생한 경우 입력폼으로 돌아
+	    
+		if (bindingResult.hasErrors()) {
 	        model.addAttribute("review", review);
-	        return "accommodation/reviewForm";
+	        modelAndView.addObject("location", "accommodation/review");
+	        
+	        return modelAndView;
 	    }
-	    
-	    // 검증 오류가 발생하지 않은 경우
-	    // 리뷰 생성 로직 수행
-	    
-	    return "redirect:/accommodation/list";
-	}
 
+	    // 리뷰 생성 로직 수행
+	    int result = service.insertReview(review);
+	    
+	    if(result > 0 ) {
+	    	modelAndView.addObject("msg", "성공");
+	    	modelAndView.addObject("location", "/accommodation/reservation?no=" + review.getAccommodationNo());
+	    	
+	    } else {
+	    	modelAndView.addObject("location", "/accommodation/review");
+			modelAndView.addObject("msg", "실패");
+		}
+	   
+	   modelAndView.setViewName("common/msg");
+	   
+	    return modelAndView;
+	}
 }

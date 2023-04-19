@@ -12,6 +12,8 @@ public interface AccommodationService {
 	List<Review> getReviewsByNo(String no);
 
 	void writeReview(Review review);
+
+	int insertReview(Review review);
 	
 	
 }
