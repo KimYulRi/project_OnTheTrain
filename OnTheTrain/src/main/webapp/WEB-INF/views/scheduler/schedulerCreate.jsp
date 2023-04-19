@@ -109,9 +109,8 @@
 			sessionStorage.setItem("currentComponent", "${currentComponent}");
 		</script>
 		<script src="${ path }/js/scheduler/calender/daypilot-all.min.js"></script>
-		<script type="module" src="${ path }/js/scheduler/schedulerModal.js">
-		<script src="${ path }/js/scheduler/schedulerModal.js"></script>
-		<script src="${ path }/js/scheduler/schedulerCreate.js"></script>
+		<script type="module" src="${ path }/js/scheduler/schedulerModalModule.js"></script>
+		<script type="module" src="${ path }/js/scheduler/schedulerCreate.js"></script>
 		<script
 			src="${ path }/js/scheduler/calender/schedulerCreateCalender.js"></script>
 	</article>

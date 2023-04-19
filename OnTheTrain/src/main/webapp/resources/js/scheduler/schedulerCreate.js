@@ -1,11 +1,28 @@
-var ctx = getContextPath();
+import {
+  createNewCard,
+  addNewCardtoArea,
+} from "./schedulerModalModule.js";
+
+const addedComponentList = $("#addedComponent");
+const waitComponentList = $("#waitComponentList");
+const addcard_btn = $("#addCard");
+
 function getContextPath() {
   return sessionStorage.getItem("contextpath");
 }
 
-let waitDeleteMode = false;
+function getCurrentComponent() {
+  return sessionStorage.getItem("currentComponent");
+}
+
+const ctx = getContextPath();
+
+// 삭제 모드 버튼
+export var waitDeleteMode = false;
+const waitDeleteModeBtn = $("#waitDeleteMode-button");
 
 $(document).ready(function () {
+  let currentComponent = getCurrentComponent();
   // 요소 클릭 시 해당 요소와 관련된 내용을 표시하도록 하는 함수
   $(".componentText").click(function () {
     var component = $(this).data("component");
@@ -46,7 +63,7 @@ $(document).ready(function () {
     });
   });
 
-  // locationCode가 바뀔 때마다 실행되는 함수
+  // (일정) locationCode가 바뀔 때마다 실행되는 함수
   $("select[name='locationCode']").on("change", function () {
     var locationCode = $(this).val(); // 선택된 값 가져오기
     $.ajax({
@@ -98,15 +115,16 @@ $(document).ready(function () {
     });
   });
 
-  // 삭제 모드 버튼 클릭 이벤트
+  // 추가 대기 중인 요소 삭제 모드 버튼 클릭 이벤트
   const deleteModeBtn = $("#waitDeleteMode-button");
-  deleteModeBtn.on("click", () => {
+  waitDeleteModeBtn.on("click", () => {
     waitDeleteMode = !waitDeleteMode;
     if (waitDeleteMode) {
       $("#waitDeleteMode-button")
         .text("삭제모드ON")
         .addClass("delete-buttonOn");
       $("#deleteAllWait-button").show();
+
     } else {
       $("#waitDeleteMode-button")
         .text("삭제모드OFF")
@@ -133,7 +151,7 @@ $(document).ready(function () {
     });
   });
 
-  // 추가 대기 중인 요소 모두 삭제
+  // 삭제 모드 활성화시 추가 대기 중인 요소 모두 삭제
   $("#deleteAllWait-button").on("click", () => {
     if (confirm("정말로 모든 대기 중인 항목을 삭제하시겠습니까?")) {
       $(".filtered").remove();
@@ -143,37 +161,9 @@ $(document).ready(function () {
     }
   });
 
+  // 추가된 일정에 일정을 추가하는 함수
 
-
-  // 드래그앤드롭 설정
-  $("#waitComponentList .card").draggable();
-  // droppable 설정
-  $("#addedComponent, .noAddedComponent").droppable({
-    drop: function (event, ui) {
-      var draggableElement = ui.draggable;
-      var droppableElement = $(this);
-
-      // 추가 영역에 드랍할 경우
-      if (droppableElement.attr("id") == "addedComponent") {
-        draggableElement.appendTo(droppableElement);
-      } else {
-        // 추가 영역 외 영역에 드랍할 경우
-        if ($("#addComponent .card").length == 0) {
-          $("#addComponent").hide();
-          $("#noComponentArea").show();
-        }
-      }
-    },
-  });
-
-  // #noComponentArea 초기화
-  if ($("#noComponentArea .card").length > 0) {
-    $("#noComponentArea").hide();
-  }
-
-  // #addComponent 초기화
-  if ($("#addComponent .card").length == 0) {
-    $("#addComponent").hide();
-    $("#noComponentArea").show();
-  }
+  createNewCard();
 });
+
+export { ctx, getCurrentComponent };

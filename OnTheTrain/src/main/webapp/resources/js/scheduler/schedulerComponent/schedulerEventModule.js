@@ -1,3 +1,8 @@
+
+import {
+  ctx,
+} from "../schedulerCreate.js"
+
 // event 객체를 관리할 배열 생성
 const addedEvents = [];
 const waitEvents = [];
