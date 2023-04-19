@@ -107,6 +107,13 @@
    		WHERE EMAIL = #{email} AND (STATUS='Y' OR STATUS='N')
 	</select>
 	
+	<!-- name, email으로 아이디 찾기(아이디) -->
+	<select id="findId" parameterType="string" resultType="String">
+		 SELECT ID
+		 FROM MEMBER
+		 WHERE NAME = #{name} AND EMAIL = #{email} AND (STATUS='Y' OR STATUS='N')
+	</select>
+	
 	<!-- 회원삽입 (일반 회원가입) -->
 	<insert id="insertMember" parameterType="Member"
 	       useGeneratedKeys="true" keyColumn="NO" keyProperty="no">
@@ -179,15 +186,13 @@
     </insert>
     <!-- 회원삽입 (SNS_MEMBER 테이블) -->
 	<insert id="insertLinkedSns" parameterType="Member">
-	    	INSERT INTO SNS_MEMBER (
-			    MEMBER_NO,
-			    CODE, 
-			    SNS_ID
-			) VALUES(
-			    #{no},
-			    #{loginType}, 
-			    #{snsId}
-			)
+	    	INSERT INTO SNS_MEMBER (MEMBER_NO, CODE, SNS_ID)
+	    	 VALUES( #{no}, #{loginType}, #{snsId} )
     </insert>
+    <!-- 비밀번호 재설정 -->
+    <update id="updatePwd" parameterType="String">
+    		UPDATE MEMBER SET PASSWORD=#{password}
+			WHERE ID=#{id} AND EMAIL=#{email}
+    </update>
 
 </mapper>

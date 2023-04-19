@@ -2,12 +2,15 @@ package com.kh.onthetrain.member.controller;
 
 import java.io.IOException;
 import java.sql.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.lang3.RandomStringUtils;
 import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -30,6 +33,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.kh.onthetrain.member.api.KakaoLoginBo;
 import com.kh.onthetrain.member.api.NaverLoginBo;
+import com.kh.onthetrain.member.api.SendEmail;
 import com.kh.onthetrain.member.model.vo.Member;
 import com.kh.onthetrain.member.service.MemberService;
 
@@ -180,18 +184,20 @@ public class MemberController {
 				
 			}else if(findMember.getLoginType()==null) {
 			// 일반회원
-				modelAndView.addObject("msg", "일반회원으로 이미 가입된 계정입니다."+ email + "일반 로그인 해주세요");
+				modelAndView.addObject("msg1", "일반회원으로 이미 가입된 계정입니다.");
+				modelAndView.addObject("msg2",  email + " 일반 로그인 해주세요");
 			}else if(findMember.getLoginType().equals("N")) {
 			// 네이버
-				modelAndView.addObject("msg", "네이버로 이미 가입된 계정입니다."+ email + "네이버로 로그인 해주세요");
+				modelAndView.addObject("msg1", "네이버로 이미 가입된 계정입니다.");
+				modelAndView.addObject("msg2",   email + " 네이버로 로그인 해주세요");
 			}else if(findMember.getStatus().equals("N")) {
 			// status == N 이면 정지된 회원
-				modelAndView.addObject("msg", "정지된 회원입니다. 관리자에게 문의해주세요.");
+				modelAndView.addObject("msg1", "정지된 회원입니다. 관리자에게 문의해주세요.");
 			}else {
-				modelAndView.addObject("msg", "로그인에 실패 하셨습니다.");
+				modelAndView.addObject("msg1", "로그인에 실패 하셨습니다.");
 			}
 			modelAndView.addObject("location", "/login");
-			modelAndView.setViewName("common/msg");
+			modelAndView.setViewName("member/loginMsg");
 		}
        return modelAndView;
 	}
@@ -259,18 +265,20 @@ public class MemberController {
 				
 			}else if(findMember.getLoginType()==null) {
 			// 일반회원
-				modelAndView.addObject("msg", "일반회원으로 이미 가입된 계정입니다."+ email + "일반 로그인 해주세요");
+				modelAndView.addObject("msg1", "일반회원으로 이미 가입된 계정입니다.");
+				modelAndView.addObject("msg2",  email + " 일반 로그인 해주세요");
 			}else if(findMember.getLoginType().equals("K")) {
 			// 카카오
-				modelAndView.addObject("msg", "카카오로 이미 가입된 계정입니다."+ email + "카카오로 로그인 해주세요");
+				modelAndView.addObject("msg1", "카카오로 이미 가입된 계정입니다.");
+				modelAndView.addObject("msg2",   email + " 카카오로 로그인 해주세요");
 			}else if(findMember.getStatus().equals("N")) {
 			// status == N 이면 정지된 회원
-				modelAndView.addObject("msg", "정지된 회원입니다. 관리자에게 문의해주세요.");
+				modelAndView.addObject("msg1", "정지된 회원입니다. 관리자에게 문의해주세요.");
 			}else {
-				modelAndView.addObject("msg", "로그인에 실패 하셨습니다.");
+				modelAndView.addObject("msg1", "로그인에 실패 하셨습니다.");
 			}
 			modelAndView.addObject("location", "/login");
-			modelAndView.setViewName("common/msg");
+			modelAndView.setViewName("member/loginMsg");
 		}
 		return modelAndView;
  	}
@@ -351,6 +359,57 @@ public class MemberController {
   		//이메일이 없으면 true, 있으면 false
  		return service.isDuplicateEmail(email);
  	}
-	
-   
+
+    // 아이디 찾기 페이지
+    @GetMapping(value="/login/find")
+    public String findId(Model model) {
+ 	   log.info("findId() = 호출");
+ 	   
+ 	   return "member/findId";
+    }
+    
+    // 아이디 찾기
+    @ResponseBody
+    @PostMapping(value="/login/find")
+    public Map<String, String> findId(@RequestParam String name, @RequestParam String email) {
+    	log.info("findId() = 호출");
+    	Map<String, String> map = new HashMap<>();
+    	String id = service.findId(name, email);
+    	if(id!=null) {
+    		if(id.length()==4) {id = id.substring(0,2)+ "**";}
+    		else {id = id.substring(0,id.length()-3)+ "***";}
+    	}
+    	map.put("id", id);
+    	return map;
+    }
+    
+
+    // 비밀번호 찾기 페이지
+    @GetMapping(value="/login/findPw")
+    public String findPwd(Model model) {
+ 	   log.info("findPwd() = 호출");
+ 	   
+ 	   return "member/findPwd";
+    }
+    
+    // 비밀번호 임시비밀번호 update, 메일전송
+    @ResponseBody
+    @PostMapping(value="/login/findPw")
+    public Map<String, String> findPwd(Model model, @RequestParam String id, @RequestParam String email) {
+ 	  log.info("post findPwd() = 호출");
+ 	  Map<String, String> map = new HashMap<>();
+ 	  String password = RandomStringUtils.randomAlphanumeric(10);
+ 		
+ 	  int result = service.updatePwd(id, email, password);
+ 	  // id, email에 해당하는 회원의 비밀번호 재설정
+ 	  if(result > 0) {
+ 		  SendEmail.sendEmail(email, password);
+ 		  map.put("update", "true");
+		} else {
+			map.put("update", null);
+		}
+ 	   
+ 	  return map ;
+    }
+    
 }

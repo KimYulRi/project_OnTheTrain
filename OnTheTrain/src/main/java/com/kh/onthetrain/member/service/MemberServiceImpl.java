@@ -120,5 +120,22 @@ public class MemberServiceImpl implements MemberService {
 		}
 		
 	}
+	
+	// name, email과 일치하는 회원찾기 (아이디찾기)
+	@Override
+	public String findId(String name, String email) {
+		
+		String id = mapper.findId(name,email);
+		
+		return id;
+	}
+	
+	// 비밀번호 재설정
+	@Override
+	@Transactional
+	public int updatePwd(String id, String email, String password) {
+		int result = mapper.updatePwd(id, email, passwordEncoder.encode(password));
+		return result;
+	}
 
 }

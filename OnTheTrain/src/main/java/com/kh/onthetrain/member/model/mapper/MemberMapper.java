@@ -28,4 +28,10 @@ public interface MemberMapper {
 	
 	// email으로 회원찾기(snsMember 연결해서 조회)
 	Member findMemberByEmail(@Param("email") String email);
+	
+	// name, email과 일치하는 회원찾기 (아이디찾기)
+	String findId(@Param("name") String name, @Param("email") String email);
+	
+	// 비밀번호 재설정
+	int updatePwd(@Param("id") String id, @Param("email") String email, @Param("password") String password);
 }

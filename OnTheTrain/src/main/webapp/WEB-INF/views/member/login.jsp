@@ -37,9 +37,9 @@
 			</form>
 		</div>
 		<div class="atag-wrrap">
-				<a href="#" class="atag" >아이디 찾기&nbsp;</a>
+				<a href="${path}/login/find" class="atag" >아이디 찾기&nbsp;</a>
 				<span class="atag">|</span>
-				<a href="#" class="atag">&nbsp;비밀번호 찾기</a>
+				<a href="${path}/login/findPw" class="atag">&nbsp;비밀번호 찾기</a>
 				
 				<a href="${path}/enroll" class="atag" id="enroll">회원가입</a>
 		</div>

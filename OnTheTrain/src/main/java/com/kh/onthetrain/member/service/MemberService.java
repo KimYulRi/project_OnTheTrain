@@ -28,5 +28,11 @@ public interface MemberService {
 	// email으로 회원찾기(snsMember 연결해서 조회)
 	Member findMemberByEmail(String email);
 
+	// name, email과 일치하는 회원찾기 (아이디찾기)
+	String findId(String name, String email);
+
+	// 비밀번호 재설정
+	int updatePwd(String id, String email, String password);
+
 	
 }
