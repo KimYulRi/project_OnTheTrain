@@ -15,4 +15,6 @@ public interface AccommodationMapper {
 
 	List<Review> getReviewsByNo(@Param("no") String no);
 
+	int insertReview(Review review);
+
 }

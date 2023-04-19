@@ -18,7 +18,7 @@
 						<div>
 		                     <div class="left userImg"></div>
 		                     <div class="left">
-			                     <div class="reviewNick">닉네임</div>
+			                     <div class="reviewNick">${ member.nickname }</div>
 			                     <div class="cDate">2023.03.20</div>
 		                 	</div>
                     	</div>

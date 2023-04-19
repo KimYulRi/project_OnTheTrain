@@ -21,18 +21,19 @@
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
     <div class="container">
         <h2>숙소 리뷰 작성</h2>
-        <form action="<c:url value='/accommodation/review'/>" method="post" onsubmit="return validateForm()">
+        <form action="${ path }/accommodation/review" method="post" onsubmit="return validateForm()">
             <!-- 숙소 정보 -->
             <div class="accommodation-info">
                 <h3><c:out value="${ accommodation.name } "/></h3>
             </div>
             
             <!-- 숙소 번호 입력(hidden) -->
-            <input type="hidden" name="accommodationNo" value="<c:out value='${accommodation.no}'/>">
+            <input type="hidden" name="accommodationNo" value="${accommodation.no}">
             
             <!-- 작성자 정보 입력 -->
             <div class="writer-input">
                 <label for="writer">작성자</label>
+                <input name="memberNo" type="hidden" value="${loginMember.no}"/>
                 <c:if test="${not empty loginMember }">
                     <input type="hidden" name="writer" id="writer" value="<c:out value='${ loginMember.nickname}'/>">
                 </c:if>
@@ -40,41 +41,36 @@
 			</div>	
 			
             <!-- 평점 입력 -->
-            <div class="rating-input">
-                <label for="rating">평점</label>
-                <select name="rating" id="rating">
-                    <option value="1">1점</option>
-                    <option value="2">2점</option>
-                    <option value="3">3점</option>
-                    <option value="4">4점</option>
-                    <option value="5">5점</option>
-                </select>
-                <p id="rating-error" class="error"></p>
-            </div>
-            
-            <!-- 리뷰 내용 입력 -->
-            <div class="form-group col-12" >
-                <label for="content">내용</label>
-                 <textarea  id="content" style="height:300px; resize: none;" maxlength="200" placeholder="텍스트를 입력하세요.">
-  				</textarea>	
-  				<div class="textLengthWrap">
-	                <p class="textCount">0자</p>
-    				<p class="textTotal">/200자</p>
-                </div>
-            </div>
-            
+			<div>
+			    <label for="starPoint">별점</label>
+			    <select id="starPoint" name="starPoint">
+			        <option value="1">1점</option>
+			        <option value="2">2점</option>
+			        <option value="3">3점</option>
+			        <option value="4">4점</option>
+			        <option value="5">5점</option>
+			    </select>
+			    <p id="rating-error" class="error"></p>
+			</div>
+
+           <!-- 리뷰 내용 입력 -->
+			<div class="form-group col-12">
+			    <label for="content">내용</label>
+			    <textarea id="content" name="content" style="width:200px; height:110px; resize: none;" maxlength="200" placeholder="텍스트를 입력하세요."></textarea>
+			    <div class="textLengthWrap">
+			        <p class="textCount">0자</p>
+			        <p class="textTotal">/200자</p>
+			    </div>
+			</div>
 			<input type="submit" value="리뷰 작성">
 		</form>
 		
-		
 	<script>
     function validateForm() {
-        // 평점이 선택되어 있는지 확인
-        if ($('#rating').val() === '0') {
-            $('#rating-error').text('평점을 선택해주세요.');
-            return false;
-        }
-        return true;
+    	if ($('#starPoint').val() === '0') {
+    	    $('#rating-error').text('평점을 선택해주세요.');
+    	    return false;
+    	}
     }
 
     $(document).ready(function() {
