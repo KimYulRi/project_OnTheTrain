@@ -13,9 +13,9 @@ public class Review {
 	
 	private int no;
 	private int memberNo;
-	private int accommdationNo;
+	private int accommodationNo;
 	private String content;
 	private int starPoint;
 	private Date createDate;
-	private Date modifyeDate;
+	private Date modifyDate;
 }

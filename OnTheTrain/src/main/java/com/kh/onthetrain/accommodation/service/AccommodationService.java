@@ -10,4 +10,8 @@ public interface AccommodationService {
 	Accommodation findProductByNo(String no);
 
 	List<Review> getReviewsByNo(String no);
+
+	void writeReview(Review review);
+	
+	
 }

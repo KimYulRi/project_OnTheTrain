@@ -27,9 +27,8 @@
 
 #accomodationName{
     font-size: 20px;
-    line-height: 29px;
-    margin-top: 132px;
-    margin-bottom: 13px;
+    margin-top: 5%;
+    margin-bottom: 5%;
 }
 
 #reviewCount{
