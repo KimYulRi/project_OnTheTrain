@@ -9,10 +9,18 @@
 
 	<!-- Root Context: defines shared resources visible to all other web components -->
 
-	<context:property-placeholder
-		location="classpath:driver.properties" />
+	<bean
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<value>classpath:driver.properties</value>
+				<value>classpath:serviceKey.properties</value>
+			</list>
+		</property>
+	</bean>
 
 	<import resource="mybatis-context.xml" />
 	<import resource="security-context.xml" />
 	<import resource="multipart-context.xml" />
+	<import resource="restTemplate-context.xml" />
 </beans>
