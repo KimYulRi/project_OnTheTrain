@@ -15,17 +15,37 @@
     <result property="location" column="LOCATION" />
   </resultMap>
   
+  <resultMap type="com.kh.onthetrain.accommodation.model.vo.Review" id="reviewsResultMap">
+	  <id property="no" column="NO" />
+	    <result property="memberNo" column="MEMBER_NO" />
+	    <result property="accommodationNo" column="ACCOMMODATION_NO" />
+	    <result property="content" column="CONTENT" />
+	    <result property="starPoint" column="STARPOINT" />
+	    <result property="createDate" column="CREATE_DATE" />
+	    <result property="modifyDate" column="MODIFY_DATE" />
+  </resultMap>
+  
 	<select id="findProductByNo" parameterType="String" resultMap="accommodationResultMap">
-		  SELECT  A.NO,
-		          A.PRICE,
-		          A.NAME,
-		          A.STATUS,
-		          A.MAXVALUE,
-		          A.EXPLAIN,
-		          A.LOCATION
-		  FROM ACCOMMODATION A
-		  WHERE A.STATUS = 'Y' AND A.NO = #{no};
+		  SELECT  NO,
+		          PRICE,
+		          NAME,
+		          STATUS,
+		          MAXVALUE,
+		          EXPLAIN,
+		          LOCATION
+		  FROM ACCOMMODATION 
+		  WHERE STATUS = 'Y' AND NO = #{no}
 	</select>
 
-
+	<select id="getReviewsByNo" parameterType="String" resultMap="reviewsResultMap">
+		 SELECT  NO,
+		         MEMBER_NO,
+		         ACCOMMODATION_NO,
+		         CONTENT,
+		         STARPOINT,
+		         CREATE_DATE,
+		         MODIFY_DATE
+		FROM REVIEW 
+		WHERE ACCOMMODATION_NO = #{no}
+	</select>
 </mapper>
