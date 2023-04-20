@@ -25,12 +25,13 @@
               <div id="login">
                 <ul>
                    <c:if test="${ empty loginMember }">
-                     <li><a href="${ path }/login">로그인</a></li>
+                    	<li><a href="${ path }/login">로그인</a></li>
                      <li><a href="${ path }/enroll">회원가입</a></li>
                      <li><a href="#">고객센터</a></li>
                     </c:if>
                     <c:if test="${ !empty loginMember }">
-                     <li><span id="nickname">${ loginMember.nickname } 님</span></li>
+                     <c:if test="${ loginMember.role == 'ROLE_ADMIN' }"><li><a href="${ path }/admin/dashboard"><span id="nickname">${ loginMember.nickname } 님</span></a></li></c:if>
+                     <c:if test="${ loginMember.role == 'ROLE_USER' }"><li><span id="nickname">${ loginMember.nickname } 님</span></li></c:if>
                      <li><a href="${ path }/logout">로그아웃</a></li>
                      <li><a href="#">고객센터</a></li>
                     </c:if>

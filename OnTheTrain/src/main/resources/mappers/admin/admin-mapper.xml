@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.kh.onthetrain.admin.model.mapper.AdminMapper">
+  <sql id="selectJoinMemberSql">
+	      SELECT M.NO,
+		       M.MEMBERSHIP_CODE,
+		       M.ID,
+		       M.PASSWORD,
+		       M.ROLE,
+		       M.NICKNAME,
+		       M.NAME,
+		       M.BIRTH,
+		       M.EMAIL,
+		       M.PHONE,
+		       M.ADDRESS,
+		       M.ENROLL_DATE,
+		       M.MODIFY_DATE,
+		       M.SNS_LOGIN,
+		       M.STATUS,
+		       M.AMOUNT,
+		       S.CODE,
+		       S.SNS_ID
+			FROM MEMBER M
+	   </sql>
+	 <resultMap id="memberResultMap" type="Member">
+      <id property="no" column="NO"/>
+      <result property="membership" column="MEMBERSHIP_CODE" />
+      <result property="id" column="ID" />
+      <result property="password" column="PASSWORD" />
+      <result property="role" column="ROLE" />
+      <result property="nickname" column="NICKNAME" />
+      <result property="name" column="NAME" />
+      <result property="birth" column="BIRTH" />
+      <result property="email" column="EMAIL" />
+      <result property="phone" column="PHONE" />
+      <result property="address" column="ADDRESS" />
+      <result property="enrollDate" column="ENROLL_DATE" />
+      <result property="modifyDate" column="MODIFY_DATE" />
+      <result property="snsLogin" column="SNS_LOGIN" />
+      <result property="status" column="STATUS" />
+      <result property="amount" column="AMOUNT" />
+      <result property="loginType" column="CODE" />
+      <result property="snsId" column="SNS_ID" />
+   </resultMap>
+   
+   	<select id="countMember" resultType="_int">
+		SELECT COUNT(*) FROM MEMBER
+	</select>
+	
+	<select id="getMemberList" resultMap="memberResultMap">
+		<include refid="selectJoinMemberSql" />
+		LEFT OUTER JOIN SNS_MEMBER S ON (M.NO = S.MEMBER_NO)
+            ORDER BY M.NO DESC
+	</select>
+	
+	
+ </mapper>
