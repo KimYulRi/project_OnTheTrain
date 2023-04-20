@@ -1,4 +1,4 @@
-package com.kh.onthetrain.trainTable.model.entity;
+package com.kh.onthetrain.trainTable.model.vo;
 
 import java.util.Date;
 

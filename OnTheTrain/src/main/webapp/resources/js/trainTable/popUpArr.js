@@ -97,7 +97,7 @@
     let selectedStationcode = $(this).val();
     let selectedStationname = $(this).text(); // 수정된 부분
     $("#arrPlaceId").val(selectedStationcode);
-    $("#arrPlaceText").val(selectedStationname);
+    $(".arrPlaceText").val(selectedStationname);
 });
 			
 			    

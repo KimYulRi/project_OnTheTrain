@@ -19,11 +19,9 @@
 	<link href="${ path }/css/trainTable/calendar.css" rel="stylesheet"
 	type="text/css">
 	
-	<link href="${ path }/css/common/modal.css" rel="stylesheet"
+	<link href="${ path }/css/trainTable/seatModal.css" rel="stylesheet"
 	type="text/css">
-	<style type="text/css">
-
-	</style>
+	
 	<%@ include file="../common/header.jsp" %>
   </head>
   <script src="${ path }/js/common/jquery-3.6.3.js"></script>
@@ -39,7 +37,7 @@
     <tr id="topTable">
       <th colspan="2" width="100px" style="font-size: 20px">출발</th>
       <td>
-      <input style="height: 25px;" type="text" id="depPlaceText">
+      <input style="height: 25px;" type="text" class="depPlaceText">
       <input style="height: 25px;" type="hidden" id="depPlaceId">
       </td>
       <td>
@@ -56,7 +54,7 @@
     <tr>
       <th colspan="2" width="100px" style="font-size: 20px;">도착</th>
       <td>
-      <input style="height: 25px;" type="text" id="arrPlaceText">
+      <input style="height: 25px;" type="text" class="arrPlaceText">
       <input style="height: 25px;" type="hidden" id="arrPlaceId">
       </td>
       <td>
@@ -170,34 +168,15 @@
         
         <br>
         
-        <div id="charge">
-          <button id="charge_btn">요금표</button>
-        </div>
-        <div id="modal" class="modal">
-          <div class="modal-backdrop"></div>
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <div class="modal-title">운임 요금표</div>
-              </div>
-              <div class="modal-body">
-                <p id="chargetable"></p>
-              </div>
-              <div class="modal-footer">
-                <button class="apply-button">확인</button>
-                <button class="cancel-button">닫기</button>
-              </div>
-            </div>
-          </div>
-        </div> 
+        
 
-        <p id="chargetable"></p>
         <p id="train"></p>
         
 	<script src="${ path }/js/trainTable/popUpDep.js"></script>
 	<script src="${ path }/js/trainTable/popUpArr.js"></script>
-	<script src="${ path }/js/trainTable/chargeModal.js"></script>
     <script src="${ path }/js/trainTable/trainMain.js"></script>
     <script src="${ path }/js/trainTable/calendar.js"></script>
+    
+    <jsp:include page="./seatModal.jsp" />
   </body>
 </html>

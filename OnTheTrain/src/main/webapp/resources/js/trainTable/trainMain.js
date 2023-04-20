@@ -80,12 +80,12 @@ click: (event) =>
           <td>${depname}</td>
           <td>${arrplace}</td>
           <td>
-            <input type="submit" value="좌석선택" style="cursor: pointer;">
+            <input type="submit" class="seatbtn" value="좌석선택" style="cursor: pointer;">
             <br>
             <input type="submit" value="예약하기" style="cursor: pointer;">
           </td>
           <td>
-            <input type="submit" value="좌석선택" style="cursor: pointer;">
+            <input type="submit" class="seatbtn" value="좌석선택" style="cursor: pointer;">
             <br>
             <input type="submit" value="예약하기" style="cursor: pointer;">
           </td>
@@ -99,52 +99,55 @@ click: (event) =>
         </tbody>
       </table>`;
         
-    
-    
-      let btn =`<table border="1" align="center">
-      <tr>
-            <td rowspan="2" width="100px">열차번호</td>
-            <td colspan="3">특실</td>
-            <td colspan="3">일반실</td>
-            <!-- <td></td>
-            <td></td>
-            <td></td>
-            <td></td> -->
-        </tr>
-        <tr>
-            <td>어른</td>
-            <td>어린이</td>
-            <td>경로</td>
-            <td>어른</td>
-            <td>어린이</td>
-            <td>경로</td>
-            <!-- <td></td> -->
-        </tr>
-        <tr>
-            <td>${no}</td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td>${charge}</td>
-            
-        </tr>
-        <tr>
-            <td>합계</td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>
-      </table>`;
-        
-        $('#charge_btn').click(function(){
-          $('#chargetable').append(btn);
-        })
-        
         $("#train").append(html);
+        
+        
+		const openModalButton = document.querySelectorAll('.seatbtn');
+		
+		openModalButton.forEach(button => {
+		
+		
+		button.addEventListener('click', () => {
+			$.ajax({
+				    url: 'seatModal',
+				    type: 'GET',
+				    dataType: 'html',
+				    success: function(data) {
+				      // 모달 창 내용 추가
+				      
+				
+				      // 모달 창 이벤트 리스너 등록
+				      const modal = document.querySelector('#modal');
+				      const modalBackdrop = modal.querySelector('.modal-backdrop');
+				      const cancelButton = modal.querySelector('.cancel-button');
+				
+				      modal.style.display = 'block';
+				
+				      modalBackdrop.addEventListener('click', () => {
+				        modal.style.display = 'none';
+				        
+				      });
+				
+				     cancelButton.addEventListener('click', () => {
+					  modal.style.display = '';
+					  const selectedButtons = modal.querySelectorAll('.selected');
+					  selectedButtons.forEach(button => {
+					    button.classList.remove('selected');
+					  });
+					});
+				    },
+				    error: function(jqXHR, textStatus, errorThrown) {
+				      console.log(textStatus, errorThrown);
+				    }
+				  });
+				});
+				});
+				
+	
+
+        
       }
       console.log(rows);
     }),
 });
+

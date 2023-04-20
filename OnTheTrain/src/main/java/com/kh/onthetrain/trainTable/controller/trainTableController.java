@@ -28,4 +28,10 @@ public class trainTableController {
 		log.info("팝업창");
 		return "trainTable/station";
 	}
+	
+	@GetMapping("/seatModal")
+	public String seat() {
+		log.info("모달");
+		return "trainTable/seatModal";
+	}
 }

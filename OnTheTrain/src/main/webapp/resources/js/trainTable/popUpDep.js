@@ -97,7 +97,7 @@
     let selectedStationcode = $(this).val();
     let selectedStationname = $(this).text(); // 수정된 부분
     $("#depPlaceId").val(selectedStationcode);
-    $("#depPlaceText").val(selectedStationname);    
+    $(".depPlaceText").val(selectedStationname);    
     
       
 });
