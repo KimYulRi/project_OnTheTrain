@@ -55,6 +55,18 @@
 	border-radius: 10px;
 }
 
+.qnamodal-dialog {
+	position: relative;
+	margin: auto;
+	top: 30%;
+	width: 800px;
+	height: 500px;
+	background-color: #fff;
+	border-radius: 4px;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+	border-radius: 10px;
+}
+
 .modal-header {
 	padding: 10px 20px;
 	background-color: #FFF;
@@ -119,4 +131,16 @@ label {
 
 #pwdbody{
 	text-align: center;
+}
+
+.qnamodal-dialog {
+	position: relative;
+	margin: auto;
+	top: 30%;
+	width: 600px;
+	height: 500px;
+	background-color: #fff;
+	border-radius: 4px;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+	border-radius: 10px;
 }

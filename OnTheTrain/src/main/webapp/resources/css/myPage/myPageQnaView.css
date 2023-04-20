@@ -1,0 +1,195 @@
+@charset "UTF-8";
+html, body{
+    width: 1200px;
+    height: 100%;
+    /* border: 1px solid black; */
+    margin: 0 auto;
+
+}
+div{
+    font-family: 'Noto Sans KR';
+    
+}
+
+
+section{
+    width: 1024px;
+    height: 100%;
+    /* border: 1px solid red; */
+    margin: 0 auto;
+
+}
+
+a {
+	text-decoration:none !important;
+	color:black !important;
+	
+	}
+a:hover {
+	text-decoration:none !important 
+	}
+
+#container{
+    width: 100%;
+    height: 100%;
+
+
+}
+
+#mypagechoose{
+    color: rgb(39, 76, 227);
+    font-weight: 700;
+}
+
+
+#toolbartitle{
+    font-size: larger;
+    font-weight: 900;
+    padding-bottom: 10px;
+    border-bottom: 2px solid;
+}
+
+#letftoolbar{
+    height: 100%;
+    width: 15%;
+    float: left;
+}
+
+
+
+.toolbarcontent{
+    border-bottom: 1px solid gray;
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
+
+
+
+
+
+#toptoolbar{
+    width: 80%;
+    height: 10%;
+    float: left;
+    margin-left: 50px;
+    border-bottom: 1px solid black;
+}
+
+#toptoolbartitle{
+    text-align: left;
+    font-weight: 900;
+    font-size: larger;
+}
+
+#qnabody{
+    width: 80%;
+    float: left;
+    margin-left: 50px;
+}
+
+#qnawriter{
+    margin-top: 30px;
+    font-size: 15px;
+    font-weight: bold;
+    margin-bottom: 30px;
+}
+#qnatype{
+    float: left;
+
+}
+
+#qnatitle{
+    float: left;
+    margin-left: 50px;
+    
+}
+
+#qnadate{
+    float: left;
+    margin-left: 150px  ;
+}
+
+#qnacontent{
+    clear: both;
+    padding-top: 50px;
+    margin-bottom: 50px;
+}
+
+#qnafile{
+    
+}
+
+.line{
+    border: 0.1px solid gray;
+    float: left;
+    width: 80%;
+    margin-left: 50px;
+    margin-top: 50px;
+}
+
+#qnareply{
+	width : 500px;
+    float: left;
+    margin-top: 50px;
+    margin-left: 50px;
+}
+
+#qnamodalreply{
+	width : 500px;
+	height : 300px;
+    float: left;
+    margin-top: 50px;
+    margin-left: 30px;
+    resize: none;
+}
+
+#replywriter{
+    float: left;
+    font-size: 15px;
+    font-weight: bold;
+    margin-bottom: 50px;
+}
+
+#replydate{
+    float: left;
+    margin-left: 50px;
+}
+
+#replycontent{
+    clear: both;
+}
+
+#adminonly{
+    width: 80%;
+    float: left;
+    margin-top: 50px;
+    margin-left: 50px;
+}
+
+
+#writeqnabtn{
+    margin-top: 50px;
+    float: right;
+    border: rgb(89, 97, 128);
+    background-color: 	rgb(89, 97, 128);
+}
+
+#writeqnabtn:hover{
+    background: #00008B;
+}
+
+#adminreply{
+    width: 80%;
+    float: left;
+}
+
+#qnaModal{
+	float: left;
+	margin-left: 500px;
+	text-align: 
+}
+
+.none{
+	clear:both;
+}
+
