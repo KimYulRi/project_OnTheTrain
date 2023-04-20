@@ -4,11 +4,11 @@
     font-style: normal;
     text-decoration: none;
     color: #000000;
+	margin: 0 auto;
 }
 
 #body {
     width: 1024px;
-    margin: 0 auto;
 }
 
 #contentFrame{
