@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
+<c:set var="path" value="${ pageContext.request.contextPath }" />
 
 <div id="schedulerEventModal" class="modal">
 	<div class="modal-backdrop"></div>
@@ -11,8 +14,11 @@
 			<div class="modal-body">
 				<div class="eventImage">
 					<div class="image-preview">
-						<span id="image-caption">이미지 등록</span>
-						<input type="file" id="image-upload">
+						<span id="event-image-caption" class="image-caption">이미지 등록</span>
+						<input id="event-image-upload" class="image-upload" type="file">
+						<img id="event-preview-image" class="preview-image"
+							src="${ path }/images/common/OnTheTrain_Logo.png"
+							alt="Preview Image" />
 					</div>
 				</div>
 				<div class="eventRequired">
@@ -53,10 +59,15 @@
 				<div class="modal-title">Accommodation Modal Title</div>
 			</div>
 			<div class="modal-body">
-				<div class="accomodationImage">
+				<div class="accommodationImage">
 					<div class="image-preview">
-						<span id="image-caption">숙소 이미지 등록</span>
-						<input type="file" id="image-upload">
+						<span id="accommodation-image-caption" class="image-caption">이미지
+							등록</span>
+						<input id="accommodation-image-upload" class="image-upload"
+							type="file">
+						<img id="accommodation-preview-image" class="preview-image"
+							src="${ path }/images/common/OnTheTrain_Logo.png"
+							alt="Preview Image" />
 					</div>
 				</div>
 				<div class="accommodationRequired">
@@ -133,12 +144,3 @@
 		</div>
 	</div>
 </div>
-
-<!-- Open Modal Buttons -->
-<button class="open-modal-button"
-	data-modal-target="#schedulerEventModal">Open Event Modal</button>
-<button class="open-modal-button"
-	data-modal-target="#schedulerAccommodationModal">Open
-	Accommodation Modal</button>
-<button class="open-modal-button"
-	data-modal-target="#schedulerTicketModal">Open Ticket Modal</button>

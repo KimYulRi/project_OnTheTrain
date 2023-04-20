@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper
+	namespace="com.kh.onthetrain.API.model.mapper.SchedulerAPIMapper">
+
+	<sql id="SelectLocationCode">
+		SELECT
+			CODE,
+			NAME
+		FROM
+		API_LOCATION_CODE
+	</sql>
+
+	<resultMap id="LocationCodeResultMap" type="APILocationCode">
+		<id property="code" column="CODE" />
+		<result property="name" column="NAME" />
+	</resultMap>
+
+	<select id="SelectLocationCodeList"
+		resultMap="LocationCodeResultMap">
+		<include refid="SelectLocationCode" />
+	</select>
+</mapper>

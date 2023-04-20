@@ -15,7 +15,7 @@
 
 #banner_space{
     height: 180.59px;
-    margin-top: 220px;
+    margin-top: 5%;
     left: 88px;;
     right: 88px;;
     border-radius: 10px;
@@ -31,7 +31,12 @@
     margin-left: 97;
 }
 
-#searchArea{
+#pCount{
+	margin-top: 2%;
+	margin-bottom: 2%;
+}
+
+#searchAreab{
     float:left;
     width: 600px;
     height: 55px;
@@ -120,6 +125,8 @@ button{
     /* position: absolute; */
     border: 1px solid #DDDDDD;
     margin-top: 150.41px;
+    margin-top: 18%;
+    margin-bottom: 2%;
 }
 
 .text_type2{
@@ -142,7 +149,7 @@ button{
 }
 
 .areaset{
-    height: 723;
+    height: 900px;
     margin-top: 91px;
     margin-bottom: 173px;
 }
@@ -150,7 +157,6 @@ button{
 .product{
     width: 156px;
     height: 151px;
-    text-align: center;
     float: left;
     margin: 5px;
     margin-top: 0;
@@ -164,13 +170,13 @@ button{
 
 }
 
-#acctitle {
+.acctitle {
     /* font-weight: 400;
     font-size: 12px;
     line-height: 17px; */
     float: left;
-    width: 70px;
-    margin-top: 12px;
+    width: 148px;
+    margin-left:0px;
     font-weight: 700;
     white-space: normal;
     display: -webkit-box;
@@ -180,12 +186,12 @@ button{
 
 }
 
-#accstar{
+.accstar{
     float: right;
     margin-top: 12px;
 }
 
-#accprice{
+.accprice{
     text-align: left;
 }
 
@@ -194,7 +200,7 @@ button{
     text-align: left;
 }
 
-#acccontent{
+.acccontent{
     clear: both;
     color: #717171;
     white-space: normal;
@@ -204,15 +210,8 @@ button{
     overflow: hidden;
 }
 
-#map{
-    float:left;
-    width: 502px;
-    height:723px;
-    border-radius: 10px;
-}
-
 .pagination {
-    margin-top: 904px;
+    margin-top: 950px;
     position: absolute;
     margin-left: 430px;
 }
