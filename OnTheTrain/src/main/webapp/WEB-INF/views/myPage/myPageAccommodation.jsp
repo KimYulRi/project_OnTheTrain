@@ -29,7 +29,7 @@
                 <div class="toolbarcontent"><a href="${ path }/myPage/myPageInfoCheck">개인정보</a></div>
             </div>
             <div id="toptoolbar" >
-                <div id="ticket"><a href="${ path }/myPage/myPageticket">승차권</a></div>
+                <div id="ticket"><a href="${ path }/myPage/myPageTicket">승차권</a></div>
                 <div id="accommodation" >숙박</div>
             </div>
             

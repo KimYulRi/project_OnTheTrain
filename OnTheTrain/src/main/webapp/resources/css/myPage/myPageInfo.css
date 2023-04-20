@@ -1,5 +1,3 @@
-@charset "UTF-8";
-
 html, body{
     width: 1200px;
     height: 100%;
@@ -96,7 +94,7 @@ tr>td{
     border-collapse: separate;
     border-radius: 10px;
     border: 0.5px solid #717177 ;
-    padding-left: 50px;
+    padding-left: 30px;
     text-align: left;
 }
 
@@ -110,7 +108,16 @@ tr>td{
     margin-left: 70px;
 }
 
+.infoinput{
+    border: none;
+}
+
+.infoinput:focus{
+    outline: none;
+}
+
 #benefitbtn{
+    margin-left: 170px;
     border-radius: 7px;
     background-color: rgb(89, 97, 128);
     border: rgb(89, 97, 128);
@@ -118,4 +125,56 @@ tr>td{
     width: 150px;
 }
 
+#benefitbtn:hover{
+    background: #00008B;
+}
 
+
+#infosubmit{
+    background-color: rgb(89, 97, 128);
+    border: rgb(89, 97, 128);
+    border-radius: 7px;
+    width: 200px;
+    color: white;
+    margin-left: 250px;
+    margin-top: 50px;
+}
+
+#infosubmit:hover{
+    background: #00008B;
+}
+
+#pwdchange{
+    background-color: rgb(89, 97, 128);
+    border: rgb(89, 97, 128);
+    border-radius: 7px;
+    width: 200px;
+    color: white;
+    margin-left: 50px;
+}
+
+#pwdchange:hover{
+    background: #00008B;
+}
+
+.rankhead{
+    width: 25%;
+}
+
+
+.body{
+	width:25%;
+    float: left;
+    text-align: center;
+    height: 200px;
+}
+
+.bodymargin{
+	margin-top: 30px;
+	margin-bottom: 30px;
+}
+
+#pwdbtn{
+	margin-right:250px;
+	text-align: center;
+}
