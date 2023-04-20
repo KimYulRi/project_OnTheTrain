@@ -108,6 +108,7 @@
 			</div>
 		</div>
 		<jsp:include page="./schedulerModal.jsp" />
+		<jsp:include page="./schedulerModalView.jsp" />
 		<script type="text/javascript" charset="utf-8">
 			sessionStorage.setItem("currentComponent", "${currentComponent}");
 		</script>
@@ -115,6 +116,8 @@
 		<script type="module"
 			src="${ path }/js/scheduler/schedulerModalModule.js"></script>
 		<script type="module" src="${ path }/js/scheduler/schedulerCreate.js"></script>
+		<script type="module"
+			src="${ path }/js/scheduler/schedulerModalViewModule.js"></script>
 		<script
 			src="${ path }/js/scheduler/calender/schedulerCreateCalender.js"></script>
 	</article>

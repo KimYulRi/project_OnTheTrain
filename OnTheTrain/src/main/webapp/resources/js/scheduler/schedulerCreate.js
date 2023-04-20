@@ -1,29 +1,50 @@
-import { createNewCard, addNewCardtoArea } from "./schedulerModalModule.js";
+// 스케줄러 생성 페이지를 그리는 데 쓰이는 코드들입니다.
 
-import { waitEvents } from "./schedulerComponent/schedulerEventModule.js";
+import { addModalModule } from "./schedulerModalModule.js";
 
 const addedComponentList = $("#addedComponent");
 const waitComponentList = $("#waitComponentList");
-const addcard_btn = $("#addCard");
 const noComponentArea = $("#noAddedComponentArea");
+const waitDeleteModeBtn = $("#waitDeleteMode-button");
+const schedulerCreateModule = {};
 
+// 콘텍스트 패스 값을 세션에 저장하고 가져오기
 function getContextPath() {
   return sessionStorage.getItem("contextpath");
 }
 
+const ctx = getContextPath();
+
+// 현재 페이지에 표시될 요소 선택하기
 function getCurrentComponent() {
   return sessionStorage.getItem("currentComponent");
 }
 
-function getWaitEvents() {
-  return sessionStorage.getItem("waitEvents");
+// id 값으로 요소 객체 배열에서 요소 찾기
+function findIndexById(arr, id) {
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i].id === id) {
+      return i;
+    }
+  }
+  // 해당 id 값을 가진 요소가 없을 경우 -1 반환
+  return -1;
 }
 
-const ctx = getContextPath();
+// 추가된 요소 영역과 관련된 함수
+// 하나라도 요소가 추가되면 noComponent 가리기
+function addedComponentListVisable() {
+  noComponentArea.hide();
+  addedComponentList.show();
+}
 
-// 삭제 모드 버튼
+// 요소가 없으면 noComponent 보이기
+function noComponentAreaVisable() {
+  noComponentArea.show();
+}
+
+// 추가 대기 중인 요소 삭제 모드 버튼
 export var waitDeleteMode = false;
-const waitDeleteModeBtn = $("#waitDeleteMode-button");
 
 $(document).ready(function () {
   let currentComponent = getCurrentComponent();
@@ -120,7 +141,6 @@ $(document).ready(function () {
   });
 
   // 추가 대기 중인 요소 삭제 모드 버튼 클릭 이벤트
-  const deleteModeBtn = $("#waitDeleteMode-button");
   waitDeleteModeBtn.on("click", () => {
     waitDeleteMode = !waitDeleteMode;
     if (waitDeleteMode) {
@@ -154,7 +174,7 @@ $(document).ready(function () {
     });
   });
 
-  // 삭제 모드 활성화시 추가 대기 중인 요소 모두 삭제
+  // 삭제 모드 활성화시 추가 대기 중인 요소 모두 삭제 버튼 이벤트
   $("#deleteAllWait-button").on("click", () => {
     if (confirm("정말로 모든 대기 중인 항목을 삭제하시겠습니까?")) {
       $(".filtered").remove();
@@ -164,90 +184,77 @@ $(document).ready(function () {
     }
   });
 
-  // 추가된 일정에 일정을 추가하는 함수
-  // waitComponent 에 등록된 요소를 찾아 내용을 가져오는 함수
-  function findIndexById(arr, id) {
-    for (let i = 0; i < arr.length; i++) {
-      if (arr[i].id === id) {
-        return i;
-      }
-    }
-    return -1; // 해당 id 값을 가진 요소가 없을 경우 -1 반환
-  }
-
-  function findComponentByID(currentComponent, id) {
-    if (currentComponent === "event") {
-      let we = getWaitEvents();
-
-      let component = events[findIndexById(we, id)];
-      return component;
-    } else if (currentComponent === "accommodation") {
-      console.log("숙박 구현 중");
-    } else {
-      console.log("승차권 구현중");
-    }
-    return;
-  }
-
-  function findEventById(id) {
-    const event = waitEvents.find((event) => event.id === id);
-    return event ? { ...event } : null;
-  }
-
-  function addedComponentListVisable() {
-    noComponentArea.hide();
-    addedComponentList.show();
-  }
-
-  function noComponentAreaVisable() {
-    noComponentArea.show();
-  }
-
+  /*
   $(document).on("DOMNodeInserted", ".card", function () {
     // 새로운 요소가 생성될 때마다 실행되는 이벤트 처리 함수
 
-    // 드래그 앤드 드롭 처리
-    $("#waitComponentList .card").draggable({
+  */
+
+  // 드래그 앤드 드롭 처리
+  function setCardDraggable(card) {
+    card.draggable({
       revert: true, // 드래그가 취소될 경우 원래 위치로 이동
       zIndex: 100, // 드래그 중인 요소의 z-index 값
       cursor: "move", // 드래그 커서 모양
       start: function (event, ui) {
         addedComponentListVisable();
-      
       },
       stop: function (event, ui) {
         // 드래그가 종료될 때 실행될 콜백 함수
-
         if (addedComponentList.find(".card").length === 0) {
           // card 클래스를 가진 요소가 없는 경우
           noComponentAreaVisable();
         }
       },
     });
+  }
 
-    $("#noAddedComponentArea, #addedComponent, #waitComponentList").droppable({
-      drop: function (event, ui) {
-        let draggable = ui.draggable; // 드래그한 요소
-        let droppable = $(this); // 드롭 대상 요소
+  $("#noAddedComponentArea, #addedComponent, #waitComponentList").droppable({
+    drop: function (event, ui) {
+      event.stopPropagation();
+      let draggable = ui.draggable;
+      let id = draggable.attr("id");
+      let droppable = $(event.target);
+      let currentComponent = getCurrentComponent();
+      let dropType = null; // droppable 된 영역을 구분할 변수
 
-        // 드래그한 요소를 드롭 대상 요소의 자식으로 추가
-        draggable.appendTo(droppable);
-      },
-    });
-
-    $(this).click(function () {
-      // 클릭 이벤트 처리
-      let eventId = $(this).attr("id"); // id 속성값 가져오기
-      console.log(eventId);
-      let selectedEvent = findEventById(eventId);
-
-      if (selectedEvent) {
-        console.log(selectedEvent.title);
+      // droppable된 영역에 따라 dropType 값을 설정
+      if (droppable.is("#addedComponent")) {
+        dropType = "addedComponent";
+      } else if (droppable.is("#waitComponentList")) {
+        dropType = "waitComponentList";
       } else {
-        console.log("해당 id를 가진 이벤트를 찾을 수 없습니다.");
+        dropType = "noAddedComponentArea";
       }
-    });
+
+      // dropType에 따라 다른 처리 실행
+      if (dropType === "addedComponent") {
+        setTimeout(() => {
+          addModalModule.toAddedList(currentComponent, id);
+        }, 1000);
+      } else if (dropType === "waitComponentList") {
+        setTimeout(() => {
+          addModalModule.toWaitList(currentComponent, id);
+        }, 1000);
+      }
+
+      // 드래그한 요소를 드롭 대상 요소의 자식으로 추가
+      draggable.appendTo(droppable);
+
+      // 현재 추가된 컴포넌트와 대기중인 컴포넌트 출력
+    },
   });
+
+  schedulerCreateModule.setCardDraggable = setCardDraggable;
 });
 
-export { ctx, getCurrentComponent };
+// });
+
+export {
+  ctx,
+  waitComponentList,
+  addedComponentList,
+  schedulerCreateModule,
+  findIndexById,
+  getCurrentComponent,
+};

@@ -1,26 +1,31 @@
-import { ctx, getCurrentComponent } from "./schedulerCreate.js";
+// 스케줄러 카드 생성 모달과 관련된 내용입니다.
+
+import { getCurrentComponent, schedulerCreateModule } from "./schedulerCreate.js";
 
 import {
-  addedEvents,
   waitEvents,
-  createEventId,
-  createEventObject,
+  addedEvents,
+  toWaitEvent,
+  toAddedEvent,
+  findEventById,
   resetEventModal,
+  createEventObject,
+  renderEventOnModal,
+  removeEventFromArray,
 } from "./schedulerComponent/schedulerEventModule.js";
 
-const addedComponentList = $("#addedComponent");
+
 const waitComponentList = $("#waitComponentList");
 const addcard_btn = $("#addCard");
-const deleteAllWait_btn = $("#deleteAllWait-button");
+const addModalModule = {};
 
 // 카드를 추가하는 함수
 // 카드 div 생성 함수
 function createNewCard(id, imgSrc, title, requiredDetail, optionalDetail) {
   // 아이디와 속성값 부여, 스타일을 위한 카드 클래스 부여
   const newCard = $("<div>").addClass("card").attr("id", id);
-  /*
-  .draggable();
-  */
+  schedulerCreateModule.setCardDraggable(newCard);
+
   const cardThumbnail = $("<div>").addClass("cardThumbnail");
   const img = $("<img>").attr("src", imgSrc);
   cardThumbnail.append(img);
@@ -56,7 +61,7 @@ $(document).ready(() => {
       modal: $("#schedulerEventModal"),
       cancelButton: $("#schedulerEventModal .cancel-button"),
       addButton: $("#schedulerEventModal .add-button"),
-      resetButton: $("#schedulerEventModal .reset-button")[0],
+      resetButton: $("#schedulerEventModal .reset-button"),
       imageUploadInput: $("#schedulerEventModal .image-upload")[0],
       previewImage: $("#schedulerEventModal .preview-image")[0],
       imageCaption: $("#schedulerEventModal .image-caption")[0],
@@ -67,10 +72,18 @@ $(document).ready(() => {
       priceField: $("#event-price"),
       detailsField: $("#event-details"),
       modalBackdrop: $("#schedulerEventModal .modal-backdrop"),
-      resetModal: resetEventModal(),
+      waitList: waitEvents,
+      addedList: addedEvents,
+      resetModal: resetEventModal,
+      toWaitList: toWaitEvent,
+      toAddedList: toAddedEvent,
+      findById: findEventById,
+      rederOnModal: renderEventOnModal,
+      removeFromArray: removeEventFromArray,
     },
     accommodation: {
       modal: $("#schedulerAccommodationModal"),
+      resetButton: $("#schedulerAccommodationModal .reset-button"),
       cancelButton: $("#schedulerAccommodationModal .cancel-button"),
       imageUploadInput: $("#schedulerAccommodationModal .image-upload")[0],
       previewImage: $("#schedulerAccommodationModal .preview-image")[0],
@@ -79,12 +92,13 @@ $(document).ready(() => {
     },
     ticket: {
       modal: $("#schedulerTicketModal"),
+      resetButton: $("#schedulerTicketModal .reset-button"),
       cancelButton: $("#schedulerTicketModal .cancel-button"),
       modalBackdrop: $("#schedulerTicketModal .modal-backdrop"),
     },
   };
 
-  // 모달을 열고 닫는 기능
+  // 카드 생성 모달을 열고 닫는 기능
   function showModal(component) {
     $(components[component].modal).show();
   }
@@ -93,13 +107,23 @@ $(document).ready(() => {
     $(components[component].modal).hide();
   }
 
+  // 모달창 초기화 버튼 기능
+  function resetModalContent(component) {
+    components[component].resetModal();
+  }
+
   function addModalEventListeners(component) {
+    // 백드롭 클릭 시 모달 닫기
     components[component].modalBackdrop.on("click", () => {
       hideModal(component);
     });
-
+    // 캔슬 버튼 클릭 시 모달 닫기
     components[component].cancelButton.on("click", () => {
       hideModal(component);
+    });
+    // 초기화 버튼 클릭 시 모달 input 초기화
+    components[component].resetButton.on("click", () => {
+      resetModalContent(component);
     });
   }
 
@@ -111,13 +135,14 @@ $(document).ready(() => {
   addcard_btn.on("click", function () {
     let currentComponent = getCurrentComponent();
     showModal(currentComponent);
+    resetModalContent(currentComponent);
 
     if (currentComponent === "event" || currentComponent === "accommodation") {
       addModalimagePreview(currentComponent);
     }
   });
 
-  // add모달 창 이미지 미리보기
+  //  카드 생성 모달 내 이미지 미리보기
   function addModalimagePreview(component) {
     $(components[component].imageUploadInput).on("change", function (upload) {
       const file = upload.target.files[0];
@@ -132,12 +157,7 @@ $(document).ready(() => {
     });
   }
 
-  // 모달창 초기화 버튼 기능
-  function resetModalContent(component) {
-    components[component].resetModal;
-  }
-
-  // 일정 등록하기
+  // 일정 등록하기 (요소, 객체)
   components.event.addButton.on("click", () => {
     let {
       titleField,
@@ -180,11 +200,49 @@ $(document).ready(() => {
     );
 
     waitEvents.push(event);
-    sessionStorage.setItem("waitEvents", waitEvents);
-    console.log(waitEvents);
-
     hideModal("event");
+    resetModalContent("event");
   });
+
+  // 특정 요소를 Waitlist 객체 배열로 보냄
+  function toWaitList(component, id) {
+    components[component].toWaitList(id);
+  }
+
+  // 특정 요소를 toAddedList 객체 배열로 보냄
+  function toAddedList(component, id) {
+    components[component].toAddedList(id);
+  }
+
+  // 특정 요소 객체를 id값으로 찾아 반환
+  function findById(component, id) {
+    let componentObj = components[component].findById(id);
+    return componentObj;
+  }
+
+  // 특정 요소 객체의 값을 바탕으로 modalView를 구성함
+  function rederOnModal(component, componentObj) {
+    components[component].renderOnModal(componentObj);
+  }
+
+  // 특정 객체를 아이디값으로 찾아 배열에서 제거함
+  function removeFromArray(component, arr, id) {
+    components[component].removeFromArray(arr, id);
+  }
+
+  // 다른 파일에서 현재 파일의 함수들을 사용하기 위한 함수
+  function getAddModalComponents() {
+    return components;
+  }
+
+  addModalModule.getAddModalComponents = getAddModalComponents;
+  addModalModule.showModal = showModal;
+  addModalModule.hideModal = hideModal;
+  addModalModule.toWaitList = toWaitList;
+  addModalModule.toAddedList = toAddedList;
+  addModalModule.findById = findById;
+  addModalModule.rederOnModal = rederOnModal;
+  addModalModule.removeFromArray = removeFromArray;
 });
 
-export { createNewCard, addNewCardtoArea };
+export { createNewCard, addNewCardtoArea, addModalModule };

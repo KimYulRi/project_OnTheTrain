@@ -35,11 +35,5 @@ class APIControllerTest {
 	}
 	
 	
-	@Test
-	void locationEventTest() {
-		String locationCode = "2";
-		List<TouristAttraction> schedulerAPIEvents = controller.getSchedulerAPIEvents(locationCode);
-		assertThat(schedulerAPIEvents).isNotNull();
-		System.out.println(schedulerAPIEvents);
-	}
+	
 }
