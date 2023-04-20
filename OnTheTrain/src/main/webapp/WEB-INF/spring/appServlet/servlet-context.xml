@@ -49,5 +49,28 @@
 	<tx:annotation-driven
 		transaction-manager="transactionManager" proxy-target-class="true" />
 
+	<interceptors>
+		<!-- 로그인한 사용자가 아니면 intercept -->
+		<interceptor>
+			<mapping path="/logout"/>
+			
+			<exclude-mapping path="/enroll" />
+			<exclude-mapping path="/idCheck" />
+			<exclude-mapping path="/nicknameCheck" />
+			<exclude-mapping path="/check" />
+		
+			<beans:bean id="loginCheckInterceptor" class="com.kh.onthetrain.common.Interceptor.LoginCheckInterceptor"/>
+		</interceptor>
+		
+		<!-- 로그아웃한 사용자가 아니면 intercept -->
+		<interceptor>
+			<mapping path="/login/**"/>
+			<mapping path="/enroll/**"/>
+			
+			<beans:bean id="logoutCheckInterceptor" class="com.kh.onthetrain.common.Interceptor.LogoutCheckInterceptor"/>
+		</interceptor>
+
+	</interceptors>
+
 
 </beans:beans>
