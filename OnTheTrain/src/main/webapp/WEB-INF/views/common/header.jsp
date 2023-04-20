@@ -26,7 +26,7 @@
                 <ul>
                    <c:if test="${ empty loginMember }">
                      <li><a href="${ path }/login">로그인</a></li>
-                     <li><a href="#">회원가입</a></li>
+                     <li><a href="${ path }/enroll">회원가입</a></li>
                      <li><a href="#">고객센터</a></li>
                     </c:if>
                     <c:if test="${ !empty loginMember }">
