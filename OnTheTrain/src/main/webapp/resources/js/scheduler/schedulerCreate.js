@@ -2,18 +2,20 @@
 
 import { addModalModule } from "./schedulerModalModule.js";
 
-const addedComponentList = $("#addedComponent");
-const waitComponentList = $("#waitComponentList");
+const ctx = getContextPath();
 const noComponentArea = $("#noAddedComponentArea");
 const waitDeleteModeBtn = $("#waitDeleteMode-button");
+const waitComponentList = $("#waitComponentList");
+const addedComponentList = $("#addedComponent");
 const schedulerCreateModule = {};
+
+// 추가 대기 중인 요소 삭제 모드
+let waitDeleteMode = false;
 
 // 콘텍스트 패스 값을 세션에 저장하고 가져오기
 function getContextPath() {
   return sessionStorage.getItem("contextpath");
 }
-
-const ctx = getContextPath();
 
 // 현재 페이지에 표시될 요소 선택하기
 function getCurrentComponent() {
@@ -43,11 +45,19 @@ function noComponentAreaVisable() {
   noComponentArea.show();
 }
 
-// 추가 대기 중인 요소 삭제 모드 버튼
-export var waitDeleteMode = false;
+// 조회 시 날짜 데이터 포맷을 YYYYMMDD으로 변환하기 위한 함수
+// 파라미터는 "YYYY-MM-DD"
+function dateToYYYYMMDD(unformattedDate) {
+  let date = new Date(unformattedDate);
+  let year = date.getFullYear().toString();
+  let month = (date.getMonth() + 1).toString().padStart(2, "0");
+  let day = date.getDate().toString().padStart(2, "0");
+  let formattedDate = year + month + day;
+
+  return formattedDate;
+}
 
 $(document).ready(function () {
-  let currentComponent = getCurrentComponent();
   // 요소 클릭 시 해당 요소와 관련된 내용을 표시하도록 하는 함수
   $(".componentText").click(function () {
     var component = $(this).data("component");
@@ -88,31 +98,47 @@ $(document).ready(function () {
     });
   });
 
-  // (일정) locationCode가 바뀔 때마다 실행되는 함수
-  $("select[name='locationCode']").on("change", function () {
-    var locationCode = $(this).val(); // 선택된 값 가져오기
+  // 일정 조회 함수
+  $("#searchEvent-button").on("click", function () {
+    let locationCode = $("#eventSearch select").val();
+    let eventStartDate = dateToYYYYMMDD($("#eventStartDate").val());
+    let eventEndDate = $("eventEndDate").val();
+    let resultCount = 0;
+
+    /* API2 호출 */
     $.ajax({
       type: "GET",
-      url: ctx + "/api/scheduler/events",
-      data: { locationCode: locationCode }, // 선택된 값 전달
+      url: ctx + "/api/scheduler/events/2",
+      data: { locationCode: locationCode, startDate: eventStartDate }, // 선택된 값 전달
       dataType: "json",
       success: function (response) {
-        if (response.length === 0) {
-          // 반환값이 빈 객체리스트인 경우
-          // 결과가 없음을 알리는 영역 표시
-          $("#eventList").empty();
-          $("#eventList").css("min-height", "unset");
-          $("#noResultArea").show();
-          return;
-        }
+        resultCount += response.length;
         // 가져온 데이터를 이용해 이벤트 리스트를 만듦
         var eventList = "";
         $("#noResultArea").hide();
         for (var i = 0; i < response.length; i++) {
-          // firstimage가 없는 경우 기본 이미지로 대체
-          var imageUrl = response[i].firstimage
+          // 일정 객체 만들어 배열에 넣어두기
+          let imageUrl = response[i].firstimage
             ? response[i].firstimage
             : ctx + "/images/common/OnTheTrain_Logo.png";
+
+          let eventObj = addModalModule
+            .getAddModalComponents()
+            ["event"].createObject(
+              response[i].title,
+              response[i].addr1,
+              "",
+              "",
+              0,
+              response[i].tel,
+              imageUrl
+            );
+
+          addModalModule
+            .getAddModalComponents()
+            ["event"].searchList.push(eventObj);
+
+          // firstimage가 없는 경우 기본 이미지로 대체
 
           eventList +=
             "<div class='card'>" +
@@ -138,6 +164,77 @@ $(document).ready(function () {
         alert("API로 이벤트를 가져오는 중에 문제가 발생했습니다.");
       },
     });
+
+    console.log(addModalModule.getAddModalComponents()["event"].searchList);
+    /* API1 호출(구버전) */
+    /*
+    $.ajax({
+      type: "GET",
+      url: ctx + "/api/scheduler/events",
+      data: { locationCode: locationCode }, // 선택된 값 전달
+      dataType: "json",
+      success: function (response) {
+        resultCount += response.length;
+        // 가져온 데이터를 이용해 이벤트 리스트를 만듦
+        var eventList = "";
+        $("#noResultArea").hide();
+        for (var i = 0; i < response.length; i++) {
+          // 일정 객체 만들어 배열에 넣어두기
+          let imageUrl = response[i].firstimage
+            ? response[i].firstimage
+            : ctx + "/images/common/OnTheTrain_Logo.png";
+
+          let eventObj = addModalModule
+            .getAddModalComponents()
+            ["event"].createObject(
+              response[i].title,
+              response[i].addr1,
+              "",
+              "",
+              0,
+              response[i].tel,
+              imageUrl
+            );
+
+          addModalModule
+            .getAddModalComponents()
+            ["event"].searchList.push(eventObj);
+          // firstimage가 없는 경우 기본 이미지로 대체
+
+          eventList +=
+            "<div class='card'>" +
+            "<div class='cardThumbnail'><img src='" +
+            imageUrl +
+            "'></div>" +
+            "<div class='cardBrief'>" +
+            "<div class='cardTitle'>" +
+            response[i].title +
+            "</div>" +
+            "<div class='cardRequiredDetail'>" +
+            response[i].addr1 +
+            "</div>" +
+            "<div class='cardOptionalDetail'>" +
+            response[i].optionalDetail +
+            "</div>" +
+            "</div>" +
+            "</div>";
+        }
+        $("#eventList").html(eventList); // 이벤트 리스트 업데이트
+      },
+      error: function () {
+        alert("API로 이벤트를 가져오는 중에 문제가 발생했습니다.");
+      },
+    });
+
+    */
+    if (resultCount === 0) {
+      // 반환값이 빈 객체리스트인 경우
+      // 결과가 없음을 알리는 영역 표시
+      $("#eventList").empty();
+      $("#eventList").css("min-height", "unset");
+      $("#noResultArea").show();
+      return;
+    }
   });
 
   // 추가 대기 중인 요소 삭제 모드 버튼 클릭 이벤트
@@ -185,6 +282,7 @@ $(document).ready(function () {
   });
 
   // 드래그 앤드 드롭 처리
+  // 카드를 드래거블하게 만듦
   function setCardDraggable(card) {
     card.draggable({
       revert: true, // 드래그가 취소될 경우 원래 위치로 이동
@@ -233,18 +331,18 @@ $(document).ready(function () {
         addModalModule.toWaitList(currentComponent, componentid);
       }
 
-      draggable.appendTo(droppable);
-
+      /*
       console.log(
-        "addedList : " +
-          addModalModule.getAddModalComponents()[currentComponent].addedList
+        "addList : " +
+          addModalModule.getAddModalComponents()[currentComponent].addList
       );
       console.log(
-        "waitList : " +
-          addModalModule.getAddModalComponents()[currentComponent].waitList
+        addModalModule.getAddModalComponents()[currentComponent].waitList
       );
+      */
 
       // 드래그한 요소를 드롭 대상 요소의 자식으로 추가
+      draggable.appendTo(droppable);
     },
     helper: "original",
   });
@@ -252,6 +350,7 @@ $(document).ready(function () {
 
 export {
   ctx,
+  waitDeleteMode,
   waitComponentList,
   addedComponentList,
   schedulerCreateModule,

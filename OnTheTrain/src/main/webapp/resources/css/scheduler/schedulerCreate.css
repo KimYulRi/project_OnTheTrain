@@ -96,7 +96,6 @@ article {
 
 .componentName {
   display: inline;
-
 }
 
 .componentText {
@@ -111,7 +110,6 @@ article {
   justify-content: center;
   text-align: center;
 }
-
 
 .title {
   margin-top: 20px;
@@ -157,7 +155,6 @@ article {
 #addedComponent {
   width: 100%;
   min-height: 250px;
-  
 }
 
 .components {
@@ -173,37 +170,57 @@ article {
   flex-wrap: wrap;
 }
 
+#eventEndDate {
+  margin-left: 20px;
+}
+
+.search-button {
+  font-family: "Noto Sans";
+  margin: 0 auto;
+  padding: 6px 12px;
+  border: none;
+  border-radius: 4px;
+  width: 75px;
+  height: 40px;
+  color: #fff;
+  font-size: large;
+  background-color: #00008b;
+  cursor: pointer;
+  display: inline-block;
+  margin-left: 20px;
+}
+
 .delete-button {
   font-family: "Noto Sans KR";
   width: 100px;
   height: 32px;
-  margin-left : 30px;
+  margin-left: 30px;
   border-radius: 5px;
   background: none;
-  border: 1px solid #D4062B;
-  color: #D4062B;
+  border: 1px solid #d4062b;
+  color: #d4062b;
 }
 
 .delete-button:active {
   font-family: "Noto Sans KR";
   width: 100px;
   height: 32px;
-  margin-left : 30px;
+  margin-left: 30px;
   border-radius: 5px;
   background: #fff;
-  color: #D4062B;
-  border : none;
+  color: #d4062b;
+  border: none;
 }
 
 .delete-buttonOn {
   font-family: "Noto Sans KR";
   width: 100px;
   height: 32px;
-  margin-left : 30px;
+  margin-left: 30px;
   border-radius: 5px;
-  background: #D4062B;
+  background: #d4062b;
   color: white;
-  border : none;
+  border: none;
 }
 
 #deleteAllWait-button {
@@ -282,6 +299,25 @@ article {
   text-align: center;
   background-color: #fff;
   color: #596180;
+}
+
+#componentSearchArea select,
+#componentSearchArea input[type="date"],
+#componentSearchArea input[type="datetime-local"] {
+  font-family: "Noto Sans";
+  box-sizing: border-box;
+  width: 275px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+#componentSearchArea input[type="date"],
+#componentSearchArea input[type="datetime-local"] {
+  display: inline;
 }
 
 .cardThumbnail {

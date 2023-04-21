@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kh.onthetrain.API.model.vo.TouristAttraction;
+import com.kh.onthetrain.API.model.vo.TouristAttraction2;
 import com.kh.onthetrain.API.service.SchedulerAPIService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -49,5 +50,29 @@ public class SchedulerAPIController {
 		response.setCharacterEncoding("UTF-8");
 		return json;
 	}
+
+	/* 행사정보조회 */
+	@ResponseBody
+	@GetMapping(value = "/scheduler/events/2", produces = "application/json; charset=utf-8")
+	public String getSchedulerAPIEvents2(@RequestParam(name = "locationCode", required = false) String locationcode,
+			@RequestParam(name = "startDate", required = true) String startDate,
+			HttpServletResponse response) {
+		log.info("getSchedulerEvents2 메소드 실행");
+		String json = "";
+		List<TouristAttraction2> talist = new ArrayList<>();
+		talist = service.getSchedulerAPIEvents2(locationcode, startDate);
+
+		ObjectMapper mapper = new ObjectMapper();
+		try {
+			json = mapper.writeValueAsString(talist);
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+		}
+
+		log.info(json);
+		response.setContentType("application/json; charset=utf-8");
+		response.setCharacterEncoding("UTF-8");
+		return json;
+	};
 
 }

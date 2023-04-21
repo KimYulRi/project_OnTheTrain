@@ -1,11 +1,14 @@
 // 스케줄러 카드 생성 모달과 관련된 내용입니다.
-
-import { getCurrentComponent, schedulerCreateModule } from "./schedulerCreate.js";
+import {
+  getCurrentComponent,
+  schedulerCreateModule,
+} from "./schedulerCreate.js";
 
 import {
   waitEvents,
   addedEvents,
   toWaitEvent,
+  searchEvents,
   toAddedEvent,
   findEventById,
   resetEventModal,
@@ -13,7 +16,6 @@ import {
   renderEventOnModal,
   removeEventFromArray,
 } from "./schedulerComponent/schedulerEventModule.js";
-
 
 const waitComponentList = $("#waitComponentList");
 const addcard_btn = $("#addCard");
@@ -55,16 +57,16 @@ function addNewCardtoArea(area, card) {
 }
 
 $(document).ready(() => {
-  // currentComponent 값에 따라 각 모달 창을 띄우기 위한 요소 지정 코드
+  // currentComponent 값에 따라 다른 코드 실행을 위한 요소 지정 코드
   const components = {
     event: {
       modal: $("#schedulerEventModal"),
       cancelButton: $("#schedulerEventModal .cancel-button"),
       addButton: $("#schedulerEventModal .add-button"),
       resetButton: $("#schedulerEventModal .reset-button"),
-      imageUploadInput: $("#schedulerEventModal .image-upload")[0],
+      imageUploadInput: $("#schedulerEventModal .image-upload"),
       previewImage: $("#schedulerEventModal .preview-image")[0],
-      imageCaption: $("#schedulerEventModal .image-caption")[0],
+      imageCaption: $("#schedulerEventModal .image-caption"),
       titleField: $("#event-title"),
       locationField: $("#event-location"),
       startTimeField: $("#event-start-time"),
@@ -72,12 +74,14 @@ $(document).ready(() => {
       priceField: $("#event-price"),
       detailsField: $("#event-details"),
       modalBackdrop: $("#schedulerEventModal .modal-backdrop"),
-      waitList: waitEvents,
       addedList: addedEvents,
-      resetModal: resetEventModal,
-      toWaitList: toWaitEvent,
+      waitList: waitEvents,
+      searchList: searchEvents,
+      createObject : createEventObject,
       toAddedList: toAddedEvent,
+      toWaitList: toWaitEvent,
       findById: findEventById,
+      resetModal: resetEventModal,
       rederOnModal: renderEventOnModal,
       removeFromArray: removeEventFromArray,
     },

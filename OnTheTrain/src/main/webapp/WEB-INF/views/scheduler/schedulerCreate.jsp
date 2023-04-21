@@ -88,15 +88,20 @@
 			<div class="componentName">${basicComponent}</div>
 			조회
 		</div>
-
-		<div id="searchComponent">
-			<select name="locationCode">
-				<option>지역 선택</option>
-				<option value="">전체</option>
-				<c:forEach var="location" items="${locationCodeList}">
-					<option value="${location.code}">${location.name}</option>
-				</c:forEach>
-			</select>
+		<div id="componentSearchArea">
+			<div id="eventSearch">
+				<select name="locationCode"> 
+					<option>지역 선택</option>
+					<option value="">전체</option>
+					<c:forEach var="location" items="${locationCodeList}">
+						<option value="${location.code}">${location.name}</option>
+					</c:forEach>
+				</select> 에서
+			</div>
+			<input type="date" id="eventStartDate" name="startDate"> (*)부터
+			<input type="date" id="eventEndDate" name="endDate"> 까지 열리는 행사를 찾습니다.
+			<button id="searchEvent-button" class="search-button">검색</button>
+			<hr>
 		</div>
 		<br>
 		<div id="eventList" class="components"></div>

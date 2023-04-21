@@ -5,6 +5,7 @@ import { findIndexById } from "../schedulerCreate.js";
 // event 객체를 관리할 배열 생성
 const addedEvents = [];
 const waitEvents = [];
+const searchEvents = [];
 
 // event 객체의 ID값을 관리할 함수 정의
 function createEventId() {
@@ -102,6 +103,7 @@ function renderEventOnModal(event) {
 export {
   waitEvents,
   addedEvents,
+  searchEvents,
   toWaitEvent,
   toAddedEvent,
   createEventId,
