@@ -83,6 +83,15 @@ input[type="datetime-local"] {
   left: 50%;
 }
 
+#schedulerEventModalView .image-caption a {
+  text-decoration: none;
+  color: white;
+  background-color: rgba(0,0,0,0.5);
+  width: 150px;
+  display: inline-block;
+  height: 30px;
+}
+
 .image-upload,
 #image-upload_view {
   font-size: 16px;
@@ -125,7 +134,7 @@ input[type="datetime-local"] {
   left: 0;
   top: 0;
   width: 100%;
-  height: 100%;
+  height: 300%;
   background-color: rgba(0, 0, 0, 0.4);
 }
 

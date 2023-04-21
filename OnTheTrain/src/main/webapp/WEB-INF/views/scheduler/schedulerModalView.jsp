@@ -15,8 +15,8 @@
 			<div class="modal-body">
 				<div class="eventImage">
 					<div class="image-preview">
-<!-- 						<span class="image-caption">이미지 등록</span> -->
-						<img id="preview-image_view"
+						<span class="image-caption"><a> 이미지 크게보기 </a></span> <img
+							id="preview-image_view"
 							src="${ path }/images/common/OnTheTrain_Logo.png"
 							alt="Preview Image" />
 					</div>

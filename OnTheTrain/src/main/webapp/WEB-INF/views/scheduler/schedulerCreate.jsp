@@ -81,22 +81,31 @@
 					<button>+</button>
 				</div>
 			</div>
-			<div class="card" draggable="true">TestCard</div>
+		<!--  <div class="card" draggable="true">TestCard</div>  -->
 		</div>
 		<hr>
 		<div class="title">
 			<div class="componentName">${basicComponent}</div>
 			조회
+			<div class="explantion">(*는 필수 입력 정보입니다)</div>
 		</div>
-
-		<div id="searchComponent">
-			<select name="locationCode">
-				<option>지역 선택</option>
-				<option value="">전체</option>
-				<c:forEach var="location" items="${locationCodeList}">
-					<option value="${location.code}">${location.name}</option>
-				</c:forEach>
-			</select>
+		<div id="componentSearchArea">
+			<div id="eventSearch">
+				<select name="locationCode">
+					<option>지역 선택</option>
+					<option value="">전체</option>
+					<c:forEach var="location" items="${locationCodeList}">
+						<option value="${location.code}">${location.name}</option>
+					</c:forEach>
+				</select>
+				<div class="explantion">에서</div>
+			</div>
+			<input type="date" id="eventStartDate" name="startDate">
+			<div class="explantion">(*)부터</div>
+			<input type="date" id="eventEndDate" name="endDate">
+			<div class="explantion">까지 열리는 행사를 찾습니다.</div>
+			<button id="searchEvent-button" class="search-button">검색</button>
+			<hr>
 		</div>
 		<br>
 		<div id="eventList" class="components"></div>

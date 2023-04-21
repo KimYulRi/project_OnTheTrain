@@ -5,6 +5,7 @@ import { findIndexById } from "../schedulerCreate.js";
 // event 객체를 관리할 배열 생성
 const addedEvents = [];
 const waitEvents = [];
+const searchEvents = [];
 
 // event 객체의 ID값을 관리할 함수 정의
 function createEventId() {
@@ -16,20 +17,45 @@ function findEventById(arr, eventId) {
   return arr[findIndexById(arr, eventId)];
 }
 
+function findAPIResultEventById(arr, eventId) {
+  let idx = -1;
+  $.each(arr, function (index, element) {
+    if (element.id === eventId) {
+      idx = index;
+    }
+  });
+
+  if (idx !== -1) {
+    return arr[idx];
+  }
+  console.log("찾는 event 정보가 사라졌습니다.");
+}
+
 // 추가된 일정으로 이벤트 객체를 옮기는 함수
 function toAddedEvent(id) {
-  // addedEvent에서의 index
+  let arrayfrom = addedEvents;
+  // 해당 요소가 있었던 곳 찾기
   let idx = findIndexById(addedEvents, id);
-  let targetEvent = addedEvents.splice(idx, 1)[0];
-  waitEvents.push(targetEvent);
+  if (idx === -1) {
+    arrayfrom = waitEvents;
+    idx = findIndexById(waitEvents, id);
+  }
+  let targetEvent = arrayfrom.splice(idx, 1)[0];
+  addedEvents.push(targetEvent);
 }
 
 // 대기 중인 일정으로 이벤트 객체를 옮기는 함수
 function toWaitEvent(id) {
-  // waitEvent에서의 index
-  let idx = findIndexById(waitEvents, id);
-  let targetEvent = waitEvents.splice(idx, 1)[0];
-  addedEvents.push(targetEvent);
+  let arrayfrom = addedEvents;
+  // 해당 요소가 있었던 곳 찾기
+  let idx = findIndexById(addedEvents, id);
+  if (idx === -1) {
+    arrayfrom = waitEvents;
+    idx = findIndexById(waitEvents, id);
+  }
+
+  let targetEvent = arrayfrom.splice(idx, 1)[0];
+  waitEvents.push(targetEvent);
 }
 // 추가된 일정이나 대기 중인 일정에서 이벤트 객체를 제거하는 함수
 function removeEventFromArray(arr, id) {
@@ -88,9 +114,30 @@ function renderEventOnModal(event) {
   }
 }
 
+function renderAPIResultOnModal(event) {
+  // 모달 창에 필드 값을 입력.
+  $("#eventTitle_view").text(event.title || "내용 없음");
+  $("#eventLocation_view").text(event.location || "내용 없음");
+  $("#eventStartTime_view").text(event.start || "내용 없음");
+  $("#eventEndTime_view").text(event.end || "내용 없음");
+  $("#eventPrice_view").text(event.price || "내용 없음");
+  $("#eventDetails_view").text(event.details || "내용 없음");
+
+  if (event.image) {
+    $("#preview-image_view").attr("src", event.image);
+    $("#schedulerEventModalView .image-caption a").attr({
+      href: event.image,
+      target: "_blank",
+    });
+  } else {
+    $("#schedulerEventModalView .image-caption a").attr("href", "#");
+  }
+}
+
 export {
   waitEvents,
   addedEvents,
+  searchEvents,
   toWaitEvent,
   toAddedEvent,
   createEventId,
@@ -99,4 +146,6 @@ export {
   createEventObject,
   renderEventOnModal,
   removeEventFromArray,
+  renderAPIResultOnModal,
+  findAPIResultEventById,
 };

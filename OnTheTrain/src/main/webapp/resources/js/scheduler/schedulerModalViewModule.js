@@ -4,7 +4,13 @@ import {
   waitComponentList,
 } from "./schedulerCreate.js";
 
-import { waitEvents } from "./schedulerComponent/schedulerEventModule.js";
+import {
+  addedEvents,
+  waitEvents,
+  searchEvents,
+  renderAPIResultOnModal,
+  findAPIResultEventById,
+} from "./schedulerComponent/schedulerEventModule.js";
 
 import {
   renderEventOnModal,
@@ -12,6 +18,7 @@ import {
 } from "./schedulerComponent/schedulerEventModule.js";
 
 let component = getCurrentComponent();
+const eventList = $("#eventList");
 
 $(document).ready(() => {
   // currentComponent 값에 따라 각 모달 창을 띄우기 위한 요소 지정 코드
@@ -34,7 +41,7 @@ $(document).ready(() => {
     },
   };
 
-  // 모달을 열고 닫는 기능
+  // view 모달을 열고 닫는 기능
   function showModal(component) {
     $(componentsView[component].modal).show();
   }
@@ -72,20 +79,33 @@ $(document).ready(() => {
   addModalViewEventListeners("event");
 
   // 카드 클릭시 해당 정보를 담은 모달 열기
-  $(waitComponentList)
-    .add(addedComponentList)
-    .on("click", ".card", function () {
-      let eventId = $(this).attr("id");
+  waitComponentList.add(addedComponentList).on("click", ".card", () => {
+    let eventId = $(this).attr("id");
+
+    if (findEventById(addedEvents, eventId)) {
+      let selectedEvent = findEventById(addedEvents, eventId);
+      renderEventOnModal(selectedEvent);
+    } else if (findEventById(waitEvents, eventId)) {
       let selectedEvent = findEventById(waitEvents, eventId);
-      let cardToRemove = $(".card#" + eventId);
+      renderEventOnModal(selectedEvent);
+    } else {
+      console.log("해당 id를 가진 이벤트를 찾을 수 없습니다.");
+    }
 
-      if (selectedEvent) {
-        renderEventOnModal(selectedEvent);
-      } else {
-        console.log("해당 id를 가진 이벤트를 찾을 수 없습니다.");
-      }
-      let component = getCurrentComponent();
+    let cardToRemove = $(".card#" + eventId);
+    let component = getCurrentComponent();
 
-      showModal(component, cardToRemove);
-    });
+    showModal(component, cardToRemove);
+  });
+
+  eventList.on("click", ".card", function () {
+    let eventId = $(this).attr("id");
+    let selectedEvent = findAPIResultEventById(searchEvents, eventId);
+    renderAPIResultOnModal(selectedEvent);
+
+    let cardToRemove = $(".card#" + eventId);
+    let component = getCurrentComponent();
+
+    showModal(component, cardToRemove);
+  });
 });
