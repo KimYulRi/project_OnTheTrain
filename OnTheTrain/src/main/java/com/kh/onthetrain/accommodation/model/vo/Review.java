@@ -11,8 +11,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Review {
 	
+//	private String nickname;
 	private int no;
 	private int memberNo;
+	private String nickname;
 	private int accommodationNo;
 	private String content;
 	private int starPoint;
