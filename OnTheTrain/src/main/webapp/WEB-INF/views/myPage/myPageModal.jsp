@@ -63,28 +63,27 @@
     <div class="modal-backdrop"></div>
     <div class="pwdmodal-dialog">
         <div class="modal-content">
-            <div class="modal-body">
-                <div id="modallogo">
-                    <img width="100px" height="100px" src="${ path }/images/common/OnTheTrain_Logo.png" alt="">
-                </div>
-				
-				<form action="">
-                <div id="pwdbody">
-                	<label for="currentPwd">현재 비밀번호 : </label>
-                    <input type="password" id="currentPwd" name="currentPwd" >
-                    <br>
-                    <label for="newPwd">새로운 비밀번호 : </label>
-                    <input type="password" id="newPwd" name="newPwd">
-                    <br>
-                    <label for="newPwd">비밀번호 확인 : </label>				
-					<input type="password" id="checkPwd" name="checkPwd">
-
-                </div>
-		            </div>
-		            <div class="modal-footer">
-		                <button id="pwdbtn" type="submit" class="cancel-button">확인</button>
-		            </div>
+				<form action="${ path }/myPage/myPageInfoPwd" method="POST" id="pwdForm">
+				  <div class="modal-body">
+				    <div id="modallogo">
+				      <img width="100px" height="100px" src="${ path }/images/common/OnTheTrain_Logo.png" alt="">
+				    </div>
+				    <div id="pwdbody">
+				      <label for="currentPwd">현재 비밀번호 : </label>
+				      <input type="password" id="currentPwd" name="currentPwd" >
+				      <br>
+				      <label for="newPwd">새로운 비밀번호 : </label>
+				      <input type="password" id="newPwd" name="newPwd">
+				      <br>
+				      <label for="newPwd">비밀번호 확인 : </label>				
+				      <input type="password" id="checkPwd" name="checkPwd">
+				    </div>
+				  </div>
+				  <div class="modal-footer">
+				    <button id="pwdbtn" type="submit" class="cancel-button" onclick="return Validation();">확인</button>
+				  </div>
 				</form>
+
         </div>
     </div>
 </div>
