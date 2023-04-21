@@ -18,18 +18,29 @@ function findEventById(arr, eventId) {
 
 // 추가된 일정으로 이벤트 객체를 옮기는 함수
 function toAddedEvent(id) {
-  // addedEvent에서의 index
+  let arrayfrom = addedEvents;
+  // 해당 요소가 있었던 곳 찾기
   let idx = findIndexById(addedEvents, id);
-  let targetEvent = addedEvents.splice(idx, 1)[0];
-  waitEvents.push(targetEvent);
+  if (idx === -1) {
+    arrayfrom = waitEvents;
+    idx = findIndexById(waitEvents, id);
+  }
+  let targetEvent = arrayfrom.splice(idx, 1)[0];
+  addedEvents.push(targetEvent);
 }
 
 // 대기 중인 일정으로 이벤트 객체를 옮기는 함수
 function toWaitEvent(id) {
-  // waitEvent에서의 index
-  let idx = findIndexById(waitEvents, id);
-  let targetEvent = waitEvents.splice(idx, 1)[0];
-  addedEvents.push(targetEvent);
+  let arrayfrom = addedEvents;
+  // 해당 요소가 있었던 곳 찾기
+  let idx = findIndexById(addedEvents, id);
+  if (idx === -1) {
+    arrayfrom = waitEvents;
+    idx = findIndexById(waitEvents, id);
+  }
+
+  let targetEvent = arrayfrom.splice(idx, 1)[0];
+  waitEvents.push(targetEvent);
 }
 // 추가된 일정이나 대기 중인 일정에서 이벤트 객체를 제거하는 함수
 function removeEventFromArray(arr, id) {

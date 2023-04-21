@@ -34,7 +34,7 @@ $(document).ready(() => {
     },
   };
 
-  // 모달을 열고 닫는 기능
+  // view 모달을 열고 닫는 기능
   function showModal(component) {
     $(componentsView[component].modal).show();
   }
