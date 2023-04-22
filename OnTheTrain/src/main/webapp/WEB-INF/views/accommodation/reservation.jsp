@@ -176,13 +176,12 @@
 					<div class="optionFrame" id="bottom1">
                         <div id="onedayPrice"><fmt:formatNumber value="${ accommodation.price }"/>원</div>
                         <div id="accomodaionDay"> x <span id="accommoDay" >1</span>박</div>
-                        <div class="right"><fmt:formatNumber value="${ accommodation.price }"/>원</div>
                     </div>
                     <div id="refund">환불약관</div>
                     <hr class="line">
                     <div id="bottom2">
                         <div class="left">총합계</div>
-                        <div class="right" id="totalPrice"><fmt:formatNumber value="${ accommodation.price }"/>원</div>
+                        <div class="right"><span id="totalPrice"><fmt:formatNumber value="${ accommodation.price }"/></span>원</div>
                     </div>
                 </div>               
             </div>
@@ -193,6 +192,15 @@
     
     <script type="text/javascript">
 	    $(document).ready(() => {
+	    	let date = new Date();
+	    	
+	    	let year = date.getFullYear();
+	    	let month = ('0' + (date.getMonth() + 1)).slice(-2);
+	    	let day = ('0' + date.getDate()).slice(-2);
+	    	let dateStr = year + '-' + month + '-' + day;
+	    	
+	    	$('#ckeckInInput').prop('min', dateStr);
+	    	
 	    	let mapContainer = document.getElementById('map');
 	    	let mapOption = { 
 	    	        center: new kakao.maps.LatLng(${ accommodation.lat }, ${ accommodation.lot }), // 지도의 중심좌표
@@ -201,13 +209,12 @@
 	    	let map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
 	    	
 			// 마커를 생성합니다
-			var marker = new kakao.maps.Marker({
+			let marker = new kakao.maps.Marker({
 			    position: new kakao.maps.LatLng(${ accommodation.lat }, ${ accommodation.lot })
 			});
 	    	
 			marker.setMap(map);
 
-	    	
 		    $('#ckeckInInput').on('change', (event) => {
 		    	$('#ckeckOutInput').prop('min', event.target.value);
 		    });
@@ -215,9 +222,13 @@
 		    $('#ckeckOutInput').on('change', (event) => {
 		    	let date1 = dayjs($('#ckeckInInput').val());
 		    	let date2 = dayjs($('#ckeckOutInput').val());
+		    	let nights = date2.diff(date1, 'day');
+		    	let totalPrice = ${ accommodation.price };
 		    	
+		    	totalPrice = (nights * totalPrice) + '';
 		    	
-		    	$('#accommoDay').html(date2.diff(date1, "day"));
+		    	$('#totalPrice').text(totalPrice.replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ','));
+		    	$('#accommoDay').text(nights);
 		    });
 	    	
 		});
