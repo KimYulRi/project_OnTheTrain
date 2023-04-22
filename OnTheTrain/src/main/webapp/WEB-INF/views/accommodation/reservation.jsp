@@ -17,6 +17,8 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
 	<link href="${ path }/css/accommodation/review.css" rel="stylesheet" type="text/css">
     <script src="${ path }/js/common/jquery-3.6.3.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dayjs/1.10.7/dayjs.min.js"></script>
+    <script type="text/javascript" src="http://dapi.kakao.com/v2/maps/sdk.js?appkey=abe862743db89d98578a540d9cfed4b7"></script>
 	<%@ include file="../common/header.jsp" %>
 </head>
 <body>
@@ -40,9 +42,9 @@
      	
         <!-- 지도 위도 경 -->
         <%-- <div id="map"><img src="${ path }/images/accommodation/" alt=""></div> --%>
-        <div class="font15" id="calendarClick"><hr class="line">날짜 선택</div>
-        <div>체크인 <input type="datetime-local"></div>
-        <div>체크아웃 <input type="datetime-local"></div>
+        <div class="font15" ><hr class="line">위치 보기</div>
+        <div id="map" style="width:100%;height:350px;"></div>
+        
         <div id="reservStar"><hr class="line"></div>
         <div id="stara">
             <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
@@ -157,18 +159,23 @@
                     </div>
                         <div id="accomodationStatus">
                             <div id="check">
-	                            <div id="checkIn">체크인</div>
-	                            <div id="vline"></div>
-	                            <div id="checkOut">체크아웃</div>
+	                            <div id="checkIn"><input type="date" id="ckeckInInput" style="height: 100%; width: 100%;" placeholder="체크인" /></div>
+	                            <div id="checkOut"><input type="date" id="ckeckOutInput" style="height: 100%; width: 100%;" placeholder="체크아웃" /></div>
                             </div>
-                            <div class="line" id="hline"></div>
-                            <div class="left" id="pnum">인원</div>
+                            <div class="left" id="pnum">
+	                            <select name="pnumSelect" style="height: 100%; width: 100%">
+								  <option value="1" selected="selected">1명</option>
+								  <option value="2">2명</option>
+								  <option value="3">3명</option>
+								  <option value="4">4명</option>
+								</select>
+                            </div>
                         </div>
                         <button class="button" type="button" id="reservBtn">예약하기</button>
                         <div id="warning">결제 전에는 예약이 확정되지 않습니다.</div>
 					<div class="optionFrame" id="bottom1">
                         <div id="onedayPrice"><fmt:formatNumber value="${ accommodation.price }"/>원</div>
-                        <div id="accomodaionDay"> x 1박</div>
+                        <div id="accomodaionDay"> x <span id="accommoDay" >1</span>박</div>
                         <div class="right"><fmt:formatNumber value="${ accommodation.price }"/>원</div>
                     </div>
                     <div id="refund">환불약관</div>
@@ -184,43 +191,36 @@
     
     <jsp:include page="./accModal.jsp" />
     
-	
     <script type="text/javascript">
 	    $(document).ready(() => {
-			lodgeList('0');
-		});
-		
-		function lodgeList(page) {
-			$.ajax({
-				type:'GET',
-				url:'http://apis.data.go.kr/6460000/jnLodgeist/getNdLodgeList',
-				data: {
-					ServiceKey:'2mKT3qQbDj6GzbgHRR6zV6nFDrZLqYMyFxWCrU+eb1JGQPP/zcCZ1kLYfli0m/UwxCy3AhHp7SqyLEm7n9kYLw==',
-					menuCd: '01',
-					startPage: page,
-					pageSize:'20'
-				},
-				success: (obj) => {
-					let result = '';
-					
-					$(obj).find('list').each(function(index) {
-						result += 
-							'<div class="product" onclick="location.href=\'${ path }/accommodation/reservation?no=' + $(this).find('lodgeId').text() + '\'">' + 
-		                        '<div><img src="${ path }/images/accommodation/accomodation' + (index + 1) + '.png" alt=""></div>' +
-		                        /* '<div id=""><img src="' + $(this).find('lodgeMainImg').text() + '" alt=""></div>' + */
-		                        '<div class="acctitle">' + $(this).find('lodgeNm').text() + '</div>' + 
-		                        '<div class="accfont acccontent">' + $(this).find('lodgeAddr').text() + '</div>' + 
-		                        '<div class="accfont accprice">' + $(this).find('lodgeTel').text() + '</div>' + 
-		                    '</div>';
-				   	});
-					
-					$('.listImg').html(result);
-				}, 
-				error : (e) => {
-					console.log(e);
-				}
+	    	let mapContainer = document.getElementById('map');
+	    	let mapOption = { 
+	    	        center: new kakao.maps.LatLng(${ accommodation.lat }, ${ accommodation.lot }), // 지도의 중심좌표
+	    	        level: 3 // 지도의 확대 레벨
+	    	};
+	    	let map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+	    	
+			// 마커를 생성합니다
+			var marker = new kakao.maps.Marker({
+			    position: new kakao.maps.LatLng(${ accommodation.lat }, ${ accommodation.lot })
 			});
-		}
+	    	
+			marker.setMap(map);
+
+	    	
+		    $('#ckeckInInput').on('change', (event) => {
+		    	$('#ckeckOutInput').prop('min', event.target.value);
+		    });
+		    
+		    $('#ckeckOutInput').on('change', (event) => {
+		    	let date1 = dayjs($('#ckeckInInput').val());
+		    	let date2 = dayjs($('#ckeckOutInput').val());
+		    	
+		    	
+		    	$('#accommoDay').html(date2.diff(date1, "day"));
+		    });
+	    	
+		});
     </script>    
                 
 </body>
