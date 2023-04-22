@@ -17,8 +17,6 @@
      <link href="${ path }/css/accommodation/accommodationReservation.css" rel="stylesheet" type="text/css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
 	<link href="${ path }/css/accommodation/review.css" rel="stylesheet" type="text/css">
-	<!-- CDN 추가 -->
-	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
 <body>
 	<div class="container">
@@ -48,15 +46,15 @@
 	    <div>
 	      <!-- star-rating을 Vue.js로 바인딩 -->
 	      <div class="star-rating">
-	        <input type="radio" id="5-stars" name="rating" value="5" v-model="rating">
+	        <input type="radio" id="5-stars" name="starPoint" value="5">
 	        <label for="5-stars" class="star pr-4">★</label>
-	        <input type="radio" id="4-stars" name="rating" value="4" v-model="rating">
+	        <input type="radio" id="4-stars" name="starPoint" value="4">
 	        <label for="4-stars" class="star">★</label>
-	        <input type="radio" id="3-stars" name="rating" value="3" v-model="rating">
+	        <input type="radio" id="3-stars" name="starPoint" value="3">
 	        <label for="3-stars" class="star">★</label>
-	        <input type="radio" id="2-stars" name="rating" value="2" v-model="rating">
+	        <input type="radio" id="2-stars" name="starPoint" value="2">
 	        <label for="2-stars" class="star">★</label>
-	        <input type="radio" id="1-star" name="rating" value="1" v-model="rating">
+	        <input type="radio" id="1-star" name="starPoint" value="1">
 	        <label for="1-star" class="star">★</label>
 	      </div>
 	
@@ -73,34 +71,6 @@
 	    </div>
 	  </form>
 	</div>
-	
-	<script>
-	  export default {
-	    data() {
-	      return {
-	        rating: '', // 사용자가 선택한 star-rating을 저장할 변수
-	        content: '', // 사용자가 입력한 리뷰 내용을 저장할 변수
-	      }
-	    },
-	    methods: {
-	      submitReview() {
-	        // 사용자가 선택한
-
-	        // 사용자가 선택한 star-rating과 리뷰 내용
-	        axios.post('/accommodation/review', {
-	          rating: this.rating,
-	          content: this.content,
-	        })
-	        .then(response => {
-	          // 서버로부터 응답을 받으면 적절한 처리를 수행
-	        })
-	        .catch(error => {
-	          // 에러 처리
-	        });
-	      }
-	    }
-	  }
-	</script>
 		
 	<script>
     function validateForm() {
@@ -131,14 +101,5 @@
         });
     });
 	</script>
-	
-	<script type="text/javascript">
-		axios.post('/accommodation/review', {
-			  rating: this.rating,
-			  content: this.content,
-		})
-	</script>
-	
-
 </body>
 </html>
