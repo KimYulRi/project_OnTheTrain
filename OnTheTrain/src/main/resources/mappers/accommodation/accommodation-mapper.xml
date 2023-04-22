@@ -13,6 +13,8 @@
     <result property="maxValue" column="MAXVALUE" />
     <result property="explain" column="EXPLAIN" />
     <result property="location" column="LOCATION" />
+    <result property="lot" column="LOT" />
+    <result property="lat" column="LAT" />
   </resultMap>
   
   <resultMap type="com.kh.onthetrain.accommodation.model.vo.Review" id="reviewsResultMap">
@@ -44,7 +46,9 @@
 		          STATUS,
 		          MAXVALUE,
 		          EXPLAIN,
-		          LOCATION
+		          LOCATION,
+		          LOT,
+		          LAT
 		  FROM ACCOMMODATION 
 		  WHERE STATUS = 'Y' AND NO = #{no}
 	</select>
