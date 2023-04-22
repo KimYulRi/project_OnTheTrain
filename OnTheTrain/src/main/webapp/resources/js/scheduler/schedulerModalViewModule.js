@@ -79,7 +79,7 @@ $(document).ready(() => {
   addModalViewEventListeners("event");
 
   // 카드 클릭시 해당 정보를 담은 모달 열기
-  waitComponentList.add(addedComponentList).on("click", ".card", () => {
+  waitComponentList.add(addedComponentList).on("click", ".card", function () {
     let eventId = $(this).attr("id");
 
     if (findEventById(addedEvents, eventId)) {

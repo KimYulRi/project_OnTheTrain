@@ -310,8 +310,10 @@ $(document).ready(function () {
         dropType === "noAddedComponentArea"
       ) {
         addModalModule.toAddedList(currentComponent, componentid);
+     
       } else if (dropType === "waitComponentList") {
         addModalModule.toWaitList(currentComponent, componentid);
+    
       }
 
       /*
