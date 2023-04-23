@@ -15,6 +15,7 @@
     <result property="location" column="LOCATION" />
     <result property="lot" column="LOT" />
     <result property="lat" column="LAT" />
+    <result property="renamedFilename" column="RENAMED_FILENAME"/>
   </resultMap>
   
   <resultMap type="com.kh.onthetrain.accommodation.model.vo.Review" id="reviewsResultMap">
@@ -40,31 +41,33 @@
   
   
 	<select id="findProductByNo" parameterType="String" resultMap="accommodationResultMap">
-		  SELECT  NO,
-		          PRICE,
-		          NAME,
-		          STATUS,
-		          MAXVALUE,
-		          EXPLAIN,
-		          LOCATION,
-		          LOT,
-		          LAT
-		  FROM ACCOMMODATION 
-		  WHERE STATUS = 'Y' AND NO = #{no}
+ 			SELECT    A.NO,
+			          A.PRICE,
+			          A.NAME,
+			          A.STATUS,
+			          A.MAXVALUE,
+			          A.EXPLAIN,
+			          A.LOCATION,
+			          A.LOT,
+			          A.LAT,
+			          I.RENAMED_FILENAME
+			  FROM ACCOMMODATION A
+			  INNER JOIN ACCOMMODATION_IMAGE I ON (A.NO = I.ACCOMMODATION_NO) 
+			  WHERE STATUS = 'Y' AND A.NO = #{no}
 	</select>
 
 	<select id="getReviewsByNo" parameterType="String" resultMap="reviewsResultMap">
-		 SELECT  R.NO,
-		         R.MEMBER_NO,
-                 M.NICKNAME,
-		         R.ACCOMMODATION_NO,
-		         R.CONTENT,
-		         R.STARPOINT,
-		         R.CREATE_DATE,
-		         R.MODIFY_DATE
-		FROM REVIEW R
-        INNER JOIN MEMBER M ON (M.NO = R.MEMBER_NO)
-		WHERE ACCOMMODATION_NO = #{no}
+			SELECT   R.NO,
+			         R.MEMBER_NO,
+	                 M.NICKNAME,
+			         R.ACCOMMODATION_NO,
+			         R.CONTENT,
+			         R.STARPOINT,
+			         R.CREATE_DATE,
+			         R.MODIFY_DATE
+			FROM REVIEW R
+	        INNER JOIN MEMBER M ON (M.NO = R.MEMBER_NO)
+			WHERE ACCOMMODATION_NO = #{no}
 	</select>
 	
 	<insert id="insertReview" parameterType="Review" 
