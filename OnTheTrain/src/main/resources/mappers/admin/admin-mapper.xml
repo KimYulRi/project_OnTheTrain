@@ -7,7 +7,6 @@
 	      SELECT M.NO,
 		       M.MEMBERSHIP_CODE,
 		       M.ID,
-		       M.PASSWORD,
 		       M.ROLE,
 		       M.NICKNAME,
 		       M.NAME,
@@ -36,7 +35,7 @@
       <result property="email" column="EMAIL" />
       <result property="phone" column="PHONE" />
       <result property="address" column="ADDRESS" />
-      <result property="enrollDate" column="ENROLL_DATE" />
+      <result property="enrollDate" column="ENROLL_DATE" jdbcType="DATE" javaType="java.sql.Timestamp" />
       <result property="modifyDate" column="MODIFY_DATE" />
       <result property="snsLogin" column="SNS_LOGIN" />
       <result property="status" column="STATUS" />
@@ -44,16 +43,54 @@
       <result property="loginType" column="CODE" />
       <result property="snsId" column="SNS_ID" />
    </resultMap>
+   <resultMap id="ticketresultMap" type="TrainTicketReservation">
+      <id property="ticketNo" column="TICKET_NO"/>
+      <result property="nickname" column="NICKNAME" />
+      <result property="trainNo" column="TRAIN_NUM" />
+      <result property="departure" column="DEPARTURE" />
+      <result property="arrival" column="ARRIVAL" />
+      <result property="depDate" column="DEP_DATE" />
+      <result property="bookDate" column="BOOK_DATE" />
+      <result property="paymentStatus" column="PAYMENT_STATUS" />
+      <result property="refundStatus" column="REFUND_STATUS" />
+      <result property="type" column="TYPE" />
+      <result property="depTime" column="DEP_TIME" />
+      <result property="arrTime" column="ARR_TIME" />
+      <result property="price" column="T_PRICE" />
+   </resultMap>
    
+   	<!-- 전체회원 수 조회 -->
    	<select id="countMember" resultType="_int">
 		SELECT COUNT(*) FROM MEMBER
 	</select>
 	
+	<!-- 전체회원리스트 조회 -->
 	<select id="getMemberList" resultMap="memberResultMap">
-		<include refid="selectJoinMemberSql" />
+		SELECT M.NO,
+		       M.MEMBERSHIP_CODE,
+		       M.ID,
+		       M.ROLE,
+		       M.NAME,
+		       M.ENROLL_DATE,
+		       M.SNS_LOGIN,
+		       M.STATUS,
+		       S.CODE
+			FROM MEMBER M
 		LEFT OUTER JOIN SNS_MEMBER S ON (M.NO = S.MEMBER_NO)
+			WHERE M.ROLE='ROLE_USER'
             ORDER BY M.NO DESC
 	</select>
+    
+    <!-- no로 회원정보 조회 -->
+	<select id="findMemberByNo" resultMap="memberResultMap">
+		<include refid="selectJoinMemberSql" />
+		LEFT OUTER JOIN SNS_MEMBER S ON (M.NO = S.MEMBER_NO)
+			WHERE M.NO=#{no}
+	</select>
 	
+	<!-- 전체 승차권 수 조회 -->
+   	<select id="countTicket" resultType="_int">
+		SELECT COUNT(*) FROM TICKET
+	</select>
 	
  </mapper>

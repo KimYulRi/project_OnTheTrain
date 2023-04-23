@@ -1,6 +1,8 @@
 package com.kh.onthetrain.member.model.vo;
 
-import java.sql.Date;
+import java.util.Date;
+
+import org.springframework.stereotype.Component;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -9,9 +11,12 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Component
 public class Member {
+	// 회원번호(pk)
 	private int no;
 	
+	// 멤버십 코드
 	private String membership;
 	
 	private String id;
@@ -30,6 +35,7 @@ public class Member {
 
 	private String phone;
 
+	// 주소 null 허용
 	private String address;
 	
 	private Date enrollDate;
@@ -50,16 +56,20 @@ public class Member {
 	// 간편로그인 id
 	private String snsId;
 	
+	
 	/* 출력용 변수*/
 	// 멤버쉽text
 	private String membershipText;
+	
 	// 간편로그인text
 	private String loginTypeText;
+	
 	// 회원상태text
 	private String statusText;
+
 	
-	public void setMembership(String membership) {
-		this.membership = membership;
+	// 멤버십설정 메소드
+	public void setMembershipText(String membership) {
 		if(membership.equals("M1")) {
 			membershipText="Bronze";
 		}else if(membership.equals("M2")) {
@@ -71,8 +81,8 @@ public class Member {
 		}
 	}
 	
-	public void setLoginType(String loginType) {
-		this.loginType = loginType;
+	// 간편로그인설정 메소드
+	public void setLoginTypeText(String loginType) {
 		if(loginType.equals("K")) {
 			loginTypeText="카카오";
 		}else if(loginType.equals("N")) {
@@ -84,10 +94,10 @@ public class Member {
 		}
 	}
 	
-	public void setStatus(String status) {
-		this.status = status;
+	// 상태값설정 메소드
+	public void setStatusText(String status) {
 		if(status.equals("Y")) {
-			statusText="활성";
+			statusText="정상";
 		}else if(status.equals("N")) {
 			statusText="정지";
 		}else if(status.equals("X")) {

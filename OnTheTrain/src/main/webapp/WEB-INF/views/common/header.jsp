@@ -81,3 +81,13 @@
           </nav>
         </div>
       </header>
+	<script>
+      const inputElement = document.querySelector('.search-form input');
+      const headersearchform = document.querySelector('.search-form');
+      inputElement.addEventListener('focus', function() {
+    	  headersearchform.style.borderColor = 'rgba(129, 177, 245, .8)';
+      });
+	  inputElement.addEventListener('blur', function() {
+		  headersearchform.style.borderColor = '#D3D2D2';
+	  });
+	</script>

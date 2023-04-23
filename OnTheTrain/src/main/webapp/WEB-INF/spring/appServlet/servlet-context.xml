@@ -22,6 +22,7 @@
 	<resources mapping="/css/**" location="/resources/css/" />
 	<resources mapping="/images/**" location="/resources/images/" />
 	<resources mapping="/font/**" location="/resources/font/" />
+	<resources mapping="/bootstrap5/assets/**" location="/resources/bootstrap5/assets/" />
 	<resources mapping="/resources/**" location="/resources/" />
 
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources 
