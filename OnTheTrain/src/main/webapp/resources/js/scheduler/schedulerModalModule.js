@@ -15,6 +15,7 @@ import {
   createEventObject,
   renderEventOnModal,
   removeEventFromArray,
+  setAddModalByEventId,
 } from "./schedulerComponent/schedulerEventModule.js";
 
 const waitComponentList = $("#waitComponentList");
@@ -77,14 +78,13 @@ $(document).ready(() => {
       addedList: addedEvents,
       waitList: waitEvents,
       searchList: searchEvents,
-      createObject : createEventObject,
+      findComponentById: findEventById,
+      createObject: createEventObject,
       toAddedList: toAddedEvent,
       toWaitList: toWaitEvent,
-      findById: findEventById,
       resetModal: resetEventModal,
-      rederOnModal: renderEventOnModal,
       removeFromArray: removeEventFromArray,
-      setAddModalById : setAddModalByEventId
+      setAddModalById: setAddModalByEventId
     },
     accommodation: {
       modal: $("#schedulerAccommodationModal"),
@@ -220,14 +220,9 @@ $(document).ready(() => {
   }
 
   // 특정 요소 객체를 id값으로 찾아 반환
-  function findById(component, id) {
-    let componentObj = components[component].findById(id);
+  function findComponentById(component, id) {
+    let componentObj = components[component].findComponentById(id);
     return componentObj;
-  }
-
-  // 특정 요소 객체의 값을 바탕으로 modalView를 구성함
-  function rederOnModal(component, componentObj) {
-    components[component].renderOnModal(componentObj);
   }
 
   // 특정 객체를 아이디값으로 찾아 배열에서 제거함
@@ -240,13 +235,17 @@ $(document).ready(() => {
     return components;
   }
 
+  // 특정 아이디값을 가진 객체를 수정함.
+  function setAddModalById() {
+    return components[component].setAddModalById(id);
+  }
+
   addModalModule.getAddModalComponents = getAddModalComponents;
   addModalModule.showModal = showModal;
   addModalModule.hideModal = hideModal;
   addModalModule.toWaitList = toWaitList;
   addModalModule.toAddedList = toAddedList;
-  addModalModule.findById = findById;
-  addModalModule.rederOnModal = rederOnModal;
+  addModalModule.findComponentById = findComponentById;
   addModalModule.removeFromArray = removeFromArray;
   addModalModule.setAddModalById = setAddModalById;
 });

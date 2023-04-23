@@ -13,8 +13,15 @@ function createEventId() {
 }
 
 // id로 이벤트 찾기
-function findEventById(arr, eventId) {
-  return arr[findIndexById(arr, eventId)];
+function findEventById(id) {
+  let events = [...addedEvents, ...waitEvents];
+  let foundEvent = events.find(event => event.id === id);
+  if (foundEvent) {
+    return foundEvent;
+  } else {
+    console.log(`해당 id를 가진 일정이 없습니다`);
+    return null;
+  }
 }
 
 function findAPIResultEventById(arr, eventId) {
@@ -121,7 +128,24 @@ function renderEventOnModal(event) {
 
 //edit
 function setAddModalByEventId(id) {
-  
+  if(findEventById(waitEvents, id) != -1 ) {
+    let modalEvent = findEventById(waitEvents, id)
+  } else if (findEventById(waitEvents, id) != -1) {
+    let modalEvent = findEventById(addedEvents, id);
+  }
+
+  $("#event-title").val(modalEvent.title);
+  $("#event-location").val(modalEvent.location);
+  $("#event-start-time").val(modalEvent.start);
+  $("#event-end-time").val(modalEvent.end);
+  $("#event-price").val(modalEvent.price);
+  $("#event-details").val(modalEvent.details);
+  $(".image-upload").val("");
+  $("#schedulerEventModal .preview-image").attr(
+    "src",
+    modal.image
+  );
+  $("#schedulerEventModal .image-caption").text("이미지 등록");
 }
 
 function renderAPIResultOnModal(event) {
@@ -155,6 +179,7 @@ export {
   resetEventModal,
   createEventObject,
   renderEventOnModal,
+  setAddModalByEventId,
   removeEventFromArray,
   renderAPIResultOnModal,
   findAPIResultEventById,

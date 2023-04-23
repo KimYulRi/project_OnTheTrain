@@ -36,6 +36,8 @@ $(document).ready(() => {
       priceField: $("#event-price_view"),
       detailsField: $("#event-details_view"),
       modalBackdrop: $("#schedulerEventModalView .modal-backdrop"),
+      findComponentById: findEventById,
+      renderOnModal: renderEventOnModal,
     },
   };
 
@@ -76,24 +78,32 @@ $(document).ready(() => {
 
   addModalViewEventListeners("event");
 
+   // 특정 요소 객체를 id값으로 찾아 반환
+   function findComponentById(component, id) {
+    let componentObj = componentsView[component].findComponentById(id);
+    return componentObj;
+  }
+
+   // 특정 요소 객체의 값을 바탕으로 modalView를 구성함
+   function rederOnModal(component, componentObj) {
+    componentsView[component].renderOnModal(componentObj);
+  }
+
   // 카드 클릭시 해당 정보를 담은 모달 열기
   waitComponentList.add(addedComponentList).on("click", ".card", function () {
-    let eventId = $(this).attr("id");
-
-    if (findEventById(addedEvents, eventId)) {
-      let selectedEvent = findEventById(addedEvents, eventId);
-      renderEventOnModal(selectedEvent);
-    } else if (findEventById(waitEvents, eventId)) {
-      let selectedEvent = findEventById(waitEvents, eventId);
-      renderEventOnModal(selectedEvent);
-    } else {
-      console.log("해당 id를 가진 이벤트를 찾을 수 없습니다.");
-    }
-
-    let cardToRemove = $(".card#" + eventId);
+    let componentId = $(this).attr("id");
+    let cardToRemove = $(".card#" + componentId);
     let component = getCurrentComponent();
+    let componentObj = findComponentById(component, componentId);
+
+    rederOnModal(component, componentObj);
 
     showModal(component, cardToRemove);
+
+    componentsView.editButton.on("click", function () {
+
+    });
+
   });
 
   // 수정 하기
