@@ -15,11 +15,11 @@
     <title>숙소예약 상세</title>
     <link href="${ path }/css/accommodation/accommodationReservation.css" rel="stylesheet" type="text/css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+	<%@ include file="../common/header.jsp" %>
 	<link href="${ path }/css/accommodation/review.css" rel="stylesheet" type="text/css">
     <script src="${ path }/js/common/jquery-3.6.3.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dayjs/1.10.7/dayjs.min.js"></script>
     <script type="text/javascript" src="http://dapi.kakao.com/v2/maps/sdk.js?appkey=abe862743db89d98578a540d9cfed4b7"></script>
-	<%@ include file="../common/header.jsp" %>
 </head>
 <body>
     <section>
@@ -188,7 +188,7 @@
 		</div>
     </section>
     
-    <jsp:include page="./accModal.jsp" />
+  <%--   <jsp:include page="./accModal.jsp" /> --%>
     
     <script type="text/javascript">
 	    $(document).ready(() => {
@@ -215,6 +215,18 @@
 	    	
 			marker.setMap(map);
 
+			let iwContent = '<div style="padding:5px;">${ accommodation.name }<br>${ accommodation.explain }<br><a href="https://map.kakao.com/link/map/${ accommodation.name },${ accommodation.lat }, ${ accommodation.lot }" style="color:blue" target="_blank">큰지도보기</a> <br> <a href="https://map.kakao.com/link/to/ ${ accommodation.name },${ accommodation.lat }, ${ accommodation.lot }" style="color:blue" target="_blank">길찾기</a></div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+		    //위의 코드는 이름,전화번호,큰지도보기와 길찾기 도착지 설정 
+			iwPosition = new kakao.maps.LatLng(33.450701, 126.570667); //인포윈도우 표시 위치입니다
+			// 인포윈도우를 생성합니다 
+			let infowindow = new kakao.maps.InfoWindow({
+			    position : iwPosition, 
+			    content : iwContent 
+			});
+			  
+			// 마커 위에 인포윈도우를 표시합니다. 두번째 파라미터인 marker를 넣어주지 않으면 지도 위에 표시됩니다
+			infowindow.open(map, marker); 
+			
 		    $('#ckeckInInput').on('change', (event) => {
 		    	$('#ckeckOutInput').prop('min', event.target.value);
 		    });
