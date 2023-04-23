@@ -1,0 +1,305 @@
+@charset "UTF-8";
+
+html, body{
+    width: 1200px;
+    height: 100%;
+    /* border: 1px solid black; */
+    margin: 0 auto;
+
+}
+div{
+    font-family: 'Noto Sans KR';
+    
+}
+
+a {
+	text-decoration:none !important;
+	color:black !important;
+	
+	}
+a:hover {
+	text-decoration:none !important 
+	}
+
+section{
+    width: 1024px;
+    height: 100%;
+    /* border: 1px solid red; */
+    margin: 0 auto;
+
+}
+
+#container{
+	margin-top: 150px;
+    width: 100%;
+    height: 100%;
+
+
+}
+
+
+#toolbartitle{
+    font-size: larger;
+    font-weight: 900;
+    padding-bottom: 10px;
+    border-bottom: 2px solid;
+}
+
+#letftoolbar{
+    height: 100%;
+    width: 15%;
+    float: left;
+}
+
+#toolbartable{
+    height: 100%;
+}
+
+
+#toptoolbar{
+    width: 80%;
+    height: 15%;
+    float: left;
+    margin-left: 50px;
+}
+
+#toptoolbar>div{
+    text-align: center;
+    
+}
+
+
+.toolbarcontent{
+    border-bottom: 1px solid gray;
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
+
+
+
+#toptoolbar>div{
+
+    width: 50%;
+    float: left;
+
+
+}
+#ticket{
+    color: rgb(39, 76, 227);
+    font-weight: 800;
+    border-left: 2px solid black;
+    border-top: 2px solid black;
+    border-right: 2px solid black;
+}
+
+#accommodation{
+    color: black;
+    border-collapse: collapse;
+    border: 1px ;
+    
+    border-top: 1px solid gray;
+    border-right: 1px solid gray;
+    border-bottom: 2px solid black;
+}
+
+#ticketcontent{
+    width: 80%;
+    float: left;
+    margin-left: 50px;
+    margin-top: 150px;
+}
+
+
+#ticketbody{
+    width: 80%;
+    height: 200px;
+    margin-top: 30px;
+    margin-left: 50px;
+    border: 1px solid black;
+    float: left;
+}
+
+#tickettitle{
+    float: left;
+    margin-top: 30px;
+    margin-left: 50px;
+    text-align: center;
+    font-weight: bold;
+}
+
+#ticketlogo{
+    float: left;
+    margin-top: 10px;
+    margin-left: 250px;
+}
+
+#ticketdatebody{
+    
+    float: left;
+    margin-top: 30px;
+    margin-left: 150px;
+    border-bottom: 1px solid gray;
+}
+#ticketdatetitle{
+    text-align: center;
+    font-size: smaller;
+    color: gray;
+}
+
+#tickettimebody{
+    float: left;
+    margin-top: 30px;
+    margin-left: 30px;
+}
+
+#tickettimetitle{
+    text-align: center;
+    font-size: smaller;
+    color: gray;
+}
+
+#tickettime{
+    text-align: center;
+    border-bottom: 1px solid gray;
+}
+
+#ticketstation{
+    clear: both;
+    float: left;
+    margin: 50px;
+    border-bottom: 1px solid gray;
+
+}
+
+#ticketstationstart{
+    text-align: center;
+    font-size: smaller;
+    color: gray;
+    float: left;
+}
+
+#ticketstationend{
+    text-align: center;
+    font-size: smaller;
+    color: gray;
+    float: left;
+    margin-left: 20px;
+}
+
+#ticketstationstartcontent{
+    font-size: large;
+    font-weight: bold;
+    color: black;
+    text-align: center;
+}
+
+#ticketstationarrow{
+    float: left;
+    margin-left: 20px;
+    margin-top: 10px;
+}
+
+#ticketstationendcontent{
+    font-size: large;
+    font-weight: bold;
+    color: black;
+    text-align: center;
+}
+
+
+#tickettrainbody{
+    width: 230px;
+    float: left;
+    border-bottom: 1px solid gray;
+    
+}
+
+#tickettrainway{
+    text-align: center;
+    float: left;
+    margin-left: 20px;
+    margin-top: 45px;
+}
+
+#tickettrainname{
+    text-align: center;
+    float: left;
+    margin-left: 10px;
+    margin-top: 45px;
+}
+
+#tickettrainsitnum{
+    /* text-align: center; */
+    float: left;
+    margin-left: 30px;
+    margin-top: 50px;
+    font-size: smaller;
+    color: gray;
+}
+
+#tickettrainwaycontent{
+    text-align: center;
+    font-size: large;
+    font-weight: bold;
+    color: black;
+
+}
+
+#tickettrainnamecontent{
+    text-align: center;
+    margin-left: 30px;
+    
+    font-size: large;
+    font-weight: bold;
+    color: black;
+}
+
+#tickettrainsitnumcontent{
+    text-align: center;
+    font-size: large;
+    font-weight: bold;
+    color: black;
+
+
+}
+
+
+
+#ticketpricebody{
+    float: left;
+    margin-left: 50px;
+    margin-top: 50px;
+    border-bottom: 1px solid gray;
+}
+
+#ticketpricetitle{
+    text-align: center;
+    font-size: smaller;
+    color: gray;
+}
+
+#ticketpricecontent{
+    text-align: center;
+    font-size: large;
+    font-weight: bold;
+    color: black;
+
+}
+
+#ticketcancle{
+    float: left;
+    margin-top: 60px;
+    margin-left: 50px;
+    background-color: rgb(212,6,43);
+    border: rgb(212,6,43);
+}
+
+#ticketcancle:hover{
+    background: #770B1E;
+}
+
+#mypagechoose{
+    color: rgb(39, 76, 227);
+    font-weight: 700;
+}
+

@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.kh.onthetrain.myPage.model.mapper.MyPageMapper">
+
+	
+
+	<resultMap id="memberResultMap" type="Member">
+      <id property="no" column="NO"/>
+      <result property="membership" column="MEMBERSHIP_CODE" />
+      <result property="id" column="ID" />
+      <result property="password" column="PASSWORD" />
+      <result property="role" column="ROLE" />
+      <result property="nickname" column="NICKNAME" />
+      <result property="name" column="NAME" />
+      <result property="birth" column="BIRTH" />
+      <result property="email" column="EMAIL" />
+      <result property="phone" column="PHONE" />
+      <result property="address" column="ADDRESS" />
+      <result property="enrollDate" column="ENROLL_DATE" />
+      <result property="modifyDate" column="MODIFY_DATE" />
+      <result property="snsLogin" column="SNS_LOGIN" />
+      <result property="status" column="STATUS" />
+      <result property="amount" column="AMOUNT" />
+   </resultMap>
+   
+   	<resultMap id="schedulerResultMap" type="Scheduler">
+		<id property="no" column="NO" />
+		<result property="memberNo" column="MEMBER_NO" />
+		<result property="visable" column="VISABLE" />
+		<result property="createDate" column="CREATE_DATE" />
+		<result property="editDate" column="EDIT_DATE" />
+	</resultMap>
+	
+	<resultMap id="qnaResultMap" type="com.kh.onthetrain.myPage.model.entity.Qna" >
+		<id  property="qnaNo" column="NO" />
+		<result property="writerNo" column="MEMBER_NO" />
+		<result property="type" column="TYPE" />
+		<result property="title" column="TITLE" />
+		<result property="qnaContent" column="CONTENT" />
+		<result property="qnaCheck" column="QNA_CHECK" />
+		<result property="createDate" column="QNA_DATE" />
+		<result property="visable" column="VISABLE" />
+		<result property="qnaOriginalFileName" column="ORIGINAL_FILENAME" />
+		<result property="qnaRenamedFileName" column="RENAMED_FILENAME" />
+	</resultMap>
+	
+	<resultMap id="qnaReplyResultMap" type="com.kh.onthetrain.myPage.model.entity.QnaReply" >
+		<id property="qnaReplyNo" column="NO" />
+		<result property="qnaNo" column="QNA_NO"/>
+		<result property="qnaReplyContent" column="CONTENT"/>
+		<result property="qnaReplyDate" column="QNA_REPLY_DATE"/>
+		<result property="visable" column="VISABLE"/>
+	</resultMap>
+	
+	<!-- 문의 게시글 목록을 유저 번호에 맞게 가져오는 쿼리문 -->
+	<select id="selectQnaListByMemberNo" resultMap="qnaResultMap">
+		SELECT NO,
+			   MEMBER_NO,
+			   TYPE,
+			   TITLE,
+			   CONTENT,
+			   QNA_CHECK,
+			   QNA_DATE,
+			   VISABLE,
+			   ORIGINAL_FILENAME,
+			   RENAMED_FILENAME
+		FROM   QNA
+		WHERE  VISABLE = 'Y' AND MEMBER_NO = #{no}
+
+	</select>
+	
+	<!-- 문의 게시글을 작성하는 쿼리문 -->
+	<insert id="insertQna" parameterType="Qna" keyProperty="no" keyColumn="NO" >
+		INSERT INTO QNA (
+			NO,
+			MEMBER_NO,
+			TYPE,
+			TITLE,
+			CONTENT,
+			QNA_CHECK,
+			QNA_DATE,
+			VISABLE,
+			ORIGINAL_FILENAME,
+			RENAMED_FILENAME
+		) VALUES (
+			SEQ_QNA_NO.NEXTVAL,
+			#{writerNo},
+			#{type},
+			#{title},
+			#{qnaContent},
+			'N',
+			SYSDATE,
+			'Y',
+			#{qnaOriginalFileName},
+			#{qnaRenamedFileName}
+		)
+	
+	</insert>
+	
+	<!-- 문의 게시글 상세보기 페이지를 불러오는 쿼리문 -->
+	<select id="findQnaByNo" resultMap="qnaResultMap" >
+		SELECT NO,
+			   MEMBER_NO,
+			   TYPE,
+			   TITLE,
+			   CONTENT,
+			   QNA_CHECK,
+			   QNA_DATE,
+			   VISABLE,
+			   ORIGINAL_FILENAME,
+			   RENAMED_FILENAME
+		FROM   QNA
+		WHERE  NO = #{no}
+	
+	
+	</select>
+		
+		<!-- 관리자가 문의 답변을 작성하는 쿼리문 -->
+		<insert id="insertQnaReply"   parameterType="QnaReply" keyProperty="qnaReplyNo" keyColumn="NO">
+		    INSERT INTO QNA_REPLY (
+		        NO,
+		        QNA_NO,
+		        CONTENT,
+		        QNA_DATE,
+		        VISABLE
+		    ) VALUES (
+		        SEQ_QNA_REPLY_NO.NEXTVAL,
+		        #{qnaNo},
+		        #{qnamodalreply},
+		        SYSDATE,
+		        'Y'
+		    )
+		</insert>
+		
+		<!-- 문의에 답변이 있을경우 가져오는 쿼리문 -->
+	<select id="findReplyByNo" resultMap="qnaReplyResultMap">
+		SELECT	NO,
+				QNA_NO,
+				CONTENT,
+				QNA_DATE,
+				VISABLE
+		FROM 	QNA_REPLY
+		WHERE	QNA_NO=#{no}
+	</select>
+	
+	<!-- 문의 답변이 달릴경우에 check 상태를 바꿔주는 쿼리문 -->
+	<update id="updateCheck" parameterType="Qna" >
+		UPDATE QNA
+		SET	   QNA_CHECK='Y'
+		WHERE  NO = #{no}
+	</update>
+	
+	
+	<!-- 마이페이지에서 본인확인할때 사용하는 쿼리문 -->
+		<select id="checkMember" resultMap="memberResultMap">
+		  SELECT
+		    NO,
+		    MEMBERSHIP_CODE,
+		    ID,
+		    PASSWORD,
+		    ROLE,
+		    NICKNAME,
+		    NAME,
+		    BIRTH,
+		    EMAIL,
+		    PHONE,
+		    ADDRESS,
+		    ENROLL_DATE,
+		    MODIFY_DATE,
+		    SNS_LOGIN,
+		    STATUS,
+		    AMOUNT
+		  FROM MEMBER
+		  WHERE ID = #{id}
+		</select>
+
+	<!-- 마이페이지에서 본인확인후 개인정보를 수정하는 쿼리문 -->
+	<update id="updateMember" parameterType="Member">
+		UPDATE MEMBER
+		SET NAME = #{name},
+			ID = #{id},
+			NICKNAME = #{nickname},
+			PHONE = #{phone},
+			ADDRESS = #{address}
+		WHERE NO = #{no}
+	</update>
+	
+	<!-- 마이페이지에서 비밀번호 변경전 입력한 비밀번호와 유저의 비밀번호가 일치하는지 확인하는 쿼리문 -->
+	<select id="checkMemberPwd" resultMap="memberResultMap">
+		  SELECT
+		    NO,
+		    MEMBERSHIP_CODE,
+		    ID,
+		    PASSWORD,
+		    ROLE,
+		    NICKNAME,
+		    NAME,
+		    BIRTH,
+		    EMAIL,
+		    PHONE,
+		    ADDRESS,
+		    ENROLL_DATE,
+		    MODIFY_DATE,
+		    SNS_LOGIN,
+		    STATUS,
+		    AMOUNT
+		  FROM MEMBER
+		  WHERE NO = #{no}
+	</select>
+	
+	
+	<!-- 비밀번호를 변경하는 쿼리문 -->
+	<update id="updatePwd" parameterType="Member">
+		  UPDATE MEMBER
+		  SET PASSWORD = #{pwd}
+		  WHERE NO = #{no}
+	</update>
+		
+		
+	<select id="findMemberByNo" resultMap="memberResultMap">
+	  SELECT
+		    M.NO,
+		    M.MEMBERSHIP_CODE,
+		    M.ID,
+		    M.PASSWORD,
+		    M.ROLE,
+		    M.NICKNAME,
+		    M.NAME,
+		    M.BIRTH,
+		    M.EMAIL,
+		    M.PHONE,
+		    M.ADDRESS,
+		    M.ENROLL_DATE,
+		    M.MODIFY_DATE,
+		    M.SNS_LOGIN,
+		    M.STATUS,
+		    M.AMOUNT
+	  FROM MEMBER M
+	  JOIN QNA Q ON M.NO = Q.MEMBER_NO
+	  WHERE Q.NO = #{no}
+	</select>
+
+
+	
+   </mapper>

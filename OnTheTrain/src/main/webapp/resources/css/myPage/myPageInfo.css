@@ -1,0 +1,231 @@
+html, body{
+    width: 1200px;
+    height: 100%;
+    /* border: 1px solid black; */
+    margin: 0 auto;
+
+}
+div{
+    font-family: 'Noto Sans KR';
+    
+}
+
+
+section{
+    width: 1024px;
+    height: 100%;
+    /* border: 1px solid red; */
+    margin: 0 auto;
+
+}
+
+a {
+	text-decoration:none !important;
+	color:black !important;
+	
+	}
+a:hover {
+	text-decoration:none !important 
+	}
+
+#container{
+	margin-top: 150px;
+    width: 100%;
+    height: 100%;
+
+
+}
+	.texttype4{
+		width: 270px;
+		height: 20px;
+		padding-left: 10px;
+		outline: none;
+	}
+		.texttype1{
+		width: 390px;
+		height: 20px;
+		padding-left: 10px;
+		outline: none;
+	}
+	
+		.inputbtn{
+		
+		border: 0px;
+		width: 155px;
+		height: 20px;
+		background-color:#596180;
+		margin-left:10px;
+		color: #ffffff;
+	}
+#mypagechoose{
+    color: rgb(39, 76, 227);
+    font-weight: 700;
+}
+
+
+#toolbartitle{
+    font-size: larger;
+    font-weight: 900;
+    padding-bottom: 10px;
+    border-bottom: 2px solid;
+}
+
+#letftoolbar{
+    height: 100%;
+    width: 15%;
+    float: left;
+}
+
+
+
+.toolbarcontent{
+    border-bottom: 1px solid gray;
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
+
+
+
+
+
+#toptoolbar{
+    width: 80%;
+    height: 8%;
+    float: left;
+    margin-left: 50px;
+}
+
+#toptoolbartitle{
+    text-align: left;
+    font-weight: 900;
+    font-size: larger;
+}
+
+
+
+tr>th{
+    width: 20%;
+    border: 0.5px solid #717177 ;
+    text-align: center;
+    background-color: gray;
+    border-collapse: separate;
+    border-radius: 10px;
+}
+tr>td{
+    width: 80%;
+    border-collapse: separate;
+    border-radius: 10px;
+    border: 0.5px solid #717177 ;
+    padding-left: 30px;
+    text-align: left;
+}
+
+#infotable{
+    border-collapse: separate;
+    border: #717177 solid 0.5px;
+    border-radius: 10px;
+    height: 500px;
+    width: 75%;
+    float: left;
+    margin-left: 70px;
+}
+
+.infoinput{
+	width: 150px;
+    border: none;
+}
+
+.infoinput:focus{
+    outline: none;
+}
+
+	.inputbtn{
+		border: 0px;
+		width: 155px;
+		height: 20px;
+		background-color:#596180;
+		margin-left:10px;
+		color: #ffffff;
+	}
+
+
+	.inputbtn:hover{
+		background-color:#00008B;
+		color: #ffffff;
+	}
+
+#idsucc{
+	float: right;
+	margin-right: 30px;
+		
+}
+
+#benefitbtn{
+    margin-left: 170px;
+    border-radius: 7px;
+    background-color: rgb(89, 97, 128);
+    border: rgb(89, 97, 128);
+    color: white;
+    width: 150px;
+}
+
+#benefitbtn:hover{
+    background: #00008B;
+}
+
+
+#infosubmit{
+    background-color: rgb(89, 97, 128);
+    border: rgb(89, 97, 128);
+    border-radius: 7px;
+    width: 200px;
+    color: white;
+    margin-left: 250px;
+    margin-top: 50px;
+}
+
+#infosubmit:hover{
+    background: #00008B;
+}
+
+#pwdchange{
+    background-color: rgb(89, 97, 128);
+    border: rgb(89, 97, 128);
+    border-radius: 7px;
+    width: 200px;
+    color: white;
+    margin-left: 50px;
+}
+
+#pwdchange:hover{
+    background: #00008B;
+}
+
+.rankhead{
+    width: 25%;
+}
+
+
+.body{
+	width:25%;
+    float: left;
+    text-align: center;
+    height: 200px;
+}
+
+.bodymargin{
+	margin-top: 30px;
+	margin-bottom: 30px;
+}
+
+#pwdbtn{
+	margin-right:250px;
+	text-align: center;
+}
+
+	#idsucc, #nicksucc, #emailsucc{
+		font-size: 6px;
+		color: #00008b;
+  		display: none;
+  		padding: 0 0 0 3px;
+	}
