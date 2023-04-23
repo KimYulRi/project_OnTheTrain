@@ -10,14 +10,12 @@ import {
   searchEvents,
   renderAPIResultOnModal,
   findAPIResultEventById,
-} from "./schedulerComponent/schedulerEventModule.js";
-
-import {
   renderEventOnModal,
   findEventById,
 } from "./schedulerComponent/schedulerEventModule.js";
 
-let component = getCurrentComponent();
+import { addModalModule } from "./schedulerModalModule.js";
+
 const eventList = $("#eventList");
 
 $(document).ready(() => {
@@ -97,6 +95,20 @@ $(document).ready(() => {
 
     showModal(component, cardToRemove);
   });
+
+  // 수정 하기
+  function editModal(currentComponent, id) {
+    let cc = addModalModule.getAddModalComponents()[currentComponent];
+    // view모달 숨기기
+    hideModal(currentComponent);
+
+    // add모달 열고, 내용 초기화
+    cc.showModal(currentComponent);
+    cc.resetModalContent(currentComponent);
+
+    // 전달받는 id로 내용 그리기
+    cc.setAddModalById(id);  
+  }
 
   eventList.on("click", ".card", function () {
     let eventId = $(this).attr("id");

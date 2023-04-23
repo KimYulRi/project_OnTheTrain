@@ -108,10 +108,20 @@ function renderEventOnModal(event) {
   $("#eventPrice_view").text(event.price || "내용 없음");
   $("#eventDetails_view").text(event.details || "내용 없음");
 
-  // 이미지 미리보기를 설정
   if (event.image) {
     $("#preview-image_view").attr("src", event.image);
+    $("#schedulerEventModalView .image-caption>a").attr({
+      href: event.image,
+      target: "_blank",
+    });
+  } else {
+    $("#schedulerEventModalView .image-caption a").attr("href", "#");
   }
+}
+
+//edit
+function setAddModalByEventId(id) {
+  
 }
 
 function renderAPIResultOnModal(event) {
@@ -125,7 +135,7 @@ function renderAPIResultOnModal(event) {
 
   if (event.image) {
     $("#preview-image_view").attr("src", event.image);
-    $("#schedulerEventModalView .image-caption a").attr({
+    $("#schedulerEventModalView .image-caption>a").attr({
       href: event.image,
       target: "_blank",
     });

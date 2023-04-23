@@ -84,6 +84,7 @@ $(document).ready(() => {
       resetModal: resetEventModal,
       rederOnModal: renderEventOnModal,
       removeFromArray: removeEventFromArray,
+      setAddModalById : setAddModalByEventId
     },
     accommodation: {
       modal: $("#schedulerAccommodationModal"),
@@ -247,6 +248,7 @@ $(document).ready(() => {
   addModalModule.findById = findById;
   addModalModule.rederOnModal = rederOnModal;
   addModalModule.removeFromArray = removeFromArray;
+  addModalModule.setAddModalById = setAddModalById;
 });
 
 export { createNewCard, addNewCardtoArea, addModalModule };
