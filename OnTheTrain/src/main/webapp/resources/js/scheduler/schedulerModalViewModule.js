@@ -96,14 +96,14 @@ $(document).ready(() => {
       currentComponent,
       componentId
     );
-    console.log(arrayAndIndex);
 
-    if (arrayAndIndex && arrayAndIndex.array) {
+    if ( $(arrayAndIndex) ) {
       // arrayAndIndex와 arrayAndIndex.array가 모두 있는지 확인
       let array = arrayAndIndex.array;
       let index = arrayAndIndex.index;
 
       array.splice(index, 1);
+      console.log(array);
     } else {
       console.log(`해당 id를 가진 일정이 없습니다`);
     }

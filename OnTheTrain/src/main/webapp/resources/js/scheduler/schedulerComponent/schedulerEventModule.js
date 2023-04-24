@@ -63,46 +63,42 @@ function findEventFromArrayById(array, id) {
  * @returns {obj} 위치한 array와 index값을 반환
  */
 function getEventArrayAndIndexById(id) {
-  let key, array, index;
-  let arrayAndIndex = { key, array, index };
+  let array, index;
+  let arrayAndIndex = { array, index };
 
   // addedEvents 배열에서 찾기
-  addedEvents.forEach((item, i) => {
-    if (item.id === id) {
-      arrayAndIndex.key = "addedEvents";
+  for (let i = 0; i < addedEvents.length; i++) {
+    if (addedEvents[i].id === id) {
+    
       arrayAndIndex.array = addedEvents;
       arrayAndIndex.index = i;
+      return arrayAndIndex;
     }
-  });
+  }
 
   // waitEvents 배열에서 찾기
-  if (!arrayAndIndex.array) {
-    waitEvents.forEach((item, i) => {
-      if (item.id === id) {
-        arrayAndIndex.key = "waitEvents";
-        arrayAndIndex.array = waitEvents;
-        arrayAndIndex.index = i;
-      }
-    });
+  for (let i = 0; i < waitEvents.length; i++) {
+    if (waitEvents[i].id === id) {
+     
+      arrayAndIndex.array = waitEvents;
+      arrayAndIndex.index = i;
+      console.log(arrayAndIndex);
+      return arrayAndIndex;
+    }
   }
 
   // APIEvents 배열에서 찾기
-  if (!arrayAndIndex.array) {
-    APIEvents.forEach((item, i) => {
-      if (item.id === id) {
-        arrayAndIndex.key = "APIEvents";
-        arrayAndIndex.array = APIEvents;
-        arrayAndIndex.index = i;
-      }
-    });
+  for (let i = 0; i < APIEvents.length; i++) {
+    if (APIEvents[i].id === id) {
+ 
+      arrayAndIndex.array = APIEvents;
+      arrayAndIndex.index = i;
+      return arrayAndIndex;
+    }
   }
 
-  if (!arrayAndIndex.array) {
-    console.log(`해당 id를 가진 일정이 없습니다`);
-    return null;
-  }
-
-  return arrayAndIndex;
+  console.log(`해당 id를 가진 일정이 없습니다`);
+  return null;
 }
 
 // 추가된 일정으로 이벤트 객체를 옮기는 함수

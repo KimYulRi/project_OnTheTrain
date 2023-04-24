@@ -219,7 +219,6 @@ $(document).ready(() => {
     );
 
     components[currentComponent].waitList.push(componentObj);
-    console.log(components[currentComponent].waitList);
     hideModal(currentComponent);
     resetModalContent(currentComponent);
   }
@@ -284,7 +283,7 @@ $(document).ready(() => {
    * @param {componentId} id
    */
   function getComponentArrayAndIndexById(component, id) {
-    components[component].getComponentArrayAndIndexById(id);
+    return components[component].getComponentArrayAndIndexById(id);
   }
 
   addModalModule.showModal = showModal;
