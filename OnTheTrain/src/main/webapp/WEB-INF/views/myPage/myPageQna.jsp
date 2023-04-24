@@ -57,6 +57,31 @@
 				        	<div id="qnacheckno" class="qnabox">미답변</div>
 				        </c:if>
 				    </c:forEach>
+				    
+			<div id="pageBar">
+				<!-- 맨 처음으로 -->
+				<button onclick="location.href='${ path }/myPage/myPageQna?page=1'">&lt;&lt;</button>
+	
+				<!-- 이전 페이지로 -->
+				<button onclick="location.href='${ path }/myPage/myPageQna?page=${ pageInfo.prevPage }'">&lt;</button>
+	
+				<!--  5개 페이지 목록 -->
+				<c:forEach begin="${ pageInfo.startPage }" end="${ pageInfo.endPage }" varStatus="status">
+					<c:choose>
+						<c:when test="${ status.current == pageInfo.currentPage}">
+							<button disabled>${ status.current }</button>
+						</c:when>
+						<c:otherwise>						
+							<button onclick="location.href='${ path }/myPage/myPageQna?page=${ status.current }'">${ status.current }</button>
+						</c:otherwise>
+					</c:choose>
+				</c:forEach>
+							<!-- 다음 페이지로 -->
+				<button onclick="location.href='${ path }/myPage/myPageQna?page=${ pageInfo.nextPage }'">&gt;</button>
+	
+				<!-- 맨 끝으로 -->
+				<button onclick="location.href='${ path }/myPage/myPageQna?page=${ pageInfo.maxPage }'">&gt;&gt;</button>
+			</div>
 				</div>
                 <div></div>
             </div>

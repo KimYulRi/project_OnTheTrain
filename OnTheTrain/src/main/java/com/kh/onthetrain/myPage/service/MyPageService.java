@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.kh.onthetrain.common.util.PageInfo;
 import com.kh.onthetrain.member.model.vo.Member;
 import com.kh.onthetrain.myPage.model.entity.Qna;
 import com.kh.onthetrain.myPage.model.entity.QnaReply;
@@ -12,7 +13,11 @@ import com.kh.onthetrain.myPage.model.entity.QnaReply;
 public interface MyPageService {
 	
 	// 사용자의 no를 가지고 작성한 문의 게시글을 가져오는 메소드
-	List<Qna> getQnaListByMemberNo(int no);
+	// QNA 게시글 페이징바 만드는 메소드
+	int getQnaCount(int no);
+	
+	
+	List<Qna> getQnaListByMemberNo(int no, PageInfo pageInfo);
 	
 	
 	// qna를 작성하는 메소드
@@ -42,6 +47,7 @@ public interface MyPageService {
 
 	// 게시글 no를 가지고 문의 게시판 작성자를 가져오는 메소드
 	Member findMemberByNo(int no);
+	
 
 
 		

@@ -2,10 +2,12 @@ package com.kh.onthetrain.myPage.service;
 
 import java.util.List;
 
+import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.kh.onthetrain.common.util.PageInfo;
 import com.kh.onthetrain.member.model.vo.Member;
 import com.kh.onthetrain.myPage.model.entity.Qna;
 import com.kh.onthetrain.myPage.model.entity.QnaReply;
@@ -23,10 +25,16 @@ public class MyPageServiceImpl implements MyPageService {
 	
 	// 사용자의 no를 가지고 작성한 문의글을 가져오는 메소드
 	@Override
-	public List<Qna> getQnaListByMemberNo(int no) {
+	public List<Qna> getQnaListByMemberNo(int no, PageInfo pageInfo) {
+		
+		System.out.println(no);
+		int limit = pageInfo.getListLimit();
+		int offset = (pageInfo.getCurrentPage() -1) * limit;
+		RowBounds rowBounds = new RowBounds(offset,limit);
 		
 		
-		return mapper.selectQnaListByMemberNo(no);
+		
+		return mapper.selectQnaListByMemberNo(no, rowBounds);
 	}
 
 	// 문의 게시글을 작성하는 메소드
@@ -116,6 +124,13 @@ public class MyPageServiceImpl implements MyPageService {
 		
 		
 		return mapper.findMemberByNo(no);
+	}
+
+	@Override
+	public int getQnaCount(int no) {
+		
+		
+		return mapper.selectQnaCount(no);
 	}
 
 

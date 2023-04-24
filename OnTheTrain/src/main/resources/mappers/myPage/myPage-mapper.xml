@@ -68,6 +68,7 @@
 			   RENAMED_FILENAME
 		FROM   QNA
 		WHERE  VISABLE = 'Y' AND MEMBER_NO = #{no}
+		ORDER  BY NO DESC
 
 	</select>
 	
@@ -133,6 +134,10 @@
 		        'Y'
 		    )
 		</insert>
+		
+		<select id="selectQnaCount" resultType="_int" >
+			SELECT COUNT(*) FROM QNA WHERE VISABLE='Y' AND MEMBER_NO = #{no}
+		</select>
 		
 		<!-- 문의에 답변이 있을경우 가져오는 쿼리문 -->
 	<select id="findReplyByNo" resultMap="qnaReplyResultMap">

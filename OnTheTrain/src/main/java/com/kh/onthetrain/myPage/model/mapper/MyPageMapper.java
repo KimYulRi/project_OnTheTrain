@@ -4,7 +4,9 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.session.RowBounds;
 
+import com.kh.onthetrain.common.util.PageInfo;
 import com.kh.onthetrain.member.model.vo.Member;
 import com.kh.onthetrain.myPage.model.entity.Qna;
 import com.kh.onthetrain.myPage.model.entity.QnaReply;
@@ -14,7 +16,7 @@ public interface MyPageMapper {
    
 	
 	// 유저가 작성한 문의글들을 게시판 가져오는 메소드
-	List<Qna> selectQnaListByMemberNo(@Param("no") int no);
+	List<Qna> selectQnaListByMemberNo(@Param("no") int no,RowBounds rowBounds);
 	
 	// 문의글을 작성하는 메소드
 	int insertQna(Qna qna);
@@ -46,6 +48,8 @@ public interface MyPageMapper {
 	
 	// 게시글 no를 가지고 문의 게시판 작성자를 가져오는 메소드
 	Member findMemberByNo(int no);
+
+	int selectQnaCount(@Param("no")int no);
 
 
 	
