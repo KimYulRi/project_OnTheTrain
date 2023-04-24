@@ -5,14 +5,18 @@ import { findIndexById } from "../schedulerCreate.js";
 // event 객체를 관리할 배열 생성
 const addedEvents = [];
 const waitEvents = [];
-const searchEvents = [];
+const APIEvents = [];
 
 // event 객체의 ID값을 관리할 함수 정의
 function createEventId() {
   return "event_" + Date.now() + Math.floor(Math.random() * 1000);
 }
 
-// id로 이벤트 찾기
+/**
+ * id로 이벤트 찾기
+ * @param {string} id  이벤트 아이디
+ * @returns {object} 이벤트 오브젝트
+ */
 function findEventById(id) {
   let foundEvent = addedEvents.find((event) => event.id === id);
 
@@ -22,27 +26,34 @@ function findEventById(id) {
 
   foundEvent = waitEvents.find((event) => event.id === id);
 
-  console.log(foundEvent);
   if (foundEvent) {
     return foundEvent;
+  }
+
+  foundEvent = searchEvents.find((event) => event.id === id);
+
+  if (foundEvent) {
   } else {
     console.log(`해당 id를 가진 일정이 없습니다`);
     return null;
   }
 }
 
-function findAPIResultEventById(arr, eventId) {
-  let idx = -1;
-  $.each(arr, function (index, element) {
-    if (element.id === eventId) {
-      idx = index;
-    }
-  });
+/**
+ * 배열에서 id로 이벤트 찾기
+ * @param {array} 첫번째 파라미터 아이디를 찾을 배열
+ * @param {string} id  이벤트 아이디
+ * @returns {object} 이벤트 오브젝트
+ */
+function findEventFromArrayById(array, id) {
+  let foundEvent = array.find((event) => event.id === id);
 
-  if (idx !== -1) {
-    return arr[idx];
+  if (foundEvent) {
+    return foundEvent;
+  } else {
+    console.log(`해당 id를 가진 일정이 없습니다`);
+    return null;
   }
-  console.log("찾는 event 정보가 사라졌습니다.");
 }
 
 // 추가된 일정으로 이벤트 객체를 옮기는 함수
@@ -80,23 +91,55 @@ function removeEventFromArray(arr, id) {
   }
 }
 
-// createEventObject 함수 정의
+// 일정 객체 생성 함수 정의
 function createEventObject(fields) {
-  const { title, location, startTime, endTime, price, details, image } = fields;
+  const { title, location, startTime, endTime, price, details, previewImage } =
+    fields;
 
   const event = {
     id: createEventId(),
     component: "event",
-    title,
-    location,
-    start: startTime,
-    end: endTime,
-    price,
-    details,
-    image,
+    title: title.val(),
+    location: location.val(),
+    startTime: startTime.val(),
+    endTime: endTime.val(),
+    price: price.val(),
+    details: details.val(),
+    image: previewImage.attr("src"),
   };
 
   return event;
+}
+
+// API로 받아오는 객체 함수 정의
+function createAPIEventObject(APIEventINFO, imageUrl) {
+  const APIEvent = {
+    addr1: APIEventINFO.addr1 || "",
+    addr2: APIEventINFO.addr2 || "",
+    booktour: APIEventINFO.booktour || "",
+    cat1: APIEventINFO.cat1 || "",
+    cat2: APIEventINFO.cat2 || "",
+    cat3: APIEventINFO.cat3 || "",
+    contentid: APIEventINFO.contentid || "",
+    contenttypeid: APIEventINFO.contenttypeid || "",
+    createdtime: APIEventINFO.createdtime || "",
+    eventstartdate: APIEventINFO.eventstartdate || "",
+    eventenddate: APIEventINFO.eventenddate || "",
+    firstimage: APIEventINFO.firstimage || "",
+    firstimage2: APIEventINFO.firstimage2 || "",
+    cpyrhtDivCd: APIEventINFO.cpyrhtDivCd || "",
+    mapx: APIEventINFO.mapx || "",
+    mapy: APIEventINFO.mapy || "",
+    mlevel: APIEventINFO.mlevel || "",
+    modifiedtime: APIEventINFO.modifiedtime || "",
+    areacode: APIEventINFO.areacode || "",
+    sigungucode: APIEventINFO.sigungucode || "",
+    tel: APIEventINFO.tel || "",
+    title: APIEventINFO.title || "",
+    imageUrl: imageUrl || "",
+  };
+
+  return APIEvent;
 }
 
 // resetModal 함수 정의
@@ -149,19 +192,19 @@ function setAddModalByEvent(modalEvent) {
   $("#schedulerEventModal .image-caption").text("이미지 등록");
 }
 
-function renderAPIResultOnModal(event) {
+function renderAPIEventOnModal(event) {
   // 모달 창에 필드 값을 입력.
   $("#eventTitle_view").text(event.title || "내용 없음");
-  $("#eventLocation_view").text(event.location || "내용 없음");
-  $("#eventStartTime_view").text(event.start || "내용 없음");
-  $("#eventEndTime_view").text(event.end || "내용 없음");
+  $("#eventLocation_view").text(event.addr1 || "내용 없음");
+  $("#eventStartTime_view").text(event.eventstartdate || "내용 없음");
+  $("#eventEndTime_view").text(event.eventenddate || "내용 없음");
   $("#eventPrice_view").text(event.price || "내용 없음");
-  $("#eventDetails_view").text(event.details || "내용 없음");
+  $("#eventDetails_view").text(event.tel || "내용 없음");
 
-  if (event.image) {
-    $("#preview-image_view").attr("src", event.image);
+  if (event.imageUrl) {
+    $("#preview-image_view").attr("src", event.imageUrl);
     $("#schedulerEventModalView .image-caption>a").attr({
-      href: event.image,
+      href: event.imageUrl,
       target: "_blank",
     });
   } else {
@@ -172,7 +215,7 @@ function renderAPIResultOnModal(event) {
 export {
   waitEvents,
   addedEvents,
-  searchEvents,
+  APIEvents,
   toWaitEvent,
   toAddedEvent,
   createEventId,
@@ -181,7 +224,8 @@ export {
   createEventObject,
   renderEventOnModal,
   setAddModalByEvent,
+  createAPIEventObject,
   removeEventFromArray,
-  renderAPIResultOnModal,
-  findAPIResultEventById,
+  renderAPIEventOnModal,
+  findEventFromArrayById,
 };

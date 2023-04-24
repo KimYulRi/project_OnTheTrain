@@ -5,13 +5,10 @@ import {
 } from "./schedulerCreate.js";
 
 import {
-  addedEvents,
-  waitEvents,
-  searchEvents,
-  renderAPIResultOnModal,
-  findAPIResultEventById,
-  renderEventOnModal,
   findEventById,
+  renderEventOnModal,
+  renderAPIEventOnModal,
+  findEventFromArrayById,
 } from "./schedulerComponent/schedulerEventModule.js";
 
 import { addModalModule } from "./schedulerModalModule.js";
@@ -36,8 +33,10 @@ $(document).ready(() => {
       priceField: $("#event-price_view"),
       detailsField: $("#event-details_view"),
       modalBackdrop: $("#schedulerEventModalView .modal-backdrop"),
+      renderAPIResultOnModal: renderAPIEventOnModal,
       findComponentById: findEventById,
       renderOnModal: renderEventOnModal,
+      findComponentFromArrayById: findEventFromArrayById,
     },
   };
 
@@ -129,11 +128,10 @@ $(document).ready(() => {
       addModalModule.getAddModalComponents()[currentComponent].addButton;
 
     addButton.off("click");
-    
 
     addButton.on("click", () => {
-        removeEventHandler();
-      });
+      removeEventHandler();
+    });
 
     // editModal이 닫히기 전에 remove 이벤트 핸들러 제거
     addModalModule
@@ -145,14 +143,18 @@ $(document).ready(() => {
       });
   }
 
+  // API열기
   eventList.on("click", ".card", function () {
-    let eventId = $(this).attr("id");
-    let selectedEvent = findAPIResultEventById(searchEvents, eventId);
-    renderAPIResultOnModal(selectedEvent);
+    let id = $(this).attr("id");
+    let currentComponent = getCurrentComponent();
+    let APIList = addModalModule.getAPIItemList(currentComponent);
+    let selectedComponent = componentsView[
+      currentComponent
+    ].findComponentFromArrayById(APIList, id);
+    addModalModule.renderAPIResultOnModal(currentComponent, selectedComponent);
 
-    let cardToRemove = $(".card#" + eventId);
-    let component = getCurrentComponent();
+    let cardToRemove = $(".card#" + id);
 
-    showModal(component, cardToRemove);
+    showModal(currentComponent, cardToRemove);
   });
 });

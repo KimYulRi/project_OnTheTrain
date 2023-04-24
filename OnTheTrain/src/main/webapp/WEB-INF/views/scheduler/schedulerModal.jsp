@@ -99,6 +99,7 @@
 		</div>
 		<div class="modal-footer">
 			<button class="add-button">Apply</button>
+			<button class="reset-button">Reset</button>
 			<button class="cancel-button">Cancel</button>
 		</div>
 	</div>
@@ -140,6 +141,7 @@
 			</div>
 			<div class="modal-footer">
 				<button class="add-button">Apply</button>
+				<button class="reset-button">Reset</button>
 				<button class="cancel-button">Cancel</button>
 			</div>
 		</div>

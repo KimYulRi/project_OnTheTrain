@@ -1,4 +1,4 @@
-// 스케줄러 카드 생성 모달과 관련된 내용입니다.
+// 스케줄러 요소 생성 모달과 관련된 내용입니다.
 import {
   getCurrentComponent,
   schedulerCreateModule,
@@ -8,14 +8,17 @@ import {
   waitEvents,
   addedEvents,
   toWaitEvent,
-  searchEvents,
+  APIEvents,
   toAddedEvent,
   findEventById,
+  findEventFromArrayById,
   resetEventModal,
   createEventObject,
+  createAPIEventObject,
   renderEventOnModal,
   removeEventFromArray,
   setAddModalByEvent,
+  renderAPIEventOnModal,
 } from "./schedulerComponent/schedulerEventModule.js";
 
 const waitComponentList = $("#waitComponentList");
@@ -58,7 +61,7 @@ function addNewCardtoArea(area, card) {
 }
 
 $(document).ready(() => {
-  // currentComponent 값에 따라 다른 코드 실행을 위한 요소 지정 코드
+  // currentComponent 값에 따라 다른 코드 실행, 함수 공통 관리를 위한 코드
   const components = {
     event: {
       modal: $("#schedulerEventModal"),
@@ -66,9 +69,10 @@ $(document).ready(() => {
       addButton: $("#schedulerEventModal .add-button"),
       resetButton: $("#schedulerEventModal .reset-button"),
       imageUploadInput: $("#schedulerEventModal .image-upload"),
-      previewImage: $("#schedulerEventModal .preview-image")[0],
       imageCaption: $("#schedulerEventModal .image-caption"),
+      modalBackdrop: $("#schedulerEventModal .modal-backdrop"),
       fields: {
+        previewImage: $("#schedulerEventModal .preview-image"),
         title: $("#event-title"),
         location: $("#event-location"),
         startTime: $("#event-start-time"),
@@ -76,27 +80,32 @@ $(document).ready(() => {
         price: $("#event-price"),
         details: $("#event-details"),
       },
-      modalBackdrop: $("#schedulerEventModal .modal-backdrop"),
       addedList: addedEvents,
       waitList: waitEvents,
-      searchList: searchEvents,
-      findComponentById: findEventById,
-      createObject: createEventObject,
-      toAddedList: toAddedEvent,
+      APIItemList: APIEvents,
       toWaitList: toWaitEvent,
+      toAddedList: toAddedEvent,
+      createObject: createEventObject,
+      findComponentById: findEventById,
       resetModalContent: resetEventModal,
       removeFromArray: removeEventFromArray,
       setAddModalByComponent: setAddModalByEvent,
-      creatComponentObject : createEventObject,
+      renderAPIResultOnModal: renderAPIEventOnModal,
+      createAPIComponentObject: createAPIEventObject,
+      creatComponentObject() {
+        return createEventObject(this.fields);
+      },
     },
     accommodation: {
       modal: $("#schedulerAccommodationModal"),
       cancelButton: $("#schedulerAccommodationModal .cancel-button"),
       addButton: $("#schedulerAccommodationModal .add-button"),
+      resetButton: $("#schedulerAccommodationModal .reset-button"),
       imageUploadInput: $("#schedulerAccommodationModal .image-upload"),
-      previewImage: $("#schedulerAccommodationModal .preview-image")[0],
       imageCaption: $("#schedulerAccommodationModal .image-caption"),
+      modalBackdrop: $("#schedulerAccommodationModal .modal-backdrop"),
       fields: {
+        previewImage: $("#schedulerAccommodationModal .preview-image"),
         title: $("#accommodation-title"),
         location: $("#accommodation-location"),
         startTime: $("#accommodation-start-time"),
@@ -105,15 +114,16 @@ $(document).ready(() => {
         price: $("#accommodation-price"),
         details: $("#accommodation-details"),
       },
-      modalBackdrop: $("#schedulerAccommodationModal .modal-backdrop"),
     },
     ticket: {
       modal: $("#schedulerTicketModal"),
       cancelButton: $("#schedulerTicketModal .cancel-button"),
       addButton: $("#schedulerTicketModal .add-button"),
+      resetButton: $("#schedulerTicketModal .reset-button"),
       imageUploadInput: $("#schedulerTicketModal .image-upload"),
       previewImage: $("#schedulerTicketModal .preview-image")[0],
       imageCaption: $("#schedulerTicketModal .image-caption"),
+      modalBackdrop: $("#schedulerTicketModal .modal-backdrop"),
       fields: {
         title: $("#ticket-title"),
         location: $("#ticket-location"),
@@ -122,7 +132,6 @@ $(document).ready(() => {
         price: $("#ticket-price"),
         details: $("#ticket-details"),
       },
-      modalBackdrop: $("#schedulerTicketModal .modal-backdrop"),
     },
   };
 
@@ -153,8 +162,10 @@ $(document).ready(() => {
     components[component].resetButton.on("click", () => {
       resetModalContent(component);
     });
-    // add버튼 활성화
-    components[component].addButton.on("click", addComponentButtonOn);
+    // addComponent 이벤트
+    components[component].addButton.on("click", () => {
+      addComponent(component);
+    });
   }
 
   addModalEventListeners("event");
@@ -187,64 +198,9 @@ $(document).ready(() => {
     });
   }
 
-  function addComponent(component) {
-    let {
-      title,
-      location,
-      startTime,
-      endTime,
-      price,
-      details,
-      previewImage,
-      stars,
-    } = component.fields;
-
-    let obj;
-
-    obj = components[component].creatComponentObject(component.fields);
-
-    /*
-    if (component.type === "event") {
-      obj = createEventObject(
-        title.val(),
-        location.val(),
-        startTime.val(),
-        endTime.val(),
-        price.val(),
-        details.val(),
-        previewImage.src
-      );
-    } else if (component.type === "accommodation") {
-      obj = createAccommodationObject(
-        title.val(),
-        location.val(),
-        startTime.val(),
-        endTime.val(),
-        stars.val(),
-        price.val(),
-        details.val(),
-        previewImage.src
-      );
-    } else if (component.type === "ticket") {
-      obj = createTicketObject(
-        title.val(),
-        location.val(),
-        startTime.val(),
-        endTime.val(),
-        price.val(),
-        details.val(),
-        previewImage.src
-      );
-    }
-    */
-
-    return obj;
-  }
-
-  // 카드 등록하기 (요소, 객체)
-  function addComponentButtonOn(component) {
-    // 값으로 요소 생성
-    let componentObj = addComponent(component);
+  // 적용 버튼을 눌렀을 때, obj 생성
+  function addComponent(currentComponent) {
+    let componentObj = components[currentComponent].creatComponentObject();
 
     // 대기 중인 요소에 추가
     addNewCardtoArea(
@@ -258,9 +214,9 @@ $(document).ready(() => {
       )
     );
 
-    components[component].waitList.push(componentObj);
-    hideModal(component);
-    resetModalContent(component);
+    components[currentComponent].waitList.push(componentObj);
+    hideModal(currentComponent);
+    resetModalContent(currentComponent);
   }
 
   // 특정 요소를 Waitlist 객체 배열로 보냄
@@ -271,6 +227,11 @@ $(document).ready(() => {
   // 특정 요소를 toAddedList 객체 배열로 보냄
   function toAddedList(component, id) {
     components[component].toAddedList(id);
+  }
+
+  // API로 가져오는 아이템들을 보관하는 리스트 가져오기
+  function getAPIItemList(component) {
+    return components[component].APIItemList;
   }
 
   // 특정 요소 객체를 id값으로 찾아 반환
@@ -294,16 +255,38 @@ $(document).ready(() => {
     return components[component].setAddModalByComponent(componentObj);
   }
 
+  /** 
+   API로 가져오는 정보를 객체로 만들기
+   @param {component} 현재 컴포넌트
+   @param {item} 전달되는 API JSON객체
+   @param {ImgUrl} 그림 주소
+   @returns {componentObj} 요소 객체
+   * */
+  function createAPIComponentObject(component, APIitem, ImgURL) {
+    return components[component].createAPIComponentObject(APIitem, ImgURL);
+  }
+
+  /**
+   * API 객체 view에 그리기
+   *
+   */
+  function renderAPIResultOnModal(component, APIitem) {
+    return components[component].renderAPIResultOnModal(APIitem);
+  }
+
   addModalModule.showModal = showModal;
   addModalModule.hideModal = hideModal;
   addModalModule.toWaitList = toWaitList;
   addModalModule.toAddedList = toAddedList;
+  addModalModule.addComponent = addComponent;
+  addModalModule.getAPIItemList = getAPIItemList;
   addModalModule.removeFromArray = removeFromArray;
   addModalModule.findComponentById = findComponentById;
   addModalModule.resetModalContent = resetModalContent;
   addModalModule.getAddModalComponents = getAddModalComponents;
+  addModalModule.renderAPIResultOnModal = renderAPIResultOnModal;
   addModalModule.setAddModalByComponent = setAddModalByComponent;
-  addModalModule.addComponentButtonOn = addComponentButtonOn;
+  addModalModule.createAPIComponentObject = createAPIComponentObject;
 });
 
 export { createNewCard, addNewCardtoArea, addModalModule };
