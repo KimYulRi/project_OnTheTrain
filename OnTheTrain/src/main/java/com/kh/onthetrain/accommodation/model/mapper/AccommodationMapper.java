@@ -17,4 +17,6 @@ public interface AccommodationMapper {
 
 	int insertReview(Review review);
 
+	int deleteReview(Review review);
+
 }

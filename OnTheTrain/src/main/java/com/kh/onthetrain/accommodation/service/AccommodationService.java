@@ -14,6 +14,7 @@ public interface AccommodationService {
 	void writeReview(Review review);
 
 	int insertReview(Review review);
-	
+
+	int deleteReview(Review review);
 	
 }

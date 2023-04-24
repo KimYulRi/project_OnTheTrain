@@ -201,47 +201,49 @@
 	    	
 	    	$('#ckeckInInput').prop('min', dateStr);
 	    	
-	    	let mapContainer = document.getElementById('map');
-	    	let mapOption = { 
-	    	        center: new kakao.maps.LatLng(${ accommodation.lat }, ${ accommodation.lot }), // 지도의 중심좌표
-	    	        level: 3 // 지도의 확대 레벨
-	    	};
-	    	let map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
-	    	
-			// 마커를 생성합니다
-			let marker = new kakao.maps.Marker({
-			    position: new kakao.maps.LatLng(${ accommodation.lat }, ${ accommodation.lot })
-			});
-	    	
-			marker.setMap(map);
-
-			let iwContent = '<div style="padding:5px;">${ accommodation.name }<br>${ accommodation.explain }<br><a href="https://map.kakao.com/link/map/${ accommodation.name },${ accommodation.lat }, ${ accommodation.lot }" style="color:blue" target="_blank">큰지도보기</a> <br> <a href="https://map.kakao.com/link/to/ ${ accommodation.name },${ accommodation.lat }, ${ accommodation.lot }" style="color:blue" target="_blank">길찾기</a></div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
-		    //위의 코드는 이름,전화번호,큰지도보기와 길찾기 도착지 설정 
-			iwPosition = new kakao.maps.LatLng(33.450701, 126.570667); //인포윈도우 표시 위치입니다
-			// 인포윈도우를 생성합니다 
-			let infowindow = new kakao.maps.InfoWindow({
-			    position : iwPosition, 
-			    content : iwContent 
-			});
-			  
-			// 마커 위에 인포윈도우를 표시합니다. 두번째 파라미터인 marker를 넣어주지 않으면 지도 위에 표시됩니다
-			infowindow.open(map, marker); 
-			
-		    $('#ckeckInInput').on('change', (event) => {
-		    	$('#ckeckOutInput').prop('min', event.target.value);
-		    });
+	    		
+		    	let mapContainer = document.getElementById('map');
+		    	let mapOption = { 
+		    	        center: new kakao.maps.LatLng(${ accommodation.lat }, ${ accommodation.lot }), // 지도의 중심좌표
+		    	        level: 3 // 지도의 확대 레벨
+		    	};
+		    	let map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+		    	
+				// 마커를 생성합니다
+				let marker = new kakao.maps.Marker({
+				    position: new kakao.maps.LatLng(${ accommodation.lat }, ${ accommodation.lot })
+				});
+		    	
+				marker.setMap(map);
+	
+				let iwContent = '<div style="padding:5px;">${ accommodation.name }<br>${ accommodation.explain }<br><a href="https://map.kakao.com/link/map/${ accommodation.name },${ accommodation.lat }, ${ accommodation.lot }" style="color:blue" target="_blank">큰지도보기</a> <br> <a href="https://map.kakao.com/link/to/ ${ accommodation.name },${ accommodation.lat }, ${ accommodation.lot }" style="color:blue" target="_blank">길찾기</a></div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+			    //위의 코드는 이름,전화번호,큰지도보기와 길찾기 도착지 설정 
+				iwPosition = new kakao.maps.LatLng(33.450701, 126.570667); //인포윈도우 표시 위치입니다
+				// 인포윈도우를 생성합니다 
+				let infowindow = new kakao.maps.InfoWindow({
+				    position : iwPosition, 
+				    content : iwContent 
+				});
+				  
+				// 마커 위에 인포윈도우를 표시합니다. 두번째 파라미터인 marker를 넣어주지 않으면 지도 위에 표시됩니다
+				infowindow.open(map, marker); 
+				
+			    $('#ckeckInInput').on('change', (event) => {
+			    	$('#ckeckOutInput').prop('min', event.target.value);
+			    });
+			    
+			    $('#ckeckOutInput').on('change', (event) => {
+			    	let date1 = dayjs($('#ckeckInInput').val());
+			    	let date2 = dayjs($('#ckeckOutInput').val());
+			    	let nights = date2.diff(date1, 'day');
+			    	let totalPrice = ${ accommodation.price };
+			    	
+			    	totalPrice = (nights * totalPrice) + '';
+			    	
+			    	$('#totalPrice').text(totalPrice.replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ','));
+			    	$('#accommoDay').text(nights);
+			    });
 		    
-		    $('#ckeckOutInput').on('change', (event) => {
-		    	let date1 = dayjs($('#ckeckInInput').val());
-		    	let date2 = dayjs($('#ckeckOutInput').val());
-		    	let nights = date2.diff(date1, 'day');
-		    	let totalPrice = ${ accommodation.price };
-		    	
-		    	totalPrice = (nights * totalPrice) + '';
-		    	
-		    	$('#totalPrice').text(totalPrice.replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ','));
-		    	$('#accommoDay').text(nights);
-		    });
 	    	
 		});
     </script>    

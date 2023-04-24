@@ -9,7 +9,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.kh.onthetrain.accommodation.model.mapper.AccommodationMapper;
 import com.kh.onthetrain.accommodation.model.vo.Accommodation;
 import com.kh.onthetrain.accommodation.model.vo.Review;
-import com.kh.onthetrain.scheduler.service.SchedulerServiceimpl;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -42,6 +41,12 @@ public class AccommodationServiceImpl implements AccommodationService {
     public int insertReview(Review review) {
     	return mapper.insertReview(review);
     }
+
+	@Override
+	public int deleteReview(Review review) {
+		return mapper.deleteReview(review);
+	}
+
 	
 	
 }
