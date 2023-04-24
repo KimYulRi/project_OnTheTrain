@@ -1,5 +1,3 @@
-@charset "UTF-8";
-
 html, body{
     width: 1200px;
     height: 100%;
@@ -31,12 +29,34 @@ a:hover {
 	}
 
 #container{
+	margin-top: 150px;
     width: 100%;
     height: 100%;
 
 
 }
-
+	.texttype4{
+		width: 270px;
+		height: 20px;
+		padding-left: 10px;
+		outline: none;
+	}
+		.texttype1{
+		width: 390px;
+		height: 20px;
+		padding-left: 10px;
+		outline: none;
+	}
+	
+		.inputbtn{
+		
+		border: 0px;
+		width: 155px;
+		height: 20px;
+		background-color:#596180;
+		margin-left:10px;
+		color: #ffffff;
+	}
 #mypagechoose{
     color: rgb(39, 76, 227);
     font-weight: 700;
@@ -96,7 +116,7 @@ tr>td{
     border-collapse: separate;
     border-radius: 10px;
     border: 0.5px solid #717177 ;
-    padding-left: 50px;
+    padding-left: 30px;
     text-align: left;
 }
 
@@ -110,7 +130,38 @@ tr>td{
     margin-left: 70px;
 }
 
+.infoinput{
+	width: 150px;
+    border: none;
+}
+
+.infoinput:focus{
+    outline: none;
+}
+
+	.inputbtn{
+		border: 0px;
+		width: 155px;
+		height: 20px;
+		background-color:#596180;
+		margin-left:10px;
+		color: #ffffff;
+	}
+
+
+	.inputbtn:hover{
+		background-color:#00008B;
+		color: #ffffff;
+	}
+
+#idsucc,#nicksucc{
+	float: right;
+	margin-right: 30px;
+		
+}
+
 #benefitbtn{
+    margin-left: 170px;
     border-radius: 7px;
     background-color: rgb(89, 97, 128);
     border: rgb(89, 97, 128);
@@ -118,4 +169,63 @@ tr>td{
     width: 150px;
 }
 
+#benefitbtn:hover{
+    background: #00008B;
+}
 
+
+#infosubmit{
+    background-color: rgb(89, 97, 128);
+    border: rgb(89, 97, 128);
+    border-radius: 7px;
+    width: 200px;
+    color: white;
+    margin-left: 250px;
+    margin-top: 50px;
+}
+
+#infosubmit:hover{
+    background: #00008B;
+}
+
+#pwdchange{
+    background-color: rgb(89, 97, 128);
+    border: rgb(89, 97, 128);
+    border-radius: 7px;
+    width: 200px;
+    color: white;
+    margin-left: 50px;
+}
+
+#pwdchange:hover{
+    background: #00008B;
+}
+
+.rankhead{
+    width: 25%;
+}
+
+
+.body{
+	width:25%;
+    float: left;
+    text-align: center;
+    height: 200px;
+}
+
+.bodymargin{
+	margin-top: 30px;
+	margin-bottom: 30px;
+}
+
+#pwdbtn{
+	margin-right:250px;
+	text-align: center;
+}
+
+	#idsucc, #nicksucc, #emailsucc{
+		font-size: 6px;
+		color: #00008b;
+  		display: none;
+  		padding: 0 0 0 3px;
+	}

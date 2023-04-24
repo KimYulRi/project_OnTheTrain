@@ -6,11 +6,11 @@
     text-decoration: none;
     line-height: 17px;
     color: #000000;
-    margin: 0 auto;
 }
 
 #body {
     width: 1024px;
+    margin: 0 auto;
 }
 
 #banner_space{
