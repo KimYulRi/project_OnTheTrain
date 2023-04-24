@@ -25,10 +25,10 @@ public class AccommodationServiceImpl implements AccommodationService {
 	}
 
 	@Override
-	public List<Review> getReviewsByNo(String no) {
+	public List<Review> getReviewsByAccommodationNo(String no) {
 		
 		
-		return mapper.getReviewsByNo(no);
+		return mapper.getReviewsByAccommodationNo(no);
 	}
 
 	@Override
@@ -43,8 +43,13 @@ public class AccommodationServiceImpl implements AccommodationService {
     }
 
 	@Override
-	public int deleteReview(Review review) {
-		return mapper.deleteReview(review);
+	public int deleteReview(int no) {
+		return mapper.deleteReview(no);
+	}
+
+	@Override
+	public Review getReviewByNo(int no) {
+		return mapper.getReviewByNo(no);
 	}
 
 	

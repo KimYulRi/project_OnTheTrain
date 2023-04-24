@@ -20,12 +20,12 @@
   
   <resultMap type="com.kh.onthetrain.accommodation.model.vo.Review" id="reviewsResultMap">
 	  <id property="no" column="NO" />
-	    <result property="memberNo" column="MEMBER_NO" />
-	    <result property="accommodationNo" column="ACCOMMODATION_NO" />
-	    <result property="content" column="CONTENT" />
-	    <result property="starPoint" column="STARPOINT" />
-	    <result property="createDate" column="CREATE_DATE" />
-	    <result property="modifyDate" column="MODIFY_DATE" />
+	  <result property="memberNo" column="MEMBER_NO" />
+	  <result property="accommodationNo" column="ACCOMMODATION_NO" />
+	  <result property="content" column="CONTENT" />
+	  <result property="starPoint" column="STARPOINT" />
+	  <result property="createDate" column="CREATE_DATE" />
+	  <result property="modifyDate" column="MODIFY_DATE" />
   </resultMap>
   
   <resultMap id="reviewResultMap" type="com.kh.onthetrain.accommodation.model.vo.Review">
@@ -56,7 +56,7 @@
 			  WHERE STATUS = 'Y' AND A.NO = #{no}
 	</select>
 
-	<select id="getReviewsByNo" parameterType="String" resultMap="reviewsResultMap">
+	<select id="getReviewsByAccommodationNo" parameterType="String" resultMap="reviewsResultMap">
 			SELECT   R.NO,
 			         R.MEMBER_NO,
 	                 M.NICKNAME,
@@ -99,7 +99,23 @@
 	    WHERE ACCOMMODATION_NO = #{no}
 	 </select>
      
-
+	<select id="getReviewByNo" parameterType="_int" resultMap="reviewsResultMap">
+		SELECT   NO,
+		         MEMBER_NO,
+		         ACCOMMODATION_NO,
+		         CONTENT,
+		         STARPOINT,
+		         CREATE_DATE,
+		         MODIFY_DATE
+        FROM REVIEW
+        WHERE NO = #{no}
+	</select>
+	
+	<delete id="deleteReview" parameterType="_int">
+		DELETE 
+		FROM REVIEW
+		WHERE NO = #{no}
+	</delete>
      
      
 </mapper>

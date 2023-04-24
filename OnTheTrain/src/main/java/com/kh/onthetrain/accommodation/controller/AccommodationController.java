@@ -41,7 +41,7 @@ public class AccommodationController {
 	public ModelAndView reservation(ModelAndView modelAndView, @RequestParam String no){
 		
 		Accommodation accommodation = service.findProductByNo(no);
-		List<Review> reviews = service.getReviewsByNo(no);
+		List<Review> reviews = service.getReviewsByAccommodationNo(no);
 		
 //		System.out.println(accommodation);
 //		System.out.println(reviews);
@@ -82,18 +82,24 @@ public class AccommodationController {
 	}
 	
 	//리뷰삭제
-	@PostMapping("/delete")
-	public ModelAndView update(ModelAndView modelAndView, Review review, @RequestParam int no) {
-		int result = service.deleteReview(review);
+	@GetMapping("/accommodation/review/delete")
+	public ModelAndView update(ModelAndView modelAndView, @RequestParam int no) {
+		Review review = service.getReviewByNo(no);
+	
 		
-		if (result > 0) {
-		    modelAndView.addObject("msg", "리뷰가 삭제되었습니다.");
-		    modelAndView.addObject("location", "/accommodation/reservation?no=" + review.getAccommodationNo());
+		if ( review != null ) {
+			int result = service.deleteReview(review.getNo());
+			
+			if (result > 0) {
+			    modelAndView.addObject("msg", "리뷰가 삭제되었습니다.");
+			} else {
+			    modelAndView.addObject("msg", "리뷰 삭제를 실패하였습니다.");
+			}
 		} else {
-		    modelAndView.addObject("msg", "리뷰 삭제를 실패하였습니다.");
-		    modelAndView.addObject("location", "/accommodation/reservation?no=" + review.getAccommodationNo());
+			modelAndView.addObject("msg", "존재하지 않는 리뷰입니다.");
 		}
-
+		
+		modelAndView.addObject("location", "/accommodation/reservation?no=" + review.getAccommodationNo());
 		modelAndView.setViewName("common/msg");
 
 		return modelAndView;
