@@ -82,7 +82,6 @@ function getEventArrayAndIndexById(id) {
      
       arrayAndIndex.array = waitEvents;
       arrayAndIndex.index = i;
-      console.log(arrayAndIndex);
       return arrayAndIndex;
     }
   }

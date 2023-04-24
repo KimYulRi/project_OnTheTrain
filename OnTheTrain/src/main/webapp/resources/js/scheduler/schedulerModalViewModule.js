@@ -14,6 +14,7 @@ import {
 import { addModalModule } from "./schedulerModalModule.js";
 
 const eventList = $("#eventList");
+const viewModalMoudule = {};
 
 $(document).ready(() => {
   // currentComponent 값에 따라 각 모달 창을 띄우기 위한 요소 지정 코드
@@ -40,13 +41,8 @@ $(document).ready(() => {
     },
   };
 
-  // view 모달을 열고 닫는 기능
-  function showModal(component) {
-    $(componentsView[component].modal).show();
-  }
-
-  // 모달 열기
-  function showModal(component, cardToRemove) {
+  // view모달 열기
+  function showViewModal(component, cardToRemove) {
     let modal = componentsView[component].modal;
     modal.show();
 
@@ -90,6 +86,10 @@ $(document).ready(() => {
     }
   }
 
+  /**
+   * id값을 주면 배열에서 해당하는 id를 가진 component를 삭제한다.
+   * @param {string} componentId
+   */
   function removeOriginalComponent(componentId) {
     let currentComponent = getCurrentComponent();
     let arrayAndIndex = addModalModule.getComponentArrayAndIndexById(
@@ -97,13 +97,12 @@ $(document).ready(() => {
       componentId
     );
 
-    if ( $(arrayAndIndex) ) {
+    if ($(arrayAndIndex)) {
       // arrayAndIndex와 arrayAndIndex.array가 모두 있는지 확인
       let array = arrayAndIndex.array;
       let index = arrayAndIndex.index;
 
       array.splice(index, 1);
-      console.log(array);
     } else {
       console.log(`해당 id를 가진 일정이 없습니다`);
     }
@@ -115,11 +114,11 @@ $(document).ready(() => {
   }
 
   /**
-   * - 수정완료 활성화 기능
+   * - 수정완료 버튼 활성화 기능
    * 수정완료 버튼은 추가 버튼과 동일한 기능을 하며, 추가적으로 수정 대상이 된 카드를 삭제할 것인지 묻는다.
-   * @param {component} 현재 컴포넌트
-   * @param {card} 삭제할 카드
-   * @param {id} 삭제될 id
+   * @param {component} 현재컴포넌트
+   * @param {card} 삭제할카드
+   * @param {id} 삭제될id
    * */
   function activateEditCompleteButton(component, cardToRemove, id) {
     let editCompleteButton =
@@ -132,13 +131,16 @@ $(document).ready(() => {
     editCompleteButton.on("click", () => {
       removeOriginalCard(cardToRemove, id);
       addModalModule.addComponent(component);
+      addModalModule.hideModal(component);
+      addModalModule.resetModalContent(component);
     });
   }
 
   /**
-   * - 수정완료 비활성화 기능
+   * - 수정완료 버튼 비활성화 기능
    */
   function DisabledEditCompleteButton() {
+    let component = getCurrentComponent();
     let editCompleteButton =
       addModalModule.getAddModalComponents()[component].editCompleteButton;
     let addButton = addModalModule.getAddModalComponents()[component].addButton;
@@ -156,18 +158,22 @@ $(document).ready(() => {
     let componentObj = findComponentById(component, componentId);
 
     renderOnModal(component, componentObj);
-
-    showModal(component, cardToRemove);
-
-    componentsView[component].editButton.on("click", function () {
-      editModal(component, componentObj, cardToRemove);
-    });
+    showViewModal(component, cardToRemove);
 
     addModalModule.getAddModalComponents()[component].modal.on("hide", () => {
       DisabledEditCompleteButton();
     });
+    componentsView[component].editButton.on("click", function () {
+      editModal(component, componentObj, cardToRemove);
+    });
   });
 
+  /**
+   * 수정하기 기능
+   * @param {string} currentComponent 열 모달을 결정
+   * @param {obj} componentObj 그릴 내용을 결정
+   * @param {card} cardToRemove 수정 전 내용을 유지할 때 사용
+   */
   function editModal(currentComponent, componentObj, cardToRemove) {
     // view모달 숨기기
     hideModal(currentComponent);
@@ -175,7 +181,7 @@ $(document).ready(() => {
 
     // add모달 열고, 내용 초기화
     addModalModule.resetModalContent(currentComponent);
-    addModalModule.showModal(currentComponent);
+    addModalModule.showAddModal(currentComponent);
 
     // 전달받는 id로 내용 그리기
     addModalModule.setAddModalByComponent(currentComponent, componentObj);
@@ -193,6 +199,8 @@ $(document).ready(() => {
 
     let cardToRemove = $(".card#" + id);
 
-    showModal(currentComponent, cardToRemove);
+    showViewModal(currentComponent, cardToRemove);
   });
 });
+
+export { viewModalMoudule };
