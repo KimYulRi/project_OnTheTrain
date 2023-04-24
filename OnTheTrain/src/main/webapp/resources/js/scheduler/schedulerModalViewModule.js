@@ -78,14 +78,14 @@ $(document).ready(() => {
 
   addModalViewEventListeners("event");
 
-   // 특정 요소 객체를 id값으로 찾아 반환
-   function findComponentById(component, id) {
+  // 특정 요소 객체를 id값으로 찾아 반환
+  function findComponentById(component, id) {
     let componentObj = componentsView[component].findComponentById(id);
     return componentObj;
   }
 
-   // 특정 요소 객체의 값을 바탕으로 modalView를 구성함
-   function rederOnModal(component, componentObj) {
+  // 특정 요소 객체의 값을 바탕으로 modalView를 구성함
+  function renderOnModal(component, componentObj) {
     componentsView[component].renderOnModal(componentObj);
   }
 
@@ -96,28 +96,53 @@ $(document).ready(() => {
     let component = getCurrentComponent();
     let componentObj = findComponentById(component, componentId);
 
-    rederOnModal(component, componentObj);
+    renderOnModal(component, componentObj);
 
     showModal(component, cardToRemove);
 
-    componentsView.editButton.on("click", function () {
-
+    componentsView[component].editButton.on("click", function () {
+      editModal(component, componentObj, cardToRemove);
     });
-
   });
 
   // 수정 하기
-  function editModal(currentComponent, id) {
-    let cc = addModalModule.getAddModalComponents()[currentComponent];
+  function editModal(currentComponent, componentObj, cardToRemove) {
     // view모달 숨기기
     hideModal(currentComponent);
 
     // add모달 열고, 내용 초기화
-    cc.showModal(currentComponent);
-    cc.resetModalContent(currentComponent);
+    addModalModule.resetModalContent(currentComponent);
+    addModalModule.showModal(currentComponent);
 
     // 전달받는 id로 내용 그리기
-    cc.setAddModalById(id);  
+    addModalModule.setAddModalByComponent(currentComponent, componentObj);
+
+    // addButton에 대한 remove 이벤트 핸들러 등록
+    function removeEventHandler() {
+      if (confirm("기존 카드를 삭제합니까?")) {
+        cardToRemove.remove();
+      } else {
+        return;
+      }
+    }
+    let addButton =
+      addModalModule.getAddModalComponents()[currentComponent].addButton;
+
+    addButton.off("click");
+    
+
+    addButton.on("click", () => {
+        removeEventHandler();
+      });
+
+    // editModal이 닫히기 전에 remove 이벤트 핸들러 제거
+    addModalModule
+      .getAddModalComponents()
+      [currentComponent].modal.on("hide", () => {
+        addModalModule
+          .getAddModalComponents()
+          [currentComponent].addButton.off("click", removeEventHandler);
+      });
   }
 
   eventList.on("click", ".card", function () {

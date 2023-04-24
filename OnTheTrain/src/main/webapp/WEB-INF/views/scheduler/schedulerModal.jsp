@@ -128,14 +128,14 @@
 						<input type="datetime-local" id="ticket-end-time" class="endtime" required>
 					</div>
 				</div>
-				<div class="accommodationOptional">
+				<div class="ticketOptional">
 					<h3 class="modal-subtitle">선택 항목</h3>
-					<label for="accommodation-stars">인원</label>
-					<input type="number" id="accommodation-stars" class="form-control">
-					<label for="accommodation-price">비용</label>
-					<input type="number" id="accommodation-price" class="form-control">
-					<label for="event-details">세부사항</label>
-					<textarea id="accommodation-details" class="form-control"></textarea>
+					<label for="ticket-stars">인원</label>
+					<input type="number" id="ticket-stars" class="form-control">
+					<label for="ticket-price">비용</label>
+					<input type="number" id="ticket-price" class="form-control">
+					<label for="ticket-details">세부사항</label>
+					<textarea id="ticket-details" class="form-control"></textarea>
 				</div>
 			</div>
 			<div class="modal-footer">

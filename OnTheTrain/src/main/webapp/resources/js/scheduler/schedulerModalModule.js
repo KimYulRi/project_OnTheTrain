@@ -15,7 +15,7 @@ import {
   createEventObject,
   renderEventOnModal,
   removeEventFromArray,
-  setAddModalByEventId,
+  setAddModalByEvent,
 } from "./schedulerComponent/schedulerEventModule.js";
 
 const waitComponentList = $("#waitComponentList");
@@ -68,12 +68,14 @@ $(document).ready(() => {
       imageUploadInput: $("#schedulerEventModal .image-upload"),
       previewImage: $("#schedulerEventModal .preview-image")[0],
       imageCaption: $("#schedulerEventModal .image-caption"),
-      titleField: $("#event-title"),
-      locationField: $("#event-location"),
-      startTimeField: $("#event-start-time"),
-      endTimeField: $("#event-end-time"),
-      priceField: $("#event-price"),
-      detailsField: $("#event-details"),
+      fields: {
+        title: $("#event-title"),
+        location: $("#event-location"),
+        startTime: $("#event-start-time"),
+        endTime: $("#event-end-time"),
+        price: $("#event-price"),
+        details: $("#event-details"),
+      },
       modalBackdrop: $("#schedulerEventModal .modal-backdrop"),
       addedList: addedEvents,
       waitList: waitEvents,
@@ -82,23 +84,44 @@ $(document).ready(() => {
       createObject: createEventObject,
       toAddedList: toAddedEvent,
       toWaitList: toWaitEvent,
-      resetModal: resetEventModal,
+      resetModalContent: resetEventModal,
       removeFromArray: removeEventFromArray,
-      setAddModalById: setAddModalByEventId
+      setAddModalByComponent: setAddModalByEvent,
+      creatComponentObject : createEventObject,
     },
     accommodation: {
       modal: $("#schedulerAccommodationModal"),
-      resetButton: $("#schedulerAccommodationModal .reset-button"),
       cancelButton: $("#schedulerAccommodationModal .cancel-button"),
-      imageUploadInput: $("#schedulerAccommodationModal .image-upload")[0],
+      addButton: $("#schedulerAccommodationModal .add-button"),
+      imageUploadInput: $("#schedulerAccommodationModal .image-upload"),
       previewImage: $("#schedulerAccommodationModal .preview-image")[0],
-      imageCaption: $("#schedulerAccommodationModal .image-caption")[0],
+      imageCaption: $("#schedulerAccommodationModal .image-caption"),
+      fields: {
+        title: $("#accommodation-title"),
+        location: $("#accommodation-location"),
+        startTime: $("#accommodation-start-time"),
+        endTime: $("#accommodation-end-time"),
+        stars: $("#accommodation-stars"),
+        price: $("#accommodation-price"),
+        details: $("#accommodation-details"),
+      },
       modalBackdrop: $("#schedulerAccommodationModal .modal-backdrop"),
     },
     ticket: {
       modal: $("#schedulerTicketModal"),
-      resetButton: $("#schedulerTicketModal .reset-button"),
       cancelButton: $("#schedulerTicketModal .cancel-button"),
+      addButton: $("#schedulerTicketModal .add-button"),
+      imageUploadInput: $("#schedulerTicketModal .image-upload"),
+      previewImage: $("#schedulerTicketModal .preview-image")[0],
+      imageCaption: $("#schedulerTicketModal .image-caption"),
+      fields: {
+        title: $("#ticket-title"),
+        location: $("#ticket-location"),
+        startTime: $("#ticket-start-time"),
+        endTime: $("#ticket-end-time"),
+        price: $("#ticket-price"),
+        details: $("#ticket-details"),
+      },
       modalBackdrop: $("#schedulerTicketModal .modal-backdrop"),
     },
   };
@@ -114,7 +137,7 @@ $(document).ready(() => {
 
   // 모달창 초기화 버튼 기능
   function resetModalContent(component) {
-    components[component].resetModal();
+    components[component].resetModalContent();
   }
 
   function addModalEventListeners(component) {
@@ -130,6 +153,8 @@ $(document).ready(() => {
     components[component].resetButton.on("click", () => {
       resetModalContent(component);
     });
+    // add버튼 활성화
+    components[component].addButton.on("click", addComponentButtonOn);
   }
 
   addModalEventListeners("event");
@@ -162,52 +187,81 @@ $(document).ready(() => {
     });
   }
 
-  // 일정 등록하기 (요소, 객체)
-  components.event.addButton.on("click", () => {
+  function addComponent(component) {
     let {
-      titleField,
-      locationField,
-      startTimeField,
-      endTimeField,
-      priceField,
-      detailsField,
-      previewImage,
-    } = components.event;
-
-    let title = titleField.val();
-    let location = locationField.val();
-    let startTime = startTimeField.val();
-    let endTime = endTimeField.val();
-    let price = priceField.val();
-    let details = detailsField.val();
-    let image = previewImage.src;
-
-    let event = createEventObject(
       title,
       location,
       startTime,
       endTime,
       price,
       details,
-      image
-    );
+      previewImage,
+      stars,
+    } = component.fields;
+
+    let obj;
+
+    obj = components[component].creatComponentObject(component.fields);
+
+    /*
+    if (component.type === "event") {
+      obj = createEventObject(
+        title.val(),
+        location.val(),
+        startTime.val(),
+        endTime.val(),
+        price.val(),
+        details.val(),
+        previewImage.src
+      );
+    } else if (component.type === "accommodation") {
+      obj = createAccommodationObject(
+        title.val(),
+        location.val(),
+        startTime.val(),
+        endTime.val(),
+        stars.val(),
+        price.val(),
+        details.val(),
+        previewImage.src
+      );
+    } else if (component.type === "ticket") {
+      obj = createTicketObject(
+        title.val(),
+        location.val(),
+        startTime.val(),
+        endTime.val(),
+        price.val(),
+        details.val(),
+        previewImage.src
+      );
+    }
+    */
+
+    return obj;
+  }
+
+  // 카드 등록하기 (요소, 객체)
+  function addComponentButtonOn(component) {
+    // 값으로 요소 생성
+    let componentObj = addComponent(component);
 
     // 대기 중인 요소에 추가
     addNewCardtoArea(
       waitComponentList,
       createNewCard(
-        event.id,
-        event.image,
-        event.title,
-        event.location,
-        event.price
+        componentObj.id,
+        componentObj.image,
+        componentObj.title,
+        componentObj.location,
+        componentObj.price
       )
     );
 
-    waitEvents.push(event);
-    hideModal("event");
-    resetModalContent("event");
-  });
+    components[component].waitList.push(componentObj);
+    hideModal(component);
+    resetModalContent(component);
+  }
 
   // 특정 요소를 Waitlist 객체 배열로 보냄
   function toWaitList(component, id) {
@@ -236,18 +290,20 @@ $(document).ready(() => {
   }
 
   // 특정 아이디값을 가진 객체를 수정함.
-  function setAddModalById() {
-    return components[component].setAddModalById(id);
+  function setAddModalByComponent(component, componentObj) {
+    return components[component].setAddModalByComponent(componentObj);
   }
 
-  addModalModule.getAddModalComponents = getAddModalComponents;
   addModalModule.showModal = showModal;
   addModalModule.hideModal = hideModal;
   addModalModule.toWaitList = toWaitList;
   addModalModule.toAddedList = toAddedList;
-  addModalModule.findComponentById = findComponentById;
   addModalModule.removeFromArray = removeFromArray;
-  addModalModule.setAddModalById = setAddModalById;
+  addModalModule.findComponentById = findComponentById;
+  addModalModule.resetModalContent = resetModalContent;
+  addModalModule.getAddModalComponents = getAddModalComponents;
+  addModalModule.setAddModalByComponent = setAddModalByComponent;
+  addModalModule.addComponentButtonOn = addComponentButtonOn;
 });
 
 export { createNewCard, addNewCardtoArea, addModalModule };

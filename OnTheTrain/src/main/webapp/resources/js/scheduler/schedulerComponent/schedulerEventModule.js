@@ -14,8 +14,15 @@ function createEventId() {
 
 // id로 이벤트 찾기
 function findEventById(id) {
-  let events = [...addedEvents, ...waitEvents];
-  let foundEvent = events.find(event => event.id === id);
+  let foundEvent = addedEvents.find((event) => event.id === id);
+
+  if (foundEvent) {
+    return foundEvent;
+  }
+
+  foundEvent = waitEvents.find((event) => event.id === id);
+
+  console.log(foundEvent);
   if (foundEvent) {
     return foundEvent;
   } else {
@@ -74,18 +81,21 @@ function removeEventFromArray(arr, id) {
 }
 
 // createEventObject 함수 정의
-function createEventObject(title, location, start, end, price, details, image) {
+function createEventObject(fields) {
+  const { title, location, startTime, endTime, price, details, image } = fields;
+
   const event = {
     id: createEventId(),
     component: "event",
-    title: title,
+    title,
     location,
-    start,
-    end,
+    start: startTime,
+    end: endTime,
     price,
     details,
     image,
   };
+
   return event;
 }
 
@@ -127,13 +137,7 @@ function renderEventOnModal(event) {
 }
 
 //edit
-function setAddModalByEventId(id) {
-  if(findEventById(waitEvents, id) != -1 ) {
-    let modalEvent = findEventById(waitEvents, id)
-  } else if (findEventById(waitEvents, id) != -1) {
-    let modalEvent = findEventById(addedEvents, id);
-  }
-
+function setAddModalByEvent(modalEvent) {
   $("#event-title").val(modalEvent.title);
   $("#event-location").val(modalEvent.location);
   $("#event-start-time").val(modalEvent.start);
@@ -141,10 +145,7 @@ function setAddModalByEventId(id) {
   $("#event-price").val(modalEvent.price);
   $("#event-details").val(modalEvent.details);
   $(".image-upload").val("");
-  $("#schedulerEventModal .preview-image").attr(
-    "src",
-    modal.image
-  );
+  $("#schedulerEventModal .preview-image").attr("src", modalEvent.image);
   $("#schedulerEventModal .image-caption").text("이미지 등록");
 }
 
@@ -179,7 +180,7 @@ export {
   resetEventModal,
   createEventObject,
   renderEventOnModal,
-  setAddModalByEventId,
+  setAddModalByEvent,
   removeEventFromArray,
   renderAPIResultOnModal,
   findAPIResultEventById,
