@@ -8,7 +8,7 @@
 	            
 	            var windowStatus = 'width='+width+', height='+height+', left='+left+', top='+top+', scrollbars=yes, status=yes, resizable=yes, titlebar=yes';
 		
-	    	      var url = "station";
+	    	    var url = "station";
 	            var popup = window.open(url,'width=500,height=500',windowStatus);
 	            
 	            
@@ -93,21 +93,18 @@
 	  `);
 				
 	            console.log(rows);
-	         $(popup.document).on('click',".station-btn", function() {
-    let selectedStationcode = $(this).val();
-    let selectedStationname = $(this).text(); // 수정된 부분
-    $("#arrPlaceId").val(selectedStationcode);
-    $(".arrPlaceText").val(selectedStationname);
-});
-			
-			    
-	    		
-	 			});
-	 			
-	            
-	          });
-	          });
-	          };
+	     $(popup.document).on('click',".station-btn", function() {
+			    let selectedStationcode = $(this).val();
+			    let selectedStationname = $(this).text(); // 수정된 부분
+			    $("#arrPlaceId").val(selectedStationcode);
+			    $(".arrPlaceText").val(selectedStationname);
+			});
+						
+				 			});
+				            
+				          });
+				   });
+		 };
 	          
 
 	          

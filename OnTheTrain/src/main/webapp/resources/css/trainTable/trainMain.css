@@ -7,6 +7,8 @@
  
   
 }
+
+
 #banner_text {
   height: 63px;
   width: 251px;
@@ -73,7 +75,7 @@ option{
 
 
 #traintable_btn {
-  background-color: #8ea0df;
+  background-color: #596180;
   transition-duration: 0.2s;
   border-radius: 5px;
   width: 300px;
@@ -153,3 +155,82 @@ a {
         outline-color: rgb(89, 97, 128);
       }
 
+.personTitle{
+  text-align: left;
+}
+
+#none{
+  margin-top: 100px;
+  margin-left: 45px;
+}
+
+#hr{
+	width: 80%;
+	display: none;
+}
+
+#checkBack{
+  background-color: #8ea0df;
+  transition-duration: 0.2s;
+  border-radius: 5px;
+  width: 80px;
+  height: 30px;
+  font-size: 15px;
+  font-weight: bolder;
+  color: #fff;
+  outline: none;
+  border: 0px;
+  cursor: pointer;
+  margin-top: 50px;
+  display: none;
+}
+
+
+  #myTable{
+    width: 80%;
+    border: 1px solid #444444;
+    border-collapse: collapse;
+  }
+   #tableBody,#tableHead {
+    border: 1px solid #444444;
+    text-align: center;
+  }
+  #tableHead{
+  font-weight: bold;
+  vertical-align: top;
+  color: #fff;
+  background-color: #596180;
+  text-align: center;
+}
+
+#sSeat{
+  border: 1px solid #596180;
+    background-color: #596180;
+    color: white;
+    padding: 3px;
+    border-radius: 5px;
+}
+
+#sRes{
+    border: 1px solid #596180;
+    background-color: rgba(0, 0, 0,0);
+    color: #596180;
+    padding: 3px;
+    border-radius: 5px;
+}
+
+#nSeat{
+    border: 1px solid #596180;
+    background-color: #596180;
+    color: white;
+    padding: 3px;
+    border-radius: 5px;
+}
+
+#nRes{
+    border: 1px solid #596180;
+    background-color: rgba(0, 0, 0,0);
+    color: #596180;
+    padding: 3px;
+    border-radius: 5px;
+}

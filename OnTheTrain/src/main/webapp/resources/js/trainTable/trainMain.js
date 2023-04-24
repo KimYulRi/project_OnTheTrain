@@ -11,8 +11,8 @@ click: (event) =>
         _type: "json",
         depPlaceId: $("#depPlaceId").val(),
         // depPlaceId: "NAT010000",
-        arrPlaceId: $("#arrPlaceId").val(),
-        // arrPlaceId: "NAT010415",
+       	arrPlaceId: $("#arrPlaceId").val(),
+        // arrPlaceId: "NAT014445",
         depPlandTime: $("#depPlandTime").val(),
         // depPlandTime: "20230403",
         trainGradeCode: "00",
@@ -24,7 +24,39 @@ click: (event) =>
       // document.write(json);
         console.log(data);
         let rows = data["response"]["body"]["items"]["item"];
-
+        
+        if(!rows || !rows.length) {
+            let imgSrc = "../images/trainTable/searchNone.png";
+            let $non =  $("<div>").append($("<img>").attr("src", imgSrc));
+            $("#none").empty().append($non);
+            $("#none").show();
+            $("#hr").show();
+            $("#checkBack").show();
+			
+        } else {
+        	$("#hr").hide();
+        	$("#none").hide();
+        	$("#checkBack").hide();
+        	
+         let html = `<table border="1px" align="center" id="myTable">
+			        <thead id="tableHead">
+			        <tr>
+			            <th width="30px">구분</th>
+			            <th width="50px">열차 번호</th>
+			            <th width="50px">출발역</th>
+			            <th width="50px">도착역</th>
+			            <th width="30px">특실</th>
+			            <th width="30px">일반실</th>
+			            <th width="50px">운임요금</th>
+			            <th width="50px">소요시간</th>
+			            <th width="50px">출발시간</th>
+			            <th width="50px">도착시간</th>
+			        </tr>
+			        </thead>
+			        <tbody id="tableBody">
+			          `;	
+        	
+        	
         for (let i = 0; i < rows.length; i++) {
             let tr = document.createElement("tr");
             let charge = rows[i]["adultcharge"];
@@ -57,52 +89,37 @@ click: (event) =>
                 durationString = `${minutes}분`
             }
             
-
-        let html = `<table border="1px" align="center" id="myTable">
-        <thead>
-        <tr>
-            <th width="50px">구분</th>
-            <th width="50px">열차 번호</th>
-            <th width="80px">출발역</th>
-            <th width="80px">도착역</th>
-            <th>특실</th>
-            <th>일반실</th>
-            <th width="80px">운임요금</th>
-            <th width="100px">소요시간</th>
-            <th width="80px">출발시간</th>
-            <th width="80px">도착시간</th>
-        </tr>
-        </thead>
-        <tbody>
-          <tr>
-          <td>${train}</td>
-          <td>${no}</td>
-          <td>${depname}</td>
-          <td>${arrplace}</td>
-          <td>
-            <input type="submit" class="seatbtn" value="좌석선택" style="cursor: pointer;">
-            <br>
-            <input type="submit" value="예약하기" style="cursor: pointer;">
-          </td>
-          <td>
-            <input type="submit" class="seatbtn" value="좌석선택" style="cursor: pointer;">
-            <br>
-            <input type="submit" value="예약하기" style="cursor: pointer;">
-          </td>
-          <td>
-          ${charge}원
-          </td>
-          <td>${durationString}</td>
-          <td>${deptimeFormatted}</td>
-          <td>${arrtimeFormatted}</td>
-          </tr>
-        </tbody>
-      </table>`;
+		html += `<tr>
+			          <td>${train}</td>
+			          <td>${no}</td>
+			          <td>${depname}</td>
+			          <td>${arrplace}</td>
+			          <td>
+			            <input type="submit" id="sSeat" class="seatbtn" value="좌석선택" style="cursor: pointer;">
+			            <br>
+			            <input type="submit" id="sRes" value="예약하기" style="cursor: pointer;">
+			          </td>
+			          <td>
+			            <input type="submit" id="nSeat" class="seatbtn" value="좌석선택" style="cursor: pointer;">
+			            <br>
+			            <input type="submit" id="nRes" value="예약하기" style="cursor: pointer;">
+			          </td>
+			          <td>
+			          ${charge}원
+			          </td>
+			          <td>${durationString}</td>
+			          <td>${deptimeFormatted}</td>
+			          <td>${arrtimeFormatted}</td>
+			          </tr>`;
         
+        
+        }
+        
+		html += `</tbody></table>`;
         $("#train").append(html);
         
         
-		const openModalButton = document.querySelectorAll('.seatbtn');
+		let openModalButton = document.querySelectorAll('.seatbtn');
 		
 		openModalButton.forEach(button => {
 		
@@ -143,11 +160,15 @@ click: (event) =>
 				});
 				});
 				
-	
-
-        
-      }
-      console.log(rows);
-    }),
-});
+				      }
+				      console.log(rows);
+				    }),
+				});
+		$("#checkBack").click(function() {
+			  // 다시 조회하기 버튼 클릭 시, 이미지와 hr 태그를 숨기고, 기존에 숨겨져 있던 내용을 다시 보여줌
+			  $("#none").hide();
+			  $("#hr").hide();
+			  $("#checkBack").hide();
+			  // 기존에 숨겨져 있던 내용을 보여줌
+			});
 
