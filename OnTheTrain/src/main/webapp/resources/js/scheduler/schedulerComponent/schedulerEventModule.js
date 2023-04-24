@@ -1,6 +1,6 @@
 import { ctx } from "../schedulerCreate.js";
 
-import { findIndexById } from "../schedulerCreate.js";
+import { findIndexFromArrayById } from "../schedulerCreate.js";
 
 // event 객체를 관리할 배열 생성
 const addedEvents = [];
@@ -30,9 +30,10 @@ function findEventById(id) {
     return foundEvent;
   }
 
-  foundEvent = searchEvents.find((event) => event.id === id);
+  foundEvent = APIEvents.find((event) => event.id === id);
 
   if (foundEvent) {
+    return foundEvent;
   } else {
     console.log(`해당 id를 가진 일정이 없습니다`);
     return null;
@@ -56,14 +57,62 @@ function findEventFromArrayById(array, id) {
   }
 }
 
+/**
+ *
+ * @param {eventid} id 아이디를 받아
+ * @returns {obj} 위치한 array와 index값을 반환
+ */
+function getEventArrayAndIndexById(id) {
+  let key, array, index;
+  let arrayAndIndex = { key, array, index };
+
+  // addedEvents 배열에서 찾기
+  addedEvents.forEach((item, i) => {
+    if (item.id === id) {
+      arrayAndIndex.key = "addedEvents";
+      arrayAndIndex.array = addedEvents;
+      arrayAndIndex.index = i;
+    }
+  });
+
+  // waitEvents 배열에서 찾기
+  if (!arrayAndIndex.array) {
+    waitEvents.forEach((item, i) => {
+      if (item.id === id) {
+        arrayAndIndex.key = "waitEvents";
+        arrayAndIndex.array = waitEvents;
+        arrayAndIndex.index = i;
+      }
+    });
+  }
+
+  // APIEvents 배열에서 찾기
+  if (!arrayAndIndex.array) {
+    APIEvents.forEach((item, i) => {
+      if (item.id === id) {
+        arrayAndIndex.key = "APIEvents";
+        arrayAndIndex.array = APIEvents;
+        arrayAndIndex.index = i;
+      }
+    });
+  }
+
+  if (!arrayAndIndex.array) {
+    console.log(`해당 id를 가진 일정이 없습니다`);
+    return null;
+  }
+
+  return arrayAndIndex;
+}
+
 // 추가된 일정으로 이벤트 객체를 옮기는 함수
 function toAddedEvent(id) {
   let arrayfrom = addedEvents;
   // 해당 요소가 있었던 곳 찾기
-  let idx = findIndexById(addedEvents, id);
+  let idx = findIndexFromArrayById(addedEvents, id);
   if (idx === -1) {
     arrayfrom = waitEvents;
-    idx = findIndexById(waitEvents, id);
+    idx = findIndexFromArrayById(waitEvents, id);
   }
   let targetEvent = arrayfrom.splice(idx, 1)[0];
   addedEvents.push(targetEvent);
@@ -73,10 +122,10 @@ function toAddedEvent(id) {
 function toWaitEvent(id) {
   let arrayfrom = addedEvents;
   // 해당 요소가 있었던 곳 찾기
-  let idx = findIndexById(addedEvents, id);
+  let idx = findIndexFromArrayById(addedEvents, id);
   if (idx === -1) {
     arrayfrom = waitEvents;
-    idx = findIndexById(waitEvents, id);
+    idx = findIndexFromArrayById(waitEvents, id);
   }
 
   let targetEvent = arrayfrom.splice(idx, 1)[0];
@@ -84,7 +133,7 @@ function toWaitEvent(id) {
 }
 // 추가된 일정이나 대기 중인 일정에서 이벤트 객체를 제거하는 함수
 function removeEventFromArray(arr, id) {
-  let idx = findIndexById(arr, id);
+  let idx = findIndexFromArrayById(arr, id);
 
   if (idx !== -1) {
     arr.splice(idx, 1);
@@ -228,4 +277,5 @@ export {
   removeEventFromArray,
   renderAPIEventOnModal,
   findEventFromArrayById,
+  getEventArrayAndIndexById,
 };

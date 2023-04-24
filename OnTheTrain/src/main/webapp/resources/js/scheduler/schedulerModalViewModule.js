@@ -83,9 +83,69 @@ $(document).ready(() => {
     return componentObj;
   }
 
+  function removeOriginalCard(cardToRemove, id) {
+    if (confirm("기존의 카드를 삭제합니까?")) {
+      cardToRemove.remove();
+      removeOriginalComponent(id);
+    }
+  }
+
+  function removeOriginalComponent(componentId) {
+    let currentComponent = getCurrentComponent();
+    let arrayAndIndex = addModalModule.getComponentArrayAndIndexById(
+      currentComponent,
+      componentId
+    );
+    console.log(arrayAndIndex);
+
+    if (arrayAndIndex && arrayAndIndex.array) {
+      // arrayAndIndex와 arrayAndIndex.array가 모두 있는지 확인
+      let array = arrayAndIndex.array;
+      let index = arrayAndIndex.index;
+
+      array.splice(index, 1);
+    } else {
+      console.log(`해당 id를 가진 일정이 없습니다`);
+    }
+  }
+
   // 특정 요소 객체의 값을 바탕으로 modalView를 구성함
   function renderOnModal(component, componentObj) {
     componentsView[component].renderOnModal(componentObj);
+  }
+
+  /**
+   * - 수정완료 활성화 기능
+   * 수정완료 버튼은 추가 버튼과 동일한 기능을 하며, 추가적으로 수정 대상이 된 카드를 삭제할 것인지 묻는다.
+   * @param {component} 현재 컴포넌트
+   * @param {card} 삭제할 카드
+   * @param {id} 삭제될 id
+   * */
+  function activateEditCompleteButton(component, cardToRemove, id) {
+    let editCompleteButton =
+      addModalModule.getAddModalComponents()[component].editCompleteButton;
+    let addButton = addModalModule.getAddModalComponents()[component].addButton;
+
+    addButton.hide();
+    editCompleteButton.show();
+    editCompleteButton.off("click");
+    editCompleteButton.on("click", () => {
+      removeOriginalCard(cardToRemove, id);
+      addModalModule.addComponent(component);
+    });
+  }
+
+  /**
+   * - 수정완료 비활성화 기능
+   */
+  function DisabledEditCompleteButton() {
+    let editCompleteButton =
+      addModalModule.getAddModalComponents()[component].editCompleteButton;
+    let addButton = addModalModule.getAddModalComponents()[component].addButton;
+
+    addButton.show();
+    editCompleteButton.hide();
+    editCompleteButton.off("click");
   }
 
   // 카드 클릭시 해당 정보를 담은 모달 열기
@@ -102,12 +162,16 @@ $(document).ready(() => {
     componentsView[component].editButton.on("click", function () {
       editModal(component, componentObj, cardToRemove);
     });
+
+    addModalModule.getAddModalComponents()[component].modal.on("hide", () => {
+      DisabledEditCompleteButton();
+    });
   });
 
-  // 수정 하기
   function editModal(currentComponent, componentObj, cardToRemove) {
     // view모달 숨기기
     hideModal(currentComponent);
+    activateEditCompleteButton(currentComponent, cardToRemove, componentObj.id);
 
     // add모달 열고, 내용 초기화
     addModalModule.resetModalContent(currentComponent);
@@ -115,32 +179,6 @@ $(document).ready(() => {
 
     // 전달받는 id로 내용 그리기
     addModalModule.setAddModalByComponent(currentComponent, componentObj);
-
-    // addButton에 대한 remove 이벤트 핸들러 등록
-    function removeEventHandler() {
-      if (confirm("기존 카드를 삭제합니까?")) {
-        cardToRemove.remove();
-      } else {
-        return;
-      }
-    }
-    let addButton =
-      addModalModule.getAddModalComponents()[currentComponent].addButton;
-
-    addButton.off("click");
-
-    addButton.on("click", () => {
-      removeEventHandler();
-    });
-
-    // editModal이 닫히기 전에 remove 이벤트 핸들러 제거
-    addModalModule
-      .getAddModalComponents()
-      [currentComponent].modal.on("hide", () => {
-        addModalModule
-          .getAddModalComponents()
-          [currentComponent].addButton.off("click", removeEventHandler);
-      });
   }
 
   // API열기

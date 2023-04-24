@@ -44,9 +44,10 @@
 				</div>
 			</div>
 			<div class="modal-footer">
-				<button class="add-button">Apply</button>
-				<button class="reset-button">Reset</button>
-				<button class="cancel-button">Cancel</button>
+				<button class="editComplete-button">수정완료</button>
+				<button class="add-button">추가</button>
+				<button class="reset-button">초기화</button>
+				<button class="cancel-button">취소</button>
 			</div>
 		</div>
 	</div>
@@ -98,6 +99,7 @@
 			</div>
 		</div>
 		<div class="modal-footer">
+			<button class="editComplete-button">수정완료</button>
 			<button class="add-button">Apply</button>
 			<button class="reset-button">Reset</button>
 			<button class="cancel-button">Cancel</button>
@@ -126,7 +128,8 @@
 							for="ticket-end-time">도착 시간</label>
 						<div class="line-break"></div>
 						<input type="datetime-local" id="ticket-start-time" required>
-						<input type="datetime-local" id="ticket-end-time" class="endtime" required>
+						<input type="datetime-local" id="ticket-end-time" class="endtime"
+							required>
 					</div>
 				</div>
 				<div class="ticketOptional">
@@ -140,6 +143,7 @@
 				</div>
 			</div>
 			<div class="modal-footer">
+				<button class="editComplete-button">수정완료</button>
 				<button class="add-button">Apply</button>
 				<button class="reset-button">Reset</button>
 				<button class="cancel-button">Cancel</button>

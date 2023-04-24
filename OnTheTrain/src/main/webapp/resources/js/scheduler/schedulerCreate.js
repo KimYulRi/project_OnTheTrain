@@ -27,7 +27,17 @@ function getCurrentComponent() {
 }
 
 // id 값으로 요소 객체 배열에서 요소 찾기
-function findIndexById(arr, id) {
+function findIndexFromArrayById(arr, id) {
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i].id === id) {
+      return i;
+    }
+  }
+  // 해당 id 값을 가진 요소가 없을 경우 -1 반환
+  return -1;
+}
+
+function findIndexById(id) {
   for (let i = 0; i < arr.length; i++) {
     if (arr[i].id === id) {
       return i;
@@ -340,4 +350,5 @@ export {
   schedulerCreateModule,
   findIndexById,
   getCurrentComponent,
+  findIndexFromArrayById,
 };

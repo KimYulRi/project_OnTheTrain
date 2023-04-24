@@ -5,20 +5,20 @@ import {
 } from "./schedulerCreate.js";
 
 import {
+  APIEvents,
   waitEvents,
   addedEvents,
   toWaitEvent,
-  APIEvents,
   toAddedEvent,
   findEventById,
-  findEventFromArrayById,
   resetEventModal,
   createEventObject,
-  createAPIEventObject,
-  renderEventOnModal,
-  removeEventFromArray,
   setAddModalByEvent,
+  createAPIEventObject,
+  removeEventFromArray,
   renderAPIEventOnModal,
+  findEventFromArrayById,
+  getEventArrayAndIndexById,
 } from "./schedulerComponent/schedulerEventModule.js";
 
 const waitComponentList = $("#waitComponentList");
@@ -68,6 +68,7 @@ $(document).ready(() => {
       cancelButton: $("#schedulerEventModal .cancel-button"),
       addButton: $("#schedulerEventModal .add-button"),
       resetButton: $("#schedulerEventModal .reset-button"),
+      editCompleteButton: $("#schedulerEventModal .editComplete-button"),
       imageUploadInput: $("#schedulerEventModal .image-upload"),
       imageCaption: $("#schedulerEventModal .image-caption"),
       modalBackdrop: $("#schedulerEventModal .modal-backdrop"),
@@ -92,6 +93,8 @@ $(document).ready(() => {
       setAddModalByComponent: setAddModalByEvent,
       renderAPIResultOnModal: renderAPIEventOnModal,
       createAPIComponentObject: createAPIEventObject,
+      findComponentFromArrayById: findEventFromArrayById,
+      getComponentArrayAndIndexById: getEventArrayAndIndexById,
       creatComponentObject() {
         return createEventObject(this.fields);
       },
@@ -99,6 +102,7 @@ $(document).ready(() => {
     accommodation: {
       modal: $("#schedulerAccommodationModal"),
       cancelButton: $("#schedulerAccommodationModal .cancel-button"),
+      editCompleteButton: $("#schedulerEventModal .editComplete-button"),
       addButton: $("#schedulerAccommodationModal .add-button"),
       resetButton: $("#schedulerAccommodationModal .reset-button"),
       imageUploadInput: $("#schedulerAccommodationModal .image-upload"),
@@ -118,6 +122,7 @@ $(document).ready(() => {
     ticket: {
       modal: $("#schedulerTicketModal"),
       cancelButton: $("#schedulerTicketModal .cancel-button"),
+      editCompleteButton: $("#schedulerEventModal .editComplete-button"),
       addButton: $("#schedulerTicketModal .add-button"),
       resetButton: $("#schedulerTicketModal .reset-button"),
       imageUploadInput: $("#schedulerTicketModal .image-upload"),
@@ -162,7 +167,6 @@ $(document).ready(() => {
     components[component].resetButton.on("click", () => {
       resetModalContent(component);
     });
-    // addComponent 이벤트
     components[component].addButton.on("click", () => {
       addComponent(component);
     });
@@ -215,6 +219,7 @@ $(document).ready(() => {
     );
 
     components[currentComponent].waitList.push(componentObj);
+    console.log(components[currentComponent].waitList);
     hideModal(currentComponent);
     resetModalContent(currentComponent);
   }
@@ -229,7 +234,7 @@ $(document).ready(() => {
     components[component].toAddedList(id);
   }
 
-  // API로 가져오는 아이템들을 보관하는 리스트 가져오기
+  // API로 가져오는 객체를 보관하는 배열 가져오기
   function getAPIItemList(component) {
     return components[component].APIItemList;
   }
@@ -268,10 +273,18 @@ $(document).ready(() => {
 
   /**
    * API 객체 view에 그리기
-   *
    */
   function renderAPIResultOnModal(component, APIitem) {
     return components[component].renderAPIResultOnModal(APIitem);
+  }
+
+  /**
+   * id값으로 해당 component의 배열과 인덱스를 찾을 수 있는 함수
+   * @param {component} component
+   * @param {componentId} id
+   */
+  function getComponentArrayAndIndexById(component, id) {
+    components[component].getComponentArrayAndIndexById(id);
   }
 
   addModalModule.showModal = showModal;
@@ -287,6 +300,7 @@ $(document).ready(() => {
   addModalModule.renderAPIResultOnModal = renderAPIResultOnModal;
   addModalModule.setAddModalByComponent = setAddModalByComponent;
   addModalModule.createAPIComponentObject = createAPIComponentObject;
+  addModalModule.getComponentArrayAndIndexById = getComponentArrayAndIndexById;
 });
 
 export { createNewCard, addNewCardtoArea, addModalModule };
