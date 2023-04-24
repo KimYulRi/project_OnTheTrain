@@ -19,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.onthetrain.common.util.MultipartFileUtil;
+import com.kh.onthetrain.common.util.PageInfo;
 import com.kh.onthetrain.member.model.vo.Member;
 import com.kh.onthetrain.member.service.MemberService;
 import com.kh.onthetrain.myPage.model.entity.Qna;
@@ -78,24 +79,47 @@ public class MyPageContoller {
 		return "myPage/myPageMyScheduler";
 	}
 	
-	@GetMapping("/myPage/myPageCoupon")
-	// 마이페이지 쿠폰함으로 보내는 메소드
-	public String toMyCoupon() {
-		log.info("/myPage/toMyCoupon 메소드 실행");
-		return "myPage/myPageCoupon";
-	}
+//	@GetMapping("/myPage/myPageCoupon")
+//	// 마이페이지 쿠폰함으로 보내는 메소드
+//	public ModelAndView toMyCoupon(ModelAndView model,
+//								@RequestParam(defaultValue = "1") int page,
+//								@SessionAttribute("loginMember") Member loginMember) {
+//		int listCount = service.getCouponCount(loginMember.getNo());
+//		
+//		PageInfo pageInfo = new PageInfo(page, 5, listCount, 5);
+//		List<Coupon> couponList = service.getQnaListByMemberNo(loginMember.getNo(),pageInfo);
+//		
+//		
+//		model.addObject("pageInfo", pageInfo);
+//		model.addObject("couponList", couponList);
+//		model.setViewName("myPage/myPageQna");
+//		
+//		
+//		log.info("/myPage/toMyCoupon 메소드 실행");
+//		return model;
+//	}
 	
 
 	
 	@GetMapping("/myPage/myPageQna")
 	// 마이페이지 1:1 문의 내역으로 보내는 메소드
 	public ModelAndView toMyQna(ModelAndView model,
+								@RequestParam(defaultValue = "1") int page,
 								@SessionAttribute("loginMember") Member loginMember) {
-		List<Qna> qnaList = service.getQnaListByMemberNo(loginMember.getNo());
+		int listCount = service.getQnaCount(loginMember.getNo());
 		
+		log.info("ListCount : {}", listCount);
+		
+		PageInfo pageInfo = new PageInfo(page, 5, listCount, 5);
+		List<Qna> qnaList = service.getQnaListByMemberNo(loginMember.getNo(),pageInfo);
+		
+		log.info("Page : {}", page);
+		log.info("StartPage : {}", pageInfo.getStartPage());
+		log.info("EndPage : {}",pageInfo.getEndPage() );
 		
 		log.info("toMyQna 메소드 실행");
 		
+		model.addObject("pageInfo", pageInfo);
 		model.addObject("qnaList", qnaList);
 		model.setViewName("myPage/myPageQna");
 		

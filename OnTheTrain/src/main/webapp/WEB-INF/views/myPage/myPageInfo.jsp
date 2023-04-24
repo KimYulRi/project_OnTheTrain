@@ -49,7 +49,7 @@
                 </tr>
                 <tr id="infonick">
                     <th id="infonamehead">닉네임</th>
-                    <td id="infonickbody"><input class="infoinput" type="text" name="nickname" value="${loginMember.nickname}"><input type="button" id="checkDuplicate2" class="inputbtn" value="중복확인" ></td>
+                    <td id="infonickbody"><input class="infoinput" type="text" name="nickname" value="${loginMember.nickname}"><input type="button" id="checkDuplicate2" class="inputbtn" value="중복확인" > <div id="nicksucc">사용 가능한 닉네임입니다.</div></td>
                 </tr>
                 <tr id="infophone">
                     <th id="infophonehead">전화번호</th>

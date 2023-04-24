@@ -48,11 +48,6 @@
                         <td id="coupondate" >~2023/01/01</td>
                         <td id="couponsale" >15,000원</td>
                     </tr>
-                    <tr>
-                        <td id="coupontitle" >봄맞이 꽃구경 쿠폰 말줄임표 테스트 어쩌구저쩌구 릴리림 ㄴ이ㅏ민 이</td>
-                        <td id="coupondate" >~2023/01/01</td>
-                        <td id="couponsale" >5%</td>
-                    </tr>
                 </tbody>
             </table>
 
