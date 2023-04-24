@@ -25,4 +25,6 @@ public class Accommodation {
 	private String  lot;
 	
 	private String  lat;
+	
+	private String renamedFilename;
 }
