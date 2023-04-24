@@ -3,9 +3,6 @@
 @font-face {
     font-family: 'NotoSans';
     src: url('/resources/font/NotoSansKR-Medium.otf') format('truetype');
-<<<<<<< HEAD
-}
-=======
 }
 /* 헤더 */
      header {
@@ -202,4 +199,3 @@
     	 width: 1024px;
     	 margin: 0 auto;
      }
->>>>>>> FIR-30

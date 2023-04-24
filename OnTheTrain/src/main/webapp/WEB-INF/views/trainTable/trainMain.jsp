@@ -7,6 +7,7 @@
 <c:set var="path" value="${ pageContext.request.contextPath }" />
 <!DOCTYPE html>
 <html lang="en">
+<<<<<<< HEAD
 <head>
 <meta charset="UTF-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -191,6 +192,71 @@
 							<li>원하지 않는 좌석이 선택된 경우에는 좌석을 한 번 더 클릭하시면 취소됩니다.</li>
 						</ul>
 					</div>
+=======
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link href="${ path }/css/trainTable/trainMain.css" rel="stylesheet"
+	type="text/css">
+  </head>
+  <script src="${ path }/js/common/jquery-3.6.3.js"></script>
+  <script src="${ path }/js/common/jquery-3.6.3.min.js"></script>
+  
+  <body>
+    <div id="banner">
+      <div id="banner_text">승차권 조회</div>
+</div>
+<div class="field">
+<fieldset id="ttable" style="width: 900px;">  
+  <table align="center">
+    <tr id="topTable">
+      <th colspan="2" width="100px" style="font-size: 20px">출발</th>
+      <td><input style="height: 25px;" type="text" name="" id="depPlaceId"></td>
+      <td><input type="submit" value="조회"  id="depId"></td>
+      <th colspan="2" width="100px">인원</th>
+      <td><input type="text" style="width: 200px;"></td>
+      <td><select name="" id=""></select></td>
+    </tr>
+    <tr>
+      <td colspan="2"></td>
+      <td> <img src="${ path }/resources/images/trainTable/cross.png" style="width: 30px; height: 30px;"></td>
+    </tr>
+    <tr>
+      <th colspan="2" width="100px" style="font-size: 20px;">도착</th>
+      <td><input style="height: 25px;" type="text" name="" id="arrPlaceId"></td>
+      <td><input type="submit" value="조회" id="arId"></td>
+      <td></td>
+      <td></td>
+      <td colspan="2" rowspan="3">
+        <div id="calcal">
+          <table class="Calendar">
+              <thead>
+                  <tr>
+                      <td onClick="prevCalendar();" style="cursor:pointer;">&#60;</td>
+                      <td colspan="5">
+                          <span id="calYear"></span>년
+                          <span id="calMonth"></span>월
+                      </td>
+                      <td onClick="nextCalendar();" style="cursor:pointer;">&#62;</td>
+                  </tr>
+                  <tr>
+                      <td>일</td>
+                      <td>월</td>
+                      <td>화</td>
+                      <td>수</td>
+                      <td>목</td>
+                      <td>금</td>
+                      <td>토</td>
+                  </tr>
+              </thead>
+  
+              <tbody>
+              </tbody>
+          </table>
+      </div>
+>>>>>>> main
 
 					<div class="train">
 						<div class="carriage" data-carriage="1">
@@ -209,6 +275,7 @@
 
 					<div></div>
 
+<<<<<<< HEAD
 					<div class="seats" align="center">
 						<table>
 							<tbody>
@@ -285,4 +352,13 @@
 	<script src="${ path }/js/trainTable/seatModal.js"></script>
 	<jsp:include page="./seatModal.jsp" />
 </body>
+=======
+        <div align="center">
+        <button type="button" id="traintable_btn">조회하기</button>
+        </div>
+        <p id="train"></p>
+
+    <script src="${ path }/js/trainTable/trainMain.js"></script>
+  </body>
+>>>>>>> main
 </html>

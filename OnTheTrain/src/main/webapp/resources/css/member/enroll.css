@@ -1,0 +1,278 @@
+@charset "UTF-8";
+
+	section{
+		width: 1200px;
+		min-height: 550px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		margin: 0 auto;
+	}
+
+    section .contentArea {
+        margin: 0 auto;
+        margin-top:50px;
+	    width: 600px;
+		padding: 0px 50px 50px 50px;
+		border: 0.5px solid #D3D2D2; 
+	}
+
+	section #content1{
+        height: 60px;
+		margin-top:50px;
+	    width: 600px;
+	}
+    section #content2{
+		margin: 0 auto;
+	    width: 600px;
+	}
+	section #content3{
+		margin: 0 auto;
+	    width: 600px;
+		margin-top:30px;
+	}
+	section #content5{
+		margin: 0 auto;
+	    width: 600px;
+		margin-top:40px;
+		justify-content: center;
+		display: flex;
+	}
+	section #content6{
+		margin: 0 auto;
+	    width: 600px;
+		margin-top:30px;
+		justify-content: center;
+		
+		display: flex;
+	}
+
+
+	#tb_all label{
+		font-size: 16px;
+		font-weight: bold;
+	}
+	#tb_all input{
+		margin-right: 20px;
+		
+		transform : scale(1.2);
+	}
+
+	.tb_td1 label{
+		font-size: 14px;
+	}
+	section #content5 input{
+		margin-right: 15px;
+		transform : scale(1.2);
+		
+		position: relative;
+		top: 2px;
+
+	}
+
+
+	.sub{
+		font-size: 12px;
+		font-weight: bold;
+		color: #596180;
+	}
+		
+	#enrollSubmit {
+		border: 0px;
+		border-radius: 4px;
+		margin: 20px 0 10px 0;
+		width: 350px;
+		height: 40px;
+		background-color:#596180;
+		color: #ffffff;
+	}
+	#enrollSubmit:hover{
+		background-color:#00008B;
+		color: #ffffff;
+	}
+
+	h2 {
+		color:#00008b;
+	}
+
+
+	/* 회원가입 */
+	h4 {
+		color:#596180;
+		margin-bottom: 12px;
+	}
+
+	.enrollwrap input{
+		border: 0.5px solid #D3D2D2;
+		border-radius: 4px;
+		margin-bottom: 10px;
+	}
+	.enrollwrap select{
+		border: 0.5px solid #D3D2D2;
+		border-radius: 4px;
+		margin-bottom: 10px;
+	}
+	/* 긴 text input */
+	.texttype2{
+		width: 560px;
+		height: 35px;
+		padding-left: 10px;
+		outline: none;
+		
+	}
+	/* 중간 text input */
+	.texttype1{
+		width: 390px;
+		height: 35px;
+		padding-left: 10px;
+		outline: none;
+	}
+	/* 짧은 text input */
+	.texttype3{
+		width: 165px;
+		height: 35px;
+		padding-left: 10px;
+		outline: none;
+	}
+	/* 반반 text input */
+	.texttype4{
+		width: 270px;
+		height: 35px;
+		padding-left: 10px;
+		outline: none;
+	}
+	.selecttype{
+		width: 190px;
+		height: 40px;
+		padding-left: 10px;
+		outline: none;
+		color:#D3D2D2;
+	}
+
+	.selecttype option{
+		color: #000000;
+	}
+	.selecttype option:disabled{
+		color: #D3D2D2;
+	}
+
+	.texttype2:focus{
+		border: 2px solid rgba(129, 177, 245, .8);
+		/* border: 2px solid rgba(0, 0, 139, .8); */
+	}
+	.texttype1:focus{
+		border: 2px solid rgba(129, 177, 245, .8);
+		/* border: 2px solid rgba(0, 0, 139, .8); */
+	}
+	.texttype3:focus{
+		border: 2px solid rgba(129, 177, 245, .8);
+		/* border: 2px solid rgba(0, 0, 139, .8); */
+	}
+	.texttype4:focus{
+		border: 2px solid rgba(129, 177, 245, .8);
+		/* border: 2px solid rgba(0, 0, 139, .8); */
+	}
+
+	.inputbtn{
+		border: 0px;
+		width: 155px;
+		height: 38px;
+		background-color:#596180;
+		margin-left:10px;
+		color: #ffffff;
+	}
+
+
+	.inputbtn:hover{
+		background-color:#00008B;
+		color: #ffffff;
+	}
+	
+
+	.enrollwrap{
+		width: 600px;
+		padding: 0px;
+		height: 90px;
+
+	}
+	.enrollwrap input::placeholder{
+		padding-left: 5px;
+		color:#D3D2D2;
+		}
+	#addressArea{
+		height: 180px;
+	}
+	hr{
+		border:none;
+		border-top: 0.5px solid #D3D2D2;
+
+	}
+	/* 약관동의 */
+	h3 {
+		color:#00008b;
+		margin-bottom: 7px;
+	}
+	#checkDuplicate3{
+		margin-left:20px;
+	}
+
+	.tb_td1{
+		width: 540px;
+		border-bottom: 0.5px solid #D3D2D2;
+	}
+	.tb_td2{
+		width: 80px;
+		text-align: right;
+	}
+
+	#agreetb td{
+		height: 50px;
+	}
+	.agreebtn{
+		border: 1px solid #596180;
+		width: 40px;
+		height: 23px;
+		background-color: #ffffff;
+		border-radius: 12px;
+		text-decoration: none;
+		font-size: 10px;
+		color: #596180;
+
+	}
+	.agreebtn:hover{
+		border: 1px solid #00008b;
+		color: #ffffff;
+		background-color: #00008b;
+
+	}
+	#idsucc, #nicksucc, #emailsucc{
+		font-size: 6px;
+		color: #00008b;
+  		display: none;
+  		padding: 0 0 0 3px;
+	}
+	
+	#snsdiv{
+		width: 600px;
+		padding: 0px;
+		height: 50px;
+
+	}
+	#snshead{
+		font-size: 14px;
+		color:#596180;
+		text-align: center;
+	}
+	#naver{
+		color: #03C75A;
+		font-weight:bold;
+	}
+	#kakao{
+		color: #FEE500;
+		font-weight:bold;
+	}
+	.snsDiv{
+		padding-top: 10px;
+		padding-left: 1px;
+		color:#D3D2D2;
+	}

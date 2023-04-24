@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.kh.onthetrain.accommodation.model.mapper.AccommodationMapper">
+
+  <resultMap type="com.kh.onthetrain.accommodation.model.vo.Accommodation" id="accommodationResultMap">
+    <id property="no" column="NO" />
+    <result property="price" column="PRICE" />
+    <result property="name" column="NAME" />
+    <result property="status" column="STATUS" />
+    <result property="maxValue" column="MAXVALUE" />
+    <result property="explain" column="EXPLAIN" />
+    <result property="location" column="LOCATION" />
+    <result property="lot" column="LOT" />
+    <result property="lat" column="LAT" />
+  </resultMap>
+  
+  <resultMap type="com.kh.onthetrain.accommodation.model.vo.Review" id="reviewsResultMap">
+	  <id property="no" column="NO" />
+	    <result property="memberNo" column="MEMBER_NO" />
+	    <result property="accommodationNo" column="ACCOMMODATION_NO" />
+	    <result property="content" column="CONTENT" />
+	    <result property="starPoint" column="STARPOINT" />
+	    <result property="createDate" column="CREATE_DATE" />
+	    <result property="modifyDate" column="MODIFY_DATE" />
+  </resultMap>
+  
+  <resultMap id="reviewResultMap" type="com.kh.onthetrain.accommodation.model.vo.Review">
+	    <id column="NO" property="no" />
+	    <result column="MEMBER_NO" property="memberNo" />
+	    <result column="NICKNAME" property="nickname"/>
+	    <result column="ACCOMMODATION_NO" property="accommodationNo" />
+	    <result column="CONTENT" property="content" />
+	    <result column="STARPOINT" property="starPoint" />
+	    <result column="CREATE_DATE" property="createDate" />
+	    <result column="MODIFY_DATE" property="modifyDate" />
+ </resultMap>
+  
+  
+	<select id="findProductByNo" parameterType="String" resultMap="accommodationResultMap">
+		  SELECT  NO,
+		          PRICE,
+		          NAME,
+		          STATUS,
+		          MAXVALUE,
+		          EXPLAIN,
+		          LOCATION,
+		          LOT,
+		          LAT
+		  FROM ACCOMMODATION 
+		  WHERE STATUS = 'Y' AND NO = #{no}
+	</select>
+
+	<select id="getReviewsByNo" parameterType="String" resultMap="reviewsResultMap">
+		 SELECT  R.NO,
+		         R.MEMBER_NO,
+                 M.NICKNAME,
+		         R.ACCOMMODATION_NO,
+		         R.CONTENT,
+		         R.STARPOINT,
+		         R.CREATE_DATE,
+		         R.MODIFY_DATE
+		FROM REVIEW R
+        INNER JOIN MEMBER M ON (M.NO = R.MEMBER_NO)
+		WHERE ACCOMMODATION_NO = #{no}
+	</select>
+	
+	<insert id="insertReview" parameterType="Review" 
+	 useGeneratedKeys="true" keyColumn="NO" keyProperty="no">
+	    INSERT INTO REVIEW (
+		    NO,   
+		    MEMBER_NO, 
+		    ACCOMMODATION_NO, 
+		    CONTENT,
+		    STARPOINT,
+		    CREATE_DATE,
+		    MODIFY_DATE
+		)
+		VALUES(
+		    SEQ_REVIEW_NO.NEXTVAL, 
+		    #{ memberNo }, 
+		    #{ accommodationNo }, 
+		    #{ content },
+		    #{ starPoint },
+		    SYSDATE,
+			SYSDATE
+		)
+     </insert>
+     
+</mapper>

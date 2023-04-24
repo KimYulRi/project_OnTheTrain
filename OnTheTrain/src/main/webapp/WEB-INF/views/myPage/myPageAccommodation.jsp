@@ -15,6 +15,7 @@
     <link href="${ path }/css/myPage/myPageAccommodation.css" rel="stylesheet" type="text/css">
     <!-- CSS only -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+<%@ include file="../common/header.jsp" %>
 </head>
 <body>
     <div id="container">
@@ -29,7 +30,7 @@
                 <div class="toolbarcontent"><a href="${ path }/myPage/myPageInfoCheck">개인정보</a></div>
             </div>
             <div id="toptoolbar" >
-                <div id="ticket"><a href="${ path }/myPage/myPageticket">승차권</a></div>
+                <div id="ticket"><a href="${ path }/myPage/myPageTicket">승차권</a></div>
                 <div id="accommodation" >숙박</div>
             </div>
             

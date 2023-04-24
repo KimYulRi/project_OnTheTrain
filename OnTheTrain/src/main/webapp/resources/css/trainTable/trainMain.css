@@ -1,3 +1,16 @@
+@charset "UTF-8";
+
+@font-face {
+	font-family: 'Noto Sans';
+	src: url('../../font/common/NotoSansKR-Medium.otf') format('truetype');
+}
+
+@font-face {
+	font-family: 'Noto Sans Bold';
+	src: url('../../font/common/NotoSansKR-Bold.otf') format('truetype');
+}
+
+
 #banner {
   background-image: url("../../images/trainTable/trainTableBanner.png");
   height: 100px;
@@ -38,7 +51,22 @@
 
 #field {
   text-align: center;
+<<<<<<< HEAD
   padding-left: 10px;
+=======
+  padding-left: 200px;
+}
+#calcal {
+  background-color: white;
+  height: 180px;
+  width: 180px;
+  left: 757px;
+  top: 504px;
+  border-radius: 12px;
+  padding: 30px;
+  /* border-width: 10px; */
+  box-shadow: 40px 40px 40px 40px rgba(0.2, 0.2, 0.2, 0.2);
+>>>>>>> main
 }
 
 fieldset {
@@ -68,11 +96,40 @@ option{
   font-size: 15px;
 }
 
+<<<<<<< HEAD
 #searchTrain{
   margin-top: 30px;
 
 }
 
+=======
+.pastDay {
+  color: lightgray;
+}
+
+.today {
+  background-color: #8ea0df;
+  color: #fff;
+  font-weight: 60;
+  cursor: pointer;
+}
+
+.futureDay {
+  background-color: #ffffff;
+  cursor: pointer;
+}
+.futureDay:hover {
+  background: #eee;
+}
+
+.futureDay.choiceDay,
+.today.choiceDay {
+  background: #0a174e;
+  color: #fff;
+  font-weight: 40;
+  cursor: pointer;
+}
+>>>>>>> main
 
 #traintable_btn {
   background-color: #596180;
@@ -88,46 +145,28 @@ option{
   cursor: pointer;
 }
 
-#cityBtn {
-  background-color: rgb(89, 97, 128);;
-  color: #fff;
-  outline: none;
-  border: 0px;
-  cursor: pointer;
-  border-radius: 5px;
-  height: 30px;
-  width: 50px;
-  font-size: large;
-}
-
-a {
-  text-decoration: none;
-  color: white;
-}
-
 #depId {
-  background-color: rgb(89, 97, 128);;
+  background-color: #8ea0df;
   color: #fff;
   outline: none;
   border: 0px;
   cursor: pointer;
   border-radius: 5px;
   height: 30px;
-  width: 50px;
   font-size: large;
 }
 
 #arId {
-  background-color: rgb(89, 97, 128);;
+  background-color: #8ea0df;
   color: #fff;
   outline: none;
   border: 0px;
   cursor: pointer;
   border-radius: 5px;
   height: 30px;
-  width: 50px;
   font-size: large;
 }
+<<<<<<< HEAD
 
 #depPlandTime{
 	margin:10px;
@@ -234,3 +273,5 @@ a {
     padding: 3px;
     border-radius: 5px;
 }
+=======
+>>>>>>> main
