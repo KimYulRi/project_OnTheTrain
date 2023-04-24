@@ -13,6 +13,8 @@
     <result property="maxValue" column="MAXVALUE" />
     <result property="explain" column="EXPLAIN" />
     <result property="location" column="LOCATION" />
+    <result property="lot" column="LOT" />
+    <result property="lat" column="LAT" />
   </resultMap>
   
   <resultMap type="com.kh.onthetrain.accommodation.model.vo.Review" id="reviewsResultMap">
@@ -28,6 +30,7 @@
   <resultMap id="reviewResultMap" type="com.kh.onthetrain.accommodation.model.vo.Review">
 	    <id column="NO" property="no" />
 	    <result column="MEMBER_NO" property="memberNo" />
+	    <result column="NICKNAME" property="nickname"/>
 	    <result column="ACCOMMODATION_NO" property="accommodationNo" />
 	    <result column="CONTENT" property="content" />
 	    <result column="STARPOINT" property="starPoint" />
@@ -43,43 +46,47 @@
 		          STATUS,
 		          MAXVALUE,
 		          EXPLAIN,
-		          LOCATION
+		          LOCATION,
+		          LOT,
+		          LAT
 		  FROM ACCOMMODATION 
 		  WHERE STATUS = 'Y' AND NO = #{no}
 	</select>
 
 	<select id="getReviewsByNo" parameterType="String" resultMap="reviewsResultMap">
-		 SELECT  NO,
-		         MEMBER_NO,
-		         ACCOMMODATION_NO,
-		         CONTENT,
-		         STARPOINT,
-		         CREATE_DATE,
-		         MODIFY_DATE
-		FROM REVIEW 
+		 SELECT  R.NO,
+		         R.MEMBER_NO,
+                 M.NICKNAME,
+		         R.ACCOMMODATION_NO,
+		         R.CONTENT,
+		         R.STARPOINT,
+		         R.CREATE_DATE,
+		         R.MODIFY_DATE
+		FROM REVIEW R
+        INNER JOIN MEMBER M ON (M.NO = R.MEMBER_NO)
 		WHERE ACCOMMODATION_NO = #{no}
 	</select>
 	
 	<insert id="insertReview" parameterType="Review" 
 	 useGeneratedKeys="true" keyColumn="NO" keyProperty="no">
 	    INSERT INTO REVIEW (
-						    NO,   
-						    MEMBER_NO, 
-						    ACCOMMODATION_NO, 
-						    CONTENT,
-						    STARPOINT,
-						    CREATE_DATE,
-						    MODIFY_DATE
-							)
-							VALUES(
-							    SEQ_REVIEW_NO.NEXTVAL, 
-							    #{ memberNo }, 
-							    #{ accommodationNo }, 
-							    #{ content },
-							    #{ starPoint },
-							    SYSDATE,
-        						SYSDATE
-							)
+		    NO,   
+		    MEMBER_NO, 
+		    ACCOMMODATION_NO, 
+		    CONTENT,
+		    STARPOINT,
+		    CREATE_DATE,
+		    MODIFY_DATE
+		)
+		VALUES(
+		    SEQ_REVIEW_NO.NEXTVAL, 
+		    #{ memberNo }, 
+		    #{ accommodationNo }, 
+		    #{ content },
+		    #{ starPoint },
+		    SYSDATE,
+			SYSDATE
+		)
      </insert>
      
 </mapper>

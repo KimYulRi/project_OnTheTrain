@@ -41,8 +41,10 @@ public class AccommodationController {
 		List<Review> reviews = service.getReviewsByNo(no);
 		
 		System.out.println(accommodation);
+		System.out.println(reviews);
 		
 		modelAndView.addObject("accommodation", accommodation);
+		modelAndView.addObject("reviews", reviews);
 		modelAndView.setViewName("accommodation/reservation");
 		
 		return modelAndView;
@@ -57,16 +59,7 @@ public class AccommodationController {
 	
 	//리뷰작성 업로드 
 	@PostMapping("/accommodation/review")
-	public ModelAndView createReview(ModelAndView modelAndView, @Validated Review review, BindingResult bindingResult, Model model) {
-		// 검증 오류가 발생한 경우 입력폼으로 돌아
-	    
-		if (bindingResult.hasErrors()) {
-	        model.addAttribute("review", review);
-	        modelAndView.addObject("location", "accommodation/review");
-	        
-	        return modelAndView;
-	    }
-
+	public ModelAndView createReview(ModelAndView modelAndView, Review review) {
 	    // 리뷰 생성 로직 수행
 	    int result = service.insertReview(review);
 	    
