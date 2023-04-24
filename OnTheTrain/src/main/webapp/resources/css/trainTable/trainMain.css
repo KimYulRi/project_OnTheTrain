@@ -1,22 +1,14 @@
-@charset "UTF-8";
-
-@font-face {
-	font-family: 'Noto Sans';
-	src: url('../../font/common/NotoSansKR-Medium.otf') format('truetype');
-}
-
-@font-face {
-	font-family: 'Noto Sans Bold';
-	src: url('../../font/common/NotoSansKR-Bold.otf') format('truetype');
-}
-
-
 #banner {
   background-image: url("../../images/trainTable/trainTableBanner.png");
   height: 100px;
-  margin: 30px 60px 30px 60px;
+  margin: 30px 60px 30px 180px;
   border-radius: 10px;
+  width: 1024px;
+ 
+  
 }
+
+
 #banner_text {
   height: 63px;
   width: 251px;
@@ -32,8 +24,8 @@
 }
 
 #ttable {
-  margin: 50px 60px 30px 60px;
   border-radius: 10px;
+  width:400px;
 }
 
 #topTable {
@@ -44,84 +36,46 @@
 
 /* body { background-color : skyblue; }  */
 
-.field {
+#field {
   text-align: center;
-  padding-left: 200px;
-}
-#calcal {
-  background-color: white;
-  height: 180px;
-  width: 180px;
-  left: 757px;
-  top: 504px;
-  border-radius: 12px;
-  padding: 30px;
-  /* border-width: 10px; */
-  box-shadow: 40px 40px 40px 40px rgba(0.2, 0.2, 0.2, 0.2);
+  padding-left: 10px;
 }
 
-td {
-  width: 1px;
-  height: 1px;
+fieldset {
+  display: inline-block;
+  width: 45%;
+  margin-right: 0px;
+  vertical-align: top;
 }
 
-.Calendar {
-  text-align: center;
+#ptable{
+  border-radius: 10px;
+  width: 300px;
+  height: 435px;
 }
 
-.Calendar > thead > tr:first-child > td {
-  font-family: "Questrial", sans-serif;
-  font-size: 0.8em;
-  font-weight: bold;
+
+#fields{
+  margin-left: 50px;
+
 }
 
-.Calendar > thead > tr:last-child > td {
-  font-family: "Questrial", sans-serif;
-  font-weight: 100;
+select{
+  margin: 10px;
 }
 
-.Calendar > tbody > tr > td > p {
-  font-family: "Montserrat", sans-serif;
-  height: 20px;
-  width: 20px;
-  border-radius: 45px;
-  transition-duration: 0.2s;
-  line-height: 20px;
-  margin: 1px;
-  display: block;
-  text-align: center;
-  font-size: 0.9em;
+option{
+  font-size: 15px;
 }
 
-.pastDay {
-  color: lightgray;
+#searchTrain{
+  margin-top: 30px;
+
 }
 
-.today {
-  background-color: #8ea0df;
-  color: #fff;
-  font-weight: 60;
-  cursor: pointer;
-}
-
-.futureDay {
-  background-color: #ffffff;
-  cursor: pointer;
-}
-.futureDay:hover {
-  background: #eee;
-}
-
-.futureDay.choiceDay,
-.today.choiceDay {
-  background: #0a174e;
-  color: #fff;
-  font-weight: 40;
-  cursor: pointer;
-}
 
 #traintable_btn {
-  background-color: #8ea0df;
+  background-color: #596180;
   transition-duration: 0.2s;
   border-radius: 5px;
   width: 300px;
@@ -134,24 +88,149 @@ td {
   cursor: pointer;
 }
 
-#depId {
-  background-color: #8ea0df;
+#cityBtn {
+  background-color: rgb(89, 97, 128);;
   color: #fff;
   outline: none;
   border: 0px;
   cursor: pointer;
   border-radius: 5px;
   height: 30px;
+  width: 50px;
+  font-size: large;
+}
+
+a {
+  text-decoration: none;
+  color: white;
+}
+
+#depId {
+  background-color: rgb(89, 97, 128);;
+  color: #fff;
+  outline: none;
+  border: 0px;
+  cursor: pointer;
+  border-radius: 5px;
+  height: 30px;
+  width: 50px;
   font-size: large;
 }
 
 #arId {
-  background-color: #8ea0df;
+  background-color: rgb(89, 97, 128);;
   color: #fff;
   outline: none;
   border: 0px;
   cursor: pointer;
   border-radius: 5px;
   height: 30px;
+  width: 50px;
   font-size: large;
+}
+
+#depPlandTime{
+	margin:10px;
+	
+}
+
+#charge{
+        position: relative;
+        left: 1000px;
+        
+      }
+
+      #charge_btn{
+        background-color: rgb(89, 97, 128);;
+        transition-duration: 0.2s;
+        border-radius: 5px;
+        width: 100px;
+        height: 30px;
+        /* font-size: larger; */
+        font-weight: bolder;
+        color: #fff;
+        /* outline: none; */
+        border: 0px;
+        cursor: pointer;
+        outline-color: rgb(89, 97, 128);
+      }
+
+.personTitle{
+  text-align: left;
+}
+
+#none{
+  margin-top: 100px;
+  margin-left: 45px;
+}
+
+#hr{
+	width: 80%;
+	display: none;
+}
+
+#checkBack{
+  background-color: #8ea0df;
+  transition-duration: 0.2s;
+  border-radius: 5px;
+  width: 80px;
+  height: 30px;
+  font-size: 15px;
+  font-weight: bolder;
+  color: #fff;
+  outline: none;
+  border: 0px;
+  cursor: pointer;
+  margin-top: 50px;
+  display: none;
+}
+
+
+  #myTable{
+    width: 80%;
+    border: 1px solid #444444;
+    border-collapse: collapse;
+  }
+   #tableBody,#tableHead {
+    border: 1px solid #444444;
+    text-align: center;
+  }
+  #tableHead{
+  font-weight: bold;
+  vertical-align: top;
+  color: #fff;
+  background-color: #596180;
+  text-align: center;
+}
+
+#sSeat{
+  border: 1px solid #596180;
+    background-color: #596180;
+    color: white;
+    padding: 3px;
+    border-radius: 5px;
+}
+
+#sRes{
+    border: 1px solid #596180;
+    background-color: rgba(0, 0, 0,0);
+    color: #596180;
+    padding: 3px;
+    border-radius: 5px;
+}
+
+#nSeat{
+    border: 1px solid #596180;
+    background-color: #596180;
+    color: white;
+    padding: 3px;
+    border-radius: 5px;
+}
+
+#nRes{
+    border: 1px solid #596180;
+    background-color: rgba(0, 0, 0,0);
+    color: #596180;
+    padding: 3px;
+    border-radius: 5px;
 }
