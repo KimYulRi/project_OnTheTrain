@@ -24,7 +24,7 @@
 <body>
     <section>
         <div id="body">           
-            <div id="topImage"><img src="${ path }/images/accommodation/${ accommodation.renamedFilename }" alt=""></div>
+            <div id="topImage"><img src="${ path }/images/accommodation/${ accommodation.renamedFilename }"  style="width:286px; height:211px;" alt=""></div>
         </div>    
 <!--사진 아래 영역-->            
         <div id="contentFrame">
