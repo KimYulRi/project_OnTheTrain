@@ -20,6 +20,7 @@ import {
   findEventFromArrayById,
   getEventArrayAndIndexById,
 } from "./schedulerComponent/schedulerEventModule.js";
+import { viewModalMoudule } from "./schedulerModalViewModule.js";
 
 const waitComponentList = $("#waitComponentList");
 const addcard_btn = $("#addCard");
@@ -141,11 +142,11 @@ $(document).ready(() => {
   };
 
   // 카드 생성 모달을 열고 닫는 기능
-  function showModal(component) {
+  function showAddModal(component) {
     $(components[component].modal).show();
   }
 
-  function hideModal(component) {
+  function hideAddModal(component) {
     $(components[component].modal).hide();
   }
 
@@ -157,11 +158,11 @@ $(document).ready(() => {
   function addModalEventListeners(component) {
     // 백드롭 클릭 시 모달 닫기
     components[component].modalBackdrop.on("click", () => {
-      hideModal(component);
+      hideAddModal(component);
     });
     // 캔슬 버튼 클릭 시 모달 닫기
     components[component].cancelButton.on("click", () => {
-      hideModal(component);
+      hideAddModal(component);
     });
     // 초기화 버튼 클릭 시 모달 input 초기화
     components[component].resetButton.on("click", () => {
@@ -179,7 +180,9 @@ $(document).ready(() => {
   // addCard를 눌렀을 때 모달창 열기
   addcard_btn.on("click", function () {
     let currentComponent = getCurrentComponent();
-    showModal(currentComponent);
+    components[currentComponent].editCompleteButton.hide();
+    components[currentComponent].addButton.show();
+    showAddModal(currentComponent);
     resetModalContent(currentComponent);
 
     if (currentComponent === "event" || currentComponent === "accommodation") {
@@ -219,7 +222,7 @@ $(document).ready(() => {
     );
 
     components[currentComponent].waitList.push(componentObj);
-    hideModal(currentComponent);
+    hideAddModal(currentComponent);
     resetModalContent(currentComponent);
   }
 
@@ -291,10 +294,10 @@ $(document).ready(() => {
     return components[component].getComponentArrayAndIndexById(id);
   }
 
-  addModalModule.showModal = showModal;
-  addModalModule.hideModal = hideModal;
   addModalModule.toWaitList = toWaitList;
   addModalModule.toAddedList = toAddedList;
+  addModalModule.showAddModal = showAddModal;
+  addModalModule.hideAddModal = hideAddModal;
   addModalModule.addComponent = addComponent;
   addModalModule.getAPIItemList = getAPIItemList;
   addModalModule.removeFromArray = removeFromArray;

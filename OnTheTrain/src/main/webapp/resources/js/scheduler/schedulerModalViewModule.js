@@ -187,6 +187,7 @@ $(document).ready(() => {
     addModalModule.setAddModalByComponent(currentComponent, componentObj);
   }
 
+
   // API열기
   eventList.on("click", ".card", function () {
     let id = $(this).attr("id");
@@ -201,6 +202,12 @@ $(document).ready(() => {
 
     showViewModal(currentComponent, cardToRemove);
   });
+
+  function getViewModalComponents() {
+    return componentsView;
+  }
+
+  viewModalMoudule.getViewModalComponents = getViewModalComponents;
 });
 
 export { viewModalMoudule };
