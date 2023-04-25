@@ -7,6 +7,7 @@ import {
 import {
   findEventById,
   renderEventOnModal,
+  transAPIobjToEvent,
   renderAPIEventOnModal,
   findEventFromArrayById,
 } from "./schedulerComponent/schedulerEventModule.js";
@@ -24,9 +25,11 @@ $(document).ready(() => {
       confirmButton: $("#schedulerEventModalView .confirm-button"),
       editButton: $("#schedulerEventModalView .edit-button"),
       deleteButton: $("#schedulerEventModalView .modalDelete-button"),
-      imageUploadInput: $("#schedulerEventModalView .image-upload")[0],
-      previewImage: $("#schedulerEventModalView .preview-image")[0],
-      imageCaption: $("#schedulerEventModalView .image-caption")[0],
+      imageUploadInput: $("#schedulerEventModalView .image-upload"),
+      addToWaitButton: $("#schedulerEventModalView .addToWait-button"),
+      previewImage: $("#schedulerEventModalView .preview-image"),
+      imageCaption: $("#schedulerEventModalView .image-caption"),
+      componentIdField: $("#schedulerEventModalView .componentId"),
       titleField: $("#event-title_view"),
       locationField: $("#event-location_view"),
       startTimeField: $("#event-start-time_view"),
@@ -34,9 +37,10 @@ $(document).ready(() => {
       priceField: $("#event-price_view"),
       detailsField: $("#event-details_view"),
       modalBackdrop: $("#schedulerEventModalView .modal-backdrop"),
-      renderAPIResultOnModal: renderAPIEventOnModal,
       findComponentById: findEventById,
       renderOnModal: renderEventOnModal,
+      transAPIobjToObj: transAPIobjToEvent,
+      renderAPIResultOnModal: renderAPIEventOnModal,
       findComponentFromArrayById: findEventFromArrayById,
     },
   };
@@ -67,8 +71,22 @@ $(document).ready(() => {
     componentsView[component].confirmButton.on("click", () => {
       hideModal(component);
     });
+  }
 
-    componentsView[component].deleteButton.on("click", () => {});
+  function showBasicbuttons() {
+    let component = getCurrentComponent();
+    componentsView[component].addToWaitButton.hide();
+    componentsView[component].editButton.show();
+    componentsView[component].deleteButton.show();
+    componentsView[component].componentIdField.show();
+  }
+
+  function showAPIbuttons() {
+    let component = getCurrentComponent();
+    componentsView[component].editButton.hide();
+    componentsView[component].deleteButton.hide();
+    componentsView[component].componentIdField.hide();
+    componentsView[component].addToWaitButton.show();
   }
 
   addModalViewEventListeners("event");
@@ -127,11 +145,12 @@ $(document).ready(() => {
 
     addButton.hide();
     editCompleteButton.show();
+
     editCompleteButton.off("click");
     editCompleteButton.on("click", () => {
       removeOriginalCard(cardToRemove, id);
       addModalModule.addComponent(component);
-      addModalModule.hideModal(component);
+      addModalModule.hideAddModal(component);
       addModalModule.resetModalContent(component);
     });
   }
@@ -156,6 +175,9 @@ $(document).ready(() => {
     let cardToRemove = $(".card#" + componentId);
     let component = getCurrentComponent();
     let componentObj = findComponentById(component, componentId);
+
+    // 출력될 요소 설정
+    showBasicbuttons();
 
     renderOnModal(component, componentObj);
     showViewModal(component, cardToRemove);
@@ -187,8 +209,18 @@ $(document).ready(() => {
     addModalModule.setAddModalByComponent(currentComponent, componentObj);
   }
 
+  /**
+   * API로 가져온 객체를 객체로 변환하며 수정
+   */
+  function apiObjtoWaitList(component, apiObj) {
+    let obj = componentsView[component].transAPIobjToObj(apiObj);
+    hideModal(component);
+    addModalModule.resetModalContent(component);
+    addModalModule.showAddModal(component);
+    addModalModule.setAddModalByComponent(component, obj);
+  }
 
-  // API열기
+  // APIcomponent열기
   eventList.on("click", ".card", function () {
     let id = $(this).attr("id");
     let currentComponent = getCurrentComponent();
@@ -197,10 +229,15 @@ $(document).ready(() => {
       currentComponent
     ].findComponentFromArrayById(APIList, id);
     addModalModule.renderAPIResultOnModal(currentComponent, selectedComponent);
-
     let cardToRemove = $(".card#" + id);
 
+    //addToWaitButton 이벤트 추가
+    componentsView[currentComponent].addToWaitButton.on("click", function () {
+      apiObjtoWaitList(currentComponent, selectedComponent);
+    });
+
     showViewModal(currentComponent, cardToRemove);
+    showAPIbuttons();
   });
 
   function getViewModalComponents() {
@@ -208,6 +245,7 @@ $(document).ready(() => {
   }
 
   viewModalMoudule.getViewModalComponents = getViewModalComponents;
+  viewModalMoudule.apiObjtoWaitList = apiObjtoWaitList;
 });
 
 export { viewModalMoudule };

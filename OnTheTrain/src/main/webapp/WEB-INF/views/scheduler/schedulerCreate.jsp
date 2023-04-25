@@ -23,8 +23,7 @@
 <link rel="stylesheet"
 	href="${ path }/css/scheduler/jquery-ui.schdeuler.css">
 <script src="${ path }/js/common/jquery-ui.min.js"></script>
-<title>Document</title>
-<link>
+<%@ include file="../common/header.jsp" %>
 </head>
 <body>
 	<article>

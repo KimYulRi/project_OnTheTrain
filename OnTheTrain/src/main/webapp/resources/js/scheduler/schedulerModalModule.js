@@ -247,11 +247,6 @@ $(document).ready(() => {
     return componentObj;
   }
 
-  // 특정 요소 객체의 값을 바탕으로 modalView를 구성함
-  function rederOnModal(component, componentObj) {
-    components[component].renderOnModal(componentObj);
-  }
-
   // 특정 객체를 아이디값으로 찾아 배열에서 제거함
   function removeFromArray(component, arr, id) {
     components[component].removeFromArray(arr, id);
@@ -294,6 +289,14 @@ $(document).ready(() => {
     return components[component].getComponentArrayAndIndexById(id);
   }
 
+  /**
+   * API객체를 스케줄러 객체로 변환
+   *
+   */
+  function transAPIobjToObj(component, apiobj) {
+    components[component].transAPIobjToObj(apiobj);
+  }
+
   addModalModule.toWaitList = toWaitList;
   addModalModule.toAddedList = toAddedList;
   addModalModule.showAddModal = showAddModal;
@@ -301,6 +304,7 @@ $(document).ready(() => {
   addModalModule.addComponent = addComponent;
   addModalModule.getAPIItemList = getAPIItemList;
   addModalModule.removeFromArray = removeFromArray;
+  addModalModule.transAPIobjToObj = transAPIobjToObj;
   addModalModule.findComponentById = findComponentById;
   addModalModule.resetModalContent = resetModalContent;
   addModalModule.getAddModalComponents = getAddModalComponents;

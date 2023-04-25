@@ -158,6 +158,7 @@ function createEventObject(fields) {
 // API로 받아오는 객체 함수 정의
 function createAPIEventObject(APIEventINFO, imageUrl) {
   const APIEvent = {
+    id : createEventId(),
     addr1: APIEventINFO.addr1 || "",
     addr2: APIEventINFO.addr2 || "",
     booktour: APIEventINFO.booktour || "",
@@ -205,6 +206,7 @@ function resetEventModal() {
 //renderEventOnModal 함수 정의
 function renderEventOnModal(event) {
   // 모달 창에 필드 값을 입력.
+  $("#schedulerEventModalView .componentId").text(event.id);
   $("#eventTitle_view").text(event.title || "내용 없음");
   $("#eventLocation_view").text(event.location || "내용 없음");
   $("#eventStartTime_view").text(event.start || "내용 없음");
@@ -256,6 +258,24 @@ function renderAPIEventOnModal(event) {
   }
 }
 
+function transAPIobjToEvent(apievent) {
+  
+  const event = {
+    id: createEventId(),
+    component: "event",
+    title: apievent.title,
+    location: apievent.addr1,
+    startTime: apievent.eventstartdate,
+    endTime: apievent.eventenddate,
+    price: 0,
+    details: apievent.tel,
+    image: apievent.firstimage,
+  };
+
+  return event;
+}
+
+
 export {
   waitEvents,
   addedEvents,
@@ -267,6 +287,7 @@ export {
   resetEventModal,
   createEventObject,
   renderEventOnModal,
+  transAPIobjToEvent,
   setAddModalByEvent,
   createAPIEventObject,
   removeEventFromArray,

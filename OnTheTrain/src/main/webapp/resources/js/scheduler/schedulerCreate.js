@@ -59,8 +59,10 @@ function noComponentAreaVisable() {
   noComponentArea.show();
 }
 
-// 조회 시 날짜 데이터 포맷을 YYYYMMDD으로 변환하기 위한 함수
-// 파라미터는 "YYYY-MM-DD"
+/**
+ * 조회 시 날짜 데이터 포맷을 YYYYMMDD으로 변환하기 위한 함수
+ * @param {string}  "date 포맷"
+ */
 function dateToYYYYMMDD(unformattedDate) {
   let date = new Date(unformattedDate);
   let year = date.getFullYear().toString();
@@ -154,6 +156,7 @@ $(document).ready(function () {
           );
           addNewCardtoArea($("#eventList"), newCard);
         });
+        $("#eventList .card").draggable( "destroy" );
       },
       error: function () {
         alert("API로 이벤트를 가져오는 중에 문제가 발생했습니다.");
@@ -254,6 +257,14 @@ $(document).ready(function () {
           .addClass("componentFilter")
           .on("click", (event) => {
             event.stopPropagation();
+            let component = getCurrentComponent();
+            let cardId = $(card).attr("id");
+            // 객체 배열에서도 삭제
+            addModalModule.removeFromArray(
+              component,
+              addModalModule.getAddModalComponents()[component].waitList,
+              cardId
+            );
             $(card).remove();
           });
         $(card).addClass("filtered");
@@ -269,6 +280,8 @@ $(document).ready(function () {
   $("#deleteAllWait-button").on("click", () => {
     if (confirm("정말로 모든 대기 중인 항목을 삭제하시겠습니까?")) {
       $(".filtered").remove();
+      let component = getCurrentComponent();
+      addModalModule.getAddModalComponents()[component].waitList.length = 0;
       return;
     } else {
       return;
@@ -325,15 +338,12 @@ $(document).ready(function () {
         addModalModule.toWaitList(currentComponent, componentid);
       }
 
-      /*
       console.log(
-        "addList : " +
-          addModalModule.getAddModalComponents()[currentComponent].addList
+        addModalModule.getAddModalComponents()[currentComponent].addedList
       );
       console.log(
         addModalModule.getAddModalComponents()[currentComponent].waitList
       );
-      */
 
       // 드래그한 요소를 드롭 대상 요소의 자식으로 추가
       draggable.appendTo(droppable);

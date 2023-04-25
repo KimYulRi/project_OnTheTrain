@@ -16,6 +16,7 @@
 <link href="${ path }/css/scheduler/schedulerMain.css" rel="stylesheet"
 	type="text/css">
 <script src="${ path }/js/common/jquery-3.6.3.js"></script>
+<%@ include file="../common/header.jsp" %>
 </head>
 <body>
 	<article>
