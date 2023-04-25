@@ -9,6 +9,9 @@
 			MEMBER_NO,
 			VISABLE,
 			CREATE_DATE,
+			TITLE,
+			FEATURED,
+			PERIOD_START,
 			EDIT_DATE
 		FROM
 			SCHEDULER
@@ -19,6 +22,9 @@
 		<result property="memberNo" column="MEMBER_NO" />
 		<result property="visable" column="VISABLE" />
 		<result property="createDate" column="CREATE_DATE" />
+		<result property="title" column="TITLE" />
+		<result property="featured" column="FEATURED" />
+		<result property="periodStart" column="PERIOD_START"/>
 		<result property="editDate" column="EDIT_DATE" />
 	</resultMap>
 	
