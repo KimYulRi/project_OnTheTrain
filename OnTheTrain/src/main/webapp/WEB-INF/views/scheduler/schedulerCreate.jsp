@@ -170,7 +170,7 @@
 		<script type="module" src="${ path }/js/scheduler/schedulerCreate.js"></script>
 		<script type="module"
 			src="${ path }/js/scheduler/schedulerModalViewModule.js"></script>
-		<script
+		<script type="module"
 			src="${ path }/js/scheduler/calender/schedulerCreateCalender.js"></script>
 	</article>
 </body>

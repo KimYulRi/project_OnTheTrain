@@ -209,8 +209,8 @@ function renderEventOnModal(event) {
   $("#schedulerEventModalView .componentId").text(event.id);
   $("#eventTitle_view").text(event.title || "내용 없음");
   $("#eventLocation_view").text(event.location || "내용 없음");
-  $("#eventStartTime_view").text(event.start || "내용 없음");
-  $("#eventEndTime_view").text(event.end || "내용 없음");
+  $("#eventStartTime_view").text(event.startTime || "내용 없음");
+  $("#eventEndTime_view").text(event.endTime || "내용 없음");
   $("#eventPrice_view").text(event.price || "내용 없음");
   $("#eventDetails_view").text(event.details || "내용 없음");
 
@@ -229,8 +229,8 @@ function renderEventOnModal(event) {
 function setAddModalByEvent(modalEvent) {
   $("#event-title").val(modalEvent.title);
   $("#event-location").val(modalEvent.location);
-  $("#event-start-time").val(modalEvent.start);
-  $("#event-end-time").val(modalEvent.end);
+  $("#event-start-time").val(modalEvent.startTime);
+  $("#event-end-time").val(modalEvent.endTime);
   $("#event-price").val(modalEvent.price);
   $("#event-details").val(modalEvent.details);
   $(".image-upload").val("");

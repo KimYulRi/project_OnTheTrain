@@ -149,7 +149,7 @@ $(document).ready(() => {
     editCompleteButton.off("click");
     editCompleteButton.on("click", () => {
       removeOriginalCard(cardToRemove, id);
-      addModalModule.addComponent(component);
+      addModalModule.addComponentToWait(component);
       addModalModule.hideAddModal(component);
       addModalModule.resetModalContent(component);
     });

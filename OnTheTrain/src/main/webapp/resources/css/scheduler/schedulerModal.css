@@ -211,10 +211,11 @@ input[type="datetime-local"] {
 }
 
 .add-button,
+.edit-button,
 .reset-button,
 .cancel-button,
 .confirm-button,
-.edit-button,
+.directAdd-button,
 .modalDelete-button,
 .editComplete-button,
 .addToWait-button {

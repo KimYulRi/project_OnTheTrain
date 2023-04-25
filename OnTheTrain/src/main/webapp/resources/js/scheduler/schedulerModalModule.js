@@ -23,6 +23,7 @@ import {
 import { viewModalMoudule } from "./schedulerModalViewModule.js";
 
 const waitComponentList = $("#waitComponentList");
+const addedComponentList = $("#addedComponent");
 const addcard_btn = $("#addCard");
 const addModalModule = {};
 
@@ -73,6 +74,7 @@ $(document).ready(() => {
       imageUploadInput: $("#schedulerEventModal .image-upload"),
       imageCaption: $("#schedulerEventModal .image-caption"),
       modalBackdrop: $("#schedulerEventModal .modal-backdrop"),
+      directAddButton : $("#schedulerEventModal .directAdd-button"),
       fields: {
         previewImage: $("#schedulerEventModal .preview-image"),
         title: $("#event-title"),
@@ -108,6 +110,7 @@ $(document).ready(() => {
       resetButton: $("#schedulerAccommodationModal .reset-button"),
       imageUploadInput: $("#schedulerAccommodationModal .image-upload"),
       imageCaption: $("#schedulerAccommodationModal .image-caption"),
+      directAddButton : $("#schedulerAccommodationModal .directAdd-button"),
       modalBackdrop: $("#schedulerAccommodationModal .modal-backdrop"),
       fields: {
         previewImage: $("#schedulerAccommodationModal .preview-image"),
@@ -125,6 +128,7 @@ $(document).ready(() => {
       cancelButton: $("#schedulerTicketModal .cancel-button"),
       editCompleteButton: $("#schedulerEventModal .editComplete-button"),
       addButton: $("#schedulerTicketModal .add-button"),
+      directAddButton : $("#schedulerTicketModal .directAdd-button"),
       resetButton: $("#schedulerTicketModal .reset-button"),
       imageUploadInput: $("#schedulerTicketModal .image-upload"),
       previewImage: $("#schedulerTicketModal .preview-image")[0],
@@ -169,7 +173,7 @@ $(document).ready(() => {
       resetModalContent(component);
     });
     components[component].addButton.on("click", () => {
-      addComponent(component);
+      let componentObj = addComponentToWait(component);
     });
   }
 
@@ -177,13 +181,26 @@ $(document).ready(() => {
   addModalEventListeners("accommodation");
   addModalEventListeners("ticket");
 
+
+  function showBasicButton() {
+    let currentComponent = getCurrentComponent();
+    components[currentComponent].editCompleteButton.hide();
+    components[currentComponent].directAddButton.hide();
+    components[currentComponent].addButton.show();
+  }
+
+  function showDirectAddButton() {
+    let currentComponent = getCurrentComponent();
+    components[currentComponent].directAddButton.show();
+    components[currentComponent].editCompleteButton.hide();
+  }
+
   // addCard를 눌렀을 때 모달창 열기
   addcard_btn.on("click", function () {
     let currentComponent = getCurrentComponent();
-    components[currentComponent].editCompleteButton.hide();
-    components[currentComponent].addButton.show();
     showAddModal(currentComponent);
     resetModalContent(currentComponent);
+    showBasicButton();
 
     if (currentComponent === "event" || currentComponent === "accommodation") {
       addModalimagePreview(currentComponent);
@@ -206,24 +223,27 @@ $(document).ready(() => {
   }
 
   // 적용 버튼을 눌렀을 때, obj 생성
-  function addComponent(currentComponent) {
+  function addComponentToWait(currentComponent) {
     let componentObj = components[currentComponent].creatComponentObject();
 
-    // 대기 중인 요소에 추가
-    addNewCardtoArea(
-      waitComponentList,
-      createNewCard(
-        componentObj.id,
-        componentObj.image,
-        componentObj.title,
-        componentObj.location,
-        componentObj.price
-      )
-    );
+      // 대기 중인 요소에 추가
+      addNewCardtoArea(
+        waitComponentList,
+        createNewCard(
+          componentObj.id,
+          componentObj.image,
+          componentObj.title,
+          componentObj.location,
+          componentObj.price
+        )
+      );
 
-    components[currentComponent].waitList.push(componentObj);
+      components[currentComponent].waitList.push(componentObj);
+
     hideAddModal(currentComponent);
     resetModalContent(currentComponent);
+
+    return componentObj;
   }
 
   // 특정 요소를 Waitlist 객체 배열로 보냄
@@ -301,12 +321,13 @@ $(document).ready(() => {
   addModalModule.toAddedList = toAddedList;
   addModalModule.showAddModal = showAddModal;
   addModalModule.hideAddModal = hideAddModal;
-  addModalModule.addComponent = addComponent;
   addModalModule.getAPIItemList = getAPIItemList;
   addModalModule.removeFromArray = removeFromArray;
   addModalModule.transAPIobjToObj = transAPIobjToObj;
   addModalModule.findComponentById = findComponentById;
   addModalModule.resetModalContent = resetModalContent;
+  addModalModule.addComponentToWait = addComponentToWait;
+  addModalModule.showDirectAddButton = showDirectAddButton;
   addModalModule.getAddModalComponents = getAddModalComponents;
   addModalModule.renderAPIResultOnModal = renderAPIResultOnModal;
   addModalModule.setAddModalByComponent = setAddModalByComponent;
