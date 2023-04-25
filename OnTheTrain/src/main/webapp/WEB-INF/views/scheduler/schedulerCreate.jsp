@@ -151,12 +151,16 @@
 			<hr>
 		</div>
 		<br>
-		<div id="eventList" class="components"></div>
-		<div id="noResultArea">
-			<div class="noResult">
-				<div class="noResultImg"></div>
-				<div class="line-break"></div>
-				<div class="noResultMsg">조회된 결과가 없습니다.</div>
+		<div>
+			<div id="noResultArea">
+				<div class="noResult">
+					<div class="noResultImg"></div>
+					<div class="line-break"></div>
+					<div class="noResultMsg">조회된 결과가 없습니다.</div>
+				</div>
+			</div>
+			<div id="resultArea">
+				<div id="itemList" class="components"></div>
 			</div>
 		</div>
 		<jsp:include page="./schedulerModal.jsp" />

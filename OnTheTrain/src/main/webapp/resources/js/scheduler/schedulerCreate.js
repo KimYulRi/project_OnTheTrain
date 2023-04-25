@@ -154,9 +154,9 @@ $(document).ready(function () {
             componentObj.addr1,
             componentObj.tel
           );
-          addNewCardtoArea($("#eventList"), newCard);
+          addNewCardtoArea($("#itemList"), newCard);
         });
-        $("#eventList .card").draggable( "destroy" );
+        $("#itemList .card").draggable("destroy");
       },
       error: function () {
         alert("API로 이벤트를 가져오는 중에 문제가 발생했습니다.");
@@ -216,7 +216,7 @@ $(document).ready(function () {
             "</div>" +
             "</div>";
         }
-        $("#eventList").html(eventList); // 이벤트 리스트 업데이트
+        $("#itemList").html(eventList); // 이벤트 리스트 업데이트
       },
       error: function () {
         alert("API로 이벤트를 가져오는 중에 문제가 발생했습니다.");
@@ -227,8 +227,8 @@ $(document).ready(function () {
     if (resultCount === 0) {
       // 반환값이 빈 객체리스트인 경우
       // 결과가 없음을 알리는 영역 표시
-      $("#eventList").empty();
-      $("#eventList").css("min-height", "unset");
+      //$("#itemList").empty();
+      $("#itemList").css("min-height", "unset");
       $("#noResultArea").show();
       return;
     }

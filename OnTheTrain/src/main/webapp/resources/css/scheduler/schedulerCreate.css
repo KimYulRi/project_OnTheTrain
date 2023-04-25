@@ -49,7 +49,7 @@ article {
 
 #schedulerTitle {
   font-family: Noto Sans Bold;
-  font-size : 30px;
+  font-size: 30px;
   display: flex;
   width: 1024px;
   height: 50px;
@@ -60,7 +60,8 @@ article {
 
 #titleEditButton {
   margin-left: 10px;
-  color: #596180;;
+  color: #596180;
+  ;
 }
 
 .calendarContainer {
@@ -175,6 +176,18 @@ article {
   margin-bottom: 20px;
 }
 
+#resultArea {
+  max-height: 485px;
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: row;
+  overflow: overlay;
+}
+
+#itemList {
+  max-height: 474px;
+}
+
 #waitComponentList {
   display: flex;
   flex-wrap: wrap;
@@ -237,7 +250,7 @@ article {
   display: none;
 }
 
-.components > div {
+.components>div {
   float: left;
 }
 
@@ -284,7 +297,7 @@ article {
   margin-bottom: 10px;
 }
 
-#addCard > div {
+#addCard>div {
   box-sizing: border-box;
   width: 100%;
   height: 100%;

@@ -14,7 +14,7 @@ import {
 
 import { addModalModule } from "./schedulerModalModule.js";
 
-const eventList = $("#eventList");
+const itemList = $("#itemList");
 const viewModalMoudule = {};
 
 $(document).ready(() => {
@@ -221,7 +221,7 @@ $(document).ready(() => {
   }
 
   // APIcomponent열기
-  eventList.on("click", ".card", function () {
+  itemList.on("click", ".card", function () {
     let id = $(this).attr("id");
     let currentComponent = getCurrentComponent();
     let APIList = addModalModule.getAPIItemList(currentComponent);
