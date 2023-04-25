@@ -7,9 +7,9 @@ import com.kh.onthetrain.accommodation.model.vo.Review;
 
 public interface AccommodationService {
 
-	Accommodation findProductByNo(String no);
+	Accommodation findProductByNo(int no);
 
-	List<Review> getReviewsByAccommodationNo(String no);
+	List<Review> getReviewsByAccommodationNo(int no);
 
 	void writeReview(Review review);
 
@@ -18,5 +18,7 @@ public interface AccommodationService {
 	int deleteReview(int no);
 
 	Review getReviewByNo(int no);
+
+	int updateReview(Review review);
 	
 }
