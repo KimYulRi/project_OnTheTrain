@@ -19,6 +19,7 @@
 	<link href="${ path }/css/accommodation/review.css" rel="stylesheet" type="text/css">
     <script src="${ path }/js/common/jquery-3.6.3.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dayjs/1.10.7/dayjs.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
     <script type="text/javascript" src="http://dapi.kakao.com/v2/maps/sdk.js?appkey=abe862743db89d98578a540d9cfed4b7"></script>
 </head>
 <body>
@@ -189,9 +190,13 @@
                   </div>
             </div>
             
+            <!-- 상단으로 이동하는 부트스트랩 아이콘  -->
+            <div class="btn_gotop ">
+	            <i class="bi bi-chevron-double-up"></i>
+            </div>
+            
 		</div>
     </section>
-  <%--   <jsp:include page="./accModal.jsp" /> --%>
     
     <script type="text/javascript">
 	    $(document).ready(() => {
@@ -247,7 +252,18 @@
 			    	$('#accommoDay').text(nights);
 			    });
 		    
-	    	
+			   /* 최상단이동 */
+			    $(window).scroll(function(){
+			    	if ($(this).scrollTop() > 300){
+			    		$('.btn_gotop').show();
+			    	} else{
+			    		$('.btn_gotop').hide();
+			    	}
+			    });
+			    $('.btn_gotop').click(function(){
+			    	$('html, body').animate({scrollTop:0},400);
+			    	return false;
+			    });
 		});
     </script>    
                 
