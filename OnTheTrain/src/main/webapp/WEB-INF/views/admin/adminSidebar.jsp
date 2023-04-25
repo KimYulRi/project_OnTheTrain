@@ -62,7 +62,7 @@
                         </li>
 
                         <li class="sidebar-item" id="ad_qnaboad">
-                            <a href="#" class='sidebar-link'>
+                            <a href="${path}/admin/qna" class='sidebar-link'>
                                <i class="bi bi-chat-dots-fill"></i>
                                 <span>1:1문의관리</span>
                             </a>

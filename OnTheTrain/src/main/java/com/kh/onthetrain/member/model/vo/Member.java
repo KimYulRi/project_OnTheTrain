@@ -1,6 +1,6 @@
 package com.kh.onthetrain.member.model.vo;
 
-import java.util.Date;
+import java.sql.Date;
 
 import org.springframework.stereotype.Component;
 
@@ -66,7 +66,6 @@ public class Member {
 	
 	// 회원상태text
 	private String statusText;
-
 	
 	// 멤버십설정 메소드
 	public void setMembershipText(String membership) {

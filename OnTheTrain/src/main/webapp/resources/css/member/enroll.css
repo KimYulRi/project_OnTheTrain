@@ -1,4 +1,18 @@
 @charset "UTF-8";
+@font-face {
+    font-family: 'NotoSans';
+    src:url('../../font/common/NotoSansKR-Light.otf') format('truetype');
+}
+
+body {
+	font-family: 'NotoSans'; 
+	font-style: normal;
+	font-weight: 400;
+}
+
+h1, h2, h3, h4, h5, h6{
+	font-weight: 600;
+}
 
 	section{
 		width: 1200px;
@@ -49,7 +63,7 @@
 
 
 	#tb_all label{
-		font-size: 16px;
+		font-size: 14px;
 		font-weight: bold;
 	}
 	#tb_all input{
@@ -59,7 +73,7 @@
 	}
 
 	.tb_td1 label{
-		font-size: 14px;
+		font-size: 12px;
 	}
 	section #content5 input{
 		margin-right: 15px;
@@ -73,8 +87,8 @@
 
 	.sub{
 		font-size: 12px;
-		font-weight: bold;
 		color: #596180;
+		font-weight:500;
 	}
 		
 	#enrollSubmit {
@@ -85,6 +99,7 @@
 		height: 40px;
 		background-color:#596180;
 		color: #ffffff;
+		font-size: 12px;
 	}
 	#enrollSubmit:hover{
 		background-color:#00008B;
@@ -100,12 +115,15 @@
 	h4 {
 		color:#596180;
 		margin-bottom: 12px;
+		font-weight: 500;
+		font-size: 14px;
 	}
 
 	.enrollwrap input{
 		border: 0.5px solid #D3D2D2;
 		border-radius: 4px;
 		margin-bottom: 10px;
+		font-size: 12px;
 	}
 	.enrollwrap select{
 		border: 0.5px solid #D3D2D2;

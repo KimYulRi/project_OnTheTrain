@@ -9,6 +9,8 @@
 	font-family: 'Noto Sans Bold';
 	src: url('../../font/common/NotoSansKR-Bold.otf') format('truetype');
 }
+
+
 #modal1{
 	display: none;
 }

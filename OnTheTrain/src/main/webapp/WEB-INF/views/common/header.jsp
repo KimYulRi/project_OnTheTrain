@@ -13,12 +13,7 @@
               <a href="${ path }/"><img src="${ path }/images/common/OnTheTrain_Logo.png" alt=""></a>
             </div>
             <div id="searchArea">
-              <form class="search-form">
-                    <input type="text" placeholder="검색어를 입력하세요">
-                    <button type="submit"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-                        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
-                      </svg></button>
-                  </form>
+
             </div>
             <div id="menuArea">
            
@@ -27,13 +22,13 @@
                    <c:if test="${ empty loginMember }">
                     	<li><a href="${ path }/login">로그인</a></li>
                      <li><a href="${ path }/enroll">회원가입</a></li>
-                     <li><a href="#">고객센터</a></li>
+                     <li><a href="${ path }/cs/notice">고객센터</a></li>
                     </c:if>
                     <c:if test="${ !empty loginMember }">
                      <c:if test="${ loginMember.role == 'ROLE_ADMIN' }"><li><a href="${ path }/admin/dashboard"><span id="nickname">${ loginMember.nickname } 님</span></a></li></c:if>
                      <c:if test="${ loginMember.role == 'ROLE_USER' }"><li><span id="nickname">${ loginMember.nickname } 님</span></li></c:if>
                      <li><a href="${ path }/logout">로그아웃</a></li>
-                     <li><a href="#">고객센터</a></li>
+                     <li><a href="${ path }/cs/notice">고객센터</a></li>
                     </c:if>
                 </ul>
               </div>
@@ -81,13 +76,3 @@
           </nav>
         </div>
       </header>
-	<script>
-      const inputElement = document.querySelector('.search-form input');
-      const headersearchform = document.querySelector('.search-form');
-      inputElement.addEventListener('focus', function() {
-    	  headersearchform.style.borderColor = 'rgba(129, 177, 245, .8)';
-      });
-	  inputElement.addEventListener('blur', function() {
-		  headersearchform.style.borderColor = '#D3D2D2';
-	  });
-	</script>

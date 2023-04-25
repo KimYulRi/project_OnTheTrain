@@ -35,7 +35,7 @@
       <result property="email" column="EMAIL" />
       <result property="phone" column="PHONE" />
       <result property="address" column="ADDRESS" />
-      <result property="enrollDate" column="ENROLL_DATE" jdbcType="DATE" javaType="java.sql.Timestamp" />
+      <result property="enrollDate" column="ENROLL_DATE" />
       <result property="modifyDate" column="MODIFY_DATE" />
       <result property="snsLogin" column="SNS_LOGIN" />
       <result property="status" column="STATUS" />
@@ -43,7 +43,7 @@
       <result property="loginType" column="CODE" />
       <result property="snsId" column="SNS_ID" />
    </resultMap>
-   <resultMap id="ticketresultMap" type="TrainTicketReservation">
+   <resultMap id="ticketResultMap" type="TrainTicketReservation">
       <id property="ticketNo" column="TICKET_NO"/>
       <result property="nickname" column="NICKNAME" />
       <result property="trainNo" column="TRAIN_NUM" />
@@ -57,6 +57,13 @@
       <result property="depTime" column="DEP_TIME" />
       <result property="arrTime" column="ARR_TIME" />
       <result property="price" column="T_PRICE" />
+   </resultMap>
+   
+   <resultMap id="faqResultMap" type="Faq">
+      <id property="no" column="NO"/>
+      <result property="type" column="TYPE" />
+      <result property="title" column="TITLE" />
+      <result property="content" column="CONTENT" />
    </resultMap>
    
    	<!-- 전체회원 수 조회 -->
@@ -89,8 +96,14 @@
 	</select>
 	
 	<!-- 전체 승차권 수 조회 -->
-   	<select id="countTicket" resultType="_int">
+   	<select id="countTicket" resultType="int">
 		SELECT COUNT(*) FROM TICKET
+	</select>
+	
+	<!-- 자주묻는질문 조회 -->
+	<select id="findFaqList" resultMap="faqResultMap">
+		SELECT NO, TYPE, TITLE, CONTENT
+		FROM FAQ
 	</select>
 	
  </mapper>
