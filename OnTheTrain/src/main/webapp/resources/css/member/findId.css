@@ -1,13 +1,26 @@
 @charset "UTF-8";
-
-section{
-width: 1200px;
-min-height: 450px;
-display: flex;
-justify-content: center;
-align-items: center;
-margin: 0 auto;
+@font-face {
+    font-family: 'NotoSans';
+    src:url('../../font/common/NotoSansKR-Light.otf') format('truetype');
 }
+
+body {
+	font-family: 'NotoSans'; 
+	font-style: normal;
+	font-weight: 400;
+}
+
+h1, h2, h3, h5, h6{
+	font-weight: 600;
+}
+section{
+	width: 1200px;
+	min-height: 450px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin: 0 auto;
+	}
 
 h2 {
 	color:#00008b;

@@ -1,0 +1,145 @@
+@charset "UTF-8";
+@font-face {
+    font-family: 'NotoSans';
+    src:url('../../font/common/NotoSansKR-Light.otf') format('truetype');
+}
+
+body {
+	font-family: 'NotoSans'; 
+	font-style: normal;
+	font-weight: 400;
+}
+
+h1, h2, h3, h4, h5, h6{
+	font-weight: 600;
+}
+
+
+ h4 {
+   	color:#00008b;
+ }
+
+
+ section{
+	min-height: 700px;
+	width: 1200px;
+	display: flex;
+	justify-content: center;
+	margin: 0 auto;
+ 
+ }
+ section .seciton-container {
+ margin: 0 auto;
+ height: 100%;
+ padding-top: 20px;
+ }
+ 
+ section .content{
+ width: 1024px;
+ margin: 0 auto;
+ font-size: 14px;
+ }
+ 
+ #heading-conatiner{
+     margin-top:30px;
+     height: 80px;
+
+ }
+
+
+ /* 박스 */
+ .boxContainer {
+ display: flex;
+ justify-content: space-between;
+ margin: 0 auto;
+ }
+
+ .boxContainer a {
+ width: 34%;
+ height: 40px;
+ margin:0px;
+ padding: 10px 0 10px 0;
+ background-color: #fff;
+ border-bottom: 1px solid #D3D2D2;
+ font-size: 16px;
+ font-weight: 600;
+ text-decoration: none;
+ text-align: center;
+ 
+ }
+
+ #box1 {
+ background-color:#fff; 
+ color: #596180;
+ }
+
+ #box2 {
+ background-color:#fff; 
+ color: #596180;
+ }
+
+ #box3 {
+ background-color:#00008B;
+ color: #fff;
+ }
+
+ 
+ #box1:hover {
+ background-color:#00008B;
+ color: #fff;
+ }
+
+ #box2:hover {
+ background-color:#00008B; 
+ color: #fff;
+ }
+
+ #box3:hover {
+ background-color:#00008B; 
+ color: #fff;
+ }
+
+ .qnaBtn{
+     width: 120px;
+     height: 40px;
+     font-size: 14px;
+     border: 0px;
+     border-radius: 4px;
+     background-color:#596180;
+     color: #ffffff;
+ }
+ .qnaBtn:hover{
+     background-color:#00008B;
+     color: #ffffff;
+ }
+#content-btn{
+   justify-content: center;
+   display:flex;
+	
+}
+
+#qnahead{
+   justify-content: left;
+   margin : 50px 10px 10px 10px;
+   font-weight: 700;
+   font-size: 20px;
+}
+#content-list ul{
+   list-style:none;
+   margin: 0px;
+   padding: 0px;
+}
+#content-list ul>li{
+	padding-bottom:3px;
+	color: #596180;
+}
+ #content-list{
+   margin-top:20px;
+   height: 200px;
+   font-size: 14px;
+ }
+ #spanPoint{
+ 	font-weight: 700;
+ 	padding: 0px;
+ 	margin: 0 0 7px 0;
+ }

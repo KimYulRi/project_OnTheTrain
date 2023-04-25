@@ -12,11 +12,14 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.onthetrain.accommodation.model.vo.Accommodation;
 import com.kh.onthetrain.accommodation.model.vo.Review;
 import com.kh.onthetrain.accommodation.service.AccommodationService;
+import com.kh.onthetrain.member.model.vo.Member;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -38,10 +41,10 @@ public class AccommodationController {
 	public ModelAndView reservation(ModelAndView modelAndView, @RequestParam String no){
 		
 		Accommodation accommodation = service.findProductByNo(no);
-		List<Review> reviews = service.getReviewsByNo(no);
+		List<Review> reviews = service.getReviewsByAccommodationNo(no);
 		
-		System.out.println(accommodation);
-		System.out.println(reviews);
+//		System.out.println(accommodation);
+//		System.out.println(reviews);
 		
 		modelAndView.addObject("accommodation", accommodation);
 		modelAndView.addObject("reviews", reviews);
@@ -75,5 +78,32 @@ public class AccommodationController {
 	   modelAndView.setViewName("common/msg");
 	   
 	    return modelAndView;
+	    
+	}
+	
+	//리뷰삭제
+	@GetMapping("/accommodation/review/delete")
+	public ModelAndView update(ModelAndView modelAndView, @RequestParam int no) {
+		Review review = service.getReviewByNo(no);
+	
+		
+		if ( review != null ) {
+			int result = service.deleteReview(review.getNo());
+			
+			if (result > 0) {
+			    modelAndView.addObject("msg", "리뷰가 삭제되었습니다.");
+			} else {
+			    modelAndView.addObject("msg", "리뷰 삭제를 실패하였습니다.");
+			}
+		} else {
+			modelAndView.addObject("msg", "존재하지 않는 리뷰입니다.");
+		}
+		
+		modelAndView.addObject("location", "/accommodation/reservation?no=" + review.getAccommodationNo());
+		modelAndView.setViewName("common/msg");
+
+		return modelAndView;
+
+
 	}
 }

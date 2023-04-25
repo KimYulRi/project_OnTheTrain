@@ -15,16 +15,16 @@
     <title>숙소예약 상세</title>
     <link href="${ path }/css/accommodation/accommodationReservation.css" rel="stylesheet" type="text/css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+	<%@ include file="../common/header.jsp" %>
 	<link href="${ path }/css/accommodation/review.css" rel="stylesheet" type="text/css">
     <script src="${ path }/js/common/jquery-3.6.3.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dayjs/1.10.7/dayjs.min.js"></script>
     <script type="text/javascript" src="http://dapi.kakao.com/v2/maps/sdk.js?appkey=abe862743db89d98578a540d9cfed4b7"></script>
-	<%@ include file="../common/header.jsp" %>
 </head>
 <body>
     <section>
         <div id="body">           
-            <div id="topImage"><img src="${ path }/images/accommodation/topImage.png" alt=""></div>
+            <div id="topImage"><img src="${ path }/images/accommodation/${ accommodation.renamedFilename }"  style="width:286px; height:211px;" alt=""></div>
         </div>    
 <!--사진 아래 영역-->            
         <div id="contentFrame">
@@ -51,7 +51,7 @@
             <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
             </svg> 4.86(466)
         </div>
-        <div id="reviewAccounta">후기22개</div>
+        <div id="reviewAccounta">후기 ${ reviews.size() }개</div>
         
         <!-- 후기 -->
         <div id="reviewFrame">
@@ -105,6 +105,8 @@
 	             		<div class="left reviewContent">
 	             			${ reviews[0].content } 
 	             		</div>
+		                <a href="${ path }/accommodation/review/delete?no=${ reviews[0].no }">삭제</a>
+		                <!-- writerId==member.loginmember -->
              		
 	             		<div class="left userImg"></div>
 	                  	<div class="left">
@@ -188,7 +190,7 @@
 		</div>
     </section>
     
-    <jsp:include page="./accModal.jsp" />
+  <%--   <jsp:include page="./accModal.jsp" /> --%>
     
     <script type="text/javascript">
 	    $(document).ready(() => {
@@ -201,35 +203,49 @@
 	    	
 	    	$('#ckeckInInput').prop('min', dateStr);
 	    	
-	    	let mapContainer = document.getElementById('map');
-	    	let mapOption = { 
-	    	        center: new kakao.maps.LatLng(${ accommodation.lat }, ${ accommodation.lot }), // 지도의 중심좌표
-	    	        level: 3 // 지도의 확대 레벨
-	    	};
-	    	let map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
-	    	
-			// 마커를 생성합니다
-			let marker = new kakao.maps.Marker({
-			    position: new kakao.maps.LatLng(${ accommodation.lat }, ${ accommodation.lot })
-			});
-	    	
-			marker.setMap(map);
-
-		    $('#ckeckInInput').on('change', (event) => {
-		    	$('#ckeckOutInput').prop('min', event.target.value);
-		    });
+	    		
+		    	let mapContainer = document.getElementById('map');
+		    	let mapOption = { 
+		    	        center: new kakao.maps.LatLng(${ accommodation.lat }, ${ accommodation.lot }), // 지도의 중심좌표
+		    	        level: 3 // 지도의 확대 레벨
+		    	};
+		    	let map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+		    	
+				// 마커를 생성합니다
+				let marker = new kakao.maps.Marker({
+				    position: new kakao.maps.LatLng(${ accommodation.lat }, ${ accommodation.lot })
+				});
+		    	
+				marker.setMap(map);
+	
+				let iwContent = '<div style="padding:5px;">${ accommodation.name }<br>${ accommodation.explain }<br><a href="https://map.kakao.com/link/map/${ accommodation.name },${ accommodation.lat }, ${ accommodation.lot }" style="color:blue" target="_blank">큰지도보기</a> <br> <a href="https://map.kakao.com/link/to/ ${ accommodation.name },${ accommodation.lat }, ${ accommodation.lot }" style="color:blue" target="_blank">길찾기</a></div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+			    //위의 코드는 이름,전화번호,큰지도보기와 길찾기 도착지 설정 
+				iwPosition = new kakao.maps.LatLng(33.450701, 126.570667); //인포윈도우 표시 위치입니다
+				// 인포윈도우를 생성합니다 
+				let infowindow = new kakao.maps.InfoWindow({
+				    position : iwPosition, 
+				    content : iwContent 
+				});
+				  
+				// 마커 위에 인포윈도우를 표시합니다. 두번째 파라미터인 marker를 넣어주지 않으면 지도 위에 표시됩니다
+				infowindow.open(map, marker); 
+				
+			    $('#ckeckInInput').on('change', (event) => {
+			    	$('#ckeckOutInput').prop('min', event.target.value);
+			    });
+			    
+			    $('#ckeckOutInput').on('change', (event) => {
+			    	let date1 = dayjs($('#ckeckInInput').val());
+			    	let date2 = dayjs($('#ckeckOutInput').val());
+			    	let nights = date2.diff(date1, 'day');
+			    	let totalPrice = ${ accommodation.price };
+			    	
+			    	totalPrice = (nights * totalPrice) + '';
+			    	
+			    	$('#totalPrice').text(totalPrice.replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ','));
+			    	$('#accommoDay').text(nights);
+			    });
 		    
-		    $('#ckeckOutInput').on('change', (event) => {
-		    	let date1 = dayjs($('#ckeckInInput').val());
-		    	let date2 = dayjs($('#ckeckOutInput').val());
-		    	let nights = date2.diff(date1, 'day');
-		    	let totalPrice = ${ accommodation.price };
-		    	
-		    	totalPrice = (nights * totalPrice) + '';
-		    	
-		    	$('#totalPrice').text(totalPrice.replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ','));
-		    	$('#accommoDay').text(nights);
-		    });
 	    	
 		});
     </script>    

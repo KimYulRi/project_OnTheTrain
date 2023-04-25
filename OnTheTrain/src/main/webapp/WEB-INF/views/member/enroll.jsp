@@ -10,8 +10,8 @@
 <head>
 <meta charset="UTF-8">
 <title>온더트레인</title>
-<link rel="stylesheet" type="text/css" href="${ path }/css/member/enroll.css">
 <link rel="stylesheet" type="text/css" href="${ path }/css/member/enrollModal.css">
+<link rel="stylesheet" type="text/css" href="${ path }/css/member/enroll.css">
 <script src="${ path }/js/common/jquery-3.6.3.js"></script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <%@ include file="../common/header.jsp" %>
@@ -42,19 +42,19 @@
 						<!-- 일반로그인 : 아이디, 비밀번호 필요 -->
 						<c:if test="${ member.loginType != 'N' && member.loginType != 'K' }">
 							<div class="enrollwrap">
-							<h4><label for="userId" class="enrollLabel">아이디 *</label></h4>
+							<label for="userId" class="enrollLabel"><h4>아이디 *</h4></label>
 							<input type="text" name="id" id="userId" maxlength="12" class="texttype1" placeholder="영문 혹은 영문과 숫자를 조합 4~12자" required>
 							<input type="button" id="checkDuplicate1" class="inputbtn" value="중복확인" >
     						<div id="idsucc">사용 가능한 아이디입니다.</div>
 							</div>
 	
 							<div class="enrollwrap">
-								<h4><label for="password1" class="enrollLabel">비밀번호 *</label></h4>
+								<label for="password1" class="enrollLabel"><h4>비밀번호 *</h4></label>
 								<input type="password" id="password1" name="password" class="texttype2" maxlength="15" placeholder="영문, 숫자, 특수문자 2가지 조합 6~15자" required>
 							</div>
 							
 							<div class="enrollwrap">
-								<h4><label for="password2" class="enrollLabel">비밀번호 확인 *</label></h4>
+								<label for="password2" class="enrollLabel"><h4>비밀번호 확인 *</h4></label>
 								<input type="password" id="password2" class="texttype2" maxlength="15" placeholder="비밀번호를 한번 더 입력해주세요" required>
 							</div>
 						</c:if>
@@ -78,7 +78,7 @@
 						</c:if>
 						
 						<div class="enrollwrap">
-							<h4><label for="nickname" class="enrollLabel">닉네임 *</label></h4>
+							<label for="nickname" class="enrollLabel"><h4>닉네임 *</h4></label>
 							<!-- 일반로그인 -->
 							<c:if test="${ member.loginType != 'N' && member.loginType != 'K' }">
 								<input type="text" name="nickname" id="nickname" class="texttype1" maxlength="10" placeholder="영문, 한글, 숫자 2~10자" required>
@@ -93,7 +93,7 @@
 						
 						
 						<div class="enrollwrap">
-							<h4><label for="name" class="enrollLabel">이름 *</label></h4>
+							<label for="name" class="enrollLabel"><h4>이름 *</h4></label>
 							<!-- 일반/카카오 로그인 -->
 							<c:if test="${ member.loginType != 'N'}">
 								<input type="text" name="name" id="name" class="texttype2" maxlength="10" placeholder="이름을 입력해주세요" required>
@@ -148,7 +148,7 @@
 						</div>		
 
 							<div class="enrollwrap">
-								<h4><label for="email1" class="enrollLabel">이메일 *</label></h4>
+								<label for="email1" class="enrollLabel"><h4>이메일 *</h4></label>
 									<c:if test="${ member.loginType != 'N' && member.loginType != 'K' }">
 									<!-- 일반로그인 -->
 											<input type="text"  class="texttype3" name="email1" id="email1" required>&nbsp;&nbsp;@&nbsp;
@@ -206,7 +206,7 @@
 						<h3>        
 							약관동의
 						</h3>
-						<span class="sub"><b>약관 및 개인정보 수집 이용에 동의 해주세요.</b></span>
+						<span class="sub">약관 및 개인정보 수집 이용에 동의 해주세요.</span>
 					</div>
 					<div id="content5">
 						<table id="agreetb">

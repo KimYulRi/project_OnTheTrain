@@ -50,7 +50,6 @@ public class MemberController {
    /* NaverLoginBo */
    private NaverLoginBo naverLoginBO;
    private KakaoLoginBo kakaoLoginBO;
-   private String apiResult = null;
 	
    @Autowired
    private void setNaverLoginBO(NaverLoginBo naverLoginBO) {
@@ -375,10 +374,6 @@ public class MemberController {
     	log.info("findId() = 호출");
     	Map<String, String> map = new HashMap<>();
     	String id = service.findId(name, email);
-    	if(id!=null) {
-    		if(id.length()==4) {id = id.substring(0,2)+ "**";}
-    		else {id = id.substring(0,id.length()-3)+ "***";}
-    	}
     	map.put("id", id);
     	return map;
     }
@@ -397,17 +392,19 @@ public class MemberController {
     @PostMapping(value="/login/findPw")
     public Map<String, String> findPwd(Model model, @RequestParam String id, @RequestParam String email) {
  	  log.info("post findPwd() = 호출");
+ 	  
  	  Map<String, String> map = new HashMap<>();
  	  String password = RandomStringUtils.randomAlphanumeric(10);
  		
  	  int result = service.updatePwd(id, email, password);
+ 	  
  	  // id, email에 해당하는 회원의 비밀번호 재설정
  	  if(result > 0) {
  		  SendEmail.sendEmail(email, password);
  		  map.put("update", "true");
-		} else {
-			map.put("update", null);
-		}
+ 	  } else {
+		  map.put("update", null);
+	  }
  	   
  	  return map ;
     }
