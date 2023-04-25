@@ -40,7 +40,7 @@
 		        <div class="font15 bold" >주소</div>
 		     	<div class="font15" id="addressData">${ accommodation.location } </div>
 		     	
-		        <!-- 지도 위도 경 -->
+		        <!-- 지도 위도 경도 -->
 		        <%-- <div id="map"><img src="${ path }/images/accommodation/" alt=""></div> --%>
 		        <div class="font15 bold" id="mapViewer"><hr class="line">위치 보기</div>
 		        <div id="map"></div>
@@ -50,36 +50,88 @@
 		            <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
 		            <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
 		            </svg><fmt:formatNumber type="number" pattern="0.00" maxFractionDigits="2" value="${ average }" /> (리뷰${ reviews.size() }개)
+		            
+		            <!-- 리뷰 작성하기 버튼 -->
+					<a href="${ path }/accommodation/review?no=${accommodation.no}" class="btn btn-primary right" id="writeReview">리뷰작성</a>
 		        </div>
 		        
 		        <!-- 후기 -->
 		        <div id="reviewFrame">
-		            <div>
-		                <div id="reviewArea">
-		                	<!--왼쪽-->
+    				<div id="reviewArea">
+        				<c:set var="i" value="0"/>
+        				<c:forEach var="review" items="${ reviews }" varStatus="status">
+            				<c:if test="${ status.count % 2 == 0 }">
+                				<div class="reviewLeft">
+                    				<div style="height: 150px; margin-bottom: 60px;">
+                       					<div class="left">
+				                            <div class="reviewNick">${ review.nickname }</div>
+				                            <div class="littleFont"><fmt:formatDate type="date" value="${ review.createDate }"/></div>
+				                            <c:if test="${ loginMember.no  == review.memberNo }">
+					                            <a class="littleFont" href="${ path }/accommodation/review/update?no=${ review.no }">수정</a>
+					                            <a class="littleFont" href="${ path }/accommodation/review/delete?no=${ review.no }">삭제</a>
+											</c:if>
+                        				</div>
+                        			<div class="reviewContent">
+                            			${ review.content } 
+                        			</div>
+                    				</div>
+                				</div>
+            				</c:if>
+            				<c:if test="${ status.count % 2 != 0 }">
+				                <div class="reviewRight">
+				                    <div style="height: 150px; margin-bottom: 60px;">
+				                        <div class="left">
+				                            <div class="reviewNick">${ review.nickname }</div>
+				                            <div class="littleFont"><fmt:formatDate type="date" value="${ review.createDate }"/></div>
+											<c:if test='${ loginMember.no  == review.memberNo }'>
+					                            <a class="littleFont" href="${ path }/accommodation/review/update?no=${ review.no }">수정</a>
+					                            <a class="littleFont" href="${ path }/accommodation/review/delete?no=${ review.no }">삭제</a>
+											</c:if>
+				                        </div>
+				                        <div class="reviewContent">
+				                            ${ review.content } 
+				                        </div>
+				                    </div>
+				                </div>
+            				</c:if>
+            			<c:set var="i" value="${i+1}"/>
+        				</c:forEach>
+    				</div>
+				</div>
+<%-- 			    <div id="reviewFrame">
+	                <div id="reviewArea">
+	                	<div class="reviewLeft">
 		                	<c:forEach var="review" items="${ reviews }">
-			                	<div style="height: 150px">
+			                	<div style="height: 150px; margin-bottom: 60px;">
 				                	<div class="left">
 					                    <div class="reviewNick">${ review.nickname }</div>
 					                    <div class="littleFont"><fmt:formatDate type="date" value="${ review.createDate }"/></div>
+						                <a class="littleFont" href="${ path }/accommodation/review/update?no=${ review.no }">수정</a>
+						                <a class="littleFont" href="${ path }/accommodation/review/delete?no=${ review.no }">삭제</a>
 			                  		</div>
-				             		<div class="left reviewContent">
+				             		<div class="reviewContent">
 				             			${ review.content } 
 				             		</div>
-					                <a href="${ path }/accommodation/review/update?no=${ review.no }">수정</a>
-					                <a href="${ path }/accommodation/review/delete?no=${ review.no }">삭제</a>
 			                	</div>
 		                	</c:forEach>
-
-		                	
-		                	
-		                	
-		            		
-		           		</div>
-		             </div>
-		       	</div>
-		            <!-- 리뷰 작성하기 버튼 -->
-				<a href="${ path }/accommodation/review?no=${accommodation.no}" class="btn btn-primary right" id="writeReview">리뷰작성</a>
+	                	</div>
+	                	<div class="reviewRight">
+	                		<c:forEach var="review" items="${ reviews }">
+			                	<div style="height: 150px; margin-bottom: 60px;">
+				                	<div class="left">
+					                    <div class="reviewNick">${ review.nickname }</div>
+					                    <div class="littleFont"><fmt:formatDate type="date" value="${ review.createDate }"/></div>
+						                <a class="littleFont" href="${ path }/accommodation/review/update?no=${ review.no }">수정</a>
+						                <a class="littleFont" href="${ path }/accommodation/review/delete?no=${ review.no }">삭제</a>
+			                  		</div>
+				             		<div class="reviewContent">
+				             			${ review.content } 
+				             		</div>
+			                	</div>
+		                	</c:forEach>
+	                	</div>
+	           		</div>
+		       	</div> --%>
 			</div> 
 
 <!--오른쪽 옵션창-->
@@ -118,15 +170,13 @@
                   </div>
                   <!-- <div id="refund">환불약관</div> -->
                   <div id="bottom2">
-                      <div class="left optionFrame">총합계</div>
-                      <div class="right optionFrame"><span id="totalPrice"><fmt:formatNumber value="${ accommodation.price }"/></span>원</div>
+                      <span class="left" style="padding: 14px; font-size:17px;">총합계</span>
+                      <span id="totalPrice" class="right" style="padding: 14px"><fmt:formatNumber value="${ accommodation.price }"/>원</span>
                   </div>
             </div>
             
 		</div>
     </section>
-    
-    
   <%--   <jsp:include page="./accModal.jsp" /> --%>
     
     <script type="text/javascript">
