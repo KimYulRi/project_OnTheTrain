@@ -66,8 +66,10 @@
                        					<div class="left">
 				                            <div class="reviewNick">${ review.nickname }</div>
 				                            <div class="littleFont"><fmt:formatDate type="date" value="${ review.createDate }"/></div>
-				                            <a class="littleFont" href="${ path }/accommodation/review/update?no=${ review.no }">수정</a>
-				                            <a class="littleFont" href="${ path }/accommodation/review/delete?no=${ review.no }">삭제</a>
+				                            <c:if test="${ loginMember.no  == review.memberNo }">
+					                            <a class="littleFont" href="${ path }/accommodation/review/update?no=${ review.no }">수정</a>
+					                            <a class="littleFont" href="${ path }/accommodation/review/delete?no=${ review.no }">삭제</a>
+											</c:if>
                         				</div>
                         			<div class="reviewContent">
                             			${ review.content } 
@@ -81,8 +83,10 @@
 				                        <div class="left">
 				                            <div class="reviewNick">${ review.nickname }</div>
 				                            <div class="littleFont"><fmt:formatDate type="date" value="${ review.createDate }"/></div>
-				                            <a class="littleFont" href="${ path }/accommodation/review/update?no=${ review.no }">수정</a>
-				                            <a class="littleFont" href="${ path }/accommodation/review/delete?no=${ review.no }">삭제</a>
+											<c:if test='${ loginMember.no  == review.memberNo }'>
+					                            <a class="littleFont" href="${ path }/accommodation/review/update?no=${ review.no }">수정</a>
+					                            <a class="littleFont" href="${ path }/accommodation/review/delete?no=${ review.no }">삭제</a>
+											</c:if>
 				                        </div>
 				                        <div class="reviewContent">
 				                            ${ review.content } 
