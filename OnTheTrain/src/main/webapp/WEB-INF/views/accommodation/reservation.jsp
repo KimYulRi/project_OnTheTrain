@@ -49,7 +49,7 @@
 		        <div id="stara">
 		            <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
 		            <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
-		            </svg> 4.86(리뷰${ reviews.size() }개)
+		            </svg><fmt:formatNumber type="number" pattern="0.00" maxFractionDigits="2" value="${ average }" /> (리뷰${ reviews.size() }개)
 		        </div>
 		        
 		        <!-- 후기 -->
@@ -57,51 +57,23 @@
 		            <div>
 		                <div id="reviewArea">
 		                	<!--왼쪽-->
+		                	<c:forEach var="review" items="${ reviews }">
+			                	<div style="height: 150px">
+				                	<div class="left">
+					                    <div class="reviewNick">${ review.nickname }</div>
+					                    <div class="littleFont"><fmt:formatDate type="date" value="${ review.createDate }"/></div>
+			                  		</div>
+				             		<div class="left reviewContent">
+				             			${ review.content } 
+				             		</div>
+					                <a href="${ path }/accommodation/review/update?no=${ review.no }">수정</a>
+					                <a href="${ path }/accommodation/review/delete?no=${ review.no }">삭제</a>
+			                	</div>
+		                	</c:forEach>
+
 		                	
 		                	
 		                	
-		                	<div id="reviewLeft">
-		                   		<!-- <div class="left userImg"></div> -->
-		                  		<div class="left">
-				                    <div class="reviewNick">${ reviews[0].nickname }</div>
-				                    <div class="littleFont"><fmt:formatDate type="date" value="${ reviews[0].createDate }"/></div>
-		                  		</div>
-			             		<div class="left reviewContent">
-			             			${ reviews[0].content } 
-			             		</div>
-				                <a href="${ path }/accommodation/review/delete?no=${ reviews[0].no }">삭제</a>
-				                <!-- writerId==member.loginmember -->
-		             		
-			             		<!-- <div class="left userImg"></div> -->
-			                  	<div class="left">
-				                    <div class="reviewNick">${ reviews[1].nickname }</div>
-				                     <div class="littleFont"><fmt:formatDate type="date" value="${ reviews[1].createDate }"/></div>
-			                  	</div>
-			             		<div class="left reviewContent">
-			             			${ reviews[1].content } 
-			             		</div>
-		            		</div>
-		            		
-		            		<!--오른쪽-->
-		            		<div id="reviewRight">
-		                   		<!-- <div class="right userImg"></div> -->
-		                  		<div class="right">
-				                    <div class="reviewNick">${ reviews[2].nickname }</div>
-				                    <div class="littleFont"><fmt:formatDate type="date" value="${ reviews[2].createDate }"/></div>
-		                  		</div>
-			             		<div class="left reviewContent">
-			             			${ reviews[2].content }  
-			             		</div>
-		             		
-			             		<!-- <div class="right userImg"></div> -->
-			                  	<div class="right">
-				                    <div class="reviewNick">${ reviews[3].nickname }</div>
-				                     <div class="littleFont"><fmt:formatDate type="date" value="${ reviews[3].createDate }"/></div>
-			                  	</div>
-			             		<div class="left reviewContent">
-			             			${ reviews[3].content }  
-			             		</div>
-		            		</div>
 		            		
 		           		</div>
 		             </div>
@@ -116,11 +88,13 @@
                      <div id="onedayPrice"><fmt:formatNumber value="${ accommodation.price }"/>원</div>
                       <div id="accomodaionDay"> / 박</div>
                       <div class="right" id="topStar">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
-                      <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
-                      </svg> 4.86
+	                      <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+	                      	<path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+	                      </svg>
                       </div>
-                      <div class="right" id="topReview">${reviews[0].starPoint }</div>
+                      <div class="right" id="topReview">
+                      	<fmt:formatNumber type="number" pattern="0.00" maxFractionDigits="2" value="${ average }" />
+                   	  </div>
                   </div>
                   <div id="accomodationStatus" >
                         <div id="check">
