@@ -52,7 +52,7 @@
 		            </svg><fmt:formatNumber type="number" pattern="0.00" maxFractionDigits="2" value="${ average }" /> (리뷰${ reviews.size() }개)
 		            
 		            <!-- 리뷰 작성하기 버튼 -->
-					<a href="${ path }/accommodation/review?no=${accommodation.no}" class="btn btn-primary right" id="writeReview">리뷰작성</a>
+					<a href="${ path }/accommodation/review?no=${accommodation.no}" class="btn btn-primary right" style="margin-left: 10px;" id="writeReview">리뷰작성</a>
 		        </div>
 		        
 		        <!-- 후기 -->
@@ -67,8 +67,8 @@
 				                            <div class="reviewNick">${ review.nickname }</div>
 				                            <div class="littleFont"><fmt:formatDate type="date" value="${ review.createDate }"/></div>
 				                            <c:if test="${ loginMember.no  == review.memberNo }">
-					                            <a class="littleFont" href="${ path }/accommodation/review/update?no=${ review.no }">수정</a>
-					                            <a class="littleFont" href="${ path }/accommodation/review/delete?no=${ review.no }">삭제</a>
+					                            <a class="littleFont" style=" text-decoration: none;" href="${ path }/accommodation/review/update?no=${ review.no }">수정</a>
+					                            <a class="littleFont" style="color: darkred; text-decoration: none;" href="${ path }/accommodation/review/delete?no=${ review.no }">삭제</a>
 											</c:if>
                         				</div>
                         			<div class="reviewContent">
@@ -84,8 +84,8 @@
 				                            <div class="reviewNick">${ review.nickname }</div>
 				                            <div class="littleFont"><fmt:formatDate type="date" value="${ review.createDate }"/></div>
 											<c:if test='${ loginMember.no  == review.memberNo }'>
-					                            <a class="littleFont" href="${ path }/accommodation/review/update?no=${ review.no }">수정</a>
-					                            <a class="littleFont" href="${ path }/accommodation/review/delete?no=${ review.no }">삭제</a>
+					                            <a class="littleFont" style=" text-decoration: none;" href="${ path }/accommodation/review/update?no=${ review.no }">수정</a>
+					                            <a class="littleFont" style="color: darkred; text-decoration: none;" href="${ path }/accommodation/review/delete?no=${ review.no }">삭제</a>
 											</c:if>
 				                        </div>
 				                        <div class="reviewContent">
