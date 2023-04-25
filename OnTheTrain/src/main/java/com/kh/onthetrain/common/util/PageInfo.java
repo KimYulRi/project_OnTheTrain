@@ -61,7 +61,6 @@ private int currentPage;
 		 */
 		return (this.pageLimit * ((this.currentPage - 1) / this.pageLimit)) + 1;
 	}
-	
 	/**
 	 * 
 	 * @return 페이징 된 페이지 중 마지막 페이지
@@ -85,7 +84,11 @@ private int currentPage;
 	
 	/**
 	 * 
+<<<<<<< HEAD
+	 * @return 현 페이지에 표시될 페이지 수 
+=======
 	 * @return 한 페이지에 표시될 페이지 수
+>>>>>>> main
 	 */ 
 	public int getListLimit() {
 		return listLimit;
