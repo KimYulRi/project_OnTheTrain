@@ -16,13 +16,14 @@
     <!-- CSS only -->
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+<%@ include file="../common/header.jsp" %>
 </head>
 <body>
     <div id="container">
         <section>
             <div id="letftoolbar" class="table table-sm" >
                 <div id="toolbartitle">마이페이지</div>
-                <div class="toolbarcontent"> <a href="${ path }/myPage/myPageticket">결제 완료</a> </div>
+                <div class="toolbarcontent"> <a href="${ path }/myPage/myPageTicket">결제 완료</a> </div>
                 <div class="toolbarcontent"><a href="${ path }/myPage/myPageTicketWaiting" >결제 대기</a></div>
                 <div class="toolbarcontent"><a href="${ path }/myPage/myPageMyScheduler">나의 스케줄러</a></div>
                 <div class="toolbarcontent"><a href="${ path }/myPage/myPageCoupon">쿠폰함</a></div>
@@ -39,25 +40,53 @@
                 <div id="qnabox">
                     <div id="qnaboxtype" class="qnabox">문의 유형</div>
                     <div id="qnaboxtitle" class="qnabox">문의 제목</div>
-                    <div id="qnaboxdate" class="qnabox">문의 작성일</div>
+                    <div id="qnaboxdate" class="qnabox">작성일</div>
                     <div id="qnaboxcheck" class="qnabox">답변 상태</div>
                 </div>
-                <div id="qnacontent">
-                    <div id="qnatype" class="qnabox">결제</div>
-                    <div id="qnatitle" class="qnabox">결제는 어떻게 하면 되나요? 말줄임표 테스트 야야야 12345 야야야야야야야야야야야</div>
-                    <div id="qnadate" class="qnabox">2023/01/01</div>
-                    <div id="qnacheckno" class="qnabox">미답변</div>
-                </div>
-                <div id="qnacontent">
-                    <div id="qnatype" class="qnabox">결제</div>
-                    <div id="qnatitle" class="qnabox">결제는 어떻게 하면 되나요? 말줄임표 테스트 야야야 12345 야야야야야야야야야야야</div>
-                    <div id="qnadate" class="qnabox">2023/01/01</div>
-                    <div id="qnacheckok" class="qnabox">답변완료</div>
-                </div>
+				<div id="qnacontent">
+				    <c:forEach items="${qnaList}" var="qna">
+				        <div id="qnatype" class="qnabox">${qna.type}</div>
+				        <div id="qnatitle" class="qnabox"><a href="${ path }/myPage/myPageQnaView?no=${ qna.qnaNo }">
+								${ qna.title }
+							</a></div>
+				        <div id="qnadate" class="qnabox">${qna.createDate}</div>
+				        <c:if test="${qna.qnaCheck == 'Y'}">
+				        	<div id="qnacheckok" class="qnabox">답변완료</div>
+				        </c:if>
+				         <c:if test="${qna.qnaCheck == 'N'}">
+				        	<div id="qnacheckno" class="qnabox">미답변</div>
+				        </c:if>
+				    </c:forEach>
+				    
+			<div id="pageBar">
+				<!-- 맨 처음으로 -->
+				<button onclick="location.href='${ path }/myPage/myPageQna?page=1'">&lt;&lt;</button>
+	
+				<!-- 이전 페이지로 -->
+				<button onclick="location.href='${ path }/myPage/myPageQna?page=${ pageInfo.prevPage }'">&lt;</button>
+	
+				<!--  5개 페이지 목록 -->
+				<c:forEach begin="${ pageInfo.startPage }" end="${ pageInfo.endPage }" varStatus="status">
+					<c:choose>
+						<c:when test="${ status.current == pageInfo.currentPage}">
+							<button disabled>${ status.current }</button>
+						</c:when>
+						<c:otherwise>						
+							<button onclick="location.href='${ path }/myPage/myPageQna?page=${ status.current }'">${ status.current }</button>
+						</c:otherwise>
+					</c:choose>
+				</c:forEach>
+							<!-- 다음 페이지로 -->
+				<button onclick="location.href='${ path }/myPage/myPageQna?page=${ pageInfo.nextPage }'">&gt;</button>
+	
+				<!-- 맨 끝으로 -->
+				<button onclick="location.href='${ path }/myPage/myPageQna?page=${ pageInfo.maxPage }'">&gt;&gt;</button>
+			</div>
+				</div>
                 <div></div>
             </div>
 
-            <button id="writeqnabtn" type="button" class="btn btn-primary btn-sm"  >문의 작성하기</button>
+            <button id="writeqnabtn" type="button" class="btn btn-primary btn-sm"  > <a href="${ path }/myPage/myPageQnaWrite">문의 작성하기</a> </button>
             
             
 

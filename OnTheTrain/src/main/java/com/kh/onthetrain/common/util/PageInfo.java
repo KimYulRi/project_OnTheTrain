@@ -1,8 +1,7 @@
 package com.kh.onthetrain.common.util;
 
-
 public class PageInfo {
-	private int currentPage;
+private int currentPage;
 	
 	private int pageLimit;
 	
@@ -62,7 +61,6 @@ public class PageInfo {
 		 */
 		return (this.pageLimit * ((this.currentPage - 1) / this.pageLimit)) + 1;
 	}
-
 	/**
 	 * 
 	 * @return 페이징 된 페이지 중 마지막 페이지
@@ -86,7 +84,11 @@ public class PageInfo {
 	
 	/**
 	 * 
+<<<<<<< HEAD
 	 * @return 현 페이지에 표시될 페이지 수 
+=======
+	 * @return 한 페이지에 표시될 페이지 수
+>>>>>>> main
 	 */ 
 	public int getListLimit() {
 		return listLimit;

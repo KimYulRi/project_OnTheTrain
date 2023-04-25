@@ -104,7 +104,7 @@
                         현재 예약 가능한 숙소가 얼마 남지 않았으므로, 서둘러 예약하세요.
                     </div>
                     <div id="pCount">
-                        숙소45개
+                        숙소44개
                     </div>    
                 </div>      
 <!-- 숙박 목록 -->
@@ -137,7 +137,7 @@
 	
 	<script>
 		$(document).ready(() => {
-			lodgeList('0');
+			lodgeList('1');
 		});
 		
 		function lodgeList(page) {
@@ -156,7 +156,7 @@
 					$(obj).find('list').each(function(index) {
 						result += 
 							'<div class="product" onclick="location.href=\'${ path }/accommodation/reservation?no=' + $(this).find('lodgeId').text() + '\'">' + 
-		                        '<div><img src="${ path }/images/accommodation/accomodation' + (index + 1) + '.png" alt=""></div>' +
+		                        '<div><img style="width: 156px;height: 151px;border-radius: 10px;" src="${ path }/images/accommodation/accImg' + (((page - 1) * 20) + (index + 1)) + '.jpeg" alt=""></div>' +
 		                        /* '<div id=""><img src="' + $(this).find('lodgeMainImg').text() + '" alt=""></div>' + */
 		                        '<div class="acctitle">' + $(this).find('lodgeNm').text() + '</div>' + 
 		                        '<div class="accfont acccontent">' + $(this).find('lodgeAddr').text() + '</div>' + 

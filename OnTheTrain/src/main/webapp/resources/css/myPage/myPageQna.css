@@ -31,6 +31,7 @@ a:hover {
 	}
 
 #container{
+	margin-top: 150px;
     width: 100%;
     height: 100%;
 
@@ -162,4 +163,26 @@ tr>td{
 
 #writeqnabtn:hover{
     background: #00008B;
+}
+
+#pageBar{
+	text-align : center;
+	padding-top: 250px;
+	
+}
+
+
+#pageBar>button{
+	color:white;
+	border-radius : 5px;
+	border: rgb(89, 97, 128);
+    background-color: 	rgb(89, 97, 128);
+}
+
+#pageBar>button:hover{
+	background: #00008B;
+}
+
+#pageBar>button:disabled {
+	background: #00008B;
 }
