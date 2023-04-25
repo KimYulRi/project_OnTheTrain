@@ -48,12 +48,19 @@ article {
 }
 
 #schedulerTitle {
+  font-family: Noto Sans Bold;
+  font-size : 30px;
   display: flex;
   width: 1024px;
   height: 50px;
   align-items: center;
   justify-content: center;
   margin-bottom: 40px;
+}
+
+#titleEditButton {
+  margin-left: 10px;
+  color: #596180;;
 }
 
 .calendarContainer {
@@ -69,8 +76,11 @@ article {
   height: 50px;
   margin-left: 10px;
   margin-bottom: 10px;
-  background-color: blue;
+  background-color: #596180;
   color: white;
+  border-radius: 5px;
+  justify-content: center;
+  align-items: center;
 }
 
 #schedulerSidemenu {
