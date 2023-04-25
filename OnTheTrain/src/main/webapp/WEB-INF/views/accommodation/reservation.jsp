@@ -70,10 +70,6 @@
 					                <a href="${ path }/accommodation/review/delete?no=${ review.no }">삭제</a>
 			                	</div>
 		                	</c:forEach>
-
-		                	
-		                	
-		                	
 		            		
 		           		</div>
 		             </div>
@@ -118,15 +114,13 @@
                   </div>
                   <!-- <div id="refund">환불약관</div> -->
                   <div id="bottom2">
-                      <div class="left optionFrame">총합계</div>
-                      <div class="right optionFrame"><span id="totalPrice"><fmt:formatNumber value="${ accommodation.price }"/></span>원</div>
+                      <span class="left" style="padding: 14px">총합계</span>
+                      <span id="totalPrice" class="right" style="padding: 14px"><fmt:formatNumber value="${ accommodation.price }"/>원</span>
                   </div>
             </div>
             
 		</div>
     </section>
-    
-    
   <%--   <jsp:include page="./accModal.jsp" /> --%>
     
     <script type="text/javascript">
