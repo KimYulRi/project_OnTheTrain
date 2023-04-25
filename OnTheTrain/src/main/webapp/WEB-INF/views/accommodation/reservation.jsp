@@ -30,8 +30,10 @@
 <!--사진 아래 영역-->            
         <div id="contentFrame">
 <!--왼쪽 내용 영역-->         
-			<div id="leftContent">       
+			<div id="leftContent"> 
 		    	<div class="accomodationName bold">${ accommodation.name }</div>
+		        <div class="font15" id="callnum">예약 가능 여부 : ${accommodation.status == 'Y' ? '가능' : '불가능'}</div>
+		        <div class="font15" id="callnum">잔여 객실 수 : ${ accommodation.maxValue }</div>
 		        <hr class="line">
 		        <div class="font15 bold" id="callnum">전화번호</div>
 			    <div class="font15 left" id="call">${ accommodation.explain }</div>
@@ -53,7 +55,8 @@
 		            </svg><fmt:formatNumber type="number" pattern="0.00" maxFractionDigits="2" value="${ average }" /> (리뷰${ reviews.size() }개)
 		            
 		            <!-- 리뷰 작성하기 버튼 -->
-					<a href="${ path }/accommodation/review?no=${accommodation.no}" class="btn btn-primary right" style="margin-left: 10px;" id="writeReview">리뷰작성</a>
+					<%-- <a href="#" onclick="window.open('${ path }/accommodation/review?no=${accommodation.no}', '_blank', 'width=330, height=500', 'true');" class="btn btn-primary right" style="margin-left: 10px;" id="writeReview">리뷰작성</a> --%>
+					<a href="${ path }/accommodation/review?no=${accommodation.no}" class="btn btn-primary right" style="margin-left: 10px;" id="writeReview">리뷰작성</a> 
 		        </div>
 		        
 		        <!-- 후기 -->
@@ -151,7 +154,7 @@
 
 <!--오른쪽 옵션창-->
             <div id="rightContent" >
-                  <div class="optionFrame">
+                  <div class="optionFrame ">
                      <div id="onedayPrice"><fmt:formatNumber value="${ accommodation.price }"/>원</div>
                       <div id="accomodaionDay"> / 박</div>
                       <div class="right" id="topStar">
