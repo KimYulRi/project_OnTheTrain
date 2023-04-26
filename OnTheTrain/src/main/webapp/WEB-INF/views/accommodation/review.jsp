@@ -22,7 +22,7 @@
 	<div class="container">
 	  <h5>후기 작성</h5>
 	  <hr class="line">
-	  <form action="${path}/accommodation/review" method="post" onsubmit="return validateForm()">
+	  <form action="${path}/accommodation/review" method="post">
 	    <!-- 숙소 정보 -->
 	    <div class="accommodation-info">
 	      <h6><c:out value="${accommodation.name}"/></h6>
@@ -60,32 +60,19 @@
 	
 	      <!-- 리뷰 내용 입력 -->
 	      <div class="form-group col-12">
-<<<<<<< HEAD
-	        <textarea id="content" name="content" style="width:300px; height:200px; resize: none;" maxlength="300" placeholder="리뷰를 입력하세요." required v-model="content"></textarea>
-	        <div class="textLengthWrap">
-	          <p class="textCount">${ content.length }자</p>
-	          <p class="textTotal">/300자</p>
-=======
 	        <textarea id="content" name="content" style="width:300px; height:200px; resize: none;" maxlength="150" placeholder="리뷰를 입력하세요." required v-model="content"></textarea>
 	        <div class="textLengthWrap">
-	          <p class="textCount">${ content.length }자</p>
-	          <p class="textTotal">/150자</p>
->>>>>>> main
+	          <span class="textCount">${ content.length }자</span>
+	          <span class="textTotal">/150자</span>
 	        </div>
 	      </div>
-	      <button class="apply-button" @click.prevent="submitReview">리뷰작성</button>
-	      <button class="cancel-button" type="reset">작성취소</button>
+	      <button id="apply-Button" class="apply-button" type="submitReview">리뷰작성</button>
+	      <button class="cancel-button" type="reset">초기화</button>
 	    </div>
 	  </form>
 	</div>
 		
 	<script>
-    function validateForm() {
-    	if ($('#starPoint').val() === '0') {
-    	    $('#rating-error').text('평점을 선택해주세요.');
-    	    return false;
-    	}
-    }
 
     $(document).ready(function() {
         $('#content').on('input', function() {
@@ -99,22 +86,29 @@
             }
 
             // 글자수 제한
-<<<<<<< HEAD
-            if (content.length > 300) {
-                // 200자 부터는 타이핑 되지 않도록
-                $(this).val($(this).val().substring(0, 200));
-                // 200자 넘으면 알림창 뜨도록
-                alert('글자수는 300자까지 입력 가능합니다.');
-=======
             if (content.length > 150) {
                 // 200자 부터는 타이핑 되지 않도록
                 $(this).val($(this).val().substring(0, 150));
                 // 200자 넘으면 알림창 뜨도록
                 alert('글자수는 150자까지 입력 가능합니다.');
->>>>>>> main
             };
         });
     });
+    
+    /* $("#apply-Button").on('click',function() => {
+    	alert('ddd');
+    }); */
+    
+    /* function submitReviewAndClosePopup() {
+        // 여기에 리뷰 제출 처리 코드 작성
+        // ...
+
+        // 팝업창 닫기
+        window.close();
+        // 부모창 새로고침
+        opener.location.reload();
+      } */
+    
 	</script>
 </body>
 </html>
