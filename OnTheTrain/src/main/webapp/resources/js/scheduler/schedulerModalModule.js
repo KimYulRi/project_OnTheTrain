@@ -2,6 +2,7 @@
 import {
   getCurrentComponent,
   schedulerCreateModule,
+  addedComponentListVisable,
 } from "./schedulerCreate.js";
 
 import {
@@ -181,6 +182,7 @@ $(document).ready(() => {
     // 모달 창을 캘린더 클릭으로 열었을 시 바로 추가
     components[component].directAddButton.on("click", () => {
       addCompoentToAdded(component);
+      addedComponentListVisable();
     });
   }
 

@@ -55,6 +55,7 @@ function addedComponentListVisable() {
 }
 
 // 요소가 없으면 noComponent 보이기
+
 function noComponentAreaVisable() {
   noComponentArea.show();
 }
@@ -361,4 +362,6 @@ export {
   findIndexById,
   getCurrentComponent,
   findIndexFromArrayById,
+  addedComponentListVisable,
+  noComponentAreaVisable,
 };

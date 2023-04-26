@@ -49,9 +49,9 @@
 				</div>
 			</div>
 			<div class="modal-footer">
+				<button class="addToWait-button">내 일정에 추가</button>
 				<button class="confirm-button">확인</button>
 				<button class="edit-button">수정</button>
-				<button class="addToWait-button">내 일정에 추가</button>
 				<button class="modalDelete-button">삭제</button>
 			</div>
 		</div>

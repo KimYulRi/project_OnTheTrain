@@ -1,4 +1,5 @@
 import {
+  noComponentAreaVisable,
   getCurrentComponent,
   addedComponentList,
   waitComponentList,
@@ -53,6 +54,10 @@ $(document).ready(() => {
     // 모달 내 삭제버튼 누를 시, 카드 사라짐
     componentsView[component].deleteButton.on("click", () => {
       cardToRemove.remove();
+      if (addedComponentList.find(".card").length === 0) {
+        // card 클래스를 가진 요소가 없는 경우
+        noComponentAreaVisable();
+      }
       hideModal(component);
     });
   }
@@ -86,7 +91,7 @@ $(document).ready(() => {
     componentsView[component].editButton.hide();
     componentsView[component].deleteButton.hide();
     componentsView[component].componentIdField.hide();
-    componentsView[component].addToWaitButton.show();
+    componentsView[component].addToWaitButton.show().attr("display", "inline-block");
   }
 
   addModalViewEventListeners("event");
