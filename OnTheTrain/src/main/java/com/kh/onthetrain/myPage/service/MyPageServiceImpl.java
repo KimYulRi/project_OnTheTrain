@@ -7,11 +7,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.kh.onthetrain.accommodation.model.vo.Accommodation;
 import com.kh.onthetrain.common.util.PageInfo;
 import com.kh.onthetrain.member.model.vo.Member;
 import com.kh.onthetrain.myPage.model.entity.Qna;
 import com.kh.onthetrain.myPage.model.entity.QnaReply;
 import com.kh.onthetrain.myPage.model.mapper.MyPageMapper;
+import com.kh.onthetrain.scheduler.model.entity.Scheduler;
+import com.kh.onthetrain.trainTable.model.vo.TrainTicket;
 
 @Service
 public class MyPageServiceImpl implements MyPageService {
@@ -125,12 +128,115 @@ public class MyPageServiceImpl implements MyPageService {
 		
 		return mapper.findMemberByNo(no);
 	}
-
+	
+	
+	// qna 페이징바 구현을 위해 qna count를 가져오는 메소드
 	@Override
 	public int getQnaCount(int no) {
 		
 		
 		return mapper.selectQnaCount(no);
+	}
+	
+	
+	// scheduler 페이징바 구현을 위해 scheduler count를 가져오는 메소드
+	@Override
+	public int getSchedulerCount(int no) {
+		
+		
+		return mapper.getSchedulerCount(no);
+	}
+	
+	// 로그인한 유저의 scheduler 리스트를 가져오는 메소드
+	@Override
+	public List<Scheduler> getSchedulerListByMemberNo(int no, PageInfo pageInfo) {
+		int limit = pageInfo.getListLimit();
+		int offset = (pageInfo.getCurrentPage() -1) * limit;
+		RowBounds rowBounds = new RowBounds(offset,limit);
+		
+		
+		
+		return mapper.selectSchedulerListByMemberNo(no, rowBounds);
+	}
+	
+	// 숙박 결제 확인 페이징바를 구현하기 위해 숙박 count를 가져오는 메소드
+	@Override
+	public int getAccommodationCount(int no) {
+		
+		return mapper.selectAccommodationCount(no);
+	}
+	
+	// 숙박 결제 확엔 페이지의 리스트를 가져오는 메소드
+	@Override
+	public List<Accommodation> getAccommodationListByMemberNo(int no, PageInfo pageInfo) {
+		int limit = pageInfo.getListLimit();
+		int offset = (pageInfo.getCurrentPage() -1) * limit;
+		RowBounds rowBounds = new RowBounds(offset,limit);
+		
+		
+		return mapper.selectAccommodationListByMemberNo(no,rowBounds);
+	}
+	
+	
+	// 티켓 결제 확인 페이징 바를 구현하기위해 티켓 count를 가져오는 메소드
+	@Override
+	public int getTicketCount(int no) {
+		
+		return mapper.selectTicketCount(no);
+	}
+	
+	
+	// 로그인한 멤버의 no를 가지고 티켓 정보를 가져오는 메소드
+	@Override
+	public List<TrainTicket> getTicketListByMemberNo(int no, PageInfo pageInfo) {
+		int limit = pageInfo.getListLimit();
+		int offset = (pageInfo.getCurrentPage() -1) * limit;
+		RowBounds rowBounds = new RowBounds(offset,limit);
+		
+		
+		return mapper.selectTicketListByMemberNo(no,rowBounds);
+	}
+	
+	
+	// 로그인한 멤버의 no를 가지고 회원 탈퇴를 하는 메소드
+	@Override
+	public int deleteMember(int no) {
+		
+		
+		return mapper.deleteMember(no);
+	}
+	
+	// 로그인한 멤버의 no를 가지고 회원 탈퇴를 하는 메소드 (sns)
+	@Override
+	public int deleteSnsMember(int no) {
+		int result = mapper.deleteMember(no);
+		
+		if(result > 0) {
+			result = mapper.deleteSns(no);
+		}
+		
+		
+		return result;
+	}
+	
+	// 개인정보 페이지에 들어갈때마다 member 테이블의 amount(총결제금액)컬럼을 확인하고 membership 업데이트하기
+	@Override
+	public int updateMemberShip(int no) {
+		int result = 0;
+		Member member = mapper.selectMemberAmount(no);
+		
+		if(member.getAmount()>500000) {
+			// 누적금액이 10만원이 넘어갈시 멤버십 등급 실버로 올리기
+			result = mapper.updateMembershipM2(no);
+		} else if (member.getAmount()>1000000) {
+			result = mapper.updateMembershipM3(no);
+		} else if (member.getAmount()>1500000) {
+			result = mapper.updateMembershipM4(no);
+		}
+		
+		
+		
+		return result;
 	}
 
 

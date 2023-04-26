@@ -19,6 +19,9 @@
 </head>
 <body>
     <div id="container">
+        	<div id="myBanner" >
+            	<img alt="" id="myBannerImg" width="1024px" height="181px" src="${ path }/images/myPage/myPage.jpg"  >
+            </div>
         <section>
             <div id="letftoolbar" class="table table-sm" >
                 <div id="toolbartitle">마이페이지</div>
@@ -34,61 +37,27 @@
                 <div id="accommodation" >숙박</div>
             </div>
             
-            <div id="accbody" >
-                <div class="accfont" id="accimage"><img id="accimages" src="${ path }/images/myPage/accTest.png" alt=""></div>
-                <div class="accfont" id="acctitle">동구의 아파트</div>
-                <div class="accfont" id="accstar">★4.86(466)</div>
-                <div class="accfont" id="acccontent">[Amaigin view] 최고층 야경을 어쩌구저쩌구 12312312 3djWjrn321231213213132231312312312312123321312123</div>
-                <div class="accfont" id="accprice">150,000원 / 박</div>
-                <button id="acccheck" class="btn btn-danger">예약 확인</button>
-                <button id="acccancle" class="btn btn-danger">예약 취소</button>
-            </div>
-            <div id="accbody" >
-                <div class="accfont" id="accimage"><img id="accimages" src="${ path }/images/myPage/accTest.png" alt=""></div>
-                <div class="accfont" id="acctitle">동구의 아파트</div>
-                <div class="accfont" id="accstar">★4.86(466)</div>
-                <div class="accfont" id="acccontent">[Amaigin view] 최고층 야경을 어쩌구저쩌구 12312312 3djWjrn</div>
-                <div class="accfont" id="accprice">150,000원 / 박</div>
-                <button id="acccheck" class="btn btn-danger">예약 확인</button>
-                <button id="acccancle" class="btn btn-danger">예약 취소</button>
-            </div>
-            <div id="accbody" >
-                <div class="accfont" id="accimage"><img id="accimages" src="${ path }/images/myPage/accTest.png" alt=""></div>
-                <div class="accfont" id="acctitle">동구의 아파트</div>
-                <div class="accfont" id="accstar">★4.86(466)</div>
-                <div class="accfont" id="acccontent">[Amaigin view] 최고층 야경을 어쩌구저쩌구 12312312 3djWjrn</div>
-                <div class="accfont" id="accprice">150,000원 / 박</div>
-                <button id="acccheck" class="btn btn-danger">예약 확인</button>
-                <button id="acccancle" class="btn btn-danger">예약 취소</button>
-            </div>
-            <div id="accbody" >
-                <div class="accfont" id="accimage"><img id="accimages" src="${ path }/images/myPage/accTest.png" alt=""></div>
-                <div class="accfont" id="acctitle">동구의 아파트</div>
-                <div class="accfont" id="accstar">★4.86(466)</div>
-                <div class="accfont" id="acccontent">[Amaigin view] 최고층 야경을 어쩌구저쩌구 12312312 3djWjrn</div>
-                <div class="accfont" id="accprice">150,000원 / 박</div>
-                <button id="acccheck" class="btn btn-danger">예약 확인</button>
-                <button id="acccancle" class="btn btn-danger">예약 취소</button>
-            </div>
-            <div id="accbody" >
-                <div class="accfont" id="accimage"><img id="accimages" src="${ path }/images/myPage/accTest.png" alt=""></div>
-                <div class="accfont" id="acctitle">동구의 아파트</div>
-                <div class="accfont" id="accstar">★4.86(466)</div>
-                <div class="accfont" id="acccontent">[Amaigin view] 최고층 야경을 어쩌구저쩌구 12312312 3djWjrn</div>
-                <div class="accfont" id="accprice">150,000원 / 박</div>
-                <button id="acccheck" class="btn btn-danger">예약 확인</button>
-                <button id="acccancle" class="btn btn-danger">예약 취소</button>
-            </div>
-            <div id="accbody">
-                <div class="accfont" id="accimage"><img id="accimages" src="${ path }/images/myPage/accTest.png" alt=""></div>
-                <div class="accfont" id="acctitle">동구의 아파트</div>
-                <div class="accfont" id="accstar">★4.86(466)</div>
-                <div class="accfont" id="acccontent">[Amaigin view] 최고층 야경을 어쩌구저쩌구 12312312 3djWjrn</div>
-                <div class="accfont" id="accprice">150,000원 / 박</div>
-                <button id="acccheck" class="btn btn-danger">예약 확인</button>
-                <button id="acccancle" class="btn btn-danger">예약 취소</button>
-            </div>
+            <c:if test="${not empty accommodationList}">
+   				 <c:forEach var="accommodation" items="${accommodationList}">	
+   				 	<form action="">
+						<div id="accbody" >
+						    <div class="accfont" id="accimage"><img id="accimages" src="${path}/images/myPage/accTest.png" alt=""></div>
+						    <div class="accfont" id="acctitle">${accommodation.name}</div>
+						    <div class="accfont" id="acccontent">${accommodation.location}</div>
+						    <div class="accfont" id="accprice">${accommodation.explain}</div>
+						    <button id="acccheck" class="btn btn-danger" onclick="location.href='${path}/myPage/myPageAccommodationCheck?no=${accommodation.no}'" >예약 확인</button>
+						    <button id="acccancle" class="btn btn-danger"  >예약 취소</button>
+						</div>
+   				 	</form>
+				</c:forEach>
+			</c:if>
 
+			<c:if test="${empty accommodationList}">
+			    <div >
+			        <div id="noResult" ><img id="imgNo"  width="110px" height="110px" src="${ path }/images/common/noResult.png" alt=""></div>
+					<div id="noResult">예약한 숙박 내용이 없습니다.</div>
+			    </div>
+			</c:if>
 
 
 

@@ -3,6 +3,7 @@ package com.kh.onthetrain.myPage.controller;
 import java.io.IOException;
 import java.util.List;
 
+import javax.security.auth.login.LoginException;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.kh.onthetrain.accommodation.model.vo.Accommodation;
 import com.kh.onthetrain.common.util.MultipartFileUtil;
 import com.kh.onthetrain.common.util.PageInfo;
 import com.kh.onthetrain.member.model.vo.Member;
@@ -25,6 +27,8 @@ import com.kh.onthetrain.member.service.MemberService;
 import com.kh.onthetrain.myPage.model.entity.Qna;
 import com.kh.onthetrain.myPage.model.entity.QnaReply;
 import com.kh.onthetrain.myPage.service.MyPageService;
+import com.kh.onthetrain.scheduler.model.entity.Scheduler;
+import com.kh.onthetrain.trainTable.model.vo.TrainTicket;
 
 import lombok.extern.slf4j.Slf4j;
 import oracle.jdbc.proxy.annotation.Post;
@@ -46,16 +50,40 @@ public class MyPageContoller {
 	
 	@GetMapping("/myPage/myPageTicket")
 	// 마이페이지 티켓(마이페이지 접속시 기본화면)으로 보내는 메소드
-	public String toMyTicket() {
-		log.info("toMyTicket() 메소드 실행");
-		return "myPage/myPageTicket";
+	public ModelAndView toMyTicket(ModelAndView model,
+							@RequestParam(defaultValue = "1") int page,
+							@SessionAttribute("loginMember") Member loginMember) throws LoginException {
+
+		int listCount = service.getTicketCount(loginMember.getNo());
+		PageInfo pageInfo = new PageInfo(page, 3, listCount, 3);
+		List<TrainTicket> ticketList = service.getTicketListByMemberNo(loginMember.getNo(),pageInfo);
+		
+		System.out.println(ticketList);
+		model.addObject("pageInfo",pageInfo);
+		model.addObject("ticketList",ticketList);
+		model.setViewName("/myPage/myPageTicket");
+		
+		return model;
 	}
 	
 	@GetMapping("/myPage/myPageAccommodation")
 	// 마이페이지 결제 완료 숙소 확인 페이지로 보내는 메소드
-	public String toMyAccommodation(){
+	public ModelAndView toMyAccommodation(ModelAndView model,
+									@RequestParam(defaultValue = "1") int page,
+									@SessionAttribute("loginMember") Member loginMember){
 		log.info("toMyAcc 메소드 실행");
-		return "myPage/myPageAccommodation";
+		
+		int listCount = service.getAccommodationCount(loginMember.getNo());
+		PageInfo pageInfo = new PageInfo(page, 3, listCount, 5);
+		List<Accommodation> accommodationList = service.getAccommodationListByMemberNo(loginMember.getNo(),pageInfo);
+		
+		System.out.println(accommodationList);
+		model.addObject("pageInfo", pageInfo);
+		model.addObject("accommodationList", accommodationList);
+		model.setViewName("myPage/myPageAccommodation");
+
+		
+		return model;
 	}
 	
 	@GetMapping("/myPage/myPageTicketWaiting")
@@ -74,30 +102,37 @@ public class MyPageContoller {
 	
 	@GetMapping("/myPage/myPageMyScheduler")
 	// 마이페이지 나의 스케줄러 페이지로 보내는 메소드
-	public String toMyScheduler() {
+	public ModelAndView toMyScheduler(ModelAndView model,
+								@RequestParam(defaultValue = "1") int page,
+								@SessionAttribute("loginMember") Member loginMember) {
 		log.info("toMyScheduler 메소드 실행");
-		return "myPage/myPageMyScheduler";
+		
+		int listCount = service.getSchedulerCount(loginMember.getNo());
+		PageInfo pageInfo = new PageInfo(page, 5, listCount, 5);
+		List<Scheduler> schedulerList = service.getSchedulerListByMemberNo(loginMember.getNo(),pageInfo);
+		
+		System.out.println(schedulerList);
+		model.addObject("pageInfo", pageInfo);
+		model.addObject("schedulerList", schedulerList);
+		model.setViewName("myPage/myPageMyScheduler");
+		
+		
+		
+		return model;
 	}
 	
-//	@GetMapping("/myPage/myPageCoupon")
-//	// 마이페이지 쿠폰함으로 보내는 메소드
-//	public ModelAndView toMyCoupon(ModelAndView model,
-//								@RequestParam(defaultValue = "1") int page,
-//								@SessionAttribute("loginMember") Member loginMember) {
-//		int listCount = service.getCouponCount(loginMember.getNo());
-//		
-//		PageInfo pageInfo = new PageInfo(page, 5, listCount, 5);
-//		List<Coupon> couponList = service.getQnaListByMemberNo(loginMember.getNo(),pageInfo);
-//		
-//		
-//		model.addObject("pageInfo", pageInfo);
-//		model.addObject("couponList", couponList);
-//		model.setViewName("myPage/myPageQna");
-//		
-//		
-//		log.info("/myPage/toMyCoupon 메소드 실행");
-//		return model;
-//	}
+	@GetMapping("/myPage/myPageCoupon")
+	// 마이페이지 쿠폰함으로 보내는 메소드
+	public ModelAndView toMyCoupon(ModelAndView model,
+								@RequestParam(defaultValue = "1") int page,
+								@SessionAttribute("loginMember") Member loginMember) {
+		
+		model.setViewName("myPage/myPageCoupon");
+		
+		
+		log.info("/myPage/toMyCoupon 메소드 실행");
+		return model;
+	}
 	
 
 	
@@ -107,15 +142,9 @@ public class MyPageContoller {
 								@RequestParam(defaultValue = "1") int page,
 								@SessionAttribute("loginMember") Member loginMember) {
 		int listCount = service.getQnaCount(loginMember.getNo());
-		
-		log.info("ListCount : {}", listCount);
-		
 		PageInfo pageInfo = new PageInfo(page, 5, listCount, 5);
 		List<Qna> qnaList = service.getQnaListByMemberNo(loginMember.getNo(),pageInfo);
 		
-		log.info("Page : {}", page);
-		log.info("StartPage : {}", pageInfo.getStartPage());
-		log.info("EndPage : {}",pageInfo.getEndPage() );
 		
 		log.info("toMyQna 메소드 실행");
 		
@@ -290,6 +319,13 @@ public class MyPageContoller {
 		
 		int result = service.updateMember(name,id,nickname,phone,address,no);
 		
+		if(result > 0) {
+			
+			// 개인정보 페이지에 들어갈때마다 member 테이블의 amount(총결제금액)컬럼을 확인하고 membership 업데이트하기
+			result = service.updateMemberShip(no);
+			
+		}
+		
 		// HttpSession 무효화                                                   
 		session.invalidate();
 		model.addObject("msg", "정보가 정상적으로 수정되었습니다 다시 로그인해주시기 바랍니다.");
@@ -350,6 +386,65 @@ public class MyPageContoller {
  		
  		return model;
  	}
-	
+ 	
+ 	@GetMapping("/myPage/myPageWithdraw")
+ 	//회원탈퇴 페이지 불러오기
+ 	public String toWithdraw() {
+ 		
+ 		
+ 		return"/myPage/myPageWithdraw";
+ 	}
+ 	
+ 	@PostMapping("/myPage/myPageWithdraw")
+ 	// 회원탈퇴
+	public ModelAndView withdraw(ModelAndView model,@SessionAttribute("loginMember") Member loginMember,HttpSession session) {
+ 		int no = loginMember.getNo();
+ 		
+ 		if(loginMember.getSnsLogin().equals("Y")) {
+ 			
+ 			int result = service.deleteSnsMember(no);
+ 	 		if(result > 0) {
+ 	 			session.invalidate();
+ 				model.addObject("msg", "회원 탈퇴가 정상적으로 완료되었습니다.");
+ 				model.addObject("location", "/login");
+ 				model.setViewName("common/msg");
+ 	 		} else {
+ 				model.addObject("msg", "회원탈퇴에 실패했습니다.");
+ 				model.addObject("location", "/myPage/myPageWithdraw");
+ 				model.setViewName("common/msg");
+ 	 			
+ 	 		}
+ 	 		
+ 			
+ 		} else {
+ 		
+ 			int result = service.deleteMember(no);
+ 	 		if(result > 0) {
+ 	 			session.invalidate();
+ 				model.addObject("msg", "회원 탈퇴가 정상적으로 완료되었습니다.");
+ 				model.addObject("location", "/login");
+ 				model.setViewName("common/msg");
+ 	 		} else {
+ 				model.addObject("msg", "회원탈퇴에 실패했습니다.");
+ 				model.addObject("location", "/myPage/myPageWithdraw");
+ 				model.setViewName("common/msg");
+ 	 			
+ 	 		}
+ 	 		
+ 		
+ 		}
+ 		
+
+ 		
+ 		
+ 		return model;
+ 	}
+ 	
+ 	@GetMapping("/weather/weather")
+ 	public String weather() {
+ 		
+ 		return "weather/weather";
+ 	}
+ 	
 	
 }
