@@ -15,16 +15,17 @@
     <result property="location" column="LOCATION" />
     <result property="lot" column="LOT" />
     <result property="lat" column="LAT" />
+    <result property="renamedFilename" column="RENAMED_FILENAME"/>
   </resultMap>
   
   <resultMap type="com.kh.onthetrain.accommodation.model.vo.Review" id="reviewsResultMap">
 	  <id property="no" column="NO" />
-	    <result property="memberNo" column="MEMBER_NO" />
-	    <result property="accommodationNo" column="ACCOMMODATION_NO" />
-	    <result property="content" column="CONTENT" />
-	    <result property="starPoint" column="STARPOINT" />
-	    <result property="createDate" column="CREATE_DATE" />
-	    <result property="modifyDate" column="MODIFY_DATE" />
+	  <result property="memberNo" column="MEMBER_NO" />
+	  <result property="accommodationNo" column="ACCOMMODATION_NO" />
+	  <result property="content" column="CONTENT" />
+	  <result property="starPoint" column="STARPOINT" />
+	  <result property="createDate" column="CREATE_DATE" />
+	  <result property="modifyDate" column="MODIFY_DATE" />
   </resultMap>
   
   <resultMap id="reviewResultMap" type="com.kh.onthetrain.accommodation.model.vo.Review">
@@ -39,32 +40,34 @@
  </resultMap>
   
   
-	<select id="findProductByNo" parameterType="String" resultMap="accommodationResultMap">
-		  SELECT  NO,
-		          PRICE,
-		          NAME,
-		          STATUS,
-		          MAXVALUE,
-		          EXPLAIN,
-		          LOCATION,
-		          LOT,
-		          LAT
-		  FROM ACCOMMODATION 
-		  WHERE STATUS = 'Y' AND NO = #{no}
+	<select id="findProductByNo" parameterType="_int" resultMap="accommodationResultMap">
+ 			SELECT    A.NO,
+			          A.PRICE,
+			          A.NAME,
+			          A.STATUS,
+			          A.MAXVALUE,
+			          A.EXPLAIN,
+			          A.LOCATION,
+			          A.LOT,
+			          A.LAT,
+			          I.RENAMED_FILENAME
+			  FROM ACCOMMODATION A
+			  INNER JOIN ACCOMMODATION_IMAGE I ON (A.NO = I.ACCOMMODATION_NO) 
+			  WHERE STATUS = 'Y' AND A.NO = #{no}
 	</select>
 
-	<select id="getReviewsByNo" parameterType="String" resultMap="reviewsResultMap">
-		 SELECT  R.NO,
-		         R.MEMBER_NO,
-                 M.NICKNAME,
-		         R.ACCOMMODATION_NO,
-		         R.CONTENT,
-		         R.STARPOINT,
-		         R.CREATE_DATE,
-		         R.MODIFY_DATE
-		FROM REVIEW R
-        INNER JOIN MEMBER M ON (M.NO = R.MEMBER_NO)
-		WHERE ACCOMMODATION_NO = #{no}
+	<select id="getReviewsByAccommodationNo" parameterType="_int" resultMap="reviewsResultMap">
+			SELECT   R.NO,
+			         R.MEMBER_NO,
+	                 M.NICKNAME,
+			         R.ACCOMMODATION_NO,
+			         R.CONTENT,
+			         R.STARPOINT,
+			         R.CREATE_DATE,
+			         R.MODIFY_DATE
+			FROM REVIEW R
+	        INNER JOIN MEMBER M ON (M.NO = R.MEMBER_NO)
+			WHERE ACCOMMODATION_NO = #{no}
 	</select>
 	
 	<insert id="insertReview" parameterType="Review" 
@@ -88,5 +91,42 @@
 			SYSDATE
 		)
      </insert>
+     
+     <!-- 별점의 평균값을 조회 -->
+     <select id="getAvgPointByNo" parameterType="String" resultType="double">
+	    SELECT ROUND(AVG(STARPOINT), 2) AS AVERAGE_STARPOINT
+	    FROM REVIEW
+	    WHERE ACCOMMODATION_NO = #{no}
+	 </select>
+     
+	<select id="getReviewByNo" parameterType="_int" resultMap="reviewsResultMap">
+		SELECT   NO,
+		         MEMBER_NO,
+		         ACCOMMODATION_NO,
+		         CONTENT,
+		         STARPOINT,
+		         CREATE_DATE,
+		         MODIFY_DATE
+        FROM REVIEW
+        WHERE NO = #{no}
+	</select>
+	
+	<delete id="deleteReview" parameterType="_int">
+		DELETE 
+		FROM REVIEW
+		WHERE NO = #{no}
+	</delete>
+	
+	<update id="updateReview" parameterType="Review">
+		UPDATE REVIEW
+		SET  
+			STARPOINT = #{ starPoint },
+			CONTENT = #{ content },
+			MODIFY_DATE = SYSDATE
+		WHERE NO = #{no}
+
+	
+	</update>
+     
      
 </mapper>

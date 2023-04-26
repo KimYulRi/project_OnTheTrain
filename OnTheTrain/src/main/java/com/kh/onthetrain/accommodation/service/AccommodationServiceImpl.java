@@ -9,7 +9,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.kh.onthetrain.accommodation.model.mapper.AccommodationMapper;
 import com.kh.onthetrain.accommodation.model.vo.Accommodation;
 import com.kh.onthetrain.accommodation.model.vo.Review;
-import com.kh.onthetrain.scheduler.service.SchedulerServiceimpl;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -20,16 +19,16 @@ public class AccommodationServiceImpl implements AccommodationService {
 	private AccommodationMapper mapper;
 	
 	@Override
-	public Accommodation findProductByNo(String no) {
+	public Accommodation findProductByNo(int no) {
 		
 		return mapper.findProductByNo(no);
 	}
 
 	@Override
-	public List<Review> getReviewsByNo(String no) {
+	public List<Review> getReviewsByAccommodationNo(int no) {
 		
 		
-		return mapper.getReviewsByNo(no);
+		return mapper.getReviewsByAccommodationNo(no);
 	}
 
 	@Override
@@ -42,6 +41,23 @@ public class AccommodationServiceImpl implements AccommodationService {
     public int insertReview(Review review) {
     	return mapper.insertReview(review);
     }
+
+	@Override
+	public int deleteReview(int no) {
+		return mapper.deleteReview(no);
+	}
+
+	@Override
+	public Review getReviewByNo(int no) {
+		return mapper.getReviewByNo(no);
+	}
+
+	@Override
+	public int updateReview(Review review) {
+		
+		return  mapper.updateReview(review);
+	}
+
 	
 	
 }

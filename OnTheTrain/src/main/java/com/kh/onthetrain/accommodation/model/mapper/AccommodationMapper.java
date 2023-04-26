@@ -11,10 +11,16 @@ import com.kh.onthetrain.accommodation.model.vo.Review;
 @Mapper
 public interface AccommodationMapper {
 
-	Accommodation findProductByNo(@Param("no") String no);
+	Accommodation findProductByNo(@Param("no") int no);
 
-	List<Review> getReviewsByNo(@Param("no") String no);
+	List<Review> getReviewsByAccommodationNo(@Param("no") int no);
 
 	int insertReview(Review review);
+
+	int deleteReview(@Param("no") int no);
+
+	Review getReviewByNo(@Param("no") int no);
+
+	int updateReview(Review review);
 
 }

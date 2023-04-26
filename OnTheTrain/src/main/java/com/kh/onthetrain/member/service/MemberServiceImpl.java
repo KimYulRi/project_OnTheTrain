@@ -126,6 +126,11 @@ public class MemberServiceImpl implements MemberService {
 	public String findId(String name, String email) {
 		
 		String id = mapper.findId(name,email);
+
+    	if(id!=null) {
+    		if(id.length()==4) {id = id.substring(0,2)+ "**";}
+    		else {id = id.substring(0,id.length()-3)+ "***";}
+    	}
 		
 		return id;
 	}

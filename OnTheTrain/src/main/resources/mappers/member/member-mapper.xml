@@ -85,9 +85,6 @@
 		WHERE EMAIL = #{email} AND (STATUS='Y' OR STATUS='N')
     </select>
 	
-	<!-- <select id="selectCount" resultType="_int">
-		SELECT COUNT(*) FROM MEMBER
-	</select> -->
 	
 	<!-- id(일반)로 회원 찾기(중복확인) -->
 	<select id="selectMemberByIdAll" parameterType="string" resultMap="memberResultMap">

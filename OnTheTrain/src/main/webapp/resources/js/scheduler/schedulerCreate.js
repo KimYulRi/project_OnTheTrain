@@ -1,6 +1,10 @@
 // 스케줄러 생성 페이지를 그리는 데 쓰이는 코드들입니다.
 
-import { addModalModule, addNewCardtoArea, createNewCard } from "./schedulerModalModule.js";
+import {
+  addModalModule,
+  addNewCardtoArea,
+  createNewCard,
+} from "./schedulerModalModule.js";
 
 const ctx = getContextPath();
 const noComponentArea = $("#noAddedComponentArea");
@@ -23,7 +27,17 @@ function getCurrentComponent() {
 }
 
 // id 값으로 요소 객체 배열에서 요소 찾기
-function findIndexById(arr, id) {
+function findIndexFromArrayById(arr, id) {
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i].id === id) {
+      return i;
+    }
+  }
+  // 해당 id 값을 가진 요소가 없을 경우 -1 반환
+  return -1;
+}
+
+function findIndexById(id) {
   for (let i = 0; i < arr.length; i++) {
     if (arr[i].id === id) {
       return i;
@@ -113,34 +127,32 @@ $(document).ready(function () {
       dataType: "json",
       success: function (response) {
         resultCount += response.length;
+        let currentComponent = getCurrentComponent();
 
         // 가져온 데이터를 이용해 이벤트 리스트를 만듦
         $("#noResultArea").hide();
 
         $.each(response, function (i, item) {
-          // 일정 객체 만들어 배열에 넣어두기
+          //객체 만들어 배열에 넣어두기
           let imageUrl = item.firstimage
             ? item.firstimage
             : ctx + "/images/common/OnTheTrain_Logo.png";
 
-          let eventObj = addModalModule
-            .getAddModalComponents()
-            ["event"].createObject(
-              item.title,
-              item.addr1,
-              item.eventstartdate,
-              item.eventenddate,
-              0,
-              item.tel,
-              imageUrl
-            );
-          let searchEventsList =  addModalModule
-            .getAddModalComponents()
-            ["event"].searchList.push(eventObj);
-            
-          let newCard = createNewCard(eventObj.id, imageUrl, item.title, item.addr1, item.tel);
+          let componentObj = addModalModule.createAPIComponentObject(
+            currentComponent,
+            item,
+            imageUrl
+          );
+          addModalModule.getAPIItemList(currentComponent).push(componentObj);
+
+          let newCard = createNewCard(
+            componentObj.id,
+            imageUrl,
+            componentObj.title,
+            componentObj.addr1,
+            componentObj.tel
+          );
           addNewCardtoArea($("#eventList"), newCard);
-          
         });
       },
       error: function () {
@@ -148,7 +160,6 @@ $(document).ready(function () {
       },
     });
 
-    console.log(addModalModule.getAddModalComponents()["event"].searchList);
     /* API1 호출(구버전) */
     /*
     $.ajax({
@@ -310,10 +321,8 @@ $(document).ready(function () {
         dropType === "noAddedComponentArea"
       ) {
         addModalModule.toAddedList(currentComponent, componentid);
-     
       } else if (dropType === "waitComponentList") {
         addModalModule.toWaitList(currentComponent, componentid);
-    
       }
 
       /*
@@ -341,4 +350,5 @@ export {
   schedulerCreateModule,
   findIndexById,
   getCurrentComponent,
+  findIndexFromArrayById,
 };

@@ -5,10 +5,13 @@
 	xmlns:beans="http://www.springframework.org/schema/beans"
 	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:task="http://www.springframework.org/schema/task"
 	xsi:schemaLocation="http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd
 		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd
-		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd
+		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd">
+
 
 
 
@@ -21,6 +24,7 @@
 	<resources mapping="/css/**" location="/resources/css/" />
 	<resources mapping="/images/**" location="/resources/images/" />
 	<resources mapping="/font/**" location="/resources/font/" />
+	<resources mapping="/bootstrap5/assets/**" location="/resources/bootstrap5/assets/" />
 	<resources mapping="/resources/**" location="/resources/" />
 
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources 
@@ -54,6 +58,50 @@
 		<interceptor>
 			<mapping path="/logout"/>
 			<mapping path="/myPage/**"/>
+			<exclude-mapping path="/enroll" />
+			<exclude-mapping path="/idCheck" />
+			<exclude-mapping path="/nicknameCheck" />
+			<exclude-mapping path="/check" />
+		
+			<beans:bean id="loginCheckInterceptor" class="com.kh.onthetrain.common.Interceptor.LoginCheckInterceptor"/>
+		</interceptor>
+		
+		<!-- 로그아웃한 사용자가 아니면 intercept -->
+		<interceptor>
+			<mapping path="/login/**"/>
+			<mapping path="/enroll/**"/>
+			
+			<beans:bean id="logoutCheckInterceptor" class="com.kh.onthetrain.common.Interceptor.LogoutCheckInterceptor"/>
+		</interceptor>
+
+	</interceptors>
+
+
+
+	<beans:bean
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<beans:property name="locations">
+			<beans:list>
+				<beans:value>classpath:driver.properties</beans:value>
+				<beans:value>classpath:serviceKey.properties</beans:value>
+			</beans:list>
+		</beans:property>
+	</beans:bean>
+
+
+	<context:component-scan
+		base-package="com.kh.onthetrain" />
+
+	<tx:annotation-driven
+		transaction-manager="transactionManager" proxy-target-class="true" />
+		
+	<task:annotation-driven/>
+	
+	<interceptors>
+		<!-- 로그인한 사용자가 아니면 intercept -->
+		<interceptor>
+			<mapping path="/logout"/>
+			
 			<exclude-mapping path="/enroll" />
 			<exclude-mapping path="/idCheck" />
 			<exclude-mapping path="/nicknameCheck" />
