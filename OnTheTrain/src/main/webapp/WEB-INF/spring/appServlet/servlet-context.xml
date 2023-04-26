@@ -53,7 +53,7 @@
 		<!-- 로그인한 사용자가 아니면 intercept -->
 		<interceptor>
 			<mapping path="/logout"/>
-			
+			<mapping path="/myPage/**"/>
 			<exclude-mapping path="/enroll" />
 			<exclude-mapping path="/idCheck" />
 			<exclude-mapping path="/nicknameCheck" />

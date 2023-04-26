@@ -18,7 +18,7 @@ public class Accommodation {
 	
 	private int maxValue;
 	
-	private String explain ;
+	private String explain;
 	
 	private String location;
 	
