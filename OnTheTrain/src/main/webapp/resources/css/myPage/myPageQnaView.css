@@ -20,6 +20,15 @@ section{
 
 }
 
+#myBanner{
+	text-align: center;
+	margin-bottom: 20px;
+}
+
+#myBannerImg{
+	border-radius: 10px;
+}
+
 a {
 	text-decoration:none !important;
 	color:black !important;
@@ -30,7 +39,7 @@ a:hover {
 	}
 
 #container{
-	margin-top: 150px;
+	margin-top: 50px;
     width: 100%;
     height: 100%;
 
@@ -73,7 +82,7 @@ a:hover {
     height: 10%;
     float: left;
     margin-left: 50px;
-    border-bottom: 1px solid black;
+    
 }
 
 #toptoolbartitle{
@@ -82,106 +91,144 @@ a:hover {
     font-size: larger;
 }
 
-#qnabody{
+@font-face {
+    font-family: 'NotoSans';
+    src:url('../../font/common/NotoSansKR-Light.otf') format('truetype');
+}
+
+body {
+   font-family: 'NotoSans'; 
+   font-style: normal;
+   font-weight: 400;
+}
+
+h1, h2, h3, h4, h5, h6{
+   font-weight: 600;
+}
+
+ h4 {
+      color:#00008b;
+ }
+
+
+ /* 글 작성 버튼 */
+ #btnarea{
+    margin:20px 0 0 0px;
+ }
+ 
+ .qnaBtn{
+     width: 15	0px;
+     height: 30px;
+     font-size: 12px;
+     border: 0px;
+     border-radius: 10px;
+     background-color:#596180;
+     color: #ffffff;
+ }
+ .qnaBtn:hover{
+     background-color:#00008B;
+     color: #ffffff;
+ }
+ 
+  .qnaBtn:focus{
+     outline:none;
+ }
+
+
+ /* 테이블(리스트) 영역  */
+
+ #noticetable{
+    border-top: 0.5px solid #2C3E50;
+    border-bottom:  0.5px solid #2C3E50;
+    margin-bottom: 20px; 
+    padding: 30px;
     width: 80%;
+    margin-left : 50px;
     float: left;
-    margin-left: 50px;
+    }
+ 
+ .table .paddingtd {
+    width: 15%;
+    padding-left: 30px;
+ }
+
+  .centertd {
+     text-align:center;
+  }
+  
+#title{
+   padding-left: 20px;
+   font-size: 18px;
+   font-weight: 600;
+}/* 
+#tbcontent1 {
+    padding-left: 50px;
+}
+#tbcontent2 {
+    paddingg-left: 50px;
+} */
+table>thead{
+  border-bottom: 1px solid #D3D2D2;
+  padding-bottom: 30px;
 }
 
-#qnawriter{
-    margin-top: 30px;
-    font-size: 15px;
-    font-weight: bold;
-    margin-bottom: 30px;
+table>thead>#trhead1 {
+ vertical-align: middle;
+ height: 60px;
+ font-weight: 600;
+ font-size: 14px;
 }
-#qnatype{
-    float: left;
-
-}
-
-#qnatitle{
-    float: left;
-    margin-left: 50px;
-    
+table>thead>#trhead2 {
+border-top: 0.5px solid #2C3E50;
+ vertical-align: middle;
+ height: 60px;
+font-weight: 600;
+ font-size: 14px;
 }
 
-#qnadate{
-    float: left;
-    margin-left: 150px  ;
+table>thead>#trhead3 {
+ vertical-align: middle;
+ height: 50px;
+}
+table>thead>#trhead4 {
+ vertical-align: middle;
+ height: 50px;
 }
 
-#qnacontent{
-    clear: both;
-    padding-top: 50px;
-    margin-bottom: 50px;
+table>thead>#trfile{
+vertical-align: middle;
+height: 10px;
 }
 
-#qnafile{
-    
+table>tbody>.trcontent
+ {
+  height: 200px;
 }
 
-.line{
-    border: 0.1px solid gray;
-    float: left;
-    width: 80%;
-    margin-left: 50px;
-    margin-top: 50px;
+#cate {
+   border: 1.5px solid #274CE2;
+   border-radius:15px;
+   padding: 2px 10px 2px 10px;
+   color: #274CE2;
+   font-size: 6px;
+   font-weight: 500;
+   
 }
-
-#qnareply{
-	width : 500px;
-    float: left;
-    margin-top: 50px;
-    margin-left: 50px;
+#filetd{
+     font-size: 12px;
+     font-weight: 600;
+     
 }
-
-#qnamodalreply{
-	width : 500px;
-	height : 300px;
-    float: left;
-    margin-top: 50px;
-    margin-left: 30px;
-    resize: none;
+#filefont{
+    color: #596180;
+     font-size: 12px;
 }
-
-#replywriter{
-    float: left;
-    font-size: 15px;
-    font-weight: bold;
-    margin-bottom: 50px;
+#righttd{
+   text-align:right;
 }
-
-#replydate{
-    float: left;
-    margin-left: 50px;
-}
-
-#replycontent{
-    clear: both;
-}
-
-#adminonly{
-    width: 80%;
-    float: left;
-    margin-top: 50px;
-    margin-left: 50px;
-}
-
-
-#writeqnabtn{
-    margin-top: 50px;
-    float: right;
-    border: rgb(89, 97, 128);
-    background-color: 	rgb(89, 97, 128);
-}
-
-#writeqnabtn:hover{
-    background: #00008B;
-}
-
-#adminreply{
-    width: 80%;
-    float: left;
+.headhead{
+   padding-left: 10px;
+   color: #00008B;
 }
 
 #qnaModal{
