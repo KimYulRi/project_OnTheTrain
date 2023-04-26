@@ -23,6 +23,9 @@ public class TrainTicket {
 	//ktx
 	private String type;
 	
+	// 열차 번호
+	private int trainNum;
+	
 	// 출발날짜
 	private Date depDate;
 	
@@ -40,4 +43,6 @@ public class TrainTicket {
 	
 	// 가격
 	private int price;
+	
+
 }

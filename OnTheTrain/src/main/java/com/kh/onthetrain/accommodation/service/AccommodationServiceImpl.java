@@ -19,13 +19,13 @@ public class AccommodationServiceImpl implements AccommodationService {
 	private AccommodationMapper mapper;
 	
 	@Override
-	public Accommodation findProductByNo(String no) {
+	public Accommodation findProductByNo(int no) {
 		
 		return mapper.findProductByNo(no);
 	}
 
 	@Override
-	public List<Review> getReviewsByAccommodationNo(String no) {
+	public List<Review> getReviewsByAccommodationNo(int no) {
 		
 		
 		return mapper.getReviewsByAccommodationNo(no);
@@ -50,6 +50,12 @@ public class AccommodationServiceImpl implements AccommodationService {
 	@Override
 	public Review getReviewByNo(int no) {
 		return mapper.getReviewByNo(no);
+	}
+
+	@Override
+	public int updateReview(Review review) {
+		
+		return  mapper.updateReview(review);
 	}
 
 	

@@ -1,0 +1,107 @@
+@charset "UTF-8";
+
+div {
+	display: block;
+}
+
+#coupon_Banner {
+	display: flex;
+	justify-content: center;
+	
+}
+
+#divider {
+	width: 1024px;
+}
+
+.coupon_explanation {
+	justify-content: center;
+	text-align: center;
+}
+
+.content_box {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  width: auto;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.content {
+	margin-left: 10px;
+	margin-right: 10px;
+}
+
+.coupon_container {
+  position: relative;
+  width: 300px;
+  height: 150px;
+  background-color: #FFFFFF;
+  box-shadow: 0px 4px 4px 2px rgba(0, 0, 0, 0.2), inset 0px 2px 2px rgba(0, 0, 0, 0.25);
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size: 12px;
+  line-height: 17px;
+}
+
+.coupon_content {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.coupon_left {
+  flex: 8;
+  padding: 10px;
+  border-right: 1px solid #D3D2D2;
+}
+
+.coupon_right {
+  flex: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.coupon_title {
+  font-weight: bold;
+  font-size: 15px;
+  line-height: 22px;
+  color: #000000;
+  margin-bottom: 10px;
+}
+
+.coupon_discount {
+  font-weight: bold;
+  font-size: 36px;
+  line-height: 52px;
+  color: #000000;
+  margin-bottom: 10px;
+}
+
+.coupon_date {
+	display:inline-block;
+	color: #596180;
+	vertical-align: middle;
+}
+
+#season_coupon_info_modal {
+	display: inline-block;
+}
+
+#info_icon {
+	display: inline-block;
+	vertical-align: middle;
+}
+
+.coupon_info {
+	display: inline-block;
+	vertical-align: middle;
+	color: #D3D2D2;
+}
+
+.coupon_download_btn {
+	background: none;
+	border: none;
+}
+

@@ -22,6 +22,15 @@ section{
 
 }
 
+#myBanner{
+	text-align: center;
+	margin-bottom: 20px;
+}
+
+#myBannerImg{
+	border-radius: 10px;
+}
+
 a {
 	text-decoration:none !important;
 	color:black !important;
@@ -32,7 +41,7 @@ a:hover {
 	}
 
 #container{
-	margin-top: 150px;
+	margin-top: 50px;
     width: 100%;
     height: 100%;
 
@@ -126,4 +135,22 @@ a:hover {
     width: 350px;
     height: 50px;
 
+}
+
+#noResult{
+	text-align: center;
+}
+
+#withdraw{
+	text-align:center;
+    background-color: rgb(212,6,43);
+    border: rgb(89, 97, 128);
+    border-radius: 7px;
+    width: 150px;
+    color: white;
+	margin-top: 50px;
+}
+
+#withdraw:hover{
+    background: #770B1E;
 }
