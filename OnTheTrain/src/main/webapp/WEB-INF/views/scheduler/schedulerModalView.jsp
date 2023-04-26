@@ -4,13 +4,13 @@
 
 <c:set var="path" value="${ pageContext.request.contextPath }" />
 
-
 <div id="schedulerEventModalView" class="modal">
 	<div class="modal-backdrop"></div>
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
-				<div class="modal-title">Event Modal Title</div>
+				<div class="modal-title">일정 상세보기</div>
+				<div class="componentId">요소 아이디</div>
 			</div>
 			<div class="modal-body">
 				<div class="eventImage">
@@ -49,6 +49,7 @@
 				</div>
 			</div>
 			<div class="modal-footer">
+				<button class="addToWait-button">내 일정에 추가</button>
 				<button class="confirm-button">확인</button>
 				<button class="edit-button">수정</button>
 				<button class="modalDelete-button">삭제</button>
