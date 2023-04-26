@@ -74,7 +74,7 @@ $(document).ready(() => {
       imageUploadInput: $("#schedulerEventModal .image-upload"),
       imageCaption: $("#schedulerEventModal .image-caption"),
       modalBackdrop: $("#schedulerEventModal .modal-backdrop"),
-      directAddButton : $("#schedulerEventModal .directAdd-button"),
+      directAddButton: $("#schedulerEventModal .directAdd-button"),
       fields: {
         previewImage: $("#schedulerEventModal .preview-image"),
         title: $("#event-title"),
@@ -110,7 +110,7 @@ $(document).ready(() => {
       resetButton: $("#schedulerAccommodationModal .reset-button"),
       imageUploadInput: $("#schedulerAccommodationModal .image-upload"),
       imageCaption: $("#schedulerAccommodationModal .image-caption"),
-      directAddButton : $("#schedulerAccommodationModal .directAdd-button"),
+      directAddButton: $("#schedulerAccommodationModal .directAdd-button"),
       modalBackdrop: $("#schedulerAccommodationModal .modal-backdrop"),
       fields: {
         previewImage: $("#schedulerAccommodationModal .preview-image"),
@@ -128,7 +128,7 @@ $(document).ready(() => {
       cancelButton: $("#schedulerTicketModal .cancel-button"),
       editCompleteButton: $("#schedulerEventModal .editComplete-button"),
       addButton: $("#schedulerTicketModal .add-button"),
-      directAddButton : $("#schedulerTicketModal .directAdd-button"),
+      directAddButton: $("#schedulerTicketModal .directAdd-button"),
       resetButton: $("#schedulerTicketModal .reset-button"),
       imageUploadInput: $("#schedulerTicketModal .image-upload"),
       previewImage: $("#schedulerTicketModal .preview-image")[0],
@@ -172,15 +172,21 @@ $(document).ready(() => {
     components[component].resetButton.on("click", () => {
       resetModalContent(component);
     });
+
+    // 모달 창을 addCard로 열었을 시 add버튼을 통해 waitList에 추가
     components[component].addButton.on("click", () => {
-      let componentObj = addComponentToWait(component);
+      addComponentToWait(component);
+    });
+
+    // 모달 창을 캘린더 클릭으로 열었을 시 바로 추가
+    components[component].directAddButton.on("click", () => {
+      addCompoentToAdded(component);
     });
   }
 
   addModalEventListeners("event");
   addModalEventListeners("accommodation");
   addModalEventListeners("ticket");
-
 
   function showBasicButton() {
     let currentComponent = getCurrentComponent();
@@ -222,28 +228,46 @@ $(document).ready(() => {
     });
   }
 
-  // 적용 버튼을 눌렀을 때, obj 생성
+  // 적용 버튼을 눌렀을 때 동작
   function addComponentToWait(currentComponent) {
     let componentObj = components[currentComponent].creatComponentObject();
 
-      // 대기 중인 요소에 추가
-      addNewCardtoArea(
-        waitComponentList,
-        createNewCard(
-          componentObj.id,
-          componentObj.image,
-          componentObj.title,
-          componentObj.location,
-          componentObj.price
-        )
-      );
+    // 대기 중인 요소에 추가
+    addNewCardtoArea(
+      waitComponentList,
+      createNewCard(
+        componentObj.id,
+        componentObj.image,
+        componentObj.title,
+        componentObj.location,
+        componentObj.price
+      )
+    );
 
-      components[currentComponent].waitList.push(componentObj);
-
+    components[currentComponent].waitList.push(componentObj);
     hideAddModal(currentComponent);
     resetModalContent(currentComponent);
+  }
 
-    return componentObj;
+  // 바로 추가 버튼을 눌렀을 때, 동작
+  function addCompoentToAdded(currentComponent) {
+    let componentObj = components[currentComponent].creatComponentObject();
+
+    // 추가된 요소에 추가
+    addNewCardtoArea(
+      addedComponentList,
+      createNewCard(
+        componentObj.id,
+        componentObj.image,
+        componentObj.title,
+        componentObj.location,
+        componentObj.price
+      )
+    );
+
+    components[currentComponent].addedList.push(componentObj);
+    hideAddModal(currentComponent);
+    resetModalContent(currentComponent);
   }
 
   // 특정 요소를 Waitlist 객체 배열로 보냄
