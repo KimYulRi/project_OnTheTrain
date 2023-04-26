@@ -10,10 +10,7 @@
 		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd
-        http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd">
-        
-	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
-	
+		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd">
 
 
 	<!-- Enables the Spring MVC @Controller programming model -->
@@ -35,12 +32,6 @@
 		<beans:property name="prefix" value="/WEB-INF/views/" />
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
-	
-	<context:component-scan base-package="com.kh.onthetrain" />
-	
-	<tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true"/>
-	
-	<task:annotation-driven/>
 
 
 	<beans:bean
@@ -59,6 +50,8 @@
 
 	<tx:annotation-driven
 		transaction-manager="transactionManager" proxy-target-class="true" />
+		
+	<task:annotation-driven/>
 
 	<interceptors>
 		<!-- 로그인한 사용자가 아니면 intercept -->
