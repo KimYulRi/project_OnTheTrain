@@ -33,7 +33,7 @@ public class CouponServiceImpl implements CouponService {
 	}
 	
 	@Override
-	@Scheduled(cron = "0 0 */1 * * *")
+	@Scheduled(cron = "0 */10 * * * *")
 	public void updateExpiredCouponTest() {
 		java.sql.Timestamp now = java.sql.Timestamp.valueOf(LocalDateTime.now());
 		couponMapper.updateExpiredCoupon(now);

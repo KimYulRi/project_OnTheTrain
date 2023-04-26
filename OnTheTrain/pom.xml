@@ -17,11 +17,11 @@
 	</properties>
 	
 	<repositories>
-		<repository>
-		    <id>jitpack.io</id>
-		    <url>https://jitpack.io</url>
-		</repository>
-	</repositories>
+        <repository>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
+        </repository>
+    </repositories>
 	
 	<dependencies>
 		<!-- Spring -->
@@ -306,29 +306,18 @@
 		
 		<!-- creat random -->
 		<dependency>
-<<<<<<< HEAD
-		    <groupId>org.assertj</groupId>
-		    <artifactId>assertj-core</artifactId>
-		    <version>3.24.2</version>
-		    <scope>test</scope>
-		</dependency>   
-		
-		<!-- api test -->   
-		<dependency>
-		    <groupId>com.github.iamport</groupId>
-		    <artifactId>iamport-rest-client-java</artifactId>
-		    <version>0.2.22</version>
-		</dependency>
-		
-=======
 		    <groupId>org.apache.commons</groupId>
 		    <artifactId>commons-lang3</artifactId>
 		    <version>3.12.0</version>
 		</dependency>
 		
-
+		<!-- payment api -->   
+        <dependency>
+            <groupId>com.github.iamport</groupId>
+            <artifactId>iamport-rest-client-java</artifactId>
+            <version>0.2.22</version>
+        </dependency>
 		
->>>>>>> 6bf3e5aaed53e823d4a6f451d8cde3969ef5ebe6
 	</dependencies>
 	<build>
 		<plugins>
