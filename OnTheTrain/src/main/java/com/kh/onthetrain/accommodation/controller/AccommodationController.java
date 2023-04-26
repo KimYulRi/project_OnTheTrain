@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -137,4 +138,12 @@ public class AccommodationController {
 
 
 	}
+//	리뷰새창 
+	@RequestMapping("/newpage")
+	public ModelAndView openNewPage() {
+	    ModelAndView mav = new ModelAndView();
+	    mav.setViewName("review"); // 뷰 이름 설정
+	    return mav;
+	}
+
 }
