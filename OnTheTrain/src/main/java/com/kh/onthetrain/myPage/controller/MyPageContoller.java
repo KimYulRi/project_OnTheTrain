@@ -24,6 +24,7 @@ import com.kh.onthetrain.common.util.MultipartFileUtil;
 import com.kh.onthetrain.common.util.PageInfo;
 import com.kh.onthetrain.member.model.vo.Member;
 import com.kh.onthetrain.member.service.MemberService;
+import com.kh.onthetrain.myPage.model.entity.ReservationCheck;
 import com.kh.onthetrain.myPage.model.entity.Qna;
 import com.kh.onthetrain.myPage.model.entity.QnaReply;
 import com.kh.onthetrain.myPage.service.MyPageService;
@@ -77,6 +78,7 @@ public class MyPageContoller {
 		PageInfo pageInfo = new PageInfo(page, 3, listCount, 5);
 		List<Accommodation> accommodationList = service.getAccommodationListByMemberNo(loginMember.getNo(),pageInfo);
 		
+		
 		System.out.println(accommodationList);
 		model.addObject("pageInfo", pageInfo);
 		model.addObject("accommodationList", accommodationList);
@@ -84,6 +86,35 @@ public class MyPageContoller {
 
 		
 		return model;
+	}
+	
+	@GetMapping("/myPage/myPageAccommodationCheck")
+	//마이페이지 결제 완료 숙소 예약 확인 버튼을 눌렀을때 해당 페이지로 보내는 메소드
+	public ModelAndView toAccommodationCheck(ModelAndView model,@RequestParam("accNo") int no,@SessionAttribute("loginMember") Member loginMember ) {
+			int memberNo = loginMember.getNo();
+			Accommodation accommodation = null;
+			ReservationCheck reservationCheck = null;
+			System.out.println(no);
+			
+			// 결제완료 예약 확인 no 를 가지고 숙소의 정보를 가져오는 메소드
+			accommodation = service.findAccommodationByNo(no);
+			
+			// 숙소 번호 및 유저 번호를 가지고 예약 정보를 가져오는 메소드
+			reservationCheck = service.findReservationByNo(no,memberNo);
+			
+			
+//			reservationCheck = service.findReservationCheckByNo(no);
+
+			
+			
+			System.out.println("테스트 테스트" +reservationCheck);
+			System.out.println("테스트 테스트" +accommodation);
+			model.addObject("accommodation", accommodation);
+			model.addObject("reservationCheck",reservationCheck);
+			model.setViewName("/myPage/myPageAccommodationCheck");
+			
+			
+			return model;
 	}
 	
 	@GetMapping("/myPage/myPageTicketWaiting")

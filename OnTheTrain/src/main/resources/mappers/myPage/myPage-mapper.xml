@@ -37,11 +37,20 @@
 	  	<result property="departure" column="DEPARTURE" />
 	  	<result property="arrival" column="ARRIVAL" />
 	  	<result property="price" column="T_PRICE" />
-	  
-	  
-	  
 	  </resultMap>
 
+	<resultMap type="com.kh.onthetrain.myPage.model.entity.ReservationCheck" id="ReservationCheckResultMap">
+		<id property="no" column="NO" />
+		<result property="memberNo" column="MEMBER_NO"  />
+		<result property="accommodationNo" column="ACCOMMODATION_NO"  />
+		<result property="checkIn" column="CHECKIN"  />
+		<result property="checkOut" column="CHECKOUT"  />
+		<result property="price" column="PRICE"  />
+		<result property="adultNumber" column="ADULT_NUMBER"  />
+		<result property="kidNumber" column="KID_NUMBER"  />
+		<result property="babyNumber" column="BABY_NUMBER"  />
+	</resultMap>
+	
 
 	<resultMap id="memberResultMap" type="Member">
       <id property="no" column="NO"/>
@@ -416,4 +425,53 @@
 		  SET MEMBERSHIP_CODE = 'M4'
 		  WHERE NO = #{no}
 	</update>
+	
+	<select id="findReservationCheckByNo" resultMap="ReservationCheckResultMap">
+	 SELECT  R.NO,
+	 		 R.MEMBER_NO,
+	 		 R.ACCOMMODATION_NO,
+	 		 R.CHECKIN,
+	 		 R.CHECKOUT,
+	 		 R.PRICE,
+	 		 R.ADULT_NUMBER,
+	 		 R.KID_NUMBER,
+	 		 R.BABY_NUMBER,
+	 FROM    RESERVATION R
+	 JOIN    ACCOMMODATION A ON R.ACCOMMODATION_NO = A.NO
+	 WHERE   R.ACCOMMODATION_NO = #{no}
+	</select>
+	
+	<select id="findAccommodationByNo" resultMap="accommodationResultMap">
+		SELECT NO,
+			   NAME,
+			   PRICE,
+			   STATUS,
+			   MAXVALUE,
+			   EXPLAIN,
+			   LOCATION,
+			   LOT,
+			   LAT
+		FROM   ACCOMMODATION 
+		WHERE  NO = #{no}
+
+	</select>
+	
+	<select id="findReservationByNo" resultMap="ReservationCheckResultMap" >
+			SELECT   NO,
+			 		 MEMBER_NO,
+			 		 ACCOMMODATION_NO,
+			 		 CHECKIN,
+			 		 CHECKOUT,
+			 		 PRICE,
+			 		 ADULT_NUMBER,
+			 		 KID_NUMBER,
+			 		 BABY_NUMBER
+			 FROM    RESERVATION 
+
+			 WHERE   ACCOMMODATION_NO = #{no} AND MEMBER_NO = #{memberNo}
+	
+	</select>
+	
+	
+	
    </mapper>
