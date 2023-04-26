@@ -4,7 +4,44 @@
 
 <mapper namespace="com.kh.onthetrain.myPage.model.mapper.MyPageMapper">
 
-	
+	  <resultMap type="com.kh.onthetrain.accommodation.model.vo.Accommodation" id="accommodationResultMap">
+	    <id property="no" column="NO" />
+	    <result property="price" column="PRICE" />
+	    <result property="name" column="NAME" />
+	    <result property="status" column="STATUS" />
+	    <result property="maxValue" column="MAXVALUE" />
+	    <result property="explain" column="EXPLAIN" />
+	    <result property="location" column="LOCATION" />
+	    <result property="lot" column="LOT" />
+	    <result property="lat" column="LAT" />
+	  </resultMap>
+  
+	  <resultMap type="com.kh.onthetrain.accommodation.model.vo.Review" id="reviewsResultMap">
+		  <id property="no" column="NO" />
+		    <result property="memberNo" column="MEMBER_NO" />
+		    <result property="accommodationNo" column="ACCOMMODATION_NO" />
+		    <result property="content" column="CONTENT" />
+		    <result property="starPoint" column="STARPOINT" />
+		    <result property="createDate" column="CREATE_DATE" />
+		    <result property="modifyDate" column="MODIFY_DATE" />
+	  </resultMap>
+	  
+	  <resultMap type="com.kh.onthetrain.trainTable.model.vo.TrainTicket" id="ticketResultMap">
+	  	<id property="ticketNo" column="TICKET_NO" />
+	  	<result property="userNo" column="USER_NO" />
+	  	<result property="type" column="TYPE" />
+	  	<result property="trainNum" column="TRAIN_NUM" />
+	  	<result property="depDate" column="DEP_DATE" />
+	  	<result property="depTime" column="DEP_TIME" />
+	  	<result property="arrTime" column="ARR_TIME" />
+	  	<result property="departure" column="DEPARTURE" />
+	  	<result property="arrival" column="ARRIVAL" />
+	  	<result property="price" column="T_PRICE" />
+	  
+	  
+	  
+	  </resultMap>
+
 
 	<resultMap id="memberResultMap" type="Member">
       <id property="no" column="NO"/>
@@ -30,6 +67,9 @@
 		<result property="memberNo" column="MEMBER_NO" />
 		<result property="visable" column="VISABLE" />
 		<result property="createDate" column="CREATE_DATE" />
+		<result property="title" column="TITLE" />
+		<result property="featured" column="FEATURED" />
+		<result property="periodStart" column="PERIOD_START"/>
 		<result property="editDate" column="EDIT_DATE" />
 	</resultMap>
 	
@@ -50,7 +90,7 @@
 		<id property="qnaReplyNo" column="NO" />
 		<result property="qnaNo" column="QNA_NO"/>
 		<result property="qnaReplyContent" column="CONTENT"/>
-		<result property="qnaReplyDate" column="QNA_REPLY_DATE"/>
+		<result property="qnaReplyDate" column="QNA_DATE"/>
 		<result property="visable" column="VISABLE"/>
 	</resultMap>
 	
@@ -136,7 +176,10 @@
 		</insert>
 		
 		<select id="selectQnaCount" resultType="_int" >
-			SELECT COUNT(*) FROM QNA WHERE VISABLE='Y' AND MEMBER_NO = #{no}
+			SELECT COUNT(*) 
+			FROM QNA 
+			WHERE VISABLE='Y' AND 
+			MEMBER_NO = #{no}
 		</select>
 		
 		<!-- 문의에 답변이 있을경우 가져오는 쿼리문 -->
@@ -246,7 +289,131 @@
 	  JOIN QNA Q ON M.NO = Q.MEMBER_NO
 	  WHERE Q.NO = #{no}
 	</select>
-
-
 	
+	<select id="getSchedulerCount" resultType="_int">
+			SELECT COUNT(*) 
+			FROM SCHEDULER
+			WHERE MEMBER_NO = #{no}
+
+	</select>
+	
+	
+	<select id="selectSchedulerListByMemberNo" resultMap="schedulerResultMap" >
+		SELECT NO,
+			   MEMBER_NO,
+			   VISABLE,
+			   CREATE_DATE,
+			   TITLE,
+			   FEATURED,
+			   PERIOD_START,
+			   EDIT_DATE
+		FROM SCHEDULER
+		WHERE MEMBER_NO = #{no} AND VISABLE = 'Y'
+	
+	
+	
+	</select>
+	
+	
+	<select id="selectAccommodationCount" resultType="_int" >
+			SELECT COUNT(*) 
+			FROM RESERVATION
+			WHERE MEMBER_NO = #{no}
+	</select>
+	
+	<select id="selectAccommodationListByMemberNo" resultMap="accommodationResultMap">
+		SELECT A.NO,
+			   A.NAME,
+			   A.PRICE,
+			   A.STATUS,
+			   A.MAXVALUE,
+			   A.LOCATION,
+			   A.EXPLAIN,
+			   A.LOT,
+			   A.LAT
+		FROM   ACCOMMODATION A
+		JOIN   RESERVATION R ON A.NO = R.ACCOMMODATION_NO
+		WHERE  R.MEMBER_NO = #{no}
+	</select>
+	
+	<select id="selectTicketCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM BOOK B
+		JOIN TICKET T ON B.TICKET_NO = T.TICKET_NO
+		WHERE USER_NO = #{no}
+	</select>
+
+	<select id="selectTicketListByMemberNo" resultMap="ticketResultMap">
+		
+		SELECT T.TICKET_NO,
+			   T.USER_NO,
+			   T.TYPE,
+			   T.TRAIN_NUM,
+			   T.DEP_DATE,
+			   T.DEP_TIME,
+			   T.ARR_TIME,
+			   T.DEPARTURE,
+			   T.ARRIVAL,
+			   T.T_PRICE
+		FROM BOOK B
+		JOIN TICKET T ON B.TICKET_NO = T.TICKET_NO
+		WHERE USER_NO = #{no}
+	
+	
+	</select>
+	
+	<update id="deleteMember" parameterType="Member">
+		  UPDATE MEMBER
+		  SET 
+		  		SNS_LOGIN = 'N',
+				STATUS = 'X'
+		  WHERE NO = #{no}
+	</update>
+	
+	<delete id="deleteSns" parameterType="Member">
+		DELETE 
+		FROM    SNS_MEMBER	
+		WHERE   MEMBER_NO = #{no}
+
+	</delete>
+	
+	<select id="selectMemberAmount" resultMap="memberResultMap">
+		  SELECT
+		    NO,
+		    MEMBERSHIP_CODE,
+		    ID,
+		    PASSWORD,
+		    ROLE,
+		    NICKNAME,
+		    NAME,
+		    BIRTH,
+		    EMAIL,
+		    PHONE,
+		    ADDRESS,
+		    ENROLL_DATE,
+		    MODIFY_DATE,
+		    SNS_LOGIN,
+		    STATUS,
+		    AMOUNT
+		  FROM MEMBER
+		  WHERE NO = #{no}
+	</select>
+	
+	<update id="updateMembershipM2" parameterType="Member">
+		  UPDATE MEMBER
+		  SET MEMBERSHIP_CODE = 'M2'
+		  WHERE NO = #{no}
+	</update>
+	
+	<update id="updateMembershipM3" parameterType="Member">
+		  UPDATE MEMBER
+		  SET MEMBERSHIP_CODE = 'M3'
+		  WHERE NO = #{no}
+	</update>
+	
+	<update id="updateMembershipM4" parameterType="Member">
+		  UPDATE MEMBER
+		  SET MEMBERSHIP_CODE = 'M4'
+		  WHERE NO = #{no}
+	</update>
    </mapper>

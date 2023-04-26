@@ -23,7 +23,9 @@
         	<div class="contentArea">
         		<div id="content1">
  <a href="${ path }/scheduler/main">스케줄러 메인으로</a>
-  <a href="${ path }/myPage/myPageTicket">마이페이지 이동 테스트</a>
+
+  <%@ include file="../views/weather/weather.jsp" %>
+  
 			        <h1>
 					   메인페이지 수정 중
 					</h1>

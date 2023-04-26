@@ -20,6 +20,9 @@
 </head>
 <body>
     <div id="container">
+            <div id="myBanner" >
+            	<img alt="" id="myBannerImg" width="1024px" height="181px" src="${ path }/images/myPage/myPage.jpg"  >
+            </div>
         <section>
             <div id="letftoolbar" class="table table-sm" >
                 <div id="toolbartitle">마이페이지</div>
@@ -43,6 +46,7 @@
                     <div id="qnaboxdate" class="qnabox">작성일</div>
                     <div id="qnaboxcheck" class="qnabox">답변 상태</div>
                 </div>
+                <c:if test="${not empty qnaList}">
 				<div id="qnacontent">
 				    <c:forEach items="${qnaList}" var="qna">
 				        <div id="qnatype" class="qnabox">${qna.type}</div>
@@ -57,7 +61,13 @@
 				        	<div id="qnacheckno" class="qnabox">미답변</div>
 				        </c:if>
 				    </c:forEach>
-				    
+				    </div>
+                </c:if>
+                <c:if test="${empty qnaList}">
+                	<div id="noResult" ><img id="imgNo"  width="110px" height="110px" src="${ path }/images/common/noResult.png" alt=""></div>
+					<div id="noResult">작성하신 1:1 문의 내역이 없습니다.</div>
+                </c:if>
+                
 			<div id="pageBar">
 				<!-- 맨 처음으로 -->
 				<button onclick="location.href='${ path }/myPage/myPageQna?page=1'">&lt;&lt;</button>
@@ -81,12 +91,12 @@
 	
 				<!-- 맨 끝으로 -->
 				<button onclick="location.href='${ path }/myPage/myPageQna?page=${ pageInfo.maxPage }'">&gt;&gt;</button>
-			</div>
+			
 				</div>
                 <div></div>
             </div>
 
-            <button id="writeqnabtn" type="button" class="btn btn-primary btn-sm"  > <a href="${ path }/myPage/myPageQnaWrite">문의 작성하기</a> </button>
+            <button id="writeqnabtn" type="button" class="btn btn-primary btn-sm"  onclick="location.href='${path}/myPage/myPageQnaWrite'" > 문의 작성하기 </button>
             
             
 

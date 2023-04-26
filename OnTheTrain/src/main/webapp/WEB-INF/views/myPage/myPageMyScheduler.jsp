@@ -19,6 +19,9 @@
 </head>
 <body>
     <div id="container">
+            <div id="myBanner" >
+            	<img alt="" id="myBannerImg" width="1024px" height="181px" src="${ path }/images/myPage/myPage.jpg"  >
+            </div>
         <section>
             <div id="letftoolbar" class="table table-sm" >
                 <div id="toolbartitle">마이페이지</div>
@@ -35,40 +38,68 @@
             </div>
 
             <table class="table" id="sctablebody" >
+            
                 <thead class=" table-light">
                     <tr>
                         <th id="scthtitle" >일정 제목</th>
                         <th id="scthevent" >주요 일정</th>
-                        <th id="scthdate">여행 기간</th>
+                        <th id="scthdate">여행 시작일</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td id="sctabletitle" >나의 멋진 일정 1 어쩌구 저쩌구 말줄임표 테스트 테스트 테스트</td>
-                        <td id="sctableevent" >[천안]머드 축제</td>
-                        <td id="sctabledate" >2023/01/01 ~ 2023/01/02</td>
-                    </tr>
-                    <tr>
-                        <td id="sctabletitle" >나의 멋진 일정 2 어쩌구 저쩌구 말줄임표 테스트 테스트 테스트</td>
-                        <td id="sctableevent" >[천안]머드 축제</td>
-                        <td id="sctabledate" >2023/01/01 ~ 2023/01/02</td>
-                    </tr>
-                    <tr>
-                        <td id="sctabletitle" >나의 멋진 일정 3 어쩌구 저쩌구 말줄임표 테스트 테스트 테스트</td>
-                        <td id="sctableevent" >[천안]머드 축제</td>
-                        <td id="sctabledate" >2023/01/01 ~ 2023/01/02</td>
-                    </tr>
+
+						<c:if test="${not empty schedulerList}">	
+							<c:forEach items="${schedulerList}" var="scheduler">
+								<tr>
+									<td id="sctabletitle"><a href="${ path }/myPage/schedulerCreate?no=${ scheduler.no }">${scheduler.title}</a></td>
+									<td id="sctableevent">${scheduler.featured}</td>
+									<td id="sctabledate"><fmt:formatDate pattern="yyyy/MM/dd" value="${scheduler.periodStart}"/></td>
+								</tr>
+							</c:forEach>
+						</c:if>
                 </tbody>
+
             </table>
+            	    <c:if test="${empty schedulerList}" >
+	                	<div id="noResult" ><img id="imgNo"  width="110px" height="110px" src="${ path }/images/common/noResult.png" alt=""></div>
+						<div id="noResult">작성하신 스케줄러가 없습니다.</div>
+                    </c:if>
+			<div id="pageBar">
+				<!-- 맨 처음으로 -->
+				<button onclick="location.href='${ path }/myPage/myPageScheduler?page=1'">&lt;&lt;</button>
+	
+				<!-- 이전 페이지로 -->
+				<button onclick="location.href='${ path }/myPage/myPageScheduler?page=${ pageInfo.prevPage }'">&lt;</button>
+	
+				<!--  5개 페이지 목록 -->
+				<c:forEach begin="${ pageInfo.startPage }" end="${ pageInfo.endPage }" varStatus="status">
+					<c:choose>
+						<c:when test="${ status.current == pageInfo.currentPage}">
+							<button disabled>${ status.current }</button>
+						</c:when>
+						<c:otherwise>						
+							<button onclick="location.href='${ path }/myPage/myPageScheduler?page=${ status.current }'">${ status.current }</button>
+						</c:otherwise>
+					</c:choose>
+				</c:forEach>
+							<!-- 다음 페이지로 -->
+				<button onclick="location.href='${ path }/myPage/myPageScheduler?page=${ pageInfo.nextPage }'">&gt;</button>
+	
+				<!-- 맨 끝으로 -->
+				<button onclick="location.href='${ path }/myPage/myPageScheduler?page=${ pageInfo.maxPage }'">&gt;&gt;</button>
+				</div>
 
+            
 
             
             
 
-
+	
 
             
+        <script src="${ path }/js/myPage/myPageScheduler.js"></script>
         </section>
+				</div>
 </body>
     <footer>
         

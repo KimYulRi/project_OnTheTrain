@@ -57,10 +57,6 @@ a:hover {
 		outline: none;
 	}
 	
-	#btna{
-		color:white;
-	}
-	
 		.inputbtn{
 		
 		border: 0px;
@@ -214,13 +210,17 @@ tr>td{
     background: #00008B;
 }
 
+#withbody{
+	text-align: center;
+}
+
 #withdraw{
     background-color: rgb(212,6,43);
     border: rgb(89, 97, 128);
     border-radius: 7px;
     width: 150px;
     color: white;
-    margin-left: 50px;
+
 }
 
 #withdraw:hover{
@@ -255,3 +255,17 @@ tr>td{
   		display: none;
   		padding: 0 0 0 3px;
 	}
+	
+	
+#withtitle{
+	font-size: 25px;
+	color: rgb(212,6,43);
+	text-align: center;
+}
+
+.with{
+	font-size: 15px;
+	color:  rgb(89, 97, 128);
+	text-align: center;
+	
+}
