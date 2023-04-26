@@ -228,7 +228,10 @@ $(document).ready(() => {
       const reader = new FileReader();
 
       reader.onload = function (upload) {
-        $(components[component].previewImage).attr("src", upload.target.result);
+        $(components[component].fields.previewImage).attr(
+          "src",
+          upload.target.result
+        );
       };
 
       reader.readAsDataURL(file);
@@ -304,7 +307,7 @@ $(document).ready(() => {
 
   //
   function removeComponentById(component, id) {
-    components[component].removeComponentById(id)
+    components[component].removeComponentById(id);
   }
 
   // 특정 객체를 아이디값으로 찾아 배열에서 제거함
@@ -367,7 +370,7 @@ $(document).ready(() => {
   addModalModule.findComponentById = findComponentById;
   addModalModule.resetModalContent = resetModalContent;
   addModalModule.addComponentToWait = addComponentToWait;
-  addModalModule.removeComponentById =removeComponentById;
+  addModalModule.removeComponentById = removeComponentById;
   addModalModule.showDirectAddButton = showDirectAddButton;
   addModalModule.getAddModalComponents = getAddModalComponents;
   addModalModule.renderAPIResultOnModal = renderAPIResultOnModal;
