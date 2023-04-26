@@ -56,7 +56,6 @@ function handleEventChange(args) {
   componentObj.endTime = newEndTime;
 }
 
-$(document).ready(() => {});
 
 const dp = new DayPilot.Calendar("dp", {
   theme: "onthetrain_theme",
@@ -68,6 +67,7 @@ const dp = new DayPilot.Calendar("dp", {
   onTimeRangeSelected: async (args) => {
     args.preventDefault();
     addModalModule.showAddModal(currentComponent);
+    addModalModule.resetModalContent(currentComponent);
     addModalModule.showDirectAddButton();
     dp.clearSelection();
   },
@@ -124,25 +124,5 @@ const events = [
 ];
 
 dp.update({ events });
-
-/*
-// Events can be added to the Calendar using events.add() method.
-var e = new DayPilot.Event({ start: new DayPilot.Date(), end: (new DayPilot.Date()).addHours(5), value: DayPilot.guid(), text: "New Event", resource: 'E' });
-dpc.events.add(e);
-
-//Event updating
-var e = dpc.events.find('123'); dpc.text('New Event Name');
-// update the event textdpc.client.innerHTML('New Event Name');  // update the event HTML
-dpc.events.update(e);
-
-// Event removing
-// Events can be removed using events.remove() method.
-// The object representing the event must be acquired using events.find() or event.findRecurrent().
-var e = dpc.events.find('123');
-dpc.events.remove(e);
-
-//DayPilot.Calendar.events.add
-DayPilot.Calendar.events.add(e, data);
-*/
 
 export { dp, addSchedulerComponent, deleteSchedulerComponent, keyDate };

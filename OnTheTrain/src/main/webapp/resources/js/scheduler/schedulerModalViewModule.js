@@ -60,7 +60,7 @@ $(document).ready(() => {
       }
       hideModal(component);
       let id = componentsView[component].componentIdField.text();
-      addModalModule.removeComponentById(id);
+      addModalModule.removeComponentById(component, id);
     });
   }
 
