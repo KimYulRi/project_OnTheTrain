@@ -60,10 +60,17 @@
 	
 	      <!-- 리뷰 내용 입력 -->
 	      <div class="form-group col-12">
+<<<<<<< HEAD
+	        <textarea id="content" name="content" style="width:300px; height:200px; resize: none;" maxlength="300" placeholder="리뷰를 입력하세요." required v-model="content">${ review.content }</textarea>
+	        <div class="textLengthWrap">
+	          <span class="textCount">${ fn:length(review.content) }자</span>
+	          <span class="textTotal">/300자</span>
+=======
 	        <textarea id="content" name="content" style="width:300px; height:200px; resize: none;" maxlength="150" placeholder="리뷰를 입력하세요." required v-model="content">${ review.content }</textarea>
 	        <div class="textLengthWrap">
 	          <span class="textCount">${ fn:length(review.content) }자</span>
 	          <span class="textTotal">/150자</span>
+>>>>>>> main
 	        </div>
 	      </div>
 	      <button class="apply-button" @click.prevent="submitReview">리뷰수정</button>
@@ -92,11 +99,19 @@
             }
 
             // 글자수 제한
+<<<<<<< HEAD
+            if (content.length > 300) {
+                // 200자 부터는 타이핑 되지 않도록
+                $(this).val($(this).val().substring(0, 200));
+                // 200자 넘으면 알림창 뜨도록
+                alert('글자수는 300자까지 입력 가능합니다.');
+=======
             if (content.length > 150) {
                 // 150자 부터는 타이핑 되지 않도록
                 $(this).val($(this).val().substring(0, 150));
                 // 150자 넘으면 알림창 뜨도록
                 alert('글자수는 150자까지 입력 가능합니다.');
+>>>>>>> main
             };
         });
     });

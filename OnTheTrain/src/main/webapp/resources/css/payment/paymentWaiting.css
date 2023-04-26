@@ -1,0 +1,169 @@
+@charset "UTF-8";
+
+/* Group 236 */
+
+position: absolute;
+width: 550px;
+height: 150px;
+left: 261px;
+top: 370px;
+
+
+
+/* 상품 */
+
+position: absolute;
+width: 504.78px;
+height: 150px;
+left: 306.22px;
+top: 370px;
+
+
+
+/* Rectangle 159 */
+
+box-sizing: border-box;
+
+position: absolute;
+width: 503.88px;
+height: 150px;
+left: 307.12px;
+top: 370px;
+
+background: #FFFFFF;
+/* 상하좌우 */
+box-shadow: 0px 4px 4px 2px rgba(0, 0, 0, 0.2), inset 0px 2px 2px rgba(0, 0, 0, 0.25);
+border-radius: 10px;
+
+
+/* 상품명 : 제주 신라 호텔 위치 : 중문 해수욕장, 서귀포 예약 정보 : 1박, 성인 2명 예약일 : 2023 / 04 / 20 */
+
+position: absolute;
+width: 237.54px;
+height: 148.05px;
+left: 451.09px;
+top: 371.95px;
+
+/* 기본 내용 */
+font-family: 'Noto Sans KR';
+font-style: normal;
+font-weight: 400;
+font-size: 16px;
+line-height: 23px;
+display: flex;
+align-items: center;
+
+color: #000000;
+
+
+
+/* Rectangle 160 */
+
+position: absolute;
+width: 144.87px;
+height: 149.03px;
+left: 306.22px;
+top: 370.97px;
+
+background: url(asdfsfda.png);
+border-radius: 10px;
+
+
+/* Group 160 */
+
+position: absolute;
+width: 63.1px;
+height: 29.22px;
+left: 728.97px;
+top: 484.94px;
+
+
+
+/* Rectangle 37 */
+
+position: absolute;
+left: 0%;
+right: 0%;
+top: 0%;
+bottom: 0%;
+
+/* 옅은 글씨, 클릭전
+
+클릭 전의 기본 버튼색상
+*/
+background: #596180;
+border-radius: 5px;
+
+
+/* 적용 */
+
+position: absolute;
+left: 12.7%;
+right: 12.81%;
+top: 23.53%;
+bottom: 18.29%;
+
+font-family: 'Noto Sans KR';
+font-style: normal;
+font-weight: 400;
+font-size: 12px;
+line-height: 17px;
+text-align: center;
+
+color: #FFFDFD;
+
+
+
+/* 상품 가격 :  */
+
+position: absolute;
+width: 179.96px;
+height: 19.48px;
+left: 569.13px;
+top: 489.81px;
+
+font-family: 'Noto Sans KR';
+font-style: normal;
+font-weight: 400;
+font-size: 12px;
+line-height: 17px;
+text-align: center;
+
+color: #000000;
+
+
+
+/* checkbox */
+
+position: absolute;
+width: 15.77px;
+height: 15px;
+left: 261px;
+top: 437px;
+
+
+
+/* Rectangle 63 */
+
+position: absolute;
+left: 0%;
+right: 0%;
+top: 0%;
+bottom: 0%;
+
+
+
+/* Rectangle 63 */
+
+box-sizing: border-box;
+
+position: absolute;
+left: 0%;
+right: 0%;
+top: 0%;
+bottom: 0%;
+
+background: #FFFFFF;
+border: 0.5px solid #000000;
+box-shadow: inset 0px 0px 2px 3px rgba(0, 0, 0, 0.2);
+border-radius: 3px;
