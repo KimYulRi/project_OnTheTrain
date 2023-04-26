@@ -50,7 +50,12 @@
       </div>
       
        <div class="content" id="content-btn">
-        <button class="qnaBtn" onclick="toQna()">문의하기</button>
+       	<c:if test="${ empty loginMember }">
+        	<button class="qnaBtn" onclick="alertfunction()">문의하기</button>
+        </c:if>
+       	<c:if test="${ not empty loginMember }">
+        	<button class="qnaBtn" onclick="toQna()">문의하기</button>
+        </c:if>
       </div>  
   </div>
 </section>
@@ -58,6 +63,10 @@
 	function toQna() {
 		  window.location.href = "${ path }/myPage/myPageQnaWrite";
 		}
+	function alertfunction(){
+		alert("로그인이 필요한 서비스입니다.");
+		window.location.href = "${ path }/login";
+	}
 	</script>
 
     <script src="${path}/bootstrap5/assets/js/bootstrap.bundle.min.js"></script>

@@ -190,7 +190,7 @@
 				QNA_DATE,
 				VISABLE
 		FROM 	QNA_REPLY
-		WHERE	QNA_NO=#{no}
+		WHERE   VISABLE ='Y' AND QNA_NO=#{no}
 	</select>
 	
 	<!-- 문의 답변이 달릴경우에 check 상태를 바꿔주는 쿼리문 -->
