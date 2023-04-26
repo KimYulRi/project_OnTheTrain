@@ -9,14 +9,19 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Payment {
+public class PaymentWaiting {
+	private int paymentWaitingNo;
+	
 	private int paymentNo;
 	
-	private int memberNo;
+	private int ticketNo;
 	
-	private int couponNo;
+	private int reservationNo;
 	
-	private int finalPayment;
+	private String paymentStatus;
 	
-	private Date paymentDate;
+	private String refundStatus;
+	
+	private Date refundDate;
+		
 }

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.kh.onthetrain.payment.model.mapper.PaymentMapper">
+
+	<sql id="">
+		SELECT PAYMENT
+	</sql>
+
+	<!-- 결제대기 페이징 -->
+	<select id="selectPaymentWaitingListByMemberNoAndStatus" parameterType="int" resultType="com.example.model.PaymentWaiting">
+	  SELECT WAITING_NO, PAYMENT_NO, TICKET_NO, RESERVATION_NO, PAYMENT_STATUS, REFUND_STATUS, REFUND_DATE
+	  FROM PAYMENT_WAITING
+	  WHERE MEMBER_NO = #{memberNo} AND PAYMENT_STATUS = 'N'
+	</select>
+	
+
+
+
+
+
+
+
+</mapper>
