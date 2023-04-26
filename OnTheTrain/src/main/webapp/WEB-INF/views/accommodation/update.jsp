@@ -60,17 +60,11 @@
 	
 	      <!-- 리뷰 내용 입력 -->
 	      <div class="form-group col-12">
-<<<<<<< HEAD
-	        <textarea id="content" name="content" style="width:300px; height:200px; resize: none;" maxlength="300" placeholder="리뷰를 입력하세요." required v-model="content">${ review.content }</textarea>
-	        <div class="textLengthWrap">
-	          <span class="textCount">${ fn:length(review.content) }자</span>
-	          <span class="textTotal">/300자</span>
-=======
+
 	        <textarea id="content" name="content" style="width:300px; height:200px; resize: none;" maxlength="150" placeholder="리뷰를 입력하세요." required v-model="content">${ review.content }</textarea>
 	        <div class="textLengthWrap">
 	          <span class="textCount">${ fn:length(review.content) }자</span>
 	          <span class="textTotal">/150자</span>
->>>>>>> main
 	        </div>
 	      </div>
 	      <button class="apply-button" @click.prevent="submitReview">리뷰수정</button>
