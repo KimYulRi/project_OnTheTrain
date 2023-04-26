@@ -14,6 +14,7 @@ import com.kh.onthetrain.admin.model.vo.Notice;
 import com.kh.onthetrain.common.util.PageInfo;
 import com.kh.onthetrain.member.model.vo.Member;
 import com.kh.onthetrain.myPage.model.entity.Qna;
+import com.kh.onthetrain.myPage.model.entity.QnaReply;
 
 @Service
 public class AdminServiceImpl implements AdminService {
@@ -117,6 +118,35 @@ public class AdminServiceImpl implements AdminService {
 	public List<Qna> getQnaList(PageInfo pageInfo){
 		List<Qna> list = mapper.selectQnaList();
 		return list;
+	}
+	
+	// 문의 답글 수정
+	@Override
+	public 
+	int updateQnaReply(QnaReply reply) {
+		
+		int result = 0;
+		
+		if(reply.getQnaReplyNo() > 0) {
+			//update
+			result = mapper.updateQnaReply(reply);
+		}else {
+			// insert
+		}
+		
+		return result;
+	}
+	
+	// 문의 답변 삭제
+	@Override
+	@Transactional
+	public int replyDelete(int no, int replyno) {
+		int result = mapper.deleteReply(replyno);
+		if(result > 0) {
+			return mapper.updateQnaDelteReply(no);
+		}else {
+			return result;
+		}
 	}
 	
 	

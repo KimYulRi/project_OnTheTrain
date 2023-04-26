@@ -21,7 +21,8 @@ h1, h2, h3, h4, h5, h6{
 
  /* 글 작성 버튼 */
  #btnarea{
- 	margin:20px 0 0 0px;
+ display:flex;
+ 	justify-content: center;
  }
  
  .qnaBtn{
@@ -37,15 +38,19 @@ h1, h2, h3, h4, h5, h6{
      background-color:#00008B;
      color: #ffffff;
  }
-
+ .qnaBtn:focus{
+     outline:none;
+ }
 
  /* 테이블(리스트) 영역  */
 
  #noticetable{
  	border-top: 0.5px solid #2C3E50;
  	border-bottom:  0.5px solid #2C3E50;
- 	margin-bottom: 20px;
- }
+ 	margin-bottom: 20px; 
+ 	padding: 30px;
+ 	width: 95%;
+ 	}
  
  .table .paddingtd {
  	width: 15%;
@@ -60,13 +65,13 @@ h1, h2, h3, h4, h5, h6{
 	padding-left: 20px;
 	font-size: 18px;
 	font-weight: 600;
-}
+}/* 
 #tbcontent1 {
  	padding-left: 50px;
 }
 #tbcontent2 {
- 	paddingg-left: 100px;
-}
+ 	paddingg-left: 50px;
+} */
 table>thead{
   border-bottom: 1px solid #D3D2D2;
   padding-bottom: 30px;
@@ -129,4 +134,5 @@ table>tbody>.trcontent
 .headhead{
 	padding-left: 10px;
 	color: #00008B;
+}
 }

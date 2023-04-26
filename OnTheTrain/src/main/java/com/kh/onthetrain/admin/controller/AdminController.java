@@ -227,6 +227,47 @@ public class AdminController {
 		return model;
 		}
 	
+	// 문의 답글 수정
+	@PostMapping("/admin/qna/reply")
+	public ModelAndView QnaUpdateReply(ModelAndView modelAndView,  @ModelAttribute QnaReply reply) {
+		
+		int result = 0;
+		System.out.println("업데이트 확인" + reply);
+		result = service.updateQnaReply(reply);
+		
+		if(result > 0) {
+			modelAndView.addObject("msg", "답글이 정상적으로 수정되었습니다.");
+		} else {
+			modelAndView.addObject("msg", "답글 수정을 실패하였습니다.");
+		}
+		
+		modelAndView.addObject("location", "/admin/qna/view?no=" + reply.getQnaNo());								
+		modelAndView.setViewName("common/msg");
+		
+	
+		return modelAndView;
+		}
+	
+
+	// 문의 답변 삭제
+	@GetMapping(value = "/admin/qna/delete")
+	public ModelAndView qnaReplyDelete(ModelAndView modelAndView, @RequestParam int no, @RequestParam int replyno) {
+		
+		int result = service.replyDelete(no, replyno);
+		
+		if(result > 0) {
+				modelAndView.addObject("msg", "답변이 삭제 되었습니다.");
+		} else {
+				modelAndView.addObject("msg", "다시 삭제해주세요.");
+		}
+		
+		modelAndView.addObject("location", "/admin/qna/view?no=" + no);
+		modelAndView.setViewName("common/msg");
+		
+		return modelAndView;
+	}
+	
+	
 	
 	/* 고객센터 */
 	

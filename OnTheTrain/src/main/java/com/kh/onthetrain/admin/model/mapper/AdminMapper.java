@@ -11,6 +11,7 @@ import com.kh.onthetrain.admin.model.vo.Faq;
 import com.kh.onthetrain.admin.model.vo.Notice;
 import com.kh.onthetrain.member.model.vo.Member;
 import com.kh.onthetrain.myPage.model.entity.Qna;
+import com.kh.onthetrain.myPage.model.entity.QnaReply;
 
 @Mapper
 public interface AdminMapper {
@@ -35,6 +36,9 @@ public interface AdminMapper {
 	/* 1:1문의 */
 	int countQna();
 	List<Qna> selectQnaList();
+	int updateQnaReply(QnaReply reply);
+	int deleteReply(@Param("replyno") int replyno);
+	int updateQnaDelteReply(@Param("no") int no);
 	
 	/* 자주 묻는 질문 */
 	List<Faq> selectFaqList();
@@ -57,6 +61,9 @@ public interface AdminMapper {
 	int deleteFix();
 
 	int updateNotice(Notice notice);
+
+
+
 
 
 

@@ -8,6 +8,7 @@ import com.kh.onthetrain.admin.model.vo.Notice;
 import com.kh.onthetrain.common.util.PageInfo;
 import com.kh.onthetrain.member.model.vo.Member;
 import com.kh.onthetrain.myPage.model.entity.Qna;
+import com.kh.onthetrain.myPage.model.entity.QnaReply;
 
 public interface AdminService {
 
@@ -44,6 +45,11 @@ public interface AdminService {
 	// 문의 리스트
 	List<Qna> getQnaList(PageInfo pageInfo);
 	
+	// 문의 답글 수정
+	int updateQnaReply(QnaReply reply);
+	
+	// 문의 답변 삭제
+	int replyDelete(int no, int replyno);
 	
 	
 	
@@ -73,6 +79,7 @@ public interface AdminService {
 	
 	// 공지사항 삭제
 	int noticeDelete(int no);
+
 
 
 
