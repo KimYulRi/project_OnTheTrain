@@ -69,7 +69,6 @@ function getEventArrayAndIndexById(id) {
   // addedEvents 배열에서 찾기
   for (let i = 0; i < addedEvents.length; i++) {
     if (addedEvents[i].id === id) {
-    
       arrayAndIndex.array = addedEvents;
       arrayAndIndex.index = i;
       return arrayAndIndex;
@@ -79,7 +78,6 @@ function getEventArrayAndIndexById(id) {
   // waitEvents 배열에서 찾기
   for (let i = 0; i < waitEvents.length; i++) {
     if (waitEvents[i].id === id) {
-     
       arrayAndIndex.array = waitEvents;
       arrayAndIndex.index = i;
       return arrayAndIndex;
@@ -89,7 +87,6 @@ function getEventArrayAndIndexById(id) {
   // APIEvents 배열에서 찾기
   for (let i = 0; i < APIEvents.length; i++) {
     if (APIEvents[i].id === id) {
- 
       arrayAndIndex.array = APIEvents;
       arrayAndIndex.index = i;
       return arrayAndIndex;
@@ -126,6 +123,21 @@ function toWaitEvent(id) {
   let targetEvent = arrayfrom.splice(idx, 1)[0];
   waitEvents.push(targetEvent);
 }
+
+// 아이디로 이벤트 객체 제거
+function removeEventById(id) {
+  let arrayAndIndex = getEventArrayAndIndexById(id);
+  if ($(arrayAndIndex)) {
+    // arrayAndIndex와 arrayAndIndex.array가 모두 있는지 확인
+    let array = arrayAndIndex.array;
+    let index = arrayAndIndex.index;
+
+    array.splice(index, 1);
+  } else {
+    console.log(`해당 id를 가진 일정이 없습니다`);
+  }
+}
+
 // 추가된 일정이나 대기 중인 일정에서 이벤트 객체를 제거하는 함수
 function removeEventFromArray(arr, id) {
   let idx = findIndexFromArrayById(arr, id);
@@ -158,7 +170,7 @@ function createEventObject(fields) {
 // API로 받아오는 객체 함수 정의
 function createAPIEventObject(APIEventINFO, imageUrl) {
   const APIEvent = {
-    id : createEventId(),
+    id: createEventId(),
     addr1: APIEventINFO.addr1 || "",
     addr2: APIEventINFO.addr2 || "",
     booktour: APIEventINFO.booktour || "",
@@ -259,7 +271,6 @@ function renderAPIEventOnModal(event) {
 }
 
 function transAPIobjToEvent(apievent) {
-  
   const event = {
     id: createEventId(),
     component: "event",
@@ -275,7 +286,6 @@ function transAPIobjToEvent(apievent) {
   return event;
 }
 
-
 export {
   waitEvents,
   addedEvents,
@@ -285,6 +295,7 @@ export {
   createEventId,
   findEventById,
   resetEventModal,
+  removeEventById,
   createEventObject,
   renderEventOnModal,
   transAPIobjToEvent,

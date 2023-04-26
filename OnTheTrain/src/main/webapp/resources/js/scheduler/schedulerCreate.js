@@ -13,6 +13,11 @@ const waitComponentList = $("#waitComponentList");
 const addedComponentList = $("#addedComponent");
 const schedulerCreateModule = {};
 
+import {
+  addSchedulerComponent,
+  deleteSchedulerComponent,
+} from "./calender/schedulerCreateCalender.js";
+
 // 추가 대기 중인 요소 삭제 모드
 let waitDeleteMode = false;
 
@@ -243,6 +248,7 @@ $(document).ready(function () {
         .text("삭제모드ON")
         .addClass("delete-buttonOn");
       $("#deleteAllWait-button").show();
+      $("#deleteAllWait-button").css("display", "inline-block");
     } else {
       $("#waitDeleteMode-button")
         .text("삭제모드OFF")
@@ -259,12 +265,12 @@ $(document).ready(function () {
           .on("click", (event) => {
             event.stopPropagation();
             let component = getCurrentComponent();
-            let cardId = $(card).attr("id");
+            let componentId = $(card).attr("id");
             // 객체 배열에서도 삭제
             addModalModule.removeFromArray(
               component,
               addModalModule.getAddModalComponents()[component].waitList,
-              cardId
+              componentId
             );
             $(card).remove();
           });
@@ -335,8 +341,10 @@ $(document).ready(function () {
         dropType === "noAddedComponentArea"
       ) {
         addModalModule.toAddedList(currentComponent, componentid);
+        addSchedulerComponent(addModalModule.findComponentById(currentComponent,componentid));
       } else if (dropType === "waitComponentList") {
         addModalModule.toWaitList(currentComponent, componentid);
+        deleteSchedulerComponent(componentid);
       }
 
       console.log(

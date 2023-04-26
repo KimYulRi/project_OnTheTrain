@@ -13,6 +13,7 @@ import {
   toAddedEvent,
   findEventById,
   resetEventModal,
+  removeEventById,
   createEventObject,
   setAddModalByEvent,
   createAPIEventObject,
@@ -21,7 +22,10 @@ import {
   findEventFromArrayById,
   getEventArrayAndIndexById,
 } from "./schedulerComponent/schedulerEventModule.js";
+
 import { viewModalMoudule } from "./schedulerModalViewModule.js";
+
+import { addSchedulerComponent } from "./calender/schedulerCreateCalender.js";
 
 const waitComponentList = $("#waitComponentList");
 const addedComponentList = $("#addedComponent");
@@ -93,6 +97,7 @@ $(document).ready(() => {
       createObject: createEventObject,
       findComponentById: findEventById,
       resetModalContent: resetEventModal,
+      removeComponentById: removeEventById,
       removeFromArray: removeEventFromArray,
       setAddModalByComponent: setAddModalByEvent,
       renderAPIResultOnModal: renderAPIEventOnModal,
@@ -153,6 +158,7 @@ $(document).ready(() => {
 
   function hideAddModal(component) {
     $(components[component].modal).hide();
+    showBasicButton();
   }
 
   // 모달창 초기화 버튼 기능
@@ -268,6 +274,9 @@ $(document).ready(() => {
     );
 
     components[currentComponent].addedList.push(componentObj);
+
+    addSchedulerComponent(componentObj);
+
     hideAddModal(currentComponent);
     resetModalContent(currentComponent);
   }
@@ -291,6 +300,11 @@ $(document).ready(() => {
   function findComponentById(component, id) {
     let componentObj = components[component].findComponentById(id);
     return componentObj;
+  }
+
+  //
+  function removeComponentById(component, id) {
+    components[component].removeComponentById(id)
   }
 
   // 특정 객체를 아이디값으로 찾아 배열에서 제거함
@@ -353,6 +367,7 @@ $(document).ready(() => {
   addModalModule.findComponentById = findComponentById;
   addModalModule.resetModalContent = resetModalContent;
   addModalModule.addComponentToWait = addComponentToWait;
+  addModalModule.removeComponentById =removeComponentById;
   addModalModule.showDirectAddButton = showDirectAddButton;
   addModalModule.getAddModalComponents = getAddModalComponents;
   addModalModule.renderAPIResultOnModal = renderAPIResultOnModal;
