@@ -1,14 +1,23 @@
 package com.kh.onthetrain.coupon.model.mapper;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import com.kh.onthetrain.coupon.model.vo.Coupon;
+import com.kh.onthetrain.coupon.model.vo.MyCoupon;
 
 @Mapper
 public interface CouponMapper {
 	
-	Coupon selectCouponByMemberId(@Param("m_no") int m_no);
+	List<MyCoupon> selectMyCouponListByMemberNo(@Param("memberNo") int memberNo);
 	
-	Coupon updateExpiredOrUsedCoupon(@Param("m_no") int m_no, @Param("c_no") int c_no);
+	int updateUsedCoupon(@Param("memberNo") int memberNo, @Param("couponNo") int couponNo);
+	
+	void updateExpiredCoupon(@Param("now") java.sql.Timestamp now);
+	
+	int insertCouponByAdmin(Coupon coupon);
 }

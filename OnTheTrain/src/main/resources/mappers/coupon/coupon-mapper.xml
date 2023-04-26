@@ -3,36 +3,58 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 
 <mapper namespace="com.kh.onthetrain.coupon.model.mapper.CouponMapper">
-
+	
 	<sql id="selectCoupon">
-		SELECT COUPON_NO,
-			   MEMBER_NO,
-			   COUPON_NAME,
-			   EXPIRATION_DATE,
-			   DISCOUNT_RATE,
-			   DISCOUNT_AMOUNT
-		FROM COUPON
+		SELECT C.COUPON_NO,
+			   C.COUPON_NAME,
+			   C.DISCOUNT_RATE,
+			   C.DISCOUNT_AMOUNT,
+			   M.MEMBER_NO,
+			   M.COUPON_STATUS,
+			   M.EXPIRATION_DATE
+		FROM COUPON C JOIN MYCOUPON M ON C.COUPON_NO = M.COUPON_NO
 	</sql>
 	
-	<resultMap id="couponResultMap" type="Coupon">
-		<id property="couponId" column="COUPON_NO"/>
-		<result property="memberId" column="MEMBER_NO"/>
+	<resultMap id="couponResultMap" type="com.kh.onthetrain.coupon.model.vo.Coupon">
+		<id property="couponNo" column="COUPON_NO"/>
 		<result property="couponName" column="COUPON_NAME"/>
-		<result property="expDate" column="EXPIRATION_DATE"/>
-		<result property="status" column="COUPON_STATUS"/>
 		<result property="disRate" column="DISCOUNT_RATE"/>
-		<result property="disAmount" column="DICOUNT_AMOUNT"/>
+		<result property="disAmount" column="DISCOUNT_AMOUNT"/>
 	</resultMap>
+	
+	<resultMap id="myCouponResultMap" type="com.kh.onthetrain.coupon.model.vo.MyCoupon">
+		<id property="memberNo" column="MEMBER_NO"/>
+		<result property="status" column="COUPON_STATUS"/>
+		<result property="expDate" column="EXPIRATION_DATE"/>
+	</resultMap>
+	
 
-	<select id="selectCouponByMemberId" parameterType="_int" resultMap="couponResultMap">
+	<select id="selectMyCouponListByMemberNo" parameterType="_int" resultMap="couponResultMap">
 		<include refid="selectCoupon"/>
-		WHERE COUPON_STATUS = 'Y' AND MEMBER_NO = {no}
+		WHERE COUPON_STATUS = 'Y' AND MEMBER_NO = {memberNo}
 	</select>
 	
-	<update id="updateExpiredOrUsedCoupon" parameterType="_int">
-		UPDATE COUPON
+	<insert id="insertCouponByAdmin" parameterType="com.kh.onthetrain.coupon.model.vo.Coupon">
+		INSERT INTO COUPON(COUPON_NO, COUPON_NAME, DISCOUNT_RATE, DISCOUNT_AMOUNT)
+    	VALUES (SEQ_COUPON.NEXTVAL, #{couponName},
+    			<if test="disRate != null">#{disRate},</if>
+    			<if test="disAmount != null">#{disAmount}</if>
+    			)
+	</insert>
+	
+	<update id="updateUsedCoupon" parameterType="_int">
+		UPDATE MYCOUPON
 		SET	   COUPON_STATUS = 'N'
-		WHERE  MEMBER_NO = #{m_no} AND COUPON_NO = {c_no}
+		WHERE  MEMBER_NO = #{memberNo} 
+		AND COUPON_NO = #{couponNo}
+		AND COUPON_STATUS = 'Y'
+	</update>
+	
+	<update id="updateExpiredCoupon">
+		UPDATE MYCOUPON
+		SET	   COUPON_STATUS = 'N'
+		WHERE  COUPON_STATUS = 'Y' 
+		AND EXPIRATION_DATE &lt;= #{now}
 	</update>
 	
 

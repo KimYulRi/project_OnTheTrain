@@ -1,7 +1,7 @@
-window.payment = {}; // 전역 객체 선언
+// 전역 객체 선언
+window.payment = {}; 
 
-window.payment.path = "<%=request.getContextPath()%>"; // path 변수를 자바스크립트에서 사용할 수 있는 형태로 변환
-console.log(payment.path); // path 변수 값 출력
+window.payment.path = "<%=request.getContextPath()%>";
 
 window.payment.requestPay = function () {
   // 함수 내용
@@ -45,13 +45,36 @@ window.onload = function() {
 
   modalOpenBtn.addEventListener("click", function() {
     modal.style.display = "flex";
+    
+    $.ajax({
+    	type: 'GET',
+    	url: '${ path }/getcoupon',
+    	dataType: 'json',
+    	data: {
+    		myCoupon
+    	},
+    	success: (obj) => {
+    		console.log(obj);
+    		
+    		if(obj !== null) {
+    		
+    		
+    		}
+    		
+    			
+    	}
+    	
+    
+    
+    });
+    
+    
+    
   });
 
   modalCloseBtn.addEventListener("click", function() {
     modal.style.display = "none";
   });
 };
-
-
 
 

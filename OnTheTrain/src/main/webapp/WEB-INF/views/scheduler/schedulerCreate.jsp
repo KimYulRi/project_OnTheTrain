@@ -4,6 +4,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 
+
 <c:set var="path" value="${ pageContext.request.contextPath }" />
 
 <!DOCTYPE html>
@@ -14,57 +15,120 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link href="${ path }/css/scheduler/schedulerCreate.css"
 	rel="stylesheet" type="text/css">
-<!-- 
-<link href="${ path }/css/scheduler/schedulerModal.css" rel="stylesheet"
-	type="text/css">
- -->
- <link rel="stylesheet" type="text/css"
-	href="${ path }/css/common/modal.css">
+<link rel="stylesheet" type="text/css"
+	href="${ path }/css/scheduler/schedulerModal.css">
+<link rel="stylesheet" type="text/css"
+	href="${ path }/css/scheduler/calender/onthetrain_theme.css">
 <script src="${ path }/js/common/jquery-3.6.3.js"></script>
+<link rel="stylesheet"
+	href="${ path }/css/scheduler/jquery-ui.schdeuler.css">
+<script src="${ path }/js/common/jquery-ui.min.js"></script>
 <title>Document</title>
 <link>
 </head>
 <body>
 	<article>
 		<div id="schedulerBanner">스케줄러</div>
+		<div id="schedulerTitle">나의 멋진 일정</div>
+		<div></div>
 		<div id="scheduler">
-			<div id="schedulerTitle">나의 멋진 일정</div>
-			<div id="schedulerCalender"></div>
-			<div id="schedulerSidemenu"></div>
+			<div id="schedulerCalender" class="calendarContainer">
+				<div id="dp"></div>
+			</div>
+			<div id="schedulerSidemenu">
+				<div class="sideMenuIcon">아이콘1</div>
+				<div class="sideMenuIcon">아이콘2</div>
+				<div class="sideMenuIcon">아이콘3</div>
+				<div class="sideMenuIcon">아이콘4</div>
+			</div>
 		</div>
+		<br>
 		<div id="schedulerComponents">
 			<div id="selectComponent">
-				<button>prev</button>
-				<div class="componentText">일정</div>
-				<div class="componentText">숙소</div>
-				<div class="componentText">승차권</div>
-				<button>next</button>
+				<div class="componentText" data-component="event">일정</div>
+				<div class="componentText" data-component="accommodation">숙소</div>
+				<div class="componentText" data-component="ticket">승차권</div>
 			</div>
-			<hr>
-			<div class="title">추가된 ${componentName}</div>
-			<div id="addedComponent" class="components">
-				<div class="card">
-					<div class="cardThumbnail"></div>
-					<div class="cardBrief">
-						<div class="cardTitle">cardTitle</div>
-						<div class="cardRequiredDetail">cardRequiredDetail</div>
-						<div class="cardOptionalDetail">cardOptionalDetail</div>
+		</div>
+		<hr>
+		<div class="title">
+			추가된
+			<div class="componentName">${basicComponent}</div>
+		</div>
+		<div id="addedComponent" class="components">
+			<div id="noAddedComponentArea">
+				<div class="noAddedComponent">
+					<div class="noComponentImg"></div>
+					<div class="noComponentMsg">
+						추가된
+						<div class="componentName">${basicComponent}</div>
+						없음
 					</div>
 				</div>
 			</div>
-			<hr>
-			<div class="title">추가 대기 중인 ${componentName}</div>
-			<div id="waitComponent" class="components">
-				<div class="addCard">
+		</div>
+		<hr>
+		<div class="title">
+			추가 대기 중인
+			<div class="componentName">${basicComponent}</div>
+			<button id="waitDeleteMode-button" class="delete-button">삭제모드OFF</button>
+			<button id="deleteAllWait-button" class="delete-button">모두
+				삭제</button>
+		</div>
+		<div id="waitComponentList" class="components">
+			<div id="addCard">
+				<div>
 					<button>+</button>
 				</div>
 			</div>
-			<hr>
-			<div class="title">${componentName}일정조회</div>
-			<div id="searchComponent"></div>
+		<!--  <div class="card" draggable="true">TestCard</div>  -->
 		</div>
-		<jsp:include page="../common/modal.jsp" />
-		<script src="${ path }/js/common/modal.js"></script>
+		<hr>
+		<div class="title">
+			<div class="componentName">${basicComponent}</div>
+			조회
+			<div class="explantion">(*는 필수 입력 정보입니다)</div>
+		</div>
+		<div id="componentSearchArea">
+			<div id="eventSearch">
+				<select name="locationCode">
+					<option>지역 선택</option>
+					<option value="">전체</option>
+					<c:forEach var="location" items="${locationCodeList}">
+						<option value="${location.code}">${location.name}</option>
+					</c:forEach>
+				</select>
+				<div class="explantion">에서</div>
+			</div>
+			<input type="date" id="eventStartDate" name="startDate">
+			<div class="explantion">(*)부터</div>
+			<input type="date" id="eventEndDate" name="endDate">
+			<div class="explantion">까지 열리는 행사를 찾습니다.</div>
+			<button id="searchEvent-button" class="search-button">검색</button>
+			<hr>
+		</div>
+		<br>
+		<div id="eventList" class="components"></div>
+		<div id="noResultArea">
+			<div class="noResult">
+				<div class="noResultImg"></div>
+				<div class="line-break"></div>
+				<div class="noResultMsg">조회된 결과가 없습니다.</div>
+			</div>
+		</div>
+		<jsp:include page="./schedulerModal.jsp" />
+		<jsp:include page="./schedulerModalView.jsp" />
+		<script type="text/javascript" charset="utf-8">
+			sessionStorage.setItem("currentComponent", "${currentComponent}");
+		</script>
+		<script src="${ path }/js/scheduler/calender/daypilot-all.min.js"></script>
+		<script type="module"
+			src="${ path }/js/scheduler/schedulerModalModule.js"></script>
+		<script type="module" src="${ path }/js/scheduler/schedulerCreate.js"></script>
+		<script type="module"
+			src="${ path }/js/scheduler/schedulerModalViewModule.js"></script>
+		<script
+			src="${ path }/js/scheduler/calender/schedulerCreateCalender.js"></script>
 	</article>
 </body>
 </html>

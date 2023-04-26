@@ -1,0 +1,201 @@
+@charset "UTF-8";
+
+html, body{
+    width: 1200px;
+    height: 100%;
+    /* border: 1px solid black; */
+    margin: 0 auto;
+
+}
+div{
+    font-family: 'Noto Sans KR';
+    
+}
+
+
+section{
+    width: 1024px;
+    height: 100%;
+    /* border: 1px solid red; */
+    margin: 0 auto;
+
+}
+
+a {
+	text-decoration:none !important;
+	color:black !important;
+	
+	}
+a:hover {
+	text-decoration:none !important 
+	}
+
+#container{
+	margin-top: 150px;
+    width: 100%;
+    height: 100%;
+
+
+}
+
+#mypagechoose{
+    color: rgb(39, 76, 227);
+    font-weight: 700;
+}
+
+
+#toolbartitle{
+    font-size: larger;
+    font-weight: 900;
+    padding-bottom: 10px;
+    border-bottom: 2px solid;
+}
+
+#letftoolbar{
+    height: 100%;
+    width: 15%;
+    float: left;
+}
+
+
+
+.toolbarcontent{
+    border-bottom: 1px solid gray;
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
+
+
+
+
+
+#toptoolbar{
+    width: 80%;
+    height: 8%;
+    float: left;
+    margin-left: 50px;
+}
+
+#toptoolbartitle{
+    text-align: left;
+    font-weight: 900;
+    font-size: larger;
+}
+
+#qnawritebody{
+    border-top: 2px solid black;
+    margin-left: 50px;
+    width: 80%;
+    float: left;
+}
+.qna{
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.qnaline{
+    clear: both;
+}
+
+#qnatypetitle{
+    float: left;
+}
+#qnatypecontent{
+
+    margin-left: 50px;
+    float: left;
+}
+
+#qnatype{
+    border-radius: 7px;
+}
+
+#qnatitletile{
+    float: left;
+}
+
+
+#qnatitlecontent{
+    margin-left: 79px;
+    float: left;
+}
+
+#qnatitleinput{
+    width: 100%;
+    height: 100%;
+    border-radius: 7px;
+    resize: none;
+}
+
+#qnacontenttitle{
+    float: left;
+}
+
+#qnacontentcontent{
+    margin-left: 79px;
+    float: left;
+}
+
+#qnacontentinput{
+    width: 100%;
+    height: 100%;
+    border-radius: 7px;
+    resize: none;
+}
+
+#qnafiletitle{
+    float: left;
+}
+#qnafilecontent{
+    margin-left: 50px;
+    float: left;
+}
+
+#filebtn{
+    width: 100px;
+    height: 30px;
+    border-radius: 7px;
+    background-color: rgb(89, 97, 128);
+    border: rgb(89, 97, 128);
+    color: white;
+    margin-right: 5px;
+}
+
+#filebtn:hover{
+    background: #00008B;
+}
+
+#qnabottombtn{
+    width: 75%;
+    height: auto;
+    margin-top: 60px;
+    margin-left: 300px;
+}
+
+#qnasubmit{
+    border: none;
+    color: white;
+    background-color:  #596180;
+
+    border-radius: 7px;
+    width: 100px;
+    height: 40px;
+}
+
+#qnacancle{
+    border: none;
+    color: white;
+    background-color: #D4062B;
+    margin-left: 30px;
+    border-radius: 7px;
+    width: 70px;
+    height: 40px;
+}
+
+#qnasubmit:hover{
+    background: #00008B;
+}
+
+#qnacancle:hover{
+    background: #770B1E;
+}

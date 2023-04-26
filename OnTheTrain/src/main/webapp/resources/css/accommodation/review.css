@@ -1,0 +1,264 @@
+@charset "UTF-8";
+
+@font-face {
+	font-family: 'Noto Sans';
+	src: url('../../font/common/NotoSansKR-Medium.otf') format('truetype');
+}
+
+/* 공통 스타일 */
+.modal-body {
+	padding: 20px;
+	display: block;
+}
+
+h3.modal-subtitle {
+	margin-top: 0;
+	margin-bottom: 10px;
+	font-weight: bold;
+	text-align: center;
+}
+
+label {
+	display: block;
+	margin-bottom: 5px;
+	font-weight: bold;
+}
+
+input[type="text"], input[type="number"], textarea {
+	width: 100%;
+	padding: 10px;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	box-sizing: border-box;
+	font-size: 16px;
+	margin-bottom: 10px;
+}
+
+input[type="date"], input[type="datetime-local"] {
+	box-sizing: border-box;
+	width: 275px;
+	padding: 10px;
+	border: 1px solid #ccc;
+	box-sizing: border-box;
+	font-size: 16px;
+	margin-bottom: 10px;
+}
+
+/*
+input[type="file"] {
+	display: none;
+}
+*/
+.image-preview {
+	position: relative;
+	margin-bottom: 20px;
+	width: 258px;
+	height: 251px;
+	border: 1px solid #D3D2D2;
+	border-radius: 10px;
+	cursor: pointer
+}
+
+#image-caption {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	font-size: 16px;
+	color: #aaa;
+}
+
+#image-upload {
+	font-size: 16px;
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	opacity: 0;
+	width: 100%;
+	height: 100%;
+}
+
+.open-modal-button{
+	width: 85px;
+	height: 34px;
+	background: #596180;
+	border-radius: 5px;
+	color: #FFFDFD;
+	font-size: 12px;
+	float:right;
+}
+
+.modal {
+	display: none;
+	position: fixed;
+	z-index: 1 ;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	overflow: auto;
+	background-color: rgba(0, 0, 0, 0.4) ;
+}
+
+
+.modal-backdrop {
+	position: absolute;
+	left: 0;
+	top: 0;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-dialog {
+	position: relative;
+	margin: auto;
+	top: 15%;
+	z-index: 9999;
+	width: 502px;
+	height: 626px;
+	background-color: #fff;
+	border-radius: 4px;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+	border-radius: 10px;
+}
+
+.modal-header {
+	padding: 20px;
+	width: 100%;
+	background-color: #FFF;
+	border-bottom: 1px solid #ddd;
+	border-radius: 4px 4px 0 0;
+	color: #000000;
+	text-align: center;
+}
+
+.modal-title {
+	font-family: 'Noto Sans';
+	font-size: 20px;
+	font-weight: 700;
+	margin: 0;
+}
+
+.modal-body {
+	/* padding: 20px; */
+	font-family: 'Noto Sans';
+	font-size: 12px;
+	width: 100%;
+    height: 500px;
+}
+
+.keyword{
+	height: 300px;
+	margin-top: 5%;
+}
+
+.modal-footer {
+	padding: 10px 20px;
+	background-color: #FFF;
+	border-top: 1px solid #ddd;
+	border-radius: 0 0 4px 4px;
+	text-align: right;
+}
+
+#textLengthCheck{
+	border-bottom-style: none;
+}
+.apply-button, .cancel-button {
+	font-family: 'Noto Sans';
+	font-size: 15px;
+	margin: 0 auto;
+	padding: 6px 12px;
+	border-radius: 4px;
+	border: none;
+	color: #fff;
+	background-color: #00008B;
+	cursor: pointer;
+	display: inline-block;
+}
+
+.cancel-button {
+	background-color: #6c757d;
+}
+
+.line-break {
+	height: 3px;
+	flex-basis: 100%;
+}
+
+#accommodation-title {
+	margin-top: 5px;
+	margin-bottom: 10px;
+}
+
+
+
+.star-rating {
+  display: flex;
+  flex-direction: row-reverse;
+  font-size: 2.25rem;
+  line-height: 2.5rem;
+  justify-content: space-around;
+  padding: 0 0.2em;
+  text-align: center;
+  width: 5em;
+}
+ 
+.star-rating input {
+  display: none;
+}
+ 
+.star-rating label {
+  -webkit-text-fill-color: transparent; /* Will override color (regardless of order) */
+  -webkit-text-stroke-width: 2.3px;
+  -webkit-text-stroke-color: #2b2a29;
+  cursor: pointer;
+}
+ 
+.star-rating :checked ~ label {
+  -webkit-text-fill-color: gold;
+}
+ 
+.star-rating label:hover,
+.star-rating label:hover ~ label {
+  -webkit-text-fill-color: #fff58c;
+}	
+
+/* 다른 별 */
+#myform fieldset{
+    display: inline-block;
+    direction: rtl;
+    border:0;
+}
+#myform fieldset legend{
+    text-align: right;
+}
+#myform input[type=radio]{
+    display: none;
+}
+#myform label{
+    font-size: 3em;
+    color: transparent;
+    text-shadow: 0 0 0 #f0f0f0;
+}
+#myform label:hover{
+    text-shadow: 0 0 0 rgba(250, 208, 0, 0.99);
+}
+#myform label:hover ~ label{
+    text-shadow: 0 0 0 rgba(250, 208, 0, 0.99);
+}
+#myform input[type=radio]:checked ~ label{
+    text-shadow: 0 0 0 rgba(250, 208, 0, 0.99);
+}
+#reviewContents {
+    width: 100%;
+    height: 150px;
+    padding: 10px;
+    box-sizing: border-box;
+    border: solid 1.5px #D3D3D3;
+    border-radius: 5px;
+    font-size: 16px;
+    resize: none;
+}
+

@@ -2,204 +2,214 @@
 
 @font-face {
     font-family: 'NotoSans';
-    src: url('/resources/font/NotoSansKR-Medium.otf') format('truetype');
-<<<<<<< HEAD
+    src:url('../../font/common/NotoSansKR-Light.otf') format('truetype');
 }
-=======
+
+body {
+	font-family: 'NotoSans'; 
+	font-style: normal;
+	font-weight: 400;
 }
+
+h1, h2, h3, h4, h5, h6{
+	font-weight: 600;
+}
+
 /* 헤더 */
-     header {
-       height: 150px;
-       border-bottom: 1px solid #ebebeb;
-     }
-     header .header-container {
-         max-width: 1024px;
-         margin: 0 auto;
-         display: flex;
-         height: 150px;
-         padding: 0px;
-         align-items: center;
-         position: relative; 
-     }
+ header {
+	font-family: 'NotoSans'; 
+	font-style: normal;
+	font-weight: 400;
+    height: 150px;
+    border-bottom: 1px solid #ebebeb;
+}
+header .header-container {
+    max-width: 1024px;
+    margin: 0 auto;
+    display: flex;
+    height: 150px;
+    padding: 0px;
+    align-items: center;
+    position: relative; 
+}
 
-     header #menuwrap{
-       display: flex;
-       width: 1024px;
-       height: 190px;
-     }
+header #menuwrap{
+	display: flex;
+	width: 1024px;
+	height: 190px;
+}
 
-     /* 로고 이미지 스타일 */  
-     header #logoArea {  
-       align-items: center;
-       display: flex;
-       margin: 0 auto;
-       width: 320px;
-       height: 100px;
-     }
-     header img {
-       width: 150px;
-       margin-top: 50px;
-       padding-top: 0px;
-     }
-           
-     /* 검색창 */
-     header #searchArea{
-         margin-top: 0px;
-         height: 160px;
-         display: flex;
-         align-items: center;
-         justify-content: center;
-         flex-grow: 2;
-         width: 384px;
-     }
+/* 로고 이미지 스타일 */  
+header #logoArea {  
+	align-items: center;
+	display: flex;
+	margin: 0 auto;
+	width: 320px;
+	height: 100px;
+}
+header img {
+	width: 150px;
+	margin-top: 50px;
+	padding-top: 0px;
+}
+      
+/* 검색창 */
+header #searchArea{
+	margin-top: 0px;
+	height: 160px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-grow: 2;
+	width: 384px;
+}
 
-     header .search-form {
-       display: flex;
-       align-items: center;
-       border: 2px solid  #D3D2D2;
-       border-radius: 20px;
-       width: 384px;
-       height: 30px;
-     }
+header .search-form {
+	display: flex;
+	align-items: center;
+	border: 2px solid  #D3D2D2;
+	border-radius: 20px;
+	width: 384px;
+	height: 30px;
+}
 
-     header .search-form input[type="text"] {
-       border: none;
-       background-color: transparent;
-       flex: 1;
-       font-size: 12px;
-       outline:none;
-       text-align: center;
-       padding-left: 40px;
-       
-     }
-     header .search-form input::placeholder{
-       color:#D3D2D2;
-     }
+header .search-form input[type="text"] {
+	border: none;
+	background-color: transparent;
+	flex: 1;
+	font-size: 12px;
+	outline:none;
+	text-align: center;
+	padding-left: 40px;
+  
+}
+header .search-form input::placeholder{
+  color:#D3D2D2;
+}
 
-     header .search-form button[type="submit"] {
-       border: none;
-       background-color: transparent;
-       cursor: pointer;
-       margin-right: 10px;
-     }
+header .search-form button[type="submit"] {
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  margin-right: 10px;
+}
 
-     /* 우측 사이드 버튼 */
-     header #menuArea {
-       font-size: 8px; 
-       width: 320px;
-     }
-     header #menuArea a {
-       margin: 5px;
-       color: #596180;
-       text-decoration: none;
-     }
-     header #menuArea a:hover{
-       color: #00008B;
-     }
-     header #nickname{
-       margin: 5px;
-       color: #00008B;
-       font-size: 10px; 
-       font-weight: bold;
+/* 우측 사이드 버튼 */
+header #menuArea {
+  font-size: 8px; 
+  width: 320px;
+}
+header #menuArea a {
+  margin: 5px;
+  color: #596180;
+  text-decoration: none;
+}
+header #menuArea a:hover{
+  color: #00008B;
+}
+header #nickname{
+	margin: 5px;
+	color: #00008B;
+	font-size: 10px; 
+	font-weight: bold;
 
-     }
-     /* 로그인, 회원가입, 고객센터 */
-     header #login{
-       width: 320px;
-       margin: 25px 0px 15px 0px;
-     }
-     header #login ul{
-       text-align: right;
-       justify-content: flex-end;
-       display: flex;
-       list-style: none;
-     }
-     header #login ul li {
-       margin-left: 5px;
-     }
+}
+/* 로그인, 회원가입, 고객센터 */
+header #login{
+	width: 320px;
+	margin: 25px 0px 15px 0px;
+}
+header #login ul{
+	text-align: right;
+	justify-content: flex-end;
+	display: flex;
+	list-style: none;
+}
+header #login ul li {
+	margin-left: 5px;
+}
 
-     /* 마이메뉴, 결제함 */
-     header #menu{
-       width: 320px;
-     }
-     header #menu ul{
-       text-align: center;
-       display: flex;
-       justify-content: flex-end;
-       list-style: none;
-       margin: 5px;
-     }
-     header #menu ul li {
-       margin-left: 20px;
-     }
+/* 마이메뉴, 결제함 */
+header #menu{
+	 width: 320px;
+}
+header #menu ul{
+	 text-align: center;
+	 display: flex;
+	 justify-content: flex-end;
+	 list-style: none;
+	 margin: 5px;
+}
+header #menu ul li {
+	margin-left: 20px;
+}
 
-     /* 네비게이션 메뉴 스타일 */
-     header nav {
-       width: 1024px;
-       height: 50px;
-       position: absolute;
-       bottom: 0;
-     }
+/* 네비게이션 메뉴 스타일 */
+header nav {
+	width: 1024px;
+	height: 50px;
+	position: absolute;
+	bottom: 0;
+}
 
-     header #nav_items {
-       width: 100%;
-       height: 100%;
-       display: flex;
-       align-items: center;
-     }
+header #nav_items {
+	width: 100%;
+	height: 100%;
+	display: flex;
+	align-items: center;
+}
 
-     header #nav_items ul {
-       margin-left:15px;
-       padding:0px;
-     }
+header #nav_items ul {
+	margin-left:15px;
+	padding:0px;
+}
 
-     header #nav_items ul li {
-     display: inline-block;
-     margin-left: 5px;
-     margin-right: 75px;
-     }
+header #nav_items ul li {
+	display: inline-block;
+	margin-left: 5px;
+	margin-right: 75px;
+}
 
-     header #nav_items ul li a {
-     color: #333;
-     text-decoration: none;
-     font-size: 14px;
-     font-weight: bold;
-     }
+header #nav_items ul li a {
+	color: #333;
+	text-decoration: none;
+	font-size: 14px;
+	font-weight: bold;
+}
 
-     header #nav_items ul li a:hover {
-       color: #00008B;
-     }
-     header .bi-layout-text-sidebar-reverse:hover{
-       color: #00008B;
-     }
-     header .bi-person:hover{
-       color: #00008B;
-     }
-       main{
-        min-height: 700px;
-      }
+header #nav_items ul li a:hover {
+	color: #00008B;
+}
+header .bi-layout-text-sidebar-reverse:hover{
+	color: #00008B;
+}
+header .bi-person:hover{
+	color: #00008B;
+}
+main{
+	min-height: 700px;
+}
 
-      main .main-container {
-	    max-width: 1200px;
-	    margin: 0 auto;
-	    height: 100%;
-	    padding-top: 20px;
-      }
-      main #ticketArea {
-        width: 1200px;
-        height: 510px;
-        }
-        
-      main #ticketArea img {
-        width: 1200px;
-        height: 510px;
-        }
-        
-       main .contentArea {
-     	width: 1200px;
-     }
-     main #content1{
-    	 width: 1024px;
-    	 margin: 0 auto;
-     }
->>>>>>> FIR-30
+ main .main-container {
+	max-width: 1200px;
+	margin: 0 auto;
+	height: 100%;
+	padding-top: 20px;
+ }
+ main #ticketArea {
+	width: 1200px;
+	height: 510px;
+}
+  
+main #ticketArea img {
+	width: 1200px;
+	height: 510px;
+}
+  
+main .contentArea {
+	width: 1200px;
+}
+main #content1{
+	width: 1024px;
+	margin: 0 auto;
+}

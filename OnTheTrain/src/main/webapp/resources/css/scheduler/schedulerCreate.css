@@ -1,194 +1,418 @@
 @charset "UTF-8";
 
 @font-face {
-	font-family: 'Noto Sans KR';
-	src: url('../../font/common/NotoSansKR-Medium.otf') format('truetype');
+  font-family: "Noto Sans KR";
+  src: url("../../font/common/NotoSansKR-Medium.otf") format("truetype");
 }
 
 @font-face {
-	font-family: 'Noto Sans Bold';
-	src: url('../../font/common/NotoSansKR-Bold.otf') format('truetype');
+  font-family: "Noto Sans Bold";
+  src: url("../../font/common/NotoSansKR-Bold.otf") format("truetype");
 }
 
 @font-face {
-	font-family: 'Noto Sans thin';
-	src: url('../../font/common/NotoSansKR-Thin.otf') format('truetype');
+  font-family: "Noto Sans thin";
+  src: url("../../font/common/NotoSansKR-Thin.otf") format("truetype");
 }
 
 article {
-	width: 1024px;
+  width: 1024px;
 }
 
 #schedulerBanner {
-	box-sizing: border-box;
-	display: flex;
-	align-items: center;
-	width: 1024px;
-	height: 88px;
-	padding-top: 5px;
-	padding-left: 21px;
-	margin-bottom: 54px;
-	background-image:
-		url("../../images/scheduler/schedulerBannerBackground_small.png");
-	font-family: 'Noto Sans thin';
-	font-style: normal;
-	font-weight: 400;
-	font-size: 30px;
-	line-height: 43px;
-	color: #FFFFFF;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  width: 1024px;
+  height: 88px;
+  padding-top: 5px;
+  padding-left: 21px;
+  margin-bottom: 54px;
+  background-image: url("../../images/scheduler/schedulerBannerBackground_small.png");
+  font-family: "Noto Sans thin";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 30px;
+  line-height: 43px;
+  color: #ffffff;
 }
 
 #scheduler {
-	width: 100%;
-	margin-bottom: 20px;
+  width: 100%;
+  margin-bottom: 20px;
+  display: flex;
 }
 
-#scheduler * {
-	float: left;
+.line-break {
+  flex-basis: 100%;
 }
 
 #schedulerTitle {
-	display: flex;
-	width: 1024px;
-	height: 50px;
-	align-items: center;
-	justify-content: center;
-	margin-bottom: 40px;
+  display: flex;
+  width: 1024px;
+  height: 50px;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 40px;
 }
 
-#schedulerCalender {
-	width: 970px;
-	height: 530px;
-	background-color: red;
+.calendarContainer {
+  box-sizing: border-box;
+  width: 960px;
+  height: 560px;
+  display: inline-block;
+}
+
+.sideMenuIcon {
+  display: flex;
+  width: 50px;
+  height: 50px;
+  margin-left: 10px;
+  margin-bottom: 10px;
+  background-color: blue;
+  color: white;
 }
 
 #schedulerSidemenu {
-	width: 54px;
-	height: 530px;
-	background-color: green;
+  box-sizing: border-box;
+  width: 51px;
+  height: 560px;
+  display: inline-block;
+}
+
+#schedulerComponents {
+  margin-top: 15px;
 }
 
 #selectComponent {
-	margin-top: 20px;
-	margin-bottom: 20px;
-	display: flex;
-	justify-content: center;
-	width: 1024px;
-	height: 41px;
-	display: flex;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
+  width: 1024px;
+  height: 41px;
+  display: flex;
+}
+
+.componentName {
+  display: inline;
 }
 
 .componentText {
-	width: 167px;
-	font-family: 'Noto Sans KR';
-	font-style: normal;
-	font-weight: 400;
-	font-size: 30px;
-	line-height: 43px;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	text-align: center;
+  width: 167px;
+  font-family: "Noto Sans KR";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 30px;
+  line-height: 43px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
 }
 
 .title {
-	margin-top: 20px;
-	margin-bottom: 20px;
-	width: 1024px;
-	font-family: 'Noto Sans KR';
-	font-style: normal;
-	font-weight: 400;
-	font-size: 20px;
-	line-height: 29px;
-	width: 1024px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  width: 1024px;
+  font-family: "Noto Sans KR";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 29px;
+  width: 1024px;
+}
+
+#noAddedComponentArea {
+  width: 100%;
+}
+
+.noAddedComponent {
+  display: flex;
+  width: 100%;
+  height: 250px;
+  justify-content: center;
+  flex-direction: row;
+  align-items: center;
+  flex-wrap: nowrap;
+}
+
+.noComponentImg {
+  background-image: url("../../images/scheduler/noEvent.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  width: 100px;
+  height: 100px;
+}
+
+.noComponentMsg {
+  font-size: 20px;
+  font-family: "Noto Sans KR";
+  color: #d9d9d9;
+  margin-left: 15px;
+}
+
+#addedComponent {
+  width: 100%;
+  min-height: 250px;
 }
 
 .components {
-	width: 1024px;
-	display: inline-block;
-	margin-bottom: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  min-height: 250px;
+  height: auto;
+  margin-bottom: 20px;
 }
 
-.components>div {
-	float: left;
+#waitComponentList {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+#eventEndDate {
+  margin-left: 20px;
+}
+
+.search-button {
+  font-family: "Noto Sans";
+  margin: 0 auto;
+  padding: 6px 12px;
+  border: none;
+  border-radius: 4px;
+  width: 75px;
+  height: 40px;
+  color: #fff;
+  font-size: large;
+  background-color: #00008b;
+  cursor: pointer;
+  display: inline-block;
+  margin-left: 20px;
+}
+
+.delete-button {
+  font-family: "Noto Sans KR";
+  width: 100px;
+  height: 32px;
+  margin-left: 30px;
+  border-radius: 5px;
+  background: none;
+  border: 1px solid #d4062b;
+  color: #d4062b;
+}
+
+.delete-button:active {
+  font-family: "Noto Sans KR";
+  width: 100px;
+  height: 32px;
+  margin-left: 30px;
+  border-radius: 5px;
+  background: #fff;
+  color: #d4062b;
+  border: none;
+}
+
+.delete-buttonOn {
+  font-family: "Noto Sans KR";
+  width: 100px;
+  height: 32px;
+  margin-left: 30px;
+  border-radius: 5px;
+  background: #d4062b;
+  color: white;
+  border: none;
+}
+
+#deleteAllWait-button {
+  display: none;
+}
+
+.components > div {
+  float: left;
 }
 
 .card {
-	box-sizing: border-box;
-	width: 170.6px;
-	height: 227px;
-	padding-right: 5px;
-	padding-left: 5px;
+  box-sizing: border-box;
+  width: 170.6px;
+  height: 227px;
+  padding-right: 5px;
+  padding-left: 5px;
+  margin-bottom: 15px;
+  z-index: 2;
 }
 
-.addCard {
-	box-sizing: border-box;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	width: 170.6px;
-	height: 227px;
-	border: 1px solid #D3D2D2;
-	border-radius: 10px;
-	width: 170.6px;
+.card.filtered {
+  filter: opacity(50%);
+  cursor: pointer;
 }
 
-.addCard>button {
-	width: 26.35px;
-	height: 31.62px;
-	font-family: 'Noto Sans KR';
-	font-style: normal;
-	font-weight: 700;
-	font-size: 20px;
-	line-height: 58px;
-	display: flex;
-	align-items: center;
-	text-align: center;
-	color: #596180;
+.componentFilter {
+  position: absolute;
+  top: 0;
+  left: 5px;
+  box-sizing: border-box;
+  width: 160.6px;
+  height: 227px;
+  padding-right: 5px;
+  padding-left: 5px;
+  background-color: rgba(255, 0, 0, 0.3);
+  border-radius: 10px;
+  cursor: pointer;
+  z-index: 3;
+}
+
+.componentFilter:hover {
+  background-color: rgba(255, 0, 0, 0.5);
+}
+
+#addCard {
+  box-sizing: border-box;
+  width: 170.6px;
+  height: 227px;
+  padding-right: 5px;
+  padding-left: 5px;
+  margin-bottom: 10px;
+}
+
+#addCard > div {
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  border: 1px solid #d3d2d2;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#addCard button {
+  width: 26.35px;
+  height: 31.62px;
+  border: none;
+  font-family: "Noto Sans KR";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 58px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  background-color: #fff;
+  color: #596180;
+}
+
+#componentSearchArea select,
+#componentSearchArea input[type="date"],
+#componentSearchArea input[type="datetime-local"] {
+  font-family: "Noto Sans";
+  box-sizing: border-box;
+  width: 275px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+#componentSearchArea input[type="date"],
+#componentSearchArea input[type="datetime-local"] {
+  display: inline;
+}
+
+.explantion {
+  display: inline;
+  font-family: "Noto Sans KR";
+  color: #596180;
+  font-size: small;
 }
 
 .cardThumbnail {
-	box-sizing: border-box;
-	width: 100%;
-	height: 150px;
-	border: 1px solid #D3D2D2;
-	border-radius: 10px;
+  box-sizing: border-box;
+  width: 100%;
+  height: 150px;
+  border: 1px solid #d3d2d2;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+}
+
+.cardThumbnail img {
+  max-width: 100%;
+  height: 100%;
+  margin: 0 auto;
+  border-radius: 10px;
+  object-fit: contain;
 }
 
 .cardBrief {
-	width: 100%;
-	height: 70px;
+  width: 100%;
+  height: 70px;
 }
 
 .cardTitle {
-	font-family: 'Noto Sans KR';
-	font-style: normal;
-	font-weight: 400;
-	font-size: 17px;
-	line-height: 17px;
-	color: #000000;
-	margin-top: 5px;
-	padding-left: 5px;
+  font-family: "Noto Sans KR";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 17px;
+  line-height: 17px;
+  color: #000000;
+  margin-top: 5px;
+  padding-left: 5px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .cardRequiredDetail {
-	font-family: 'Noto Sans KR';
-	font-style: normal;
-	font-weight: 400;
-	font-size: 12px;
-	line-height: 17px;
-	COLOR: #000000;
-	margin-bottom: 17px;
-	padding-left: 5px;
+  font-family: "Noto Sans KR";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 17px;
+  color: #000000;
+  margin-bottom: 17px;
+  padding-left: 5px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .cardOptionalDetail {
-	font-family: 'Noto Sans KR';
-	font-style: normal;
-	font-weight: 400;
-	font-size: 12px;
-	line-height: 17px;
-	color: #717171;
-	padding-left: 5px;
+  font-family: "Noto Sans KR";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 17px;
+  color: #717171;
+  padding-left: 5px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
+
+#noResultArea {
+  display: none;
+}
+
+.noResult {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  flex-wrap: nowrap;
+}
+
+.noResultImg {
+  background-image: url("../../images/common/noResult.png");
+  width: 175px;
+  height: 153px;
+  margin-bottom: 10px;
+}
+
+.noResultMsg {
+  font-size: 20px;
+  font-family: "Noto Sans KR";
+  color: #596180;
 }

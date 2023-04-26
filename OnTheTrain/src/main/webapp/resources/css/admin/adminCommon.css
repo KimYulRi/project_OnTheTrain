@@ -1,0 +1,109 @@
+@charset "UTF-8";
+
+@font-face {
+    font-family: 'NotoSans';
+    src:url('../../font/common/NotoSansKR-Light.otf') format('truetype');
+}
+
+body {
+	font-family: 'NotoSans'; 
+	font-style: normal;
+	font-weight: 400;
+}
+
+h1, h2, h3, h4, h5, h6{
+	font-weight: 600;
+}
+
+
+/* 페이지 헤더 속성 */
+.page-heading{
+	text-align:center;
+	padding-top:10px;
+	padding-bottom:10px;
+}
+/* content 속성 */
+.card{
+	padding:10px 30px 30px 30px;
+}
+
+/* 테이블 속성 */
+.admin-tb{
+		font-size:14px;
+		text-align:center;
+}
+
+
+/* 버튼 속성 */
+
+/* 버튼 div*/
+#tablebtn{
+	width: 160px;
+}
+
+
+.adminbtn1, .adminbtn2{
+	width: 70px;
+	height: 30px;
+	
+	font-size: 12px;
+	border: 1px solid #596180;
+	border-radius: 4px;
+	
+	/* background-color:#596180;
+	color: #ffffff; */
+	background-color:#ffffff;
+	color: #596180;
+	}
+
+.adminbtn1:hover, .adminbtn2:hover{
+	background-color:#00008B;
+	color: #ffffff;
+}
+
+.adminbtn1:focus, .adminbtn2:focus {
+	outline: none;
+}
+
+/* 버튼간격 조절(하나이상) */
+.adminbtn1{
+	margin-right:10px;
+}
+
+
+/* 페이지바 */
+#adminpagebar{
+   display:flex;
+   justify-content: center;
+   margin-top:30px;
+}
+
+.page-item.active{
+	z-index: 1;
+}
+
+/* 셀렉트박스 - 정렬, 필터 */
+#adminSelectwrap{
+	display: flex;
+	justify-content:space-between;
+}
+
+#adminSelect{
+	display: flex;
+	width: 250px;
+	height: 35px;
+}
+
+#adminfilter{ 
+	margin-right:20px;
+	font-size:12px;
+}
+#adminsort{
+	font-size:12px;
+}
+
+/* 색상 */
+.bg-disable{
+	background-color:#D9D9D9;
+}
+	

@@ -18,7 +18,7 @@ public class SchedulerImage {
 	private int no;
 
 	// 원본파일명
-	private String origianlFilename;
+	private String originalFilename;
 
 	// 수정파일명
 	private String renamedFilename;
