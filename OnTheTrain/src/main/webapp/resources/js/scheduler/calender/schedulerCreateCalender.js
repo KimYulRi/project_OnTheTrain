@@ -1,23 +1,31 @@
-import {
-  addModalModule
-} from "../schedulerModalModule.js";
+import { addModalModule } from "../schedulerModalModule.js";
 
-import {
-  getCurrentComponent
-} from "../schedulerCreate.js";
+import { getCurrentComponent } from "../schedulerCreate.js";
 /* calender */
 
-function getStartDate() {
-  return ($(".onthetrain_theme_colheader_inner")).val();
+function getSundayDate(inputDate) {
+  // 입력된 날짜의 주의 시작하는 일요일을 계산
+  const sundayDate = new Date(inputDate);
+  sundayDate.setDate(sundayDate.getDate() - sundayDate.getDay());
+  return sundayDate;
 }
 
-$(document).ready( () => {
-}) 
+// 예시: 2023년 4월 26일이 입력된 경우
+const inputDate = new Date(2023, 3, 26); // 월은 0부터 시작하므로 3은 4월을 나타냄
+const sundayDate = getSundayDate(inputDate);
+console.log(sundayDate); // 출력 결과: 2023-04-23T00:00:00.000Z
+
+
+function getStartDate() {
+  return $(".onthetrain_theme_colheader_inner").val();
+}
+
+$(document).ready(() => {});
 
 const dp = new DayPilot.Calendar("dp", {
   theme: "onthetrain_theme",
   viewType: "Week",
-  startDate: "2022-03-21",
+  startDate: "2023-04-23",
   columnWidth: 200,
   eventDeleteHandling: "Update",
 
@@ -25,7 +33,7 @@ const dp = new DayPilot.Calendar("dp", {
     args.preventDefault();
     let component = getCurrentComponent();
     addModalModule.showAddModal(component);
-    addModalModule.showDirectAddButton();    
+    addModalModule.showDirectAddButton();
     dp.clearSelection();
     console.log(getStartDate());
 
@@ -38,17 +46,9 @@ const dp = new DayPilot.Calendar("dp", {
       barColor: "#3c78d8",
     });
     */
- 
- 
- 
- 
   },
 
-  onEventClick: async (args) => {
-
-  },
-
-
+  onEventClick: async (args) => {},
 
   /*
     onEventClick: async (args) => {
@@ -87,13 +87,14 @@ const dp = new DayPilot.Calendar("dp", {
     */
 });
 
+dp.headerDateFormat = "yyyy년 MM월 dd일"
 dp.height = 700;
 dp.init();
 
 const events = [
   {
-    start: "2022-03-21T11:00:00",
-    end: "2022-03-21T14:00:00",
+    start: "2023-04-23T11:00:00",
+    end: "2023-04-23T14:00:00",
     id: 1,
     text: "Event 1",
     barColor: "#3c78d8",

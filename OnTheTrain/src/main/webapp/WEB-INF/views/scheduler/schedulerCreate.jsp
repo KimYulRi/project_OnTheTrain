@@ -40,6 +40,20 @@
 		</div>
 		<div id="scheduler">
 			<div id="schedulerCalender" class="calendarContainer">
+				<div class=days>
+			
+					
+							<div class="schedulerCalenderBlank">구분</div>
+							<div class="day">일</div>
+							<div class="day">월</div>
+							<div class="day">화</div>
+							<div class="day">수</div>
+							<div class="day">목</div>
+							<div class="day">금</div>
+							<div class="day">토</div>
+							<div class="schedulerCalenderLastBlank"></div>
+					
+				</div>
 				<div id="dp"></div>
 			</div>
 			<div id="schedulerSidemenu">
