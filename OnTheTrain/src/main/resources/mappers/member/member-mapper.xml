@@ -131,7 +131,7 @@
 			    ADDRESS,
 			    ENROLL_DATE,
 			    SNS_LOGIN,
-			    STATUS, 
+			    STATUS,                            
 			    AMOUNT
 			) VALUES(
 			    SEQ_MEMBER_NO.NEXTVAL,

@@ -38,9 +38,6 @@ function saveState() {
  function resetSelectedSeat() {
    $(".seat.selected, .seat.seated").removeClass("selected seated");
 }
-
-
- 
 		// 버튼 클릭 시 선택 상태 저장하기
 		let selectedCarriage = null;
 		let carriages = document.querySelectorAll('.carriage');
@@ -65,8 +62,10 @@ function saveState() {
 		    selectedCarriage = carriage;
 		    carriage.classList.add('selected');
 		    selectedSeats = 0;
-		    saveState();
+		    
+ 		    saveState();
 		  }
+		  
 		}
 
 	

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper
+	namespace="com.kh.onthetrain.trainTable.model.mapper.trainTableMapper">
+
+	<select id="selectTicket" resultMap="trainTicketMap">
+		SELECT * FROM TRAIN WHERE TICKET_NO = #{ticketNo}
+	</select>
+
+	<sql id="ticketListSql">
+		SELECT T.TICKET_NO,
+		M.USER_NO,
+		T.TYPE,
+		T.TRAIN_NUM,
+		T.DEP_DATE,
+		T.DEP_TIME,
+		T.ARR_TIME,
+		T.DEPARTURE,
+		T.ARRIVAL,
+		T.T_PRICE
+		FROM TICKET
+		JOIN MEMBER M ON(T.USER_NO = M.NO)
+	</sql>
+
+	<resultMap id="trainTicketMap" type="TrainTicket">
+		<id column="TICKET_NO" property="ticketNo" />
+		<result column="USER_NO" property="userNo" />
+		<result column="TYPE" property="train" />
+		<result column="TRAIN_NUM" property="no" />
+		<result column="DEP_DATE" property="depDate" />
+		<result column="DEP_TIME" property="depTime" />
+		<result column="ARR_TIME" property="arrTime" />
+		<result column="DEPARTURE" property="depname" />
+		<result column="ARRIVAL" property="arrplace" />
+		<result column="T_PRICE" property="charge" />
+	</resultMap>
+
+
+	<insert id="insertTicket" parameterType="TrainTicket"
+		useGeneratedKeys="true" keyColumn="TICKET_NO" keyProperty="ticketNo">
+		INSERT INTO TICKET (
+			TICKET_NO,
+			USER_NO,
+			TYPE,
+			TRAIN_NUM,
+			DEP_DATE,
+			DEP_TIME,
+			ARR_TIME,
+			DEPARTURE,
+			ARRIVAL,
+			T_PRICE
+			) VALUES (
+			SEQ_TICKET_NO.NEXTVAL,
+			#{ userNo},
+			#{ train },
+			#{ no },
+			#{ depDate },
+			#{ depTime },
+			#{arrTime},
+			#{depname},
+			#{arrplace},
+			#{charge}
+		)
+	</insert>
+	
+	<!-- <insert id="insertReservation" parameterType="TrainBook"
+		useGeneratedKeys="true" keyColumn="BOOK_NO" keyProperty="bookNo">
+		INSERT INTO BOOK (
+			BOOK_NO,
+			TICKET_NO,
+			PEOPLE_NO,
+			STATUS,
+			BOOK_DATE,
+			ROOM,
+			SEAT
+		) VALUES (
+			SEQ_BOOK_NO.NEXTVAL,
+			#{ ticketNo },
+			#{ peopleNo },
+			DEFAULT,
+			#{ bookDate },
+			#{ room },
+			#{ seat }
+		)
+	</insert>
+ -->
+
+
+</mapper>
