@@ -5,6 +5,7 @@ import com.kh.onthetrain.scheduler.model.entity.SchedulerAccommodation;
 import com.kh.onthetrain.scheduler.model.entity.SchedulerEvent;
 import com.kh.onthetrain.scheduler.model.entity.SchedulerImage;
 import com.kh.onthetrain.scheduler.model.entity.SchedulerTicket;
+import com.kh.onthetrain.scheduler.model.vo.SchedulerInfo;
 
 public interface SchedulerService {
 
@@ -19,5 +20,7 @@ public interface SchedulerService {
 	SchedulerImage findSchedulerImageByNo(int no);
 
 	String getSchedulerStartDate();
+
+	int saveScheduler(SchedulerInfo schedulerInfo);
 
 }

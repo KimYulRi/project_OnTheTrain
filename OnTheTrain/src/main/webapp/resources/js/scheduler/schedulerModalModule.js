@@ -31,10 +31,7 @@ const addedComponentList = $("#addedComponent");
 const addcard_btn = $("#addCard");
 const addModalModule = {};
 const schedulerComponents = {
-  event : {
-    addedEvent : addedEvents,
-    waitEvent : waitEvents
-  }
+  event : addedEvents
 }
 
 

@@ -85,9 +85,6 @@ function saveScheduler() {
     schedulerComponents: schedulerComponents,
   };
 
-  console.log( JSON.stringify(schedulerInfo));
-  console.log(ctx + "/scheduler/saveScheduler");
-
   $.ajax({
     type: "POST",
     url: ctx + "/scheduler/saveScheduler",

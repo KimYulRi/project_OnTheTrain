@@ -11,5 +11,5 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class SchedulerInfo {
 	private String schedulerTitle;
-    private Map<String, Map<String, Object>> schedulerComponents;
+    private Map<String, Object> schedulerComponents;
 }

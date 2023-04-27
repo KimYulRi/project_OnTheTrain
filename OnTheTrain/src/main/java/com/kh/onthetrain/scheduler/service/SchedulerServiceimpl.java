@@ -1,6 +1,7 @@
 package com.kh.onthetrain.scheduler.service;
 
 import java.time.LocalDateTime;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,6 +14,7 @@ import com.kh.onthetrain.scheduler.model.entity.SchedulerImage;
 import com.kh.onthetrain.scheduler.model.entity.SchedulerTicket;
 import com.kh.onthetrain.scheduler.model.mapper.SchedulerComponentMapper;
 import com.kh.onthetrain.scheduler.model.mapper.SchedulerMapper;
+import com.kh.onthetrain.scheduler.model.vo.SchedulerInfo;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -64,10 +66,24 @@ public class SchedulerServiceimpl implements SchedulerService {
 	/* 캘린더의 시작일자를 설정하는 메소드 */
 	@Override
 	public String getSchedulerStartDate() {
-        // 현재 날짜 및 시간 가져오기
-		LocalDateTime now = LocalDateTime.now();
-	
+		// 현재 날짜 및 시간 가져오기
+		log.info("getSchedulerStartDate 메소드 실행");
+		LocalDateTime now = LocalDateTime.now();	
 		return TimeConvertUtil.convertLocalDateTimeToKstDateString(now);
+	}
+
+	/* 들어오는 JSON값을 바탕으로 분리하여 INSERT 구문 수행 */
+	@Override
+	public int saveScheduler(SchedulerInfo schedulerInfo) {
+
+		
+		
+		
+		Map<String, Object> addedEventMap = schedulerInfo.getSchedulerComponents().get("event").get(0);
+		
+		
+		
+		return 0;
 	}
 
 	

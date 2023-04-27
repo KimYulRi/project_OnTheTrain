@@ -93,6 +93,7 @@ public class SchedulerController {
 	@ResponseBody
 	public String saveScheduler(@RequestBody String schedulerInfoJson) {
 		log.info("saveScheduler 메소드 실행");
+		
 		ObjectMapper objectMapper = new ObjectMapper();
 		SchedulerInfo schedulerInfo = null;
 
@@ -102,7 +103,8 @@ public class SchedulerController {
 			e.printStackTrace();
 		}
 
-
+		int result = service.saveScheduler(schedulerInfo);
+		
 //		int result = service.insertScheduler(schedulerInfo);
 //
 //		if (result > 0) {
