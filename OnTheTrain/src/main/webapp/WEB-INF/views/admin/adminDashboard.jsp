@@ -181,40 +181,13 @@
     <script src="${path}/bootstrap5/assets/vendors/apexcharts.js"></script>
     <script src="${path}/bootstrap5/assets/js/pages/dashboard.js"></script>
 
-<!--     <script>
+   <script>
         // 메뉴바 변경
         window.onload = function() {
 			document.getElementById("ad_dashboard").classList.add("active");
 		}
-        
-        var chartData = ${chart};
-        var options = {
-          chart: {
-            type: 'line'
-          },
-          series: [{
-            name: 'Member',
-            data: [
-              <c:forEach items="${chart}" var="data" varStatus="status">
-                ${data.count}
-                <c:if test="${not status.last}">,</c:if>
-              </c:forEach>
-            ]
-          }],
-          xaxis: {
-            categories: [
-              <c:forEach items="${chart}" var="data" varStatus="status">
-                '${data.month}'
-                <c:if test="${not status.last}">,</c:if>
-              </c:forEach>
-            ]
-          }
-        };
-        var chart = new ApexCharts(document.querySelector("#chart"), options);
-        chart.render();
 
-        
-    </script> -->
+    </script> 
     <script src="${path}/bootstrap5/assets/js/main.js"></script>
     <%@ include file="../common/footer.jsp"%>
 </body>
