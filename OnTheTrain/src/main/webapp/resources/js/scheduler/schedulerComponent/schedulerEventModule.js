@@ -1,5 +1,5 @@
 import { ctx } from "../schedulerCreate.js";
-
+import { addModalModule } from "../schedulerModalModule.js";
 import { findIndexFromArrayById } from "../schedulerCreate.js";
 
 // event 객체를 관리할 배열 생성
@@ -7,11 +7,78 @@ const addedEvents = [];
 const waitEvents = [];
 const APIEvents = [];
 
+// CREATE 관련
 // event 객체의 ID값을 관리할 함수 정의
 function createEventId() {
   return "event_" + Date.now() + Math.floor(Math.random() * 1000);
 }
+// 일정 객체 생성 함수 정의
+function createEventObject(fields) {
+  const { title, location, startTime, endTime, price, details, previewImage } =
+    fields;
 
+  const event = {
+    id: createEventId(),
+    component: "event",
+    title: title.val(),
+    location: location.val(),
+    startTime: startTime.val(),
+    endTime: endTime.val(),
+    price: price.val(),
+    details: details.val(),
+    image: previewImage.attr("src"),
+  };
+
+  return event;
+}
+// API로 받아오는 객체 함수 정의
+function createAPIEventObject(APIEventINFO, imageUrl) {
+  const APIEvent = {
+    id: createEventId(),
+    addr1: APIEventINFO.addr1 || "",
+    addr2: APIEventINFO.addr2 || "",
+    booktour: APIEventINFO.booktour || "",
+    cat1: APIEventINFO.cat1 || "",
+    cat2: APIEventINFO.cat2 || "",
+    cat3: APIEventINFO.cat3 || "",
+    contentid: APIEventINFO.contentid || "",
+    contenttypeid: APIEventINFO.contenttypeid || "",
+    createdtime: APIEventINFO.createdtime || "",
+    eventstartdate: APIEventINFO.eventstartdate || "",
+    eventenddate: APIEventINFO.eventenddate || "",
+    firstimage: APIEventINFO.firstimage || "",
+    firstimage2: APIEventINFO.firstimage2 || "",
+    cpyrhtDivCd: APIEventINFO.cpyrhtDivCd || "",
+    mapx: APIEventINFO.mapx || "",
+    mapy: APIEventINFO.mapy || "",
+    mlevel: APIEventINFO.mlevel || "",
+    modifiedtime: APIEventINFO.modifiedtime || "",
+    areacode: APIEventINFO.areacode || "",
+    sigungucode: APIEventINFO.sigungucode || "",
+    tel: APIEventINFO.tel || "",
+    title: APIEventINFO.title || "",
+    imageUrl: imageUrl || "",
+  };
+
+  return APIEvent;
+}
+function transAPIobjToEvent(apievent) {
+  const event = {
+    id: createEventId(),
+    component: "event",
+    title: apievent.title,
+    location: apievent.addr1,
+    startTime: apievent.eventstartdate,
+    endTime: apievent.eventenddate,
+    price: 0,
+    details: apievent.tel,
+    image: apievent.firstimage,
+  };
+
+  return event;
+}
+
+// READ 관련
 /**
  * id로 이벤트 찾기
  * @param {string} id  이벤트 아이디
@@ -39,7 +106,6 @@ function findEventById(id) {
     return null;
   }
 }
-
 /**
  * 배열에서 id로 이벤트 찾기
  * @param {array} 첫번째 파라미터 아이디를 찾을 배열
@@ -56,7 +122,6 @@ function findEventFromArrayById(array, id) {
     return null;
   }
 }
-
 /**
  *
  * @param {eventid} id 아이디를 받아
@@ -96,109 +161,6 @@ function getEventArrayAndIndexById(id) {
   console.log(`해당 id를 가진 일정이 없습니다`);
   return null;
 }
-
-// 추가된 일정으로 이벤트 객체를 옮기는 함수
-function toAddedEvent(id) {
-  let arrayfrom = addedEvents;
-  // 해당 요소가 있었던 곳 찾기
-  let idx = findIndexFromArrayById(addedEvents, id);
-  if (idx === -1) {
-    arrayfrom = waitEvents;
-    idx = findIndexFromArrayById(waitEvents, id);
-  }
-  let targetEvent = arrayfrom.splice(idx, 1)[0];
-  addedEvents.push(targetEvent);
-}
-
-// 대기 중인 일정으로 이벤트 객체를 옮기는 함수
-function toWaitEvent(id) {
-  let arrayfrom = addedEvents;
-  // 해당 요소가 있었던 곳 찾기
-  let idx = findIndexFromArrayById(addedEvents, id);
-  if (idx === -1) {
-    arrayfrom = waitEvents;
-    idx = findIndexFromArrayById(waitEvents, id);
-  }
-
-  let targetEvent = arrayfrom.splice(idx, 1)[0];
-  waitEvents.push(targetEvent);
-}
-
-// 아이디로 이벤트 객체 제거
-function removeEventById(id) {
-  let arrayAndIndex = getEventArrayAndIndexById(id);
-  if ($(arrayAndIndex)) {
-    // arrayAndIndex와 arrayAndIndex.array가 모두 있는지 확인
-    let array = arrayAndIndex.array;
-    let index = arrayAndIndex.index;
-
-    array.splice(index, 1);
-  } else {
-    console.log(`해당 id를 가진 일정이 없습니다`);
-  }
-}
-
-// 추가된 일정이나 대기 중인 일정에서 이벤트 객체를 제거하는 함수
-function removeEventFromArray(arr, id) {
-  let idx = findIndexFromArrayById(arr, id);
-
-  if (idx !== -1) {
-    arr.splice(idx, 1);
-  }
-}
-
-// 일정 객체 생성 함수 정의
-function createEventObject(fields) {
-  const { title, location, startTime, endTime, price, details, previewImage } =
-    fields;
-
-  const event = {
-    id: createEventId(),
-    component: "event",
-    title: title.val(),
-    location: location.val(),
-    startTime: startTime.val(),
-    endTime: endTime.val(),
-    price: price.val(),
-    details: details.val(),
-    image: previewImage.attr("src"),
-  };
-
-  return event;
-}
-
-// API로 받아오는 객체 함수 정의
-function createAPIEventObject(APIEventINFO, imageUrl) {
-  const APIEvent = {
-    id: createEventId(),
-    addr1: APIEventINFO.addr1 || "",
-    addr2: APIEventINFO.addr2 || "",
-    booktour: APIEventINFO.booktour || "",
-    cat1: APIEventINFO.cat1 || "",
-    cat2: APIEventINFO.cat2 || "",
-    cat3: APIEventINFO.cat3 || "",
-    contentid: APIEventINFO.contentid || "",
-    contenttypeid: APIEventINFO.contenttypeid || "",
-    createdtime: APIEventINFO.createdtime || "",
-    eventstartdate: APIEventINFO.eventstartdate || "",
-    eventenddate: APIEventINFO.eventenddate || "",
-    firstimage: APIEventINFO.firstimage || "",
-    firstimage2: APIEventINFO.firstimage2 || "",
-    cpyrhtDivCd: APIEventINFO.cpyrhtDivCd || "",
-    mapx: APIEventINFO.mapx || "",
-    mapy: APIEventINFO.mapy || "",
-    mlevel: APIEventINFO.mlevel || "",
-    modifiedtime: APIEventINFO.modifiedtime || "",
-    areacode: APIEventINFO.areacode || "",
-    sigungucode: APIEventINFO.sigungucode || "",
-    tel: APIEventINFO.tel || "",
-    title: APIEventINFO.title || "",
-    imageUrl: imageUrl || "",
-  };
-
-  return APIEvent;
-}
-
 // resetModal 함수 정의
 function resetEventModal() {
   $("#event-title").val("");
@@ -214,7 +176,6 @@ function resetEventModal() {
   );
   $("#schedulerEventModal .image-caption").text("이미지 등록");
 }
-
 //renderEventOnModal 함수 정의
 function renderEventOnModal(event) {
   // 모달 창에 필드 값을 입력.
@@ -236,20 +197,7 @@ function renderEventOnModal(event) {
     $("#schedulerEventModalView .image-caption a").attr("href", "#");
   }
 }
-
-//edit
-function setAddModalByEvent(modalEvent) {
-  $("#event-title").val(modalEvent.title);
-  $("#event-location").val(modalEvent.location);
-  $("#event-start-time").val(modalEvent.startTime);
-  $("#event-end-time").val(modalEvent.endTime);
-  $("#event-price").val(modalEvent.price);
-  $("#event-details").val(modalEvent.details);
-  $(".image-upload").val("");
-  $("#schedulerEventModal .preview-image").attr("src", modalEvent.image);
-  $("#schedulerEventModal .image-caption").text("이미지 등록");
-}
-
+//API 컨텐츠를 뷰모달에 그리기
 function renderAPIEventOnModal(event) {
   // 모달 창에 필드 값을 입력.
   $("#eventTitle_view").text(event.title || "내용 없음");
@@ -270,26 +218,90 @@ function renderAPIEventOnModal(event) {
   }
 }
 
-function transAPIobjToEvent(apievent) {
-  const event = {
-    id: createEventId(),
-    component: "event",
-    title: apievent.title,
-    location: apievent.addr1,
-    startTime: apievent.eventstartdate,
-    endTime: apievent.eventenddate,
-    price: 0,
-    details: apievent.tel,
-    image: apievent.firstimage,
-  };
+// UPDATE 관련
 
-  return event;
+function editEvent(obj) {
+  let field = addModalModule.getAddModalComponents()["event"].fields;
+  const { title, location, startTime, endTime, price, details, previewImage } =
+    field;
+
+    obj.title = title.val(),
+    obj.location = location.val(),
+    obj.startTime = startTime.val(),
+    obj.endTime = endTime.val(),
+    obj.price = price.val(),
+    obj.detail = details.val(),
+    obj.image = previewImage.attr("src")
+  
+  return obj;
+}
+
+// 추가된 일정으로 이벤트 객체를 옮기는 함수
+function toAddedEvent(id) {
+  let arrayfrom = addedEvents;
+  // 해당 요소가 있었던 곳 찾기
+  let idx = findIndexFromArrayById(addedEvents, id);
+  if (idx === -1) {
+    arrayfrom = waitEvents;
+    idx = findIndexFromArrayById(waitEvents, id);
+  }
+  let targetEvent = arrayfrom.splice(idx, 1)[0];
+  addedEvents.push(targetEvent);
+}
+// 대기 중인 일정으로 이벤트 객체를 옮기는 함수
+function toWaitEvent(id) {
+  let arrayfrom = addedEvents;
+  // 해당 요소가 있었던 곳 찾기
+  let idx = findIndexFromArrayById(addedEvents, id);
+  if (idx === -1) {
+    arrayfrom = waitEvents;
+    idx = findIndexFromArrayById(waitEvents, id);
+  }
+
+  let targetEvent = arrayfrom.splice(idx, 1)[0];
+  waitEvents.push(targetEvent);
+}
+// 이벤트 객체 값으로 추가 모달 필드 구성
+function setAddModalByEvent(modalEvent) {
+  $("#event-title").val(modalEvent.title);
+  $("#event-location").val(modalEvent.location);
+  $("#event-start-time").val(modalEvent.startTime);
+  $("#event-end-time").val(modalEvent.endTime);
+  $("#event-price").val(modalEvent.price);
+  $("#event-details").val(modalEvent.details);
+  $(".image-upload").val("");
+  $("#schedulerEventModal .preview-image").attr("src", modalEvent.image);
+  $("#schedulerEventModal .image-caption").text("이미지 등록");
+}
+
+// DELETE 관련
+// 아이디로 이벤트 객체 제거
+function removeEventById(id) {
+  let arrayAndIndex = getEventArrayAndIndexById(id);
+  if ($(arrayAndIndex)) {
+    // arrayAndIndex와 arrayAndIndex.array가 모두 있는지 확인
+    let array = arrayAndIndex.array;
+    let index = arrayAndIndex.index;
+
+    array.splice(index, 1);
+  } else {
+    console.log(`해당 id를 가진 일정이 없습니다`);
+  }
+}
+// 추가된 일정이나 대기 중인 일정에서 이벤트 객체를 제거하는 함수
+function removeEventFromArray(arr, id) {
+  let idx = findIndexFromArrayById(arr, id);
+
+  if (idx !== -1) {
+    arr.splice(idx, 1);
+  }
 }
 
 export {
   waitEvents,
   addedEvents,
   APIEvents,
+  editEvent,
   toWaitEvent,
   toAddedEvent,
   createEventId,

@@ -76,6 +76,14 @@
 			
 			<beans:bean id="logoutCheckInterceptor" class="com.kh.onthetrain.common.Interceptor.LogoutCheckInterceptor"/>
 		</interceptor>
+		
+		<!-- 관리자가 아니면 intercept -->
+		<interceptor>
+			<mapping path="/admin/**"/>
+			<mapping path="/cs/notice/write/**"/>
+			
+			<beans:bean id="adminCheckInterceptor" class="com.kh.onthetrain.common.Interceptor.AdminCheckInterceptor"/>
+		</interceptor>
 
 	</interceptors>
 

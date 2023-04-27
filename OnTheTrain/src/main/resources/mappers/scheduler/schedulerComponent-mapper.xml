@@ -8,7 +8,8 @@
 	<sql id="selectSchedulerAccommodation">
 		SELECT 
 			NO, 
-			SCHEDULER_NO, 
+			SCHEDULER_NO,
+			ID, 
 			IMAGE_NO, 
 			NAME, 
 			START_TIME, 
@@ -24,6 +25,7 @@
 		SELECT
 			NO,
 			SCHEDULER_NO,
+			ID,
 			IMAGE_NO,
 			TITLE,
 			START_TIME,
@@ -38,6 +40,7 @@
 	    SELECT
 	        NO,
 	        SCHEDULER_NO,
+	        ID,
 	        DEP_TIME,
 	        ARR_TIME,
 	        DEP_STATION,
@@ -63,6 +66,7 @@
 		type="SchedulerAccommodation">
 		<id column="NO" property="no" />
 		<result column="SCHEDULER_NO" property="schedulerNo" />
+		<result column="ID" property="id" />
 		<result column="IMAGE_NO" property="imageNo" />
 		<result column="NAME" property="name" />
 		<result column="START_TIME" property="start" />
@@ -77,6 +81,7 @@
 		type="SchedulerEvent">
 		<id column="NO" property="no" />
 		<result column="SCHEDULER_NO" property="schedulerNo" />
+		<result column="ID" property="id" />
 		<result column="IMAGE_NO" property="imageNo" />
 		<result column="TITLE" property="title" />
 		<result column="START_TIME" property="start" />
@@ -89,6 +94,7 @@
 	<resultMap id="schedulerTicketMap" type="SchedulerTicket">
 		  <id property="no" column="NO" />
 		  <result property="schedulerNo" column="SCHEDULER_NO" />
+		  <result column="ID" property="id" />
 		  <result property="depTime" column="DEP_TIME" />
 		  <result property="arrTime" column="ARR_TIME" />
 		  <result property="depStation" column="DEP_STATION" />

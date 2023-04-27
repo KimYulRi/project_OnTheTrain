@@ -1,13 +1,16 @@
 package com.kh.onthetrain.common.util;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.TimeZone;
 
 public class TimeConvertUtil {
 	public static final String KST_TIMEZONE = "Asia/Seoul";
 
-	//UTC를 KST로 변환
+	// UTC를 KST로 변환
 	public static Date convertUtcToKst(Date utcDate) {
 		TimeZone utcTimeZone = TimeZone.getTimeZone("UTC");
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -21,7 +24,7 @@ public class TimeConvertUtil {
 		}
 	}
 
-	//UTC를 KST DATE STRING로 변환
+	// UTC를 KST DATE STRING로 변환
 	public static String convertUtcToKstDateString(Date utcDate) {
 		TimeZone utcTimeZone = TimeZone.getTimeZone("UTC");
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -30,7 +33,7 @@ public class TimeConvertUtil {
 		return dateFormat.format(utcDate);
 	}
 
-	//UTC를 분단위의 KST DATE STRING로 변환
+	// UTC를 분단위의 KST DATE STRING로 변환
 	public static String convertUtcToKstDateStringWithoutSeconds(Date utcDate) {
 		TimeZone utcTimeZone = TimeZone.getTimeZone("UTC");
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:00");
@@ -39,7 +42,7 @@ public class TimeConvertUtil {
 		return dateFormat.format(utcDate);
 	}
 
-	//KST를 UTC로 변환
+	// KST를 UTC로 변환
 	public static Date convertKstToUtc(Date kstDate) {
 		TimeZone utcTimeZone = TimeZone.getTimeZone("UTC");
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -53,7 +56,7 @@ public class TimeConvertUtil {
 		}
 	}
 
-	//KST를 UTC DATE STRING로 변환
+	// KST를 UTC DATE STRING로 변환
 	public static String convertKstToUtcDateString(Date kstDate) {
 		TimeZone utcTimeZone = TimeZone.getTimeZone("UTC");
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -62,12 +65,25 @@ public class TimeConvertUtil {
 		return dateFormat.format(kstDate);
 	}
 
-	//KST를 분단위의 UTC DATE STRING로 변환
+	// KST를 분단위의 UTC DATE STRING로 변환
 	public static String convertKstToUtcDateStringWithoutSeconds(Date kstDate) {
 		TimeZone utcTimeZone = TimeZone.getTimeZone("UTC");
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:00");
 		dateFormat.setTimeZone(TimeZone.getTimeZone(KST_TIMEZONE));
 		dateFormat.setTimeZone(utcTimeZone);
 		return dateFormat.format(kstDate);
+	}
+
+	// LocalDateTime을 KST DATE STRING로 변환
+	public static String convertLocalDateTimeToKstDateString(LocalDateTime localDateTime) {
+		DateTimeFormatter formatter = DateTimeFormatter
+				.ofPattern("yyyy-MM-dd");
+		return localDateTime.atZone(ZoneId.of(KST_TIMEZONE)).format(formatter);
+	}
+
+	// KST DATE STRING을 LocalDateTime 객체로 변환
+	public static LocalDateTime convertKstDateStringToLocalDateTime(String kstDateString) {
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+		return LocalDateTime.parse(kstDateString, formatter).atZone(ZoneId.of(KST_TIMEZONE)).toLocalDateTime();
 	}
 }

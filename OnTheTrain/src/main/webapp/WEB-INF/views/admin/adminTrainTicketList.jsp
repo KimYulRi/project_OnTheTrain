@@ -11,7 +11,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin</title>
+    <title>온더트레인</title>
 
    	<link rel="stylesheet" href="${path}/bootstrap5/assets/css/bootstrap.css">
    	<link rel="stylesheet" href="${path}/bootstrap5/assets/vendors/bootstrap-icons/bootstrap-icons.css">
@@ -47,16 +47,10 @@
 	                                        <div id="adminSelect">
 	                                                    <select class="form-select" id="adminfilter">
 	                                                        <option selected>전체</option>
-	                                                        <option value="1">결제대기</option>
-	                                                        <option value="2">발권완료</option>
-	                                                        <option value="3">발권취소</option>
+	                                                        <option value="1">발권완료</option>
+	                                                        <option value="2">발권취소</option>
 	                                                    </select>
 	                                                    
-	                                                    <select class="form-select" id="adminsort">
-	                                                        <option selected>승차권번호순</option>
-	                                                        <option value="1">탑승일순</option>
-	                                                        <option value="2">예약일순</option>
-	                                                    </select>
 	                                        </div>
                                         </div>                                        
                                     
@@ -66,53 +60,47 @@
                                         <table class="table table-hover mb-0 admin-tb">
                                             <thead>
                                                 <tr>
-                                                    <th  class="col-1">승차권번호</th>
-                                                    <th  class="col-2">예매자</th>
-                                                    <th  class="col-1">열차번호</th>
+                                                    <th  class="col-2">승차권번호</th>
+                                                    <th  class="col-1">회원번호</th>
+                                                    <th  class="col-2">열차번호</th>
+                                                    <th  class="col-1">열차종류</th>
                                                     <th  class="col-2">출발역</th>
                                                     <th  class="col-1">도착역</th>
-                                                    <th  class="col-2">탑승일</th>
-                                             		<th  class="col-1">예약일</th>
+                                             		<th  class="col-2">탑승일</th>
                                                     <th  class="col-1">상태</th>
-                                                    <th class="col-md-1">관리</th>
+                                                    <th class="col">관리</th>
                                                 </tr>
                                             </thead>
-                                           <%--  <tbody>
+                                            <tbody>
                                              <c:forEach var="ticket" items="${ list }" >
                                                 <tr>
                                                     <td class="text-bold-500">${ ticket.ticketNo }</td>
-                                                    <td>${ ticket.nickname }</td>
-                                                    <td class="text-bold-500">?열차번호?</td>
+                                                    <td>${ ticket.userNo }</td>
+                                                    <td class="text-bold-500">${ ticket.trainNo }</td>
+                                                    <td>${ ticket.type }</td>
                                                     <td>${ ticket.departure }</td>
                                                     <td>${ ticket.arrival }</td>
                                                     <td><fmt:formatDate value="${ ticket.depDate }" pattern="yyyy-MM-dd" /></td>
-                                                    <td><fmt:formatDate value="${ ticket.bookDate }" pattern="yyyy-MM-dd" /></td>
-                                                    <td>결제상태
+                                                     <td>
                                                     <c:choose>
                                                     	 <c:when test="${ ticket.refundStatus == 'Y'}">
-														     <span class="badge   bg-disable" >발권취소</span>
+														     <span class="badge   bg-disable" >환불완료</span>
 														  </c:when>
-														  <c:when test="${ ticket.paymentStatus == 'N'}">
-														     <span class="badge  bg-light-warning" >결제대기</span>
-														   </c:when>
-														  <c:when test="${ ticket.paymentStatus == 'Y'}">
-														     <span class="badge  bg-light-primary" >발권완료</span>
+														  <c:when test="${ ticket.refundStatus == 'N'}">
+														     <span class="badge  bg-light-primary" >결제완료</span>
 														  </c:when>
-														  <c:otherwise>
-														     <span class="badge  bg-disable">발권취소</span>
-														  </c:otherwise>
 													</c:choose>
                                                    </td>
                                                     
                                                     <td class="text-center d-flex justify-content-center">
                                                     	<div id=tablebtn>
 		                                                    <button class="adminbtn2 block" data-no="${ ticket.ticketNo }"
-		                                            		data-bs-toggle="modal" data-bs-target="#exampleModalCenter"></button>
+		                                            		data-bs-toggle="modal" data-bs-target="#exampleModalCenter">상세정보</button>
 														</div>
                                                     </td>
                                                 </tr>
                                                </c:forEach>											
-                                            </tbody> --%>
+                                            </tbody>
                                         </table>
                                         
                                     </div>

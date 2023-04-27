@@ -18,6 +18,9 @@ public class SchedulerEvent {
 	// 스케줄러no
 	private int schedulerNo;
 
+	// ID
+	private String id;
+	
 	// 이미지no
 	private int imageNo;
 
