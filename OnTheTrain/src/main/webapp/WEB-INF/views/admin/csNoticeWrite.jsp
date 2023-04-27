@@ -36,7 +36,7 @@
     
       </div>  
         
-       	<form name="noticeForm" action="${ path }/cs/notice/write" method="POST" onsubmit="return Validation();" enctype="multipart/form-data">
+       	<form name="noticeForm" id="noticeForm" action="${ path }/cs/notice/write" method="POST" onsubmit="return Validation();" enctype="multipart/form-data">
       <div class="content" id="content-list">
        		 <table>
                     <tbody>
@@ -59,13 +59,13 @@
                         <tr id="tbline3">
                             <td class="tbhead">내용</td>
                             <td>
-								 <textarea name="content" id="textareabox" maxlength="10" cols="140" rows="15" required></textarea>
+								 <textarea name="content" id="textareabox" maxlength="500" cols="140" rows="15" required></textarea>
 							</td>
                         </tr>
                         <tr id="tbline4">
                             <td class="tbhead">상단고정</td>
                             <td>
-								<input type="checkbox" id="top" name="top" value="1"> <label for="top">공지로 등록 (3개까지 가능)</label>
+								<input type="checkbox" id="fix" name="fix" value="1"> <label for="fix">공지로 등록 (3개까지 가능)</label>
 							</td>
                         </tr>
                         <tr id="tbline4">
@@ -86,8 +86,8 @@
       <div class="content" id="content-btn">
         
     	<div id="btnarea">
-	        <input type="submit" class="noticeBtn" id="okayBtn" value="작성완료" >
-	        <button class="noticeBtn" id="cancleBtn" onclick="cancel()">취소</button>
+	        <button type="submit" class="noticeBtn" id="okayBtn">작성완료</button>
+	        <button class="noticeBtn" id="cancleBtn" onclick="cancel(); return false;">취소</button>
 	        </div>
       	</div>  
 		</form>
@@ -105,6 +105,41 @@
         	  $(".upload-name").val(fileName);
         	});
 
+        
+        function Validation(){
+	        	const checkbox = document.querySelector('#fix');
+	        	var isfixed = false;
+	        	
+	  	        if (!checkbox.checked) { 
+	  	        	return true;
+	  	        }else{
+	        	  // 고정이 3개 인지 확인
+					$.ajax({
+						type: 'POST',
+						url: '${path}/notice/fixCheck',
+						// 개수가 1~2개이면 true, 3개이상이면 false
+						success: (data) => {
+							
+							if(data){
+								// 1~2개면 통과
+								isfixed=true;
+								console.log(isfixed);
+								return true;
+							} else {
+								// 3개이상
+								alert('상단고정 게시글 개수가 제한을 초과했습니다. 가장 오래된 고정 게시글이 해제됩니다.');
+							}
+							
+						},
+						error: (error)=> {
+							alert(error);
+						}
+						
+					});
+	        	  
+	  	        } 
+	    }
+	    
     </script>
 </body>
 </html>

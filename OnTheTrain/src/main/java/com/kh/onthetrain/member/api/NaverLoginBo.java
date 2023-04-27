@@ -5,6 +5,7 @@ import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
@@ -17,13 +18,16 @@ import com.github.scribejava.core.oauth.OAuth20Service;
  
 @Component
 public class NaverLoginBo {
-	private final static String CLIENT_ID = "***REMOVED***";
-	private final static String CLIENT_SECRET = "***REMOVED***";
 	private final static String REDIRECT_URI = "http://localhost:8088/onthetrain/login/naver";
 	private final static String SESSION_STATE = "n_oauth_state";
 	// 프로필 조회 API URL
 	private final static String PROFILE_API_URL = "https://openapi.naver.com/v1/nid/me";
-	    
+	
+	@Value("${key.naverClientId}")
+	private String CLIENT_ID;
+
+	@Value("${key.naverClientSecret}")
+	private String CLIENT_SECRET;
 	
 	// 네이버 로그인 URL 생성
 	public String getAuthorizationUrl(HttpSession session) {

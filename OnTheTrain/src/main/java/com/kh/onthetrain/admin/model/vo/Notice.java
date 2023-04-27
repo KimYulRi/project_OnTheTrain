@@ -30,8 +30,8 @@ public class Notice {
 
 	private Date modifyDate;
 	
-	private String visiable;
+	private String visible;
 	
-	private int top;
+	private int fix;
 	
 }

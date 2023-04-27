@@ -22,7 +22,7 @@
         <section>
             <div id="body">           
                 <div>
-                    <div id="banner_space">
+                    <div class="banner_space">
                         <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
                             <div class="carousel-inner">
                                 <div class="carousel-item active">

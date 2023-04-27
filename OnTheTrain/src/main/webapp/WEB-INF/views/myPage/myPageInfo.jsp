@@ -11,7 +11,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>온더트레인</title>
     <link href="${ path }/css/myPage/myPageInfo.css" rel="stylesheet" type="text/css">
 	<link href="${ path }/css/myPage/myPageModal.css" rel="stylesheet" type="text/css">
     <script src="${ path }/js/common/jquery-3.6.3.js"></script>
@@ -22,7 +22,9 @@
 <body>
     <div id="container">
         <section>
-
+        	<div id="myBanner" >
+            	<img alt="" id="myBannerImg" width="1024px" height="181px" src="${ path }/images/myPage/myPage.jpg"  >
+            </div>
 	
             <div id="letftoolbar" class="table table-sm" >
                 <div id="toolbartitle">마이페이지</div>
@@ -63,11 +65,11 @@
                 	<th>주소</th>
                 	<td>
                 		<div class="enrollwrap" id="addressArea">
-							<label class="enrollLabel">
-							<input type="text" name="zipcode" id="zipcode" maxlength="7" class="texttype1" readonly>
+							<label class="enrollLabel">	
+							<input type="hidden" name="zipcode" id="zipcode" maxlength="7" class="texttype1" readonly>
 							<input type="text" name="address1" id="address1" class="texttype4"  readonly placeholder="${loginMember.address}" >
-							<input type="button" id="findaddress" class="inputbtn" value="우편번호 찾기"  onclick="findAddr()">
 							<input type="text" name="address2" id="address2" class="texttype4"  placeholder="상세주소" >
+							<input type="button" id="findaddress" class="inputbtn" value="우편번호 찾기"  onclick="findAddr()">
 							<input type="hidden" id="address" name="address" value="">
 							</label>
 						</div>
@@ -97,6 +99,7 @@
             </table>
             <button type="submit" id="infosubmit" >개인정보 수정하기</button>
             <button type="button" id="pwdchange" class="pwdModal" >비밀번호 변경하기</button>
+           <button type="button" id="withdraw" class="withdrawModal" onclick="location.href='${path}/myPage/myPageWithdraw'">회원 탈퇴</button>
 		</form>
             
             

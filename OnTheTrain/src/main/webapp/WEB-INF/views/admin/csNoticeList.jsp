@@ -43,32 +43,41 @@
 
       <div class="content" id="content-tablehead">
         <p id="totaltag">총<span id="numspan"> ${ totalNotice }</span>개</p>
+        <c:if test="${ not empty loginMember && loginMember.role == 'ROLE_ADMIN' }">
         <button class="noticeBtn" onclick="Towrite()">글쓰기</button>
+        </c:if>
       </div>  
         
       <div class="content" id="content-list">
         <table class="table table-hover" id="noticetable">
                     <tbody>
                       <!-- 고정 -->
-                      <%-- 
-                    <c:forEach var="notice" items="${ fix }" > --%>
+                 
+                    <c:forEach var="fixList" items="${ fixList }" >
                         <tr class="table-light">
                             <td class="col-1 centertd"><span id="fixed">공지</span></td>
-                            <td class="paddingtd"><span id="cate">카테고리</span></td>
-                            <td>게시글이름</td>
-                            <td class="col-1">날짜</td>
+                            <td class="paddingtd"><span id="cate">${ fixList.type }</span></td>
+                            <td class="boldtd"=><a href="${ path }/cs/notice/view?no=${ fixList.no }">
+									${ fixList.title }
+								</a></td>
+                            <td class="col-1"><fmt:formatDate value="${ fixList.createDate }" pattern="yyyy-MM-dd"/></td>
                       </tr>
-                    <%-- </c:forEach>	 --%>				
+                    </c:forEach>
+                    			
                         <!-- 전체 -->
-                        <c:set var="no" value="${ totalNotice }"/>
-                    <%-- <c:forEach var="notice" items="${ list }" varStatus="num"> --%>
+                    	<c:forEach var="list" items="${ list }">
                         <tr>
-                            <td class="centertd">${ totalNotice-num-1 }</td>
-                            <td class="paddingtd"><span id="cate">카테고리</span></td>
-                            <td>게시글이름</td>
-                            <td>날짜</td>
+                            <td class="centertd">${ list.no }</td>
+                            <td class="paddingtd"><span id="cate">${ list.type }</span></td>
+                            <td><a href="${ path }/cs/notice/view?no=${ list.no }">
+									${ list.title }
+								</a>
+							</td>
+                            <td>
+                            <fmt:formatDate value="${ list.createDate }" pattern="yyyy-MM-dd"/>
+                            </td>
                         </tr>
-                      <%-- </c:forEach>	 --%>										
+                      </c:forEach>										
                     </tbody>
                 </table>
       </div>

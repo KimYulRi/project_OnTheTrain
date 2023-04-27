@@ -19,7 +19,7 @@ h1, h2, h3, h4, h5, h6{
  }
 
  section{
-	min-height: 700px;
+	min-height: 900px;
 	width: 1200px;
 	display: flex;
 	justify-content: center;
@@ -144,12 +144,16 @@ h1, h2, h3, h4, h5, h6{
    display:flex;
 	
 }
- 
+  #fixed{
+ 	color: #e83e8c;
+ 	font-size: 12px;
+     font-weight: 600;
+ }
  
 
  /* 테이블(리스트) 영역  */
  #content-list{
-     min-height: 200px;
+     min-height: 150px;
  }
  #noticetable{
  	border-top: 0.5px solid #2C3E50;
@@ -158,7 +162,7 @@ h1, h2, h3, h4, h5, h6{
   	width: 15%;
   	padding-left: 30px;
   }
-  
+
   .centertd {
   	text-align:center;
   }
@@ -171,9 +175,13 @@ h1, h2, h3, h4, h5, h6{
  	padding: 40px;
 }
 
-table>thead>tr {
+table>thead>#trhead {
  vertical-align: middle;
   height: 60px;
+}
+table>thead>#trfile{
+	 vertical-align: middle;
+  	height: 30px;
 }
 
 table>tbody>tr {
@@ -188,4 +196,13 @@ table>tbody>tr {
 	font-size: 6px;
 	font-weight: 500;
 	
+}
+#filetd{
+  	font-size: 12px;
+  	font-weight: 600;
+  	
+}
+#filefont{
+	 color: #596180;
+  	font-size: 12px;
 }

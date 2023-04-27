@@ -45,6 +45,7 @@
 			</div>
 			<div class="modal-footer">
 				<button class="editComplete-button">수정완료</button>
+				<button class="directAdd-button">일정에 바로 추가</button>
 				<button class="add-button">추가</button>
 				<button class="reset-button">초기화</button>
 				<button class="cancel-button">취소</button>
@@ -100,6 +101,7 @@
 		</div>
 		<div class="modal-footer">
 			<button class="editComplete-button">수정완료</button>
+			<button class="directAdd-button">일정에 바로 추가</button>
 			<button class="add-button">Apply</button>
 			<button class="reset-button">Reset</button>
 			<button class="cancel-button">Cancel</button>
@@ -144,6 +146,7 @@
 			</div>
 			<div class="modal-footer">
 				<button class="editComplete-button">수정완료</button>
+				<button class="directAdd-button">일정에 바로 추가</button>
 				<button class="add-button">Apply</button>
 				<button class="reset-button">Reset</button>
 				<button class="cancel-button">Cancel</button>
