@@ -147,18 +147,18 @@ public class MyPageContoller {
 		return model;
 	}
 	
-	@GetMapping("/myPage/myPageCoupon")
-	// 마이페이지 쿠폰함으로 보내는 메소드
-	public ModelAndView toMyCoupon(ModelAndView model,
-								@RequestParam(defaultValue = "1") int page,
-								@SessionAttribute("loginMember") Member loginMember) {
-		
-		model.setViewName("myPage/myPageCoupon");
-		
-		
-		log.info("/myPage/toMyCoupon 메소드 실행");
-		return model;
-	}
+//	@GetMapping("/myPage/myPageCoupon")
+//	// 마이페이지 쿠폰함으로 보내는 메소드
+//	public ModelAndView toMyCoupon(ModelAndView model,
+//								@RequestParam(defaultValue = "1") int page,
+//								@SessionAttribute("loginMember") Member loginMember) {
+//		
+//		model.setViewName("myPage/myPageCoupon");
+//		
+//		
+//		log.info("/myPage/toMyCoupon 메소드 실행");
+//		return model;
+//	}
 	
 
 	

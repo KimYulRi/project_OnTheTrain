@@ -9,7 +9,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>온더트레인</title>
 	<%@ include file="../common/header.jsp" %>
 	<script src="${ path }/js/common/jquery-3.6.3.js"></script>
 <!-- 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"> -->
@@ -37,6 +37,32 @@
 					    </div>
 					  </div>
 					</div>
+					
+					<div class="modal fade" id="couponModal" tabindex="-1" role="dialog" aria-labelledby="couponModalLabel" aria-hidden="true">
+					  <div class="modal-dialog modal-dialog-centered" role="document">
+					    <div class="modal-content">
+					      <div class="modal-header">
+					        <h5 class="modal-title" id="couponModalLabel">쿠폰함</h5>
+					        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					          <span aria-hidden="true">&times;</span>
+					        </button>
+					      </div>
+					      <div class="modal-body">
+					        <div id="coupon-list">
+					          <!-- 쿠폰 목록이 여기에 추가됩니다. -->
+					        </div>
+					      </div>
+					      <div class="modal-footer">
+					        <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
+					      </div>
+					    </div>
+					  </div>
+					</div>
+
+			<!-- 쿠폰함 모달 버튼 -->
+			<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#couponModal">
+			  쿠폰함
+			</button>
 				</div>		
 			</div>
 
