@@ -1,78 +1,148 @@
+import { addModalModule } from "../schedulerModalModule.js";
+
+import {
+  getCurrentComponent,
+  noComponentAreaVisable,
+} from "../schedulerCreate.js";
+import { viewModalMoudule } from "../schedulerModalViewModule.js";
 /* calender */
+
+let keyDate = getSundayDate(new Date());
+const schedulerCalender = {};
+let currentComponent = getCurrentComponent();
+
+function getSundayDate(inputDate) {
+  // 입력된 날짜의 주의 시작하는 일요일을 계산 ; key값이 됨
+  const sundayDate = new Date(inputDate);
+  sundayDate.setDate(sundayDate.getDate() - sundayDate.getDay());
+  return sundayDate;
+}
+
+function addSecondsIfNeeded(dateTimeStr) {
+  if (dateTimeStr.length === 16) {
+    dateTimeStr += ":00";
+  }
+  return dateTimeStr;
+}
+
+function addSchedulerComponent(obj) {
+  let st = obj.startTime;
+  let ed = obj.endTime;
+
+  dp.events.add({
+    start: addSecondsIfNeeded(st),
+    end: addSecondsIfNeeded(ed),
+    id: obj.id,
+    text: obj.title,
+    barColor: "#3c78d8",
+  });
+}
+
+function deleteSchedulerComponent(id) {
+  dp.events.remove(id);
+}
+
+// 캘린더 내에서 일정이 옮겨지거나 시간이 변경되었을 때 요소 오브젝트에 적용함
+function handleEventChange(args) {
+  args.preventDefault();
+  let componentId = args.e.data.id;
+  let newStartTime = args.newStart;
+  let newEndTime = args.newEnd;
+  let componentObj = addModalModule.findComponentById(
+    currentComponent,
+    componentId
+  );
+  componentObj.startTime = newStartTime;
+  componentObj.endTime = newEndTime;
+}
+
+$(document).ready(() => {});
 
 const dp = new DayPilot.Calendar("dp", {
   theme: "onthetrain_theme",
   viewType: "Week",
-  startDate: "2022-03-21",
+  startDate: keyDate,
   columnWidth: 200,
   eventDeleteHandling: "Update",
 
-  onEventClick: async (args) => {
-    const colors = [
-      { name: "Blue", id: "#3c78d8" },
-      { name: "Green", id: "#6aa84f" },
-      { name: "Yellow", id: "#f1c232" },
-      { name: "Red", id: "#cc0000" },
-    ];
-
-    const form = [
-      { name: "Text", id: "text" },
-      { name: "Start", id: "start", type: "datetime" },
-      { name: "End", id: "end", type: "datetime" },
-      { name: "Color", id: "barColor", type: "select", options: colors },
-    ];
-
-    const modal = await DayPilot.Modal.form(form, args.e.data);
-
-    if (modal.canceled) {
-      return;
-    }
-
-    dp.events.update(modal.result);
-  },
-  onBeforeEventRender: (args) => {
-    args.data.barBackColor = "transparent";
-    if (!args.data.barColor) {
-      args.data.barColor = "#333";
-    }
-  },
   onTimeRangeSelected: async (args) => {
-    const form = [{ name: "Name", id: "text" }];
-
-    const data = {
-      text: "Event",
-    };
-
-    const modal = await DayPilot.Modal.form(form, data);
+    args.preventDefault();
+    addModalModule.showAddModal(currentComponent);
+    addModalModule.showDirectAddButton();
     dp.clearSelection();
-
-    if (modal.canceled) {
-      return;
-    }
-
-    dp.events.add({
-      start: args.start,
-      end: args.end,
-      id: DayPilot.guid(),
-      text: modal.result.text,
-      barColor: "#3c78d8",
-    });
   },
-  onHeaderClick: (args) => {
-    console.log("args", args);
+
+  onEventClick: async (args) => {
+    args.preventDefault();
+    let componentId = args.e.data.id;
+    let cardToRemove = $(".card#" + componentId);
+    let componentObj = addModalModule.findComponentById(
+      currentComponent,
+      componentId
+    );
+
+    viewModalMoudule.openViewModal(
+      currentComponent,
+      componentObj,
+      cardToRemove
+    );
+  },
+
+  onEventMoved: async (args) => {
+    handleEventChange(args);
+  },
+
+  onEventResized: async (args) => {
+    handleEventChange(args);
+  },
+
+  onEventDeleted: async (args) => {
+    let componentId = args.e.data.id;
+    let addedList =
+      addModalModule.getAddModalComponents()[currentComponent].addedList;
+    addModalModule.removeFromArray(currentComponent, addedList, componentId);
+    $("#" + componentId).remove();
+
+    if (addedList.length === 0) {
+      noComponentAreaVisable();
+    }
   },
 });
 
+dp.headerDateFormat = "yyyy년 MM월 dd일";
+dp.height = 700;
 dp.init();
 
 const events = [
   {
-    start: "2022-03-21T11:00:00",
-    end: "2022-03-21T14:00:00",
+    start: "2023-04-23T11:00:00",
+    end: "2023-04-23T14:00:00",
     id: 1,
     text: "Event 1",
     barColor: "#3c78d8",
   },
 ];
+
 dp.update({ events });
 
+/*
+// Events can be added to the Calendar using events.add() method.
+var e = new DayPilot.Event({ start: new DayPilot.Date(), end: (new DayPilot.Date()).addHours(5), value: DayPilot.guid(), text: "New Event", resource: 'E' });
+dpc.events.add(e);
+
+//Event updating
+var e = dpc.events.find('123'); dpc.text('New Event Name');
+// update the event textdpc.client.innerHTML('New Event Name');  // update the event HTML
+dpc.events.update(e);
+
+// Event removing
+// Events can be removed using events.remove() method.
+// The object representing the event must be acquired using events.find() or event.findRecurrent().
+var e = dpc.events.find('123');
+dpc.events.remove(e);
+
+//DayPilot.Calendar.events.add
+DayPilot.Calendar.events.add(e, data);
+*/
+
+export { dp, addSchedulerComponent, deleteSchedulerComponent, keyDate };

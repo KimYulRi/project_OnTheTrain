@@ -14,6 +14,7 @@
 	    <result property="location" column="LOCATION" />
 	    <result property="lot" column="LOT" />
 	    <result property="lat" column="LAT" />
+	    <result property="renamedFilename" column="RENAMED_FILENAME"/>
 	  </resultMap>
   
 	  <resultMap type="com.kh.onthetrain.accommodation.model.vo.Review" id="reviewsResultMap">
@@ -37,11 +38,34 @@
 	  	<result property="departure" column="DEPARTURE" />
 	  	<result property="arrival" column="ARRIVAL" />
 	  	<result property="price" column="T_PRICE" />
+	  </resultMap>
 	  
-	  
-	  
+	  <resultMap type="com.kh.onthetrain.myPage.model.entity.myTicket" id="myTicketResultMap">
+	  	<id property="ticketNo" column="TICKET_NO" />
+	  	<result property="userNo" column="USER_NO" />
+	  	<result property="type" column="TYPE" />
+	  	<result property="trainNum" column="TRAIN_NUM" />
+	  	<result property="depDate" column="DEP_DATE" />
+	  	<result property="depTime" column="DEP_TIME" />
+	  	<result property="arrTime" column="ARR_TIME" />
+	  	<result property="departure" column="DEPARTURE" />
+	  	<result property="arrival" column="ARRIVAL" />
+	  	<result property="price" column="T_PRICE" />
+	  	<result property="seat" column="SEAT" />
 	  </resultMap>
 
+	<resultMap type="com.kh.onthetrain.myPage.model.entity.ReservationCheck" id="ReservationCheckResultMap">
+		<id property="no" column="NO" />
+		<result property="memberNo" column="MEMBER_NO"  />
+		<result property="accommodationNo" column="ACCOMMODATION_NO"  />
+		<result property="checkIn" column="CHECKIN"  />
+		<result property="checkOut" column="CHECKOUT"  />
+		<result property="price" column="PRICE"  />
+		<result property="adultNumber" column="ADULT_NUMBER"  />
+		<result property="kidNumber" column="KID_NUMBER"  />
+		<result property="babyNumber" column="BABY_NUMBER"  />
+	</resultMap>
+	
 
 	<resultMap id="memberResultMap" type="Member">
       <id property="no" column="NO"/>
@@ -190,7 +214,8 @@
 				QNA_DATE,
 				VISABLE
 		FROM 	QNA_REPLY
-		WHERE	QNA_NO=#{no}
+		WHERE	VISABLE ='Y' AND QNA_NO=#{no}
+
 	</select>
 	
 	<!-- 문의 답변이 달릴경우에 check 상태를 바꿔주는 쿼리문 -->
@@ -290,6 +315,7 @@
 	  WHERE Q.NO = #{no}
 	</select>
 	
+	<!-- 스캐줄러 pageinfo 구현을 위한 쿼리문 -->
 	<select id="getSchedulerCount" resultType="_int">
 			SELECT COUNT(*) 
 			FROM SCHEDULER
@@ -298,6 +324,7 @@
 	</select>
 	
 	
+	<!-- 멤버의 no를 가지고 스캐줄러의 리스트를 가져오는 쿼리 -->
 	<select id="selectSchedulerListByMemberNo" resultMap="schedulerResultMap" >
 		SELECT NO,
 			   MEMBER_NO,
@@ -309,18 +336,17 @@
 			   EDIT_DATE
 		FROM SCHEDULER
 		WHERE MEMBER_NO = #{no} AND VISABLE = 'Y'
-	
-	
-	
+
 	</select>
 	
-	
+	<!-- 숙박 pageinfo 구현을 위한 쿼리문 -->
 	<select id="selectAccommodationCount" resultType="_int" >
 			SELECT COUNT(*) 
 			FROM RESERVATION
 			WHERE MEMBER_NO = #{no}
 	</select>
 	
+	<!-- 멤버의 no를 가지고 숙박의 리스트를 가져오는 쿼리 -->
 	<select id="selectAccommodationListByMemberNo" resultMap="accommodationResultMap">
 		SELECT A.NO,
 			   A.NAME,
@@ -336,14 +362,16 @@
 		WHERE  R.MEMBER_NO = #{no}
 	</select>
 	
+	
 	<select id="selectTicketCount" resultType="_int">
 		SELECT COUNT(*)
 		FROM BOOK B
 		JOIN TICKET T ON B.TICKET_NO = T.TICKET_NO
 		WHERE USER_NO = #{no}
 	</select>
-
-	<select id="selectTicketListByMemberNo" resultMap="ticketResultMap">
+	
+	<!-- 멤버의 no를 가지고 티켓의 리스트를 가져오는 쿼리 -->
+	<select id="selectTicketListByMemberNo" resultMap="myTicketResultMap">
 		
 		SELECT T.TICKET_NO,
 			   T.USER_NO,
@@ -354,7 +382,8 @@
 			   T.ARR_TIME,
 			   T.DEPARTURE,
 			   T.ARRIVAL,
-			   T.T_PRICE
+			   T.T_PRICE,
+			   B.SEAT
 		FROM BOOK B
 		JOIN TICKET T ON B.TICKET_NO = T.TICKET_NO
 		WHERE USER_NO = #{no}
@@ -362,6 +391,7 @@
 	
 	</select>
 	
+	<!-- 유저의 정보를 삭제하는 쿼리문( 테이블에는 정보 존재 ) -->
 	<update id="deleteMember" parameterType="Member">
 		  UPDATE MEMBER
 		  SET 
@@ -370,6 +400,7 @@
 		  WHERE NO = #{no}
 	</update>
 	
+	<!-- 간편 로그인 유저의 간편 로그인 정보를 삭제하는 쿼리문 ( 테이블에서도 삭제 ) -->
 	<delete id="deleteSns" parameterType="Member">
 		DELETE 
 		FROM    SNS_MEMBER	
@@ -377,6 +408,7 @@
 
 	</delete>
 	
+	<!-- 유저의 amount 정보를 가져오는 쿼리문 -->
 	<select id="selectMemberAmount" resultMap="memberResultMap">
 		  SELECT
 		    NO,
@@ -399,21 +431,80 @@
 		  WHERE NO = #{no}
 	</select>
 	
+	
+	<!-- 유저의 amount가 일정수치 이상일 경우 멤버십 코드를 업데이트 하는 쿼리문 -->
 	<update id="updateMembershipM2" parameterType="Member">
 		  UPDATE MEMBER
 		  SET MEMBERSHIP_CODE = 'M2'
 		  WHERE NO = #{no}
 	</update>
-	
+	<!-- 유저의 amount가 일정수치 이상일 경우 멤버십 코드를 업데이트 하는 쿼리문 -->
+
 	<update id="updateMembershipM3" parameterType="Member">
 		  UPDATE MEMBER
 		  SET MEMBERSHIP_CODE = 'M3'
 		  WHERE NO = #{no}
 	</update>
-	
+	<!-- 유저의 amount가 일정수치 이상일 경우 멤버십 코드를 업데이트 하는 쿼리문 -->
 	<update id="updateMembershipM4" parameterType="Member">
 		  UPDATE MEMBER
 		  SET MEMBERSHIP_CODE = 'M4'
 		  WHERE NO = #{no}
 	</update>
+	
+	<!-- 예약한 숙박 업소의 정보를 가져오는 쿼리문 -->
+	<select id="findReservationCheckByNo" resultMap="ReservationCheckResultMap">
+	 SELECT  R.NO,
+	 		 R.MEMBER_NO,
+	 		 R.ACCOMMODATION_NO,
+	 		 R.CHECKIN,
+	 		 R.CHECKOUT,
+	 		 R.PRICE,
+	 		 R.ADULT_NUMBER,
+	 		 R.KID_NUMBER,
+	 		 R.BABY_NUMBER,
+	 FROM    RESERVATION R
+	 JOIN    ACCOMMODATION A ON R.ACCOMMODATION_NO = A.NO
+	 WHERE   R.ACCOMMODATION_NO = #{no}
+	</select>
+	
+	
+	<!-- 예약한 숙박의 정보를 가지고 해당 숙박의 총 정보를 가져오는 쿼리문 -->
+	<select id="findAccommodationByNo" resultMap="accommodationResultMap">
+				SELECT    A.NO,
+			          A.PRICE,
+			          A.NAME,
+			          A.STATUS,
+			          A.MAXVALUE,
+			          A.EXPLAIN,
+			          A.LOCATION,
+			          A.LOT,
+			          A.LAT,
+			          I.RENAMED_FILENAME
+			  FROM ACCOMMODATION A
+			  INNER JOIN ACCOMMODATION_IMAGE I ON (A.NO = I.ACCOMMODATION_NO) 
+			  WHERE STATUS = 'Y' AND A.NO = #{no}
+
+	</select>
+	
+	
+	<!-- 예약한 숙박 업소의 정보를 가져오는 쿼리문 -->
+	<select id="findReservationByNo" resultMap="ReservationCheckResultMap" >
+			SELECT   NO,
+			 		 MEMBER_NO,
+			 		 ACCOMMODATION_NO,
+			 		 CHECKIN,
+			 		 CHECKOUT,
+			 		 PRICE,
+			 		 ADULT_NUMBER,
+			 		 KID_NUMBER,
+			 		 BABY_NUMBER
+			 FROM    RESERVATION 
+
+			 WHERE   ACCOMMODATION_NO = #{no} AND MEMBER_NO = #{memberNo}
+	
+	</select>
+	
+	
+	
    </mapper>

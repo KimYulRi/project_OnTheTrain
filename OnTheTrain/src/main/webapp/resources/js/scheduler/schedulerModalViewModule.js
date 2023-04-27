@@ -1,4 +1,5 @@
 import {
+  noComponentAreaVisable,
   getCurrentComponent,
   addedComponentList,
   waitComponentList,
@@ -7,13 +8,14 @@ import {
 import {
   findEventById,
   renderEventOnModal,
+  transAPIobjToEvent,
   renderAPIEventOnModal,
   findEventFromArrayById,
 } from "./schedulerComponent/schedulerEventModule.js";
 
 import { addModalModule } from "./schedulerModalModule.js";
 
-const eventList = $("#eventList");
+const itemList = $("#itemList");
 const viewModalMoudule = {};
 
 $(document).ready(() => {
@@ -24,9 +26,11 @@ $(document).ready(() => {
       confirmButton: $("#schedulerEventModalView .confirm-button"),
       editButton: $("#schedulerEventModalView .edit-button"),
       deleteButton: $("#schedulerEventModalView .modalDelete-button"),
-      imageUploadInput: $("#schedulerEventModalView .image-upload")[0],
-      previewImage: $("#schedulerEventModalView .preview-image")[0],
-      imageCaption: $("#schedulerEventModalView .image-caption")[0],
+      imageUploadInput: $("#schedulerEventModalView .image-upload"),
+      addToWaitButton: $("#schedulerEventModalView .addToWait-button"),
+      previewImage: $("#schedulerEventModalView .preview-image"),
+      imageCaption: $("#schedulerEventModalView .image-caption"),
+      componentIdField: $("#schedulerEventModalView .componentId"),
       titleField: $("#event-title_view"),
       locationField: $("#event-location_view"),
       startTimeField: $("#event-start-time_view"),
@@ -34,9 +38,10 @@ $(document).ready(() => {
       priceField: $("#event-price_view"),
       detailsField: $("#event-details_view"),
       modalBackdrop: $("#schedulerEventModalView .modal-backdrop"),
-      renderAPIResultOnModal: renderAPIEventOnModal,
       findComponentById: findEventById,
       renderOnModal: renderEventOnModal,
+      transAPIobjToObj: transAPIobjToEvent,
+      renderAPIResultOnModal: renderAPIEventOnModal,
       findComponentFromArrayById: findEventFromArrayById,
     },
   };
@@ -49,7 +54,13 @@ $(document).ready(() => {
     // 모달 내 삭제버튼 누를 시, 카드 사라짐
     componentsView[component].deleteButton.on("click", () => {
       cardToRemove.remove();
+      if (addedComponentList.find(".card").length === 0) {
+        // card 클래스를 가진 요소가 없는 경우
+        noComponentAreaVisable();
+      }
       hideModal(component);
+      let id = componentsView[component].componentIdField.text();
+      addModalModule.removeComponentById(id);
     });
   }
 
@@ -67,8 +78,23 @@ $(document).ready(() => {
     componentsView[component].confirmButton.on("click", () => {
       hideModal(component);
     });
+  }
 
-    componentsView[component].deleteButton.on("click", () => {});
+  function showBasicbuttons() {
+    let component = getCurrentComponent();
+    componentsView[component].addToWaitButton.hide();
+    componentsView[component].editButton.show();
+    componentsView[component].deleteButton.show();
+    componentsView[component].componentIdField.show();
+  }
+
+  function showAPIbuttons() {
+    let component = getCurrentComponent();
+    componentsView[component].editButton.hide();
+    componentsView[component].deleteButton.hide();
+    componentsView[component].componentIdField.hide();
+    componentsView[component].addToWaitButton.show();
+    componentsView[component].addToWaitButton.css("display", "inline-block");
   }
 
   addModalViewEventListeners("event");
@@ -82,29 +108,7 @@ $(document).ready(() => {
   function removeOriginalCard(cardToRemove, id) {
     if (confirm("기존의 카드를 삭제합니까?")) {
       cardToRemove.remove();
-      removeOriginalComponent(id);
-    }
-  }
-
-  /**
-   * id값을 주면 배열에서 해당하는 id를 가진 component를 삭제한다.
-   * @param {string} componentId
-   */
-  function removeOriginalComponent(componentId) {
-    let currentComponent = getCurrentComponent();
-    let arrayAndIndex = addModalModule.getComponentArrayAndIndexById(
-      currentComponent,
-      componentId
-    );
-
-    if ($(arrayAndIndex)) {
-      // arrayAndIndex와 arrayAndIndex.array가 모두 있는지 확인
-      let array = arrayAndIndex.array;
-      let index = arrayAndIndex.index;
-
-      array.splice(index, 1);
-    } else {
-      console.log(`해당 id를 가진 일정이 없습니다`);
+      addModalModule.removeComponentById(id);
     }
   }
 
@@ -127,11 +131,13 @@ $(document).ready(() => {
 
     addButton.hide();
     editCompleteButton.show();
+    editCompleteButton.css("display", "inline-block");
+
     editCompleteButton.off("click");
     editCompleteButton.on("click", () => {
       removeOriginalCard(cardToRemove, id);
-      addModalModule.addComponent(component);
-      addModalModule.hideModal(component);
+      addModalModule.addComponentToWait(component);
+      addModalModule.hideAddModal(component);
       addModalModule.resetModalContent(component);
     });
   }
@@ -150,13 +156,15 @@ $(document).ready(() => {
     editCompleteButton.off("click");
   }
 
-  // 카드 클릭시 해당 정보를 담은 모달 열기
-  waitComponentList.add(addedComponentList).on("click", ".card", function () {
-    let componentId = $(this).attr("id");
-    let cardToRemove = $(".card#" + componentId);
-    let component = getCurrentComponent();
-    let componentObj = findComponentById(component, componentId);
-
+  /**
+   *
+   * @param {*} component 현재 컴포넌트
+   * @param {*} componentObj 컴포넌트 오브젝트
+   * @param {*} cardToRemove 지울 카드
+   */
+  function openViewModal(component, componentObj, cardToRemove) {
+    // 출력될 요소 설정
+    showBasicbuttons();
     renderOnModal(component, componentObj);
     showViewModal(component, cardToRemove);
 
@@ -166,6 +174,16 @@ $(document).ready(() => {
     componentsView[component].editButton.on("click", function () {
       editModal(component, componentObj, cardToRemove);
     });
+  }
+
+  // 카드 클릭시 해당 정보를 담은 모달 열기
+  waitComponentList.add(addedComponentList).on("click", ".card", function () {
+    let componentId = $(this).attr("id");
+    let cardToRemove = $(".card#" + componentId);
+    let component = getCurrentComponent();
+    let componentObj = findComponentById(component, componentId);
+
+    openViewModal(component, componentObj, cardToRemove);
   });
 
   /**
@@ -187,9 +205,19 @@ $(document).ready(() => {
     addModalModule.setAddModalByComponent(currentComponent, componentObj);
   }
 
+  /**
+   * API로 가져온 객체를 객체로 변환하며 수정
+   */
+  function apiObjtoWaitList(component, apiObj) {
+    let obj = componentsView[component].transAPIobjToObj(apiObj);
+    hideModal(component);
+    addModalModule.resetModalContent(component);
+    addModalModule.showAddModal(component);
+    addModalModule.setAddModalByComponent(component, obj);
+  }
 
-  // API열기
-  eventList.on("click", ".card", function () {
+  // APIcomponent열기
+  itemList.on("click", ".card", function () {
     let id = $(this).attr("id");
     let currentComponent = getCurrentComponent();
     let APIList = addModalModule.getAPIItemList(currentComponent);
@@ -197,10 +225,15 @@ $(document).ready(() => {
       currentComponent
     ].findComponentFromArrayById(APIList, id);
     addModalModule.renderAPIResultOnModal(currentComponent, selectedComponent);
-
     let cardToRemove = $(".card#" + id);
 
+    //addToWaitButton 이벤트 추가
+    componentsView[currentComponent].addToWaitButton.on("click", function () {
+      apiObjtoWaitList(currentComponent, selectedComponent);
+    });
+
     showViewModal(currentComponent, cardToRemove);
+    showAPIbuttons();
   });
 
   function getViewModalComponents() {
@@ -208,6 +241,8 @@ $(document).ready(() => {
   }
 
   viewModalMoudule.getViewModalComponents = getViewModalComponents;
+  viewModalMoudule.apiObjtoWaitList = apiObjtoWaitList;
+  viewModalMoudule.openViewModal = openViewModal;
 });
 
 export { viewModalMoudule };

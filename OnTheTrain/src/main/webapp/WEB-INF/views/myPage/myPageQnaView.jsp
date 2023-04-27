@@ -12,7 +12,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>온더트레인</title>
     <link href="${ path }/css/myPage/myPageQnaView.css" rel="stylesheet" type="text/css">
     <link href="${ path }/css/myPage/myPageModal.css" rel="stylesheet" type="text/css">
     <!-- CSS only -->
@@ -60,8 +60,8 @@
                                      <td colspan="2">
                                         <span id="filefont">
                                           <c:if test="${ not empty qna.qnaOriginalFileName }">
-                                          <a href="${ path }/resources/upload/qna/${ qna.renamedFileName }">
-                                             $ {qna.qnaOriginalFileName }
+                                          <a href="${ path }/resources/upload/qna/${ qna.qnaRenamedFileName }">
+                                             ${qna.qnaOriginalFileName }
                                           </a>
                                           </c:if>
                                         </span>
@@ -72,27 +72,38 @@
                                  </tr>
                              </tbody>
                              
-                              <thead>
-                               <tr id="trhead2">
-                                     <td class="headhead" colspan="3"> 온더트레인 답변</td>
-                               </tr>
-                               <tr id="trhead4">
-                                     <td id="righttd" colspan="3">${qnaReply.qnaReplyDate}</td>
-                               </tr>
-                               </thead>
-                             
-                              <tbody>
-                                 <tr  class="trcontent"> 
-                                     <td id="tbcontent2" colspan="3">${ qnaReply.qnaReplyContent }</td>
-                                 </tr>
-                             </tbody>
-                             
-                         </table>
+                             <c:if test="${not empty qnaReply}">
+	                              <thead>
+	                               <tr id="trhead2">
+	                                     <td class="headhead" colspan="3"> 온더트레인 답변</td>
+	                               </tr>
+	                               <tr id="trhead4">
+	                                     <td id="righttd" colspan="3">${qnaReply.qnaReplyDate}</td>
+	                               </tr>
+	                               </thead>
+	                             
+	                              <tbody>
+	                                 <tr  class="trcontent"> 
+	                                     <td id="tbcontent2" colspan="3">${ qnaReply.qnaReplyContent }</td>
+	                                 </tr>
+	                             </tbody>
+                             </c:if>
 
+                         </table>
+			                  <c:if test="${empty qnaReply}">
+				                  <div id="noResultBody" >
+	                             	<div id="noResult" ><img id="imgNo"  width="110px" height="110px" src="${ path }/images/common/noResult.png" alt=""></div>
+	                             	<br>
+									<div id="noResult">작성된 관리자의 답변이 없습니다.</div>
+				                  </div>
+                             </c:if>
 			
-			<div class="none"></div>
+<!-- 			<div class="none"></div> -->
 			
-			<button type="button" id="qnaModal" class="qnaBtn" onclick="location.href='${path}/myPage/myPageQna'" >목록으로 돌아가기</button>
+
+			<div id="btndiv" >
+				<button type="button" id="qnaBtn" class="qnaBtn" onclick="location.href='${path}/myPage/myPageQna'" >목록으로 돌아가기</button>
+			</div>
 
 
         </section>

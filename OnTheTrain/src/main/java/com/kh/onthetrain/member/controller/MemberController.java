@@ -50,7 +50,7 @@ public class MemberController {
    /* NaverLoginBo */
    private NaverLoginBo naverLoginBO;
    private KakaoLoginBo kakaoLoginBO;
-	
+   
    @Autowired
    private void setNaverLoginBO(NaverLoginBo naverLoginBO) {
 		this.naverLoginBO = naverLoginBO;
@@ -59,6 +59,9 @@ public class MemberController {
    private void setKaokaoLoginBO(KakaoLoginBo kakaoLoginBO) {
 		this.kakaoLoginBO = kakaoLoginBO;
 	}
+   
+   @Autowired
+   private SendEmail sendEmail;
 	
    // 로그인 페이지
    @RequestMapping(value = "/login", method = {RequestMethod.GET, RequestMethod.POST} )
@@ -400,7 +403,7 @@ public class MemberController {
  	  
  	  // id, email에 해당하는 회원의 비밀번호 재설정
  	  if(result > 0) {
- 		  SendEmail.sendEmail(email, password);
+ 		  sendEmail.sendEmail(email, password);
  		  map.put("update", "true");
  	  } else {
 		  map.put("update", null);

@@ -24,6 +24,7 @@ import com.kh.onthetrain.common.util.MultipartFileUtil;
 import com.kh.onthetrain.common.util.PageInfo;
 import com.kh.onthetrain.member.model.vo.Member;
 import com.kh.onthetrain.member.service.MemberService;
+import com.kh.onthetrain.myPage.model.entity.ReservationCheck;
 import com.kh.onthetrain.myPage.model.entity.Qna;
 import com.kh.onthetrain.myPage.model.entity.QnaReply;
 import com.kh.onthetrain.myPage.service.MyPageService;
@@ -77,6 +78,7 @@ public class MyPageContoller {
 		PageInfo pageInfo = new PageInfo(page, 3, listCount, 5);
 		List<Accommodation> accommodationList = service.getAccommodationListByMemberNo(loginMember.getNo(),pageInfo);
 		
+		
 		System.out.println(accommodationList);
 		model.addObject("pageInfo", pageInfo);
 		model.addObject("accommodationList", accommodationList);
@@ -86,6 +88,35 @@ public class MyPageContoller {
 		return model;
 	}
 	
+	@GetMapping("/myPage/myPageAccommodationCheck")
+	//마이페이지 결제 완료 숙소 예약 확인 버튼을 눌렀을때 해당 페이지로 보내는 메소드
+	public ModelAndView toAccommodationCheck(ModelAndView model,@RequestParam("accNo") int no,@SessionAttribute("loginMember") Member loginMember ) {
+			int memberNo = loginMember.getNo();
+			Accommodation accommodation = null;
+			ReservationCheck reservationCheck = null;
+			System.out.println(no);
+			
+			// 결제완료 예약 확인 no 를 가지고 숙소의 정보를 가져오는 메소드
+			accommodation = service.findAccommodationByNo(no);
+			
+			// 숙소 번호 및 유저 번호를 가지고 예약 정보를 가져오는 메소드
+			reservationCheck = service.findReservationByNo(no,memberNo);
+			
+			
+//			reservationCheck = service.findReservationCheckByNo(no);
+
+			
+			
+			System.out.println("테스트 테스트" +reservationCheck);
+			System.out.println("테스트 테스트" +accommodation);
+			model.addObject("accommodation", accommodation);
+			model.addObject("reservationCheck",reservationCheck);
+			model.setViewName("/myPage/myPageAccommodationCheck");
+			
+			
+			return model;
+	}
+	
 	@GetMapping("/myPage/myPageTicketWaiting")
 	// 마이페이지 결제 대기 티켓 확인 페이지로 보내는 메소드
 	public String toMyTicketWaiting(){
@@ -93,12 +124,7 @@ public class MyPageContoller {
 		return "myPage/myPageTicketWaiting";
 	}
 	
-	@GetMapping("/myPage/myPageAccommodationWaiting")
-	// 마이페이지 결제 대기 숙소 확인 페이지로 보내는 메소드
-	public String toMyAccommodationWaiting() {
-		log.info("toMyAccommodationWaiting 메소드 실행");
-		return "myPage/myPageAccommodationWaiting";
-	}
+
 	
 	@GetMapping("/myPage/myPageMyScheduler")
 	// 마이페이지 나의 스케줄러 페이지로 보내는 메소드
@@ -175,6 +201,7 @@ public class MyPageContoller {
 	    @SessionAttribute("loginMember") Member loginMember){
 
 	    Qna qna = new Qna();
+	    int qnaNo = qna.getQnaNo();
 	    qna.setTitle(title);
 	    qna.setType(type);
 	    qna.setQnaContent(content);
@@ -203,17 +230,20 @@ public class MyPageContoller {
 	    // 2. 작성한 문의글 데이터를 데이터베이스에 저장
 	    int result = service.save(qna);
 
-	    if (result > 0) {
-	        modelAndView.addObject("msg", "문의글이 정상적으로 등록되었습니다.");
-	        modelAndView.addObject("location", "/myPage/myPageQna");
-
+	    if(result > 0) {
+	    	
+	    	modelAndView.addObject("msg","문의가 성공적으로 작성되었습니다.");
+		    modelAndView.addObject("location", "/myPage/myPageQna" );                        
+		    modelAndView.setViewName("common/msg");
+	    	
 	    } else {
-	        modelAndView.addObject("msg", "문의글 등록을 실패하였습니다.");
-	        modelAndView.addObject("location", "/myPageQnaWrite");
-
-
+	    	modelAndView.addObject("msg","문의작성에 실패하였습니다.");
+		    modelAndView.addObject("location", "/myPage/myPageQnaWrite" );                        
+		    modelAndView.setViewName("common/msg");
 	    }
-
+	    
+	      
+	    modelAndView.addObject("location", "/myPage/myPageQna" );                        
 	    modelAndView.setViewName("common/msg");
 
 	    return modelAndView;
@@ -255,9 +285,16 @@ public class MyPageContoller {
 		
 		result = service.insertQnaReply(qnaNo, qnamodalreply);
 		
-		
-		
-		model.setViewName("redirect:/myPage/myPageQna");
+		if(result > 0) {
+	         model.addObject("msg", "답글이 정상적으로 등되었습니다.");
+	      } else {
+	         model.addObject("msg", "답글 수정을 실패하였습니다.");
+	      }
+	      
+	      model.addObject("location", "/admin/qna/view?no=" + qnaNo);                        
+	      model.setViewName("common/msg");
+//		
+//		MODEL.SETVIEWNAME("REDIRECT:/MYPAGE/MYPAGEQNA");
 		return model;
 	}
 	
@@ -397,43 +434,48 @@ public class MyPageContoller {
  	
  	@PostMapping("/myPage/myPageWithdraw")
  	// 회원탈퇴
-	public ModelAndView withdraw(ModelAndView model,@SessionAttribute("loginMember") Member loginMember,HttpSession session) {
+	public ModelAndView withdraw(ModelAndView model,@RequestParam("nameCheck") String nameCheck ,@SessionAttribute("loginMember") Member loginMember,HttpSession session) {
  		int no = loginMember.getNo();
  		
- 		if(loginMember.getSnsLogin().equals("Y")) {
- 			
- 			int result = service.deleteSnsMember(no);
- 	 		if(result > 0) {
- 	 			session.invalidate();
- 				model.addObject("msg", "회원 탈퇴가 정상적으로 완료되었습니다.");
- 				model.addObject("location", "/login");
- 				model.setViewName("common/msg");
- 	 		} else {
- 				model.addObject("msg", "회원탈퇴에 실패했습니다.");
- 				model.addObject("location", "/myPage/myPageWithdraw");
- 				model.setViewName("common/msg");
- 	 			
- 	 		}
- 	 		
- 			
+ 		if (loginMember.getName().equals(nameCheck)) {	
+	 		if(loginMember.getSnsLogin().equals("Y")) {
+	 			
+	 			int result = service.deleteSnsMember(no);
+	 	 		if(result > 0) {
+	 	 			session.invalidate();
+	 				model.addObject("msg", "회원 탈퇴가 정상적으로 완료되었습니다.");
+	 				model.addObject("location", "/login");
+	 				model.setViewName("common/msg");
+	 	 		} else {
+	 				model.addObject("msg", "회원탈퇴에 실패했습니다.");
+	 				model.addObject("location", "/myPage/myPageWithdraw");
+	 				model.setViewName("common/msg");
+	 	 			
+	 	 		}
+	 	 		
+	 			
+	 		} else {
+	 		
+	 			int result = service.deleteMember(no);
+	 	 		if(result > 0) {
+	 	 			session.invalidate();
+	 				model.addObject("msg", "회원 탈퇴가 정상적으로 완료되었습니다.");
+	 				model.addObject("location", "/login");
+	 				model.setViewName("common/msg");
+	 	 		} else {
+	 				model.addObject("msg", "회원탈퇴에 실패했습니다.");
+	 				model.addObject("location", "/myPage/myPageWithdraw");
+	 				model.setViewName("common/msg");
+	 	 			
+	 	 		}
+	 	 		
+	 		
+ 			}
  		} else {
- 		
- 			int result = service.deleteMember(no);
- 	 		if(result > 0) {
- 	 			session.invalidate();
- 				model.addObject("msg", "회원 탈퇴가 정상적으로 완료되었습니다.");
- 				model.addObject("location", "/login");
- 				model.setViewName("common/msg");
- 	 		} else {
- 				model.addObject("msg", "회원탈퇴에 실패했습니다.");
- 				model.addObject("location", "/myPage/myPageWithdraw");
- 				model.setViewName("common/msg");
- 	 			
- 	 		}
- 	 		
- 		
+ 			model.addObject("msg", "입력하신 이름이 일치하지 않습니다.");
+			model.addObject("location", "/myPage/myPageWithdraw");
+			model.setViewName("common/msg");
  		}
- 		
 
  		
  		

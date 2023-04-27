@@ -11,7 +11,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>온더트레인</title>
     <link href="${ path }/css/myPage/myPageWithdraw.css" rel="stylesheet" type="text/css">
 	<link href="${ path }/css/myPage/myPageModal.css" rel="stylesheet" type="text/css">
     <script src="${ path }/js/common/jquery-3.6.3.js"></script>
@@ -48,7 +48,12 @@
 					
 					<div class="with" >정말로 회원을 탈퇴 하시겠습니까?</div>
 					
-				
+					<div class="with" >탈퇴를 원하시면 본인의 이름을 입력하신후 탈퇴하기 버튼을 눌러주세요.</div>
+					
+				<br>
+				<input type="text" name="nameCheck" id="nameCheck" >
+				<br>
+				<br>
             	<button type="submit" id="withdraw" >회원 탈퇴하기</button>
              </div>
 

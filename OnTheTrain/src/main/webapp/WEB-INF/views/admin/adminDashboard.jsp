@@ -51,7 +51,7 @@
                                             </div>
                                             <div class="col-md-8">
                                                 <h6 class="text-muted font-semibold">가입자수</h6>
-                                                <h6 class="font-extrabold mb-0">{ }명</h6>
+                                                <h6 class="font-extrabold mb-0">${ enrollCount }명</h6>
                                             </div>
                                         </div>
                                     </div>
@@ -69,7 +69,7 @@
                                             </div>
                                             <div class="col-md-8">
                                                 <h6 class="text-muted font-semibold">미답변 문의</h6>
-                                                <h6 class="font-extrabold mb-0">{ }건</h6>
+                                                <h6 class="font-extrabold mb-0">${ unansweredCount }건</h6>
                                             </div>
                                         </div>
                                     </div>
@@ -126,7 +126,7 @@
                                         <h4>가입자 현황</h4>
                                     </div>
                                     <div class="card-body">
-                                        <div id="chart-profile-visit"></div>
+                                        <div id="chart"></div>
                                     </div>
                                 </div>
                             </div>
@@ -147,17 +147,17 @@
                                                     <tr>
                                                         <td class="col-3">
                                                             <div class="d-flex align-items-center">
-                                                                <p class="font-bold ms-4 mb-0">총가입자수</p>
+                                                                <p class="font-bold ms-4 mb-0">총 가입자수</p>
                                                             </div>
                                                         </td>
                                                         <td class="col-auto">
-                                                            <p class=" mb-0">{}건</p>
+                                                            <p class=" mb-0">${ totalMember }명</p>
                                                         </td>
                                                     </tr>
                                                     <tr>
                                                         <td class="col-3">
                                                             <div class="d-flex align-items-center">
-                                                                <p class="font-bold ms-4 mb-0">총예약건수</p>
+                                                                <p class="font-bold ms-4 mb-0">총 예약건수</p>
                                                             </div>
                                                         </td>
                                                         <td class="col-auto">
@@ -186,6 +186,33 @@
         window.onload = function() {
 			document.getElementById("ad_dashboard").classList.add("active");
 		}
+        
+        var chartData = ${chartData};
+        var options = {
+          chart: {
+            type: 'line'
+          },
+          series: [{
+            name: 'Member',
+            data: [
+              <c:forEach items="${chartData}" var="data" varStatus="status">
+                ${data.count}
+                <c:if test="${not status.last}">,</c:if>
+              </c:forEach>
+            ]
+          }],
+          xaxis: {
+            categories: [
+              <c:forEach items="${chartData}" var="data" varStatus="status">
+                '${data.month}'
+                <c:if test="${not status.last}">,</c:if>
+              </c:forEach>
+            ]
+          }
+        };
+        var chart = new ApexCharts(document.querySelector("#chart"), options);
+        chart.render();
+
         
     </script>
     <script src="${path}/bootstrap5/assets/js/main.js"></script>

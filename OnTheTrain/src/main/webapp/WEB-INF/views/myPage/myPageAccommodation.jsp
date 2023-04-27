@@ -11,7 +11,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>온더트레인</title>
     <link href="${ path }/css/myPage/myPageAccommodation.css" rel="stylesheet" type="text/css">
     <!-- CSS only -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
@@ -38,19 +38,21 @@
             </div>
             
             <c:if test="${not empty accommodationList}">
-   				 <c:forEach var="accommodation" items="${accommodationList}">	
-   				 	<form action="">
-						<div id="accbody" >
-						    <div class="accfont" id="accimage"><img id="accimages" src="${path}/images/myPage/accTest.png" alt=""></div>
-						    <div class="accfont" id="acctitle">${accommodation.name}</div>
-						    <div class="accfont" id="acccontent">${accommodation.location}</div>
-						    <div class="accfont" id="accprice">${accommodation.explain}</div>
-						    <button id="acccheck" class="btn btn-danger" onclick="location.href='${path}/myPage/myPageAccommodationCheck?no=${accommodation.no}'" >예약 확인</button>
-						    <button id="acccancle" class="btn btn-danger"  >예약 취소</button>
-						</div>
-   				 	</form>
-				</c:forEach>
+			    <c:forEach var="accommodation" items="${accommodationList}">
+			        <form method="GET" action="${path}/myPage/myPageAccommodationCheck">
+			            <div id="accbody">
+			                <div class="accfont" id="accimage"><img id="accimages" src="${path}/images/myPage/accTest.png" alt=""></div>
+			                <div class="accfont" id="acctitle">${accommodation.name}</div>
+			                <div class="accfont" id="acccontent">${accommodation.location}</div>
+			                <div class="accfont" id="accprice">${accommodation.explain}</div>
+			                <input type="hidden" id="accNo" name="accNo" value="${accommodation.no}" >
+			                <button id="acccheck" class="btn btn-danger" type="submit">예약 확인</button>
+			                <button type="button" id="acccancle" class="btn btn-danger">예약 취소</button>
+			            </div>
+			        </form>
+			    </c:forEach>
 			</c:if>
+
 
 			<c:if test="${empty accommodationList}">
 			    <div >

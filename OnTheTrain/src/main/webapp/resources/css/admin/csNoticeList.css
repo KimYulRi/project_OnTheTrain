@@ -158,6 +158,7 @@ h1, h2, h3, h4, h5, h6{
  #fixed{
  	color: #e83e8c;
  	font-size: 12px;
+     font-weight: 600;
  }
  /* 글 작성 버튼 */
  .noticeBtn{
@@ -211,7 +212,10 @@ h1, h2, h3, h4, h5, h6{
 	font-weight: 500;
 	
 }
-
+.boldtd{
+	font-weight: 600;
+	
+}
 
  /* 페이지바 */
  #content-pagebar{
@@ -222,4 +226,8 @@ h1, h2, h3, h4, h5, h6{
  }
 .page-item.active{
 	z-index: 1;
+}
+a{
+	text-decoration: none;
+	color: inherit;
 }

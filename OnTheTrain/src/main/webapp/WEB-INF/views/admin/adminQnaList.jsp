@@ -49,11 +49,10 @@
 	                                                        <option selected>전체</option>
 	                                                        <option value="1">미답변</option>
 	                                                        <option value="2">답변</option>
-	                                                        <option value="3">발권취소</option>
 	                                                    </select>
 	                                                    
 	                                                    <select class="form-select" id="adminsort">
-	                                                        <option selected>제목순</option>
+	                                                        <option selected>번호순</option>
 	                                                        <option value="1">등록일순</option>
 	                                                    </select>
 	                                        </div>
@@ -67,49 +66,40 @@
                                                 <tr>
                                                     <th  class="col-1">문의번호</th>
                                                     <th  class="col-2">분류</th>
-                                                    <th  class="col-2">제목</th>
-                                                    <th  class="col-2">작성자</th>
-                                                    <th  class="col-1">등록일</th>
-                                                    <th  class="col-2">답변</th>
-                                                    <th class="col-md-2">관리</th>
+                                                    <th  class="col-4">제목</th>
+                                                    <th  class="col-1">회원번호</th>
+                                                    <th  class="col-2">등록일</th>
+                                                    <th  class="col-1">답변</th>
+                                                    <th class="col-md-1">관리</th>
                                                 </tr>
                                             </thead>
-                                           <%--  <tbody>
-                                             <c:forEach var="ticket" items="${ list }" >
+                                           	<tbody>
+                                             <c:forEach var="qna" items="${ list }" >
                                                 <tr>
-                                                    <td class="text-bold-500">${ ticket.ticketNo }</td>
-                                                    <td>${ ticket.nickname }</td>
-                                                    <td class="text-bold-500">?열차번호?</td>
-                                                    <td>${ ticket.departure }</td>
-                                                    <td>${ ticket.arrival }</td>
-                                                    <td><fmt:formatDate value="${ ticket.depDate }" pattern="yyyy-MM-dd" /></td>
-                                                    <td><fmt:formatDate value="${ ticket.bookDate }" pattern="yyyy-MM-dd" /></td>
-                                                    <td>결제상태
+                                                    <td class="text-bold-500">${ qna.qnaNo }</td>
+                                                    <td>${ qna.type }</td>
+                                                    <td class="text-bold-500">${ qna.title }</td>
+                                                    <td>${ qna.writerNo }</td>
+                                                    <td>${ qna.createDate }</td>
+                                                    <td>
                                                     <c:choose>
-                                                    	 <c:when test="${ ticket.refundStatus == 'Y'}">
-														     <span class="badge   bg-disable" >발권취소</span>
+                                                    	 <c:when test="${ qna.qnaCheck == 'Y'}">
+														     <span class="badge   bg-disable" >답변완료</span>
 														  </c:when>
-														  <c:when test="${ ticket.paymentStatus == 'N'}">
-														     <span class="badge  bg-light-warning" >결제대기</span>
+														  <c:when test="${ qna.qnaCheck  == 'N'}">
+														     <span class="badge  bg-light-warning" >미답변</span>
 														   </c:when>
-														  <c:when test="${ ticket.paymentStatus == 'Y'}">
-														     <span class="badge  bg-light-primary" >발권완료</span>
-														  </c:when>
-														  <c:otherwise>
-														     <span class="badge  bg-disable">발권취소</span>
-														  </c:otherwise>
 													</c:choose>
                                                    </td>
                                                     
                                                     <td class="text-center d-flex justify-content-center">
                                                     	<div id=tablebtn>
-		                                                    <button class="adminbtn2 block" data-no="${ ticket.ticketNo }"
-		                                            		data-bs-toggle="modal" data-bs-target="#exampleModalCenter"></button>
+		                                                    <button class="adminbtn2 block" data-no="${ qna.qnaNo }">상세보기</button>
 														</div>
                                                     </td>
                                                 </tr>
                                                </c:forEach>											
-                                            </tbody> --%>
+                                            </tbody> 
                                         </table>
                                         
                                     </div>
@@ -174,6 +164,14 @@
 			document.getElementById("ad_qnaboard").classList.add("active");
 		}
         
+        $(document).ready(() => {
+            $('.adminbtn2').on('click', (event) => {
+         			var infobtn =  $(event.target);
+         			var no = infobtn.data('no');
+         			window.location.href = "${ path }/admin/qna/view?no="+no;
+         			 
+            });
+        });
     </script>
 
     <script src="${path}/bootstrap5/assets/js/main.js"></script>

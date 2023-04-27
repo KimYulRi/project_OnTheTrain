@@ -214,7 +214,14 @@ tr>td{
 	text-align: center;
 }
 
+
+#nameCheck{
+	width: 200px;
+}
+
+
 #withdraw{
+	clear : both;
     background-color: rgb(212,6,43);
     border: rgb(89, 97, 128);
     border-radius: 7px;

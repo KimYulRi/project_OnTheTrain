@@ -11,6 +11,14 @@
 }
 
 /* 공통 스타일 */
+
+.componentId {
+  text-align: right;
+  display: inline-block;
+  width: 100%;
+  color: #6c757d;
+}
+
 .modal-body {
   padding: 20px;
   display: block;
@@ -86,7 +94,7 @@ input[type="datetime-local"] {
 #schedulerEventModalView .image-caption a {
   text-decoration: none;
   color: white;
-  background-color: rgba(0,0,0,0.5);
+  background-color: rgba(0, 0, 0, 0.5);
   width: 150px;
   display: inline-block;
   height: 30px;
@@ -202,13 +210,15 @@ input[type="datetime-local"] {
   text-align: right;
 }
 
-.editComplete-button,
 .add-button,
+.edit-button,
 .reset-button,
 .cancel-button,
 .confirm-button,
-.edit-button,
-.modalDelete-button {
+.directAdd-button,
+.modalDelete-button,
+.editComplete-button,
+.addToWait-button {
   font-family: "Noto Sans";
   margin: 0 auto;
   padding: 6px 12px;
@@ -220,10 +230,12 @@ input[type="datetime-local"] {
   display: inline-block;
 }
 
+.addToWait-button,
 .editComplete-button {
   display: none;
 }
 
+.reset-button,
 .cancel-button,
 .edit-button {
   background-color: #6c757d;

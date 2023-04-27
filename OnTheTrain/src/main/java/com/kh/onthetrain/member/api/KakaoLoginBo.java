@@ -5,6 +5,7 @@ import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
@@ -18,11 +19,15 @@ import com.github.scribejava.core.oauth.OAuth20Service;
 @Component
 public class KakaoLoginBo {
 	
-	private static final String CLIENT_ID="***REMOVED***";
-    private static final String CLIENT_SECRET = "***REMOVED***";
     private final static String REDIRECT_URI = "http://localhost:8088/onthetrain/login/kakao";
     private final static String SESSION_STATE = "k_oauth_state";
     private final static String PROFILE_API_URL = "https://kapi.kakao.com/v2/user/me";
+    
+	@Value("${key.kakaoClientId}")
+	private String CLIENT_ID;
+
+	@Value("${key.kakaoClientSecret}")
+	private String CLIENT_SECRET;
     
     // 카카오 로그인 Url 생성
 	public String getAuthorizationUrl(HttpSession session) {

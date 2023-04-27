@@ -1,0 +1,119 @@
+@charset "UTF-8";
+@font-face {
+    font-family: 'NotoSans';
+    src:url('../../font/common/NotoSansKR-Light.otf') format('truetype');
+    
+}
+
+@font-face {
+	font-family: 'Noto Sans Bold';
+	src: url('../../font/common/NotoSansKR-Bold.otf') format('truetype');
+}
+
+
+*{
+	
+	 font-family: 'NotoSans';
+}
+h1, h2, h3, h4, h5, h6{
+	font-weight: 600;
+}
+
+ h4 {
+   	color:#00008b;
+ }
+
+/* 모달 속성*/
+.modal {
+	position: fixed;
+	z-index: 1;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	overflow: auto;
+	background-color: rgba(0, 0, 0, 0.4);
+	font-family: 'NotoSans'; 
+	font-style: normal;
+	font-weight: 400;
+}
+
+.qnamodal-backdrop {
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.4);
+}
+
+#qnamodalreply{
+	width: 550px;
+	height: 250px;
+}
+#qnamodalreply:focus{
+	outline:none;
+}
+.qnamodal-dialog {
+ position: relative;
+	margin: auto;
+	top: 15%;
+	max-width: 600px;
+	background-color: #fff;
+	border-radius: 4px;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+	border-radius: 10px;
+}
+.modal-header {
+	padding: 10px 20px;
+	background-color: #FFF;
+	border-bottom: 1px solid #ddd;
+	border-radius: 4px 4px 0 0;
+	color: #000000;
+}
+
+.modal-title {
+	font-weight: 700;
+	text-align: center;
+}
+
+.modal-body {
+	padding: 20px;
+}
+.modal-body{
+	height: 300px;
+	overflow-y: auto;
+	border-radious:4px;
+}
+.modal-footer {
+	background-color: #FFF;
+	border-top: 1px solid #ddd;
+	border-radius: 0 0 4px 4px;
+	text-align: center;
+	justify-content: center;
+}
+
+/* 모달 버튼 */
+.cancel-button:focus{
+	outline:none;
+}
+.apply-button:focus{
+	outline:none;
+}
+.apply-button, .cancel-button {
+	width: 100px;
+	padding: 6px 12px;
+	border-radius: 4px;
+	border: none;
+	color: #fff;
+	background-color: #00008B;
+	cursor: pointer;
+	display: inline-block;
+}
+
+.cancel-button {
+	background-color: #6c757d;
+}
+.cancel-button:hover {
+	background-color: #00008B;
+}
