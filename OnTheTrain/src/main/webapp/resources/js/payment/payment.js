@@ -1,43 +1,7 @@
 // 전역 객체 선언
 window.payment = {}; 
 
-window.payment.path = "<%=request.getContextPath()%>";
-
-$(document).ready(function() {
-  // 쿠폰함 모달이 열릴 때 쿠폰 목록을 가져와서 보여줍니다.
-  $('#couponModal').on('shown.bs.modal', function () {
-    $.ajax({
-      type: 'GET',
-      url: '/coupons/myCoupons',
-      data: {
-        page: 1,
-        size: 10,
-        memberNo: '${loginMember.no}'
-      },
-      success: function(response) {
-        var couponList = response.data;
-
-        // 쿠폰 목록을 화면에 보여줍니다.
-        for (var i = 0; i < couponList.length; i++) {
-          var coupon = couponList[i];
-
-          var couponHtml = '<div class="coupon-item">' +
-                             '<div class="coupon-title">' + coupon.title + '</div>' +
-                             '<div class="coupon-discount">' + coupon.discount + '원 할인</div>' +
-                             '<div class="coupon-expiration">' + coupon.expirationDate + '까지</div>' +
-                             '<button class="apply-coupon-btn" data-coupon-id="' + coupon.id + '">적용하기</button>' +
-                           '</div>';
-
-          $('#coupon-list').append(couponHtml);
-        }
-      },
-      error: function(xhr) {
-        console.log(xhr.responseText);
-      }
-    });
-  });
-});
-
+window.payment.path = '<%=request.getContextPath()%>';
 
 
 window.payment.requestPay = function () {
@@ -58,11 +22,10 @@ window.payment.requestPay = function () {
     buyer_postcode : '123-456'
   }, function (rsp) { // callback
     if (rsp.success) {
-      console.log(rsp);
       var msg = '결제가 완료되었습니다.';
       alert(msg);
-      console.log
       
+      var waitingNos;
       
       
       
@@ -76,8 +39,6 @@ window.payment.requestPay = function () {
 };
 
 
-
-
 window.onload = function() {
   const modalOpenBtn = document.getElementById("modal_open_btn");
   const modalCloseBtn = document.getElementById("modal_close_btn");
@@ -85,36 +46,68 @@ window.onload = function() {
 
   modalOpenBtn.addEventListener("click", function() {
     modal.style.display = "flex";
-    
-    $.ajax({
-    	type: 'GET',
-    	url: '${ path }/getcoupon',
-    	dataType: 'json',
-    	data: {
-    		myCoupon
-    	},
-    	success: (obj) => {
-    		console.log(obj);
-    		
-    		if(obj !== null) {
-    		
-    		
-    		}
-    		
-    			
-    	}
-    	
-    
-    
-    });
-    
-    
-    
+
+    const myCoupon = "my_coupon_value"; // myCoupon 값 명시
+
+    const loadCouponList = function(page) {
+      let pageInfo; // pageInfo 먼저 정의
+
+      $.ajax({
+        type: "GET",
+        url: window.payment.path + "/payment/myCoupon?myCoupon=" + myCoupon + "&page=" + pageInfo.currentPage,
+        dataType: "json",
+        data: {
+          myCoupon: myCoupon, // myCoupon 값 전달
+          page: page // 페이지 번호 전달
+        },
+        success: function(data) {
+          console.log(data);
+
+          pageInfo = data.pageInfo; // pageInfo 할당
+
+          const couponList = data.myCouponList;
+
+          const couponListElem = document.getElementById("coupon_list");
+          couponListElem.innerHTML = "";
+
+          for (let i = 0; i < couponList.length; i++) {
+            const coupon = couponList[i];
+            const liElem = document.createElement("li");
+            liElem.innerText = coupon.name;
+            couponListElem.appendChild(liElem);
+          }
+
+          const paginationElem = document.getElementById("pagination");
+          paginationElem.innerHTML = "";
+
+          for (let i = pageInfo.startPage; i <= pageInfo.endPage; i++) {
+            const pageNumElem = document.createElement("a");
+            pageNumElem.href = "#";
+            pageNumElem.innerText = i;
+
+            if (i === pageInfo.currentPage) {
+              pageNumElem.classList.add("active");
+            }
+
+            pageNumElem.addEventListener("click", function() {
+              // 페이지 번호를 클릭하면 해당 페이지로 이동하도록 처리
+              loadCouponList(i);
+            });
+
+            paginationElem.appendChild(pageNumElem);
+          }
+        },
+        error: function(error) {
+          console.log(error);
+        }
+      });
+    };
+
+    loadCouponList(1); // 첫 페이지 로드
+
   });
 
   modalCloseBtn.addEventListener("click", function() {
     modal.style.display = "none";
   });
 };
-
-

@@ -16,7 +16,7 @@
 	<script>
 		// path 변수를 자바스크립트에서 사용할 수 있는 형태로 변환
 		var path = '<%=request.getContextPath()%>';
-		var loginMember = '<%=session.getAttribute("loginMember")%>';
+<%-- 		var loginMember = '<%=session.getAttribute("loginMember")%>'; --%>
 	</script>
 	<script src="${ path }/js/coupon/coupon.js"></script>
 </head>
@@ -34,14 +34,14 @@
 		</div>
 			
 			<div class="coupon_explanation">
-				<h3>마니아라</h3>
+				<h3>시즌 쿠폰</h3>
 			</div>
 			<div class="content_box">
 				<div class="content"> 
 					<div id="season_coupon" class="coupon_container">
 					  <div class="coupon_content">
 					    <div class="coupon_left">
-					      <div class="coupon_title">낄꿀낭농눙닝냉캥</div>
+					      <div class="coupon_title">봄 시즌 할인 쿠폰</div>
 					      <div class="coupon_discount">5%</div>
 					      <div class="coupon_date">사용기간: ~ 2023.05.31</div>
 					      <div id="season_coupon_info_modal">
@@ -62,38 +62,18 @@
 					</div>
 				</div>
 				
-				<div class="content">
-					<div id="season_coupon" class="coupon_container">
-					  <div class="coupon_content">
-					    <div class="coupon_left">
-					      <div class="coupon_title">${ loginMember.no }</div>
-					      <div class="coupon_discount">5%</div>
-					      <div class="coupon_date">사용기간: ~ 2023.05.31</div>
-					    </div>
-					    <div class="coupon_right">
-					      <div class="coupon_icon">
-					        <div id="coupon_download">
-					        	<button id="season_coupon_download_btn" class="coupon_download_btn">
-					        	<img src="${ path }/images/coupon/download.png">
-					        	</button>
-					        </div>
-					      </div>
-					    </div>
-					  </div>
-					</div>
-				</div>
 			</div>
 			
 			<div class="coupon_explanation">
-				<h3>시즌 쿠폰</h3>
+				<h3>신규회원 전용 쿠폰</h3>
 			</div>
 			<div class="content_box">
 				<div class="content">
 					<div id="season_coupon" class="coupon_container">
 					  <div class="coupon_content">
 					    <div class="coupon_left">
-					      <div class="coupon_title">봄 시즌 할인 쿠폰</div>
-					      <div class="coupon_discount">5%</div>
+					      <div class="coupon_title">새로운 만남! 쿠폰</div>
+					      <div class="coupon_discount">20%</div>
 					      <div class="coupon_date">사용기간: ~ 2023.05.31</div>
 					    </div>
 					    <div class="coupon_right">
@@ -161,8 +141,28 @@
 	
 	</div>
 	
+	<script type="text/javascript">
+		window.onload = function() {
+		    const couponDownload = document.querySelector('#season_coupon_download_btn');
+		    couponDownload.addEventListener('click', function() {
+		    	if (window.coupon.loginMember) {
+		    		alert(window.coupon.loginMember.no + "님 쿠폰 다운로드 되었습니다.");
+		    		
+		    	
+		    	} else {
+		    		alert("로그인이 필요한 서비스입니다.");
+		    		
+		    	}
+		    	
+		    });
+		};
 
+<<<<<<< HEAD
+	</script>
+
+=======
 
    <%@ include file="../common/footer.jsp"%>
+>>>>>>> main
 </body>
 </html>

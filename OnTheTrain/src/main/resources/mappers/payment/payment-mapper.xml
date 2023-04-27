@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.kh.onthetrain.payment.model.mapper.PaymentMapper">
+	
+	<!-- 결제 대기 상품 조회 (숙박예약) -->
+	<select id="selectPaymentWaitingByReservation" parameterType="_int">
+		SELECT PW.WAITING_NO,
+			   PW.RESERVATION_NO,
+			   R.MEMBER_NO,
+			   R.PRICE,
+			   R.ACCOMMODATION_NO
+			   R.CHECKIN,
+			   R.ADULT_NUMBER,
+			   A.NAME,
+			   A.LOCATION
+		FROM PAYMENT_WAITING PW
+		INNER JOIN RESERVATION R ON PW.RESERVATION_NO = R.NO
+		INNER JOIN ACCOMMODATION A ON R.ACCOMMODATION_NO = A.NO
+		WHERE PW.TICKET_NO IS NULL 
+		AND PW.PAYMENT_STATUS = 'N' 
+		AND R.MEMBER_NO = #{memberNo}
+	</select>
+	
+	<!-- 결제 대기 상품 조회 (승차권) -->
+	<select id="selectPaymentWaitingByTicket" parameterType="_int">
+		SELECT PW.WAITING_NO,
+			   PW.TICKET_NO,
+			   T.USER_NO,
+			   T.TYPE,
+			   T.DEP_DATE,
+			   T.DEP_TIME,
+			   T.ARR_TIME,
+			   T.DEPARTURE,
+			   T.ARRIVAL,
+			   T.T_PRICE
+		FROM PAYMENT_WAITING PW
+		INNER JOIN TICKET T ON PW.TICKET_NO = T.TICKET_NO
+		WHERE PW.RESERVATION_NO IS NULL
+		AND PW.PAYMENT_STATUS = 'N'
+		AND T.USER_NO = #{memberNo}
+	</select>
+	
+	<!-- 결제 대기 상품 생성 (숙박예약) -->
+	<insert id="insertPaymentWaitingReservation">
+		INSERT INTO (
+			WAITING_NO,
+			PAYMENT_NO,
+			TICKET_NO,
+			RESERVATION_NO,
+			PAYMENT_STATUS,
+			REFUND_STATUS,
+			REFUND_DATE		
+		) VALUES (
+			SEQ_PAYMENT_WAITING.NEXTVAL,
+			DEFAULT,
+			DEFAULT,
+			SEQ_RESERVATION_NO.NEXTVAL,
+			DEFAULT,
+			DEFAULT,
+			DEFAULT
+		)
+	</insert>
+	
+	<!-- 결제 대기 상품 생성 (승차권) -->
+	<insert id="insertPaymentWaitingTicket">
+		INSERT INTO (
+			WAITING_NO,
+			PAYMENT_NO,
+			TICKET_NO,
+			RESERVATION_NO,
+			PAYMENT_STATUS,
+			REFUND_STATUS,
+			REFUND_DATE		
+		) VALUES (
+			SEQ_PAYMENT_WAITING.NEXTVAL,
+			DEFAULT,
+			SEQ_TICKET_NO.NEXTVAL,
+			DEFAULT,
+			DEFAULT,
+			DEFAULT,
+			DEFAULT
+		)
+	</insert>
+	
+	<!-- 결제 완료 상품 생성 -->
+	<insert id="insertPayment">
+	
+	
+	</insert>
+	
+	<!-- 환불 -->
+	<update id="updateRefundPaymentWaiting">
+		UPDATE PAYMENT_WAITING
+		SET REFUND_STATUS = 'Y',
+			REFUND_DATE = SYSDATE
+		WHERE WAITING_NO = #{waitingNo}
+	</update>
+	
+	<!-- 결제 완료 -->
+	<update id="updateCompletedPayment">
+		UPDATE PAYMENT_WAITING
+		SET PAYMENT_NO = #{paymentNo},
+			PAYMENT_STATUS = 'Y'
+		WHERE WAITING_NO = #{waitingNo}
+	</update>
+	
+	
+	<!-- 결제 대기 상품 수 조회 -->
+	<select id="selectCountPaymentWaiting" resultType="_int">
+		SELECT COUNT(*) FROM PAYMENT_WAITING
+		WHERE PAYMENT_STATUS ='N'
+	</select>	
+
+	<!-- 결제 완료 숙박예약 상품 수 조회 -->
+	<select id="selectCountCompletedPaymentReservation">
+		SELECT COUNT(*) 
+		FROM PAYMENT_WAITING
+		WHERE TICKET_NO IS NULL 
+		AND PAYMENT_STATUS ='Y'
+	</select>	
+	
+	<!-- 결제 완료 승차권 상품 수 조회 -->
+	<select id="selectCountCompletedPaymentTicket">
+		SELECT COUNT(*) 
+		FROM PAYMENT_WAITING
+		WHERE RESERVATION_NO IS NULL 
+		AND PAYMENT_STATUS ='Y'
+	</select>	
+	
+
+	
+
+
+
+
+
+
+
+
+</mapper>
