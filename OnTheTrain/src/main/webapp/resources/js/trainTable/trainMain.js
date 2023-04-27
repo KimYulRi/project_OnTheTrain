@@ -21,6 +21,7 @@ click: (event) =>
     }).done(function (data) {
         $("#train").empty();
         const json = JSON.stringify(data);
+         
       // document.write(json);
         console.log(data);
         let rows = data["response"]["body"]["items"]["item"];
@@ -38,7 +39,8 @@ click: (event) =>
         	$("#none").hide();
         	$("#checkBack").hide();
         	
-         let html = `<table border="1px" align="center" id="myTable">
+         let html = `
+         			<table border="1px" align="center" id="myTable">
 			        <thead id="tableHead">
 			        <tr>
 			            <th width="30px">구분</th>
@@ -54,7 +56,7 @@ click: (event) =>
 			        </tr>
 			        </thead>
 			        <tbody id="tableBody">
-			          `;	
+			         `;	
         	
         	
         for (let i = 0; i < rows.length; i++) {
@@ -66,12 +68,16 @@ click: (event) =>
             let depname = rows[i]["depplacename"];
             let deptime = rows[i]["depplandtime"];
             let no = rows[i]["trainno"];
+            let depDateString = deptime.toString();
+            let depDate = `${depDateString.substring(0,8)}`;
             
 			let deptimeString = deptime.toString(); // deptime을 문자열로 변환
             let deptimeFormatted = `${deptimeString.substring(8, 10)}:${deptimeString.substring(10, 12)}`;
-
+            let depTime = `${deptimeString.substring(8, 12)}`;
+			
             let arrtimeString = arrtime.toString(); // deptime을 문자열로 변환
             let arrtimeFormatted = `${arrtimeString.substring(8, 10)}:${arrtimeString.substring(10, 12)}`;
+            let arrTime = `${arrtimeString.substring(8, 12)}`;
             
             let duration = parseInt((arrtime - deptime) / 100); // 분 단위로 변환
             let hours = Math.floor(duration / 60); // 시간 계산
@@ -89,6 +95,53 @@ click: (event) =>
                 durationString = `${minutes}분`
             }
             
+            let reservation = {};
+
+			function reserve() {
+			  $.ajax({
+			    url: "/reservation",
+			    type: "POST",
+			    data: JSON.stringify(reservation),
+			    contentType: "application/json",
+			    success: function(data) {
+			      // 성공 시 처리할 코드
+			    },
+			    error: function(jqXHR, textStatus, errorThrown) {
+
+			    }
+			  });
+			}
+			
+			$('.carriage').on("click", function() {
+			  var selectedCarriage = $(this).attr('value');
+			  reservation.carriage = selectedCarriage; // 선택한 차량 값을 예약 정보 객체에 추가
+			  			  reserve();
+			  
+			});
+			
+			$('.seat').on("click", function() {
+			  var selectedSeat = $(this).attr('value');
+			  reservation.seat = selectedSeat; // 선택한 좌석 값을 예약 정보 객체에 추가
+			  reserve();
+			});
+			
+			$('.apply-button').on("click", function() {
+			  reservation = {
+			    train: train, 
+			    no: no, 
+			    depname: depname, 
+			    arrplace: arrplace, 
+			    charge: charge, 
+			    depDate: depDate, 
+			    depTime: deptimeFormatted, 
+			    arrTime: arrtimeFormatted 
+			  };
+			  reserve();
+			});
+			
+			
+            
+            
 		html += `<tr>
 			          <td>${train}</td>
 			          <td>${no}</td>
@@ -97,7 +150,7 @@ click: (event) =>
 			          <td>
 			            <input type="submit" id="sSeat" class="seatbtn" value="좌석선택" style="cursor: pointer;">
 			            <br>
-			            <input type="submit" id="sRes" value="예약하기" style="cursor: pointer;">
+			            <input type="submit" id="sRes" value="예약하기" value="예약하기" style="cursor: pointer;">
 			          </td>
 			          <td>
 			            <input type="submit" id="nSeat" class="seatbtn" value="좌석선택" style="cursor: pointer;">
@@ -119,6 +172,8 @@ click: (event) =>
         $("#train").append(html);
         
         
+        
+          
 		let openModalButton = document.querySelectorAll('.seatbtn');
 		
 		openModalButton.forEach(button => {
@@ -164,6 +219,9 @@ click: (event) =>
 				      console.log(rows);
 				    }),
 				});
+				
+				
+				
 		$("#checkBack").click(function() {
 			  // 다시 조회하기 버튼 클릭 시, 이미지와 hr 태그를 숨기고, 기존에 숨겨져 있던 내용을 다시 보여줌
 			  $("#none").hide();
@@ -171,4 +229,6 @@ click: (event) =>
 			  $("#checkBack").hide();
 			  // 기존에 숨겨져 있던 내용을 보여줌
 			});
+
+
 
