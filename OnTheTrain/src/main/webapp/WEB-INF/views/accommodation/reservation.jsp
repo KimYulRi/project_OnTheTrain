@@ -188,6 +188,7 @@
                   <c:if test="${not empty loginMember and loginMember.no eq review.memberNo}">
    				  	<button class="btn btn-primary" type="button" id="reservBtn">예약하기</button>
 				  </c:if>
+   				  	<!-- <button class="btn btn-primary" type="button" id="reservBtn">예약하기</button> -->
                   <div id="warning">결제 전에는 예약이 확정되지 않습니다.</div>
 				  <div class="optionFrame" id="bottom1">
                       <div id="onedayPrice"><fmt:formatNumber value="${ accommodation.price }"/>원</div>
