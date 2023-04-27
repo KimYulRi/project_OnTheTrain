@@ -7,6 +7,7 @@ import {
 
 import {
   APIEvents,
+  editEvent,
   waitEvents,
   addedEvents,
   toWaitEvent,
@@ -23,14 +24,19 @@ import {
   getEventArrayAndIndexById,
 } from "./schedulerComponent/schedulerEventModule.js";
 
-import { viewModalMoudule } from "./schedulerModalViewModule.js";
-
 import { addSchedulerComponent } from "./calender/schedulerCreateCalender.js";
 
 const waitComponentList = $("#waitComponentList");
 const addedComponentList = $("#addedComponent");
 const addcard_btn = $("#addCard");
 const addModalModule = {};
+const schedulerComponents = {
+  event : {
+    addedEvent : addedEvents,
+    waitEvent : waitEvents
+  }
+}
+
 
 // 카드를 추가하는 함수
 // 카드 div 생성 함수
@@ -104,9 +110,11 @@ $(document).ready(() => {
       createAPIComponentObject: createAPIEventObject,
       findComponentFromArrayById: findEventFromArrayById,
       getComponentArrayAndIndexById: getEventArrayAndIndexById,
+      editComponent : editEvent,
       creatComponentObject() {
         return createEventObject(this.fields);
       },
+             
     },
     accommodation: {
       modal: $("#schedulerAccommodationModal"),
@@ -151,11 +159,11 @@ $(document).ready(() => {
     },
   };
 
-  // 카드 생성 모달을 열고 닫는 기능
+  // 생성 모달을 여는 기능
   function showAddModal(component) {
     $(components[component].modal).show();
   }
-
+  // 생성 모달을 닫는 기능
   function hideAddModal(component) {
     $(components[component].modal).hide();
     showBasicButton();
@@ -166,6 +174,7 @@ $(document).ready(() => {
     components[component].resetModalContent();
   }
 
+  // 공통함수 이벤트 등록
   function addModalEventListeners(component) {
     // 백드롭 클릭 시 모달 닫기
     components[component].modalBackdrop.on("click", () => {
@@ -196,17 +205,12 @@ $(document).ready(() => {
   addModalEventListeners("accommodation");
   addModalEventListeners("ticket");
 
+  // 기본 버튼 보이기
   function showBasicButton() {
     let currentComponent = getCurrentComponent();
     components[currentComponent].editCompleteButton.hide();
     components[currentComponent].directAddButton.hide();
     components[currentComponent].addButton.show();
-  }
-
-  function showDirectAddButton() {
-    let currentComponent = getCurrentComponent();
-    components[currentComponent].directAddButton.show();
-    components[currentComponent].editCompleteButton.hide();
   }
 
   // addCard를 눌렀을 때 모달창 열기
@@ -239,7 +243,7 @@ $(document).ready(() => {
     });
   }
 
-  // 적용 버튼을 눌렀을 때 동작
+  // 추가 버튼을 눌렀을 때 동작
   function addComponentToWait(currentComponent) {
     let componentObj = components[currentComponent].creatComponentObject();
 
@@ -260,7 +264,14 @@ $(document).ready(() => {
     resetModalContent(currentComponent);
   }
 
-  // 바로 추가 버튼을 눌렀을 때, 동작
+  // 바로 추가 버튼 보이기
+  function showDirectAddButton() {
+    let currentComponent = getCurrentComponent();
+    components[currentComponent].directAddButton.show();
+    components[currentComponent].editCompleteButton.hide();
+  }
+
+  // 바로 추가 버튼을 눌렀을 때 동작
   function addCompoentToAdded(currentComponent) {
     let componentObj = components[currentComponent].creatComponentObject();
 
@@ -284,6 +295,12 @@ $(document).ready(() => {
     resetModalContent(currentComponent);
   }
 
+  //
+  function editComponent(component, componentObj) {
+    components[component].editComponent(componentObj);
+  }
+
+
   // 특정 요소를 Waitlist 객체 배열로 보냄
   function toWaitList(component, id) {
     components[component].toWaitList(id);
@@ -305,7 +322,7 @@ $(document).ready(() => {
     return componentObj;
   }
 
-  //
+  // 특정 요소 객체를 id값으로 찾아 삭제
   function removeComponentById(component, id) {
     components[component].removeComponentById(id);
   }
@@ -320,7 +337,7 @@ $(document).ready(() => {
     return components;
   }
 
-  // 특정 아이디값을 가진 객체를 수정함.
+  // 특정 아이디값을 가진 객체의 값으로 생성 모달을 구성함.
   function setAddModalByComponent(component, componentObj) {
     return components[component].setAddModalByComponent(componentObj);
   }
@@ -364,6 +381,7 @@ $(document).ready(() => {
   addModalModule.toAddedList = toAddedList;
   addModalModule.showAddModal = showAddModal;
   addModalModule.hideAddModal = hideAddModal;
+  addModalModule.editComponent = editComponent;
   addModalModule.getAPIItemList = getAPIItemList;
   addModalModule.removeFromArray = removeFromArray;
   addModalModule.transAPIobjToObj = transAPIobjToObj;
@@ -379,4 +397,4 @@ $(document).ready(() => {
   addModalModule.getComponentArrayAndIndexById = getComponentArrayAndIndexById;
 });
 
-export { createNewCard, addNewCardtoArea, addModalModule };
+export { createNewCard, addNewCardtoArea, addModalModule, schedulerComponents };

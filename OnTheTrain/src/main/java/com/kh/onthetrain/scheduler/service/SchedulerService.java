@@ -18,4 +18,6 @@ public interface SchedulerService {
 
 	SchedulerImage findSchedulerImageByNo(int no);
 
+	String getSchedulerStartDate();
+
 }

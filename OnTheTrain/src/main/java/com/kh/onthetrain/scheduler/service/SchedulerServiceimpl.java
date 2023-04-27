@@ -1,8 +1,11 @@
 package com.kh.onthetrain.scheduler.service;
 
+import java.time.LocalDateTime;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.kh.onthetrain.common.util.TimeConvertUtil;
 import com.kh.onthetrain.scheduler.model.entity.Scheduler;
 import com.kh.onthetrain.scheduler.model.entity.SchedulerAccommodation;
 import com.kh.onthetrain.scheduler.model.entity.SchedulerEvent;
@@ -58,4 +61,14 @@ public class SchedulerServiceimpl implements SchedulerService {
 		return schedulerComponentMapper.selectImageByNo(no);
 	}
 
+	/* 캘린더의 시작일자를 설정하는 메소드 */
+	@Override
+	public String getSchedulerStartDate() {
+        // 현재 날짜 및 시간 가져오기
+		LocalDateTime now = LocalDateTime.now();
+	
+		return TimeConvertUtil.convertLocalDateTimeToKstDateString(now);
+	}
+
+	
 }
