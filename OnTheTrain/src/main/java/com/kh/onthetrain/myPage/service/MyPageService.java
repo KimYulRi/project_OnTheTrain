@@ -9,6 +9,7 @@ import com.kh.onthetrain.common.util.PageInfo;
 import com.kh.onthetrain.member.model.vo.Member;
 import com.kh.onthetrain.myPage.model.entity.Qna;
 import com.kh.onthetrain.myPage.model.entity.QnaReply;
+import com.kh.onthetrain.myPage.model.entity.ReservationCheck;
 import com.kh.onthetrain.scheduler.model.entity.Scheduler;
 import com.kh.onthetrain.trainTable.model.vo.TrainTicket;
 
@@ -79,6 +80,15 @@ public interface MyPageService {
 
 	// 개인정보 페이지에 들어갈때마다 member 테이블의 amount(총결제금액)컬럼을 확인하고 membership 업데이트하기
 	int updateMemberShip(int no);
+
+//	// 결제완료 예약 확인 no 를 가지고 문의 게시판 상세보기를 가져오는 메소드
+//	ReservationCheck findReservationCheckByNo(int no);
+
+	// 결제완료 예약 확인 no 를 가지고 숙소의 정보를 가져오는 메소드
+	Accommodation findAccommodationByNo(int no);
+
+	// 숙소 번호 및 유저 번호를 가지고 예약 정보를 가져오는 메소드
+	ReservationCheck findReservationByNo(int no, int memberNo);
 	
 
 

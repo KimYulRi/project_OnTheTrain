@@ -4,7 +4,7 @@
 
 <mapper namespace="com.kh.onthetrain.coupon.model.mapper.CouponMapper">
 	
-	<sql id="selectCoupon">
+	<sql id="selectMyCoupon">
 		SELECT C.COUPON_NO,
 			   C.COUPON_NAME,
 			   C.DISCOUNT_RATE,
@@ -28,20 +28,43 @@
 		<result property="expDate" column="EXPIRATION_DATE"/>
 	</resultMap>
 	
-
+	<!-- 회원 쿠폰 조회 -->
 	<select id="selectMyCouponListByMemberNo" parameterType="_int" resultMap="couponResultMap">
-		<include refid="selectCoupon"/>
-		WHERE COUPON_STATUS = 'Y' AND MEMBER_NO = {memberNo}
+		<include refid="selectMyCoupon"/>
+		WHERE COUPON_STATUS = 'Y' AND MEMBER_NO = #{memberNo}
 	</select>
 	
+	<!-- 관리자 쿠폰 생성 -->
 	<insert id="insertCouponByAdmin" parameterType="com.kh.onthetrain.coupon.model.vo.Coupon">
-		INSERT INTO COUPON(COUPON_NO, COUPON_NAME, DISCOUNT_RATE, DISCOUNT_AMOUNT)
-    	VALUES (SEQ_COUPON.NEXTVAL, #{couponName},
-    			<if test="disRate != null">#{disRate},</if>
-    			<if test="disAmount != null">#{disAmount}</if>
-    			)
+		INSERT INTO COUPON(
+					COUPON_NO,
+					COUPON_NAME,
+					DISCOUNT_RATE,
+					DISCOUNT_AMOUNT
+		) VALUES (
+					SEQ_COUPON.NEXTVAL,
+					#{couponName},
+    				<if test="disRate != null">#{disRate},</if>
+    				<if test="disAmount != null">#{disAmount}</if>
+    	)
 	</insert>
 	
+	<!-- 쿠폰 다운로드(회원) -->
+	<insert id="" parameterType="com.kh.onthetrain.coupon.model.vo.MyCoupon">
+		INSERT INTO COUPON(
+					MEMBER_NO,
+					COUPON_NO,
+					COUPON_STATUS,
+					EXPIRATION_DATE
+		) VALUES (
+					#{memeberNo},
+					#{couponNo},
+					DEFAULT,
+					#{expDATE}
+		)
+	</insert>
+	
+	<!-- 쿠폰 사용 -->
 	<update id="updateUsedCoupon" parameterType="_int">
 		UPDATE MYCOUPON
 		SET	   COUPON_STATUS = 'N'
@@ -50,6 +73,7 @@
 		AND COUPON_STATUS = 'Y'
 	</update>
 	
+	<!-- 쿠폰 만료 -->
 	<update id="updateExpiredCoupon">
 		UPDATE MYCOUPON
 		SET	   COUPON_STATUS = 'N'
@@ -57,5 +81,24 @@
 		AND EXPIRATION_DATE &lt;= #{now}
 	</update>
 	
-
+	<!-- 쿠폰 조회(관리자) -->
+	<select id="selectCouponByAdmin" resultMap="couponResultMap">
+		SELECT COUPON_NO,
+			   COUPON_NAME,
+			   DISCOUNT_RATE,
+			   DISCOUNT_AMOUNT
+		FROM COUPON
+		ORDER BY COUPON_NO DESC
+	</select>
+	
+	<!-- 전체 내 쿠폰 수 조회(회원) -->
+   	<select id="selectCountMyCoupon" resultType="int">
+		SELECT COUNT(*) FROM MYCOUPON
+	</select>
+	
+	<!-- 전체 쿠폰 수 조회(관리자) -->
+   	<select id="selectCountCoupon" resultType="int">
+		SELECT COUNT(*) FROM COUPON
+	</select>
+	
 </mapper>

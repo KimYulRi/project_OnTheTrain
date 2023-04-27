@@ -52,12 +52,15 @@
 
 	<tx:annotation-driven
 		transaction-manager="transactionManager" proxy-target-class="true" />
+		
+	<task:annotation-driven/>
 
 	<interceptors>
 		<!-- 로그인한 사용자가 아니면 intercept -->
 		<interceptor>
 			<mapping path="/logout"/>
 			<mapping path="/myPage/**"/>
+			<mapping path="/accommodation/review/**"/>
 			<exclude-mapping path="/enroll" />
 			<exclude-mapping path="/idCheck" />
 			<exclude-mapping path="/nicknameCheck" />
@@ -83,10 +86,6 @@
 		</interceptor>
 
 	</interceptors>
-
-
-
-
 
 
 </beans:beans>
