@@ -18,7 +18,7 @@
 	<%@ include file="../common/header.jsp" %>
 	<link href="${ path }/css/accommodation/review.css" rel="stylesheet" type="text/css">
     <script src="${ path }/js/common/jquery-3.6.3.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/dayjs/1.10.7/dayjs.min.js"></script>
+    <script src="https://cdnjs.clouflare.com/ajax/libs/dayjs/1.10.7/dayjs.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
     <script type="text/javascript" src="http://dapi.kakao.com/v2/maps/sdk.js?appkey=abe862743db89d98578a540d9cfed4b7"></script>
 </head>
@@ -153,6 +153,7 @@
 			</div> 
 
 <!--오른쪽 옵션창-->
+		<form name="insertReservation" action="${ path }/accommodation/reservation" method="post"  >
             <div id="rightContent" >
                   <div class="optionFrame ">
                      <div id="onedayPrice"><fmt:formatNumber value="${ accommodation.price }"/>원</div>
@@ -168,11 +169,11 @@
                   </div>
                   <div id="accomodationStatus" >
                         <div id="check">
-	                        <div id="checkIn"><input type="date" id="ckeckInInput" style="height: 100%; width: 100%;" placeholder="체크인" /></div>
-	                        <div id="checkOut"><input type="date" id="ckeckOutInput" style="height: 100%; width: 100%;" placeholder="체크아웃" /></div>
+	                        <div id="checkIn"><input  type="date" name="checkIn" id="ckeckInInput" style="height: 100%; width: 100%;" placeholder="체크인" /></div>
+	                        <div id="checkOut"><input type="date" name="checkOut" id="ckeckOutInput" style="height: 100%; width: 100%;" placeholder="체크아웃" /></div>
                   		</div>
 	                  <div class="left" id="pnum">
-	                  	<select id="pnumSelect">
+	                  	<select id="pnumSelect" name="adultNumber">
 					  		<option value="1" selected="selected">1명</option>
 						  	<option value="2">2명</option>
 					  		<option value="3">3명</option>
@@ -180,6 +181,9 @@
 						</select>
 	                  </div>
                   </div>
+                  <input type="hidden" name="accommodationNo"  value="${ accommodation.no }">
+                  <input type="hidden" name="memberNo"  value="${ loginMember.no }">
+                  <input type="hidden" name="price"  value="${ accommodation.price}">
                   <button class="btn btn-primary  type="button" id="reservBtn">예약하기</button>
                   <div id="warning">결제 전에는 예약이 확정되지 않습니다.</div>
 				  <div class="optionFrame" id="bottom1">
@@ -192,12 +196,12 @@
                       <span id="totalPrice" class="right" style="padding: 14px"><fmt:formatNumber value="${ accommodation.price }"/>원</span>
                   </div>
             </div>
+         </form>   
             
             <!-- 상단으로 이동하는 부트스트랩 아이콘  -->
             <div class="btn_gotop ">
 	            <i class="bi bi-chevron-double-up"></i>
             </div>
-            
 		</div>
     </section>
     

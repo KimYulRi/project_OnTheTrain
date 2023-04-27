@@ -3,6 +3,7 @@ package com.kh.onthetrain.accommodation.service;
 import java.util.List;
 
 import com.kh.onthetrain.accommodation.model.vo.Accommodation;
+import com.kh.onthetrain.accommodation.model.vo.Reservation;
 import com.kh.onthetrain.accommodation.model.vo.Review;
 
 public interface AccommodationService {
@@ -20,5 +21,9 @@ public interface AccommodationService {
 	Review getReviewByNo(int no);
 
 	int updateReview(Review review);
+
+	int insertReservation(Reservation reservation);
+	
+	
 	
 }
