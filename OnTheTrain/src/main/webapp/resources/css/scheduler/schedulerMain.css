@@ -11,7 +11,10 @@
 }
 
 article {
-	width: 1024px;
+	width: 1200px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 }
 
 #schedulerBanner {
@@ -20,13 +23,12 @@ article {
 	width: 1024px;
 	height: 409px;
 	margin-top: 20px;
-	margin-bottom: 45px;
-	background-image:
-		url("../../images/scheduler/schedulerBannerBackground.png");
+	margin-bottom: 10px;
+	background-image: url(../../images/scheduler/schedulerBannerBackground.png);
 }
 
 #schedulerBannerTextBox {
-	position: absolute;
+	padding-left: 60px;
 	width: 621px;
 	height: 177px;
 	left: 60px;
@@ -41,8 +43,8 @@ article {
 	width: 1024px;
 	height: 160px;
 	padding-left: 60px;
-	margin-top: 45px;
-	margin-bottom: 45px;
+	margin-top: 10px;
+	margin-bottom: 10px;
 	cursor: pointer;
 }
 
@@ -64,7 +66,7 @@ article {
 	font-size: 55px;
 	line-height: 43px;
 	color: #FFFFFF;
-	margin-bottom: 40px;
+	margin-bottom: 20px;
 }
 
 .subtitle {
