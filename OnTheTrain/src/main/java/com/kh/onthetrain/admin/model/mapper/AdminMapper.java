@@ -7,8 +7,10 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.session.RowBounds;
 
+import com.kh.onthetrain.admin.model.vo.AccommodationReservation;
 import com.kh.onthetrain.admin.model.vo.Faq;
 import com.kh.onthetrain.admin.model.vo.Notice;
+import com.kh.onthetrain.admin.model.vo.TrainTicketReservation;
 import com.kh.onthetrain.member.model.vo.Member;
 import com.kh.onthetrain.myPage.model.entity.Qna;
 import com.kh.onthetrain.myPage.model.entity.QnaReply;
@@ -22,6 +24,12 @@ public interface AdminMapper {
 	int countUnanswered();
 
 	List<Map<String, Object>> selectMonthEnroll();
+	
+	int countTodayTicket();
+	
+	int countTotalReservation();
+	
+	int countTodayAcc();
 
 	/* 회원 */
 	int countMember();
@@ -32,6 +40,14 @@ public interface AdminMapper {
 	
 	/* 승차권 */
 	int countTicket();
+	
+	List<TrainTicketReservation> getTicketReservationList(RowBounds rowBounds);
+	
+	/* 숙박 */
+	int countAccommodation();
+	
+	List<AccommodationReservation> getAccommodationReservationList(RowBounds rowBounds);
+
 	
 	/* 1:1문의 */
 	int countQna();
@@ -61,6 +77,9 @@ public interface AdminMapper {
 	int deleteFix();
 
 	int updateNotice(Notice notice);
+
+
+	
 
 
 

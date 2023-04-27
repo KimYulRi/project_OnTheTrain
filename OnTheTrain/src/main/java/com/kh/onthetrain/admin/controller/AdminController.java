@@ -5,7 +5,6 @@ import java.text.DateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ResourceLoader;
@@ -21,8 +20,10 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.onthetrain.admin.Service.AdminService;
+import com.kh.onthetrain.admin.model.vo.AccommodationReservation;
 import com.kh.onthetrain.admin.model.vo.Faq;
 import com.kh.onthetrain.admin.model.vo.Notice;
+import com.kh.onthetrain.admin.model.vo.TrainTicketReservation;
 import com.kh.onthetrain.common.util.MultipartFileUtil;
 import com.kh.onthetrain.common.util.PageInfo;
 import com.kh.onthetrain.member.model.vo.Member;
@@ -63,13 +64,25 @@ public class AdminController {
 		// 미답변 문의수
 		int unansweredCount = service.unansweredCount();
 		
+		// 오늘의 승차권예약수
+		int ticketCount = service.todayTicketCount();
+
+		// 오늘의 숙소예약수
+		int accCount = service.todayAccCount();
+		
 		// 총 가입자수
 		int totalMember = service.getCountMember();
 		
-		// 월별 가입자수 얻어오기
-		List<Map<String, Object>> chart = service.getMonthEnroll();
+		// 총 예약건수
+		int totalReservation = service.getCountReservation();
 		
-        model.addAttribute("chart", chart);
+		// 월별 가입자수 얻어오기
+//		List<Map<String, Object>> chart = service.getMonthEnroll();
+//		
+//        model.addAttribute("chart", chart);
+        model.addAttribute("accCount", accCount);
+        model.addAttribute("ticketCount", ticketCount);
+        model.addAttribute("totalReservation", totalReservation);
 		model.addAttribute("unansweredCount", unansweredCount );
 		model.addAttribute("enrollCount", enrollCount );
 		model.addAttribute("totalMember", totalMember );
@@ -124,15 +137,14 @@ public class AdminController {
 	@GetMapping(value = "/admin/ticket")
 	public ModelAndView ticketList(ModelAndView modelAndView, @RequestParam(defaultValue = "1") int page) {
 		
-		// 총 승차권수
+		// 총 승차권수(취소포함)
 		int totalTicket = service.getCountTicket();
 		// 페이징
 		PageInfo pageInfo = new PageInfo(page, 10, totalTicket, 10);
 		// 리스트 담기
-		/*
-		 * List<TrainTicketReservation> list = service.getMemberList(pageInfo);
-		 */
-		/* modelAndView.addObject("list", list); */
+		 List<TrainTicketReservation> list = service.getTicketReservation(pageInfo);
+		 
+		modelAndView.addObject("list", list);
 		modelAndView.addObject("pageInfo",pageInfo);
 		modelAndView.addObject("totalTicket",totalTicket);
 		modelAndView.setViewName("admin/adminTrainTicketList");
@@ -145,16 +157,15 @@ public class AdminController {
 	@GetMapping(value = "/admin/accommodation")
 	public ModelAndView accommodationList(ModelAndView modelAndView, @RequestParam(defaultValue = "1") int page) {
 		
-		// 총 승차권수
-		/* int totalAccommodation = service.getCountTicket(); */
-		int totalAccommodation = 1;
+		// 총 숙박예약수(취소포함)
+		int totalAccommodation = service.getCountAccommodation();
 		// 페이징
 		PageInfo pageInfo = new PageInfo(page, 10, totalAccommodation, 10);
 		// 리스트 담기
-		/*
-		 * List<TrainTicketReservation> list = service.getMemberList(pageInfo);
-		 */
-		/* modelAndView.addObject("list", list); */
+		
+		List<AccommodationReservation> list = service.getAccommodationList(pageInfo);
+		
+		modelAndView.addObject("list", list); 
 		modelAndView.addObject("pageInfo",pageInfo);
 		modelAndView.addObject("totalAccommodation",totalAccommodation);
 		modelAndView.setViewName("admin/adminAccommodationList");
