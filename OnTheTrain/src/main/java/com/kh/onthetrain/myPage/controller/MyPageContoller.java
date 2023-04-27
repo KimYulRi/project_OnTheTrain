@@ -231,13 +231,19 @@ public class MyPageContoller {
 	    int result = service.save(qna);
 
 	    if(result > 0) {
-	         modelAndView.addObject("msg", "답글이 정상적으로 등되었습니다.");
-	      } else {
-	         modelAndView.addObject("msg", "답글 수정을 실패하였습니다.");
-	      }
+	    	
+	    	modelAndView.addObject("msg","문의가 성공적으로 작성되었습니다.");
+		    modelAndView.addObject("location", "/myPage/myPageQna" );                        
+		    modelAndView.setViewName("common/msg");
+	    	
+	    } else {
+	    	modelAndView.addObject("msg","문의작성에 실패하였습니다.");
+		    modelAndView.addObject("location", "/myPage/myPageQnaWrite" );                        
+		    modelAndView.setViewName("common/msg");
+	    }
+	    
 	      
-	      modelAndView.addObject("location", "/admin/qna/view?no=" + qnaNo );                        
-
+	    modelAndView.addObject("location", "/myPage/myPageQna" );                        
 	    modelAndView.setViewName("common/msg");
 
 	    return modelAndView;
@@ -279,9 +285,16 @@ public class MyPageContoller {
 		
 		result = service.insertQnaReply(qnaNo, qnamodalreply);
 		
-		
-		
-		model.setViewName("redirect:/myPage/myPageQna");
+		if(result > 0) {
+	         model.addObject("msg", "답글이 정상적으로 등되었습니다.");
+	      } else {
+	         model.addObject("msg", "답글 수정을 실패하였습니다.");
+	      }
+	      
+	      model.addObject("location", "/admin/qna/view?no=" + qnaNo);                        
+	      model.setViewName("common/msg");
+//		
+//		MODEL.SETVIEWNAME("REDIRECT:/MYPAGE/MYPAGEQNA");
 		return model;
 	}
 	
