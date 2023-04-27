@@ -19,6 +19,7 @@
 	<%@ include file="../common/header.jsp" %>
 </head>
 <body>
+	<div>
         <section>
             <div id="body">           
                 <div>
@@ -177,5 +178,7 @@
 			});
 		}
 	</script>
+
+	</div>
 </body>
 </html>

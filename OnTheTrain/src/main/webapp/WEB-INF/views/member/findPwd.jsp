@@ -54,5 +54,6 @@
 				"${pageContext.request.contextPath}");
 </script>
 <script src="${ path }/js/member/findPwd.js"></script>
+<%@ include file="../common/footer.jsp"%>
 </body>
 </html>

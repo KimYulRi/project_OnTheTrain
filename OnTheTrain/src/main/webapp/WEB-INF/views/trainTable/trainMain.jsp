@@ -298,7 +298,8 @@
 	<script src="${ path }/js/trainTable/calendar.js"></script>
 	<script src="${ path }/js/trainTable/seatModal.js"></script>
 	<jsp:include page="./seatModal.jsp" />
-	<jsp:include page="./chargeModal.jsp" />
-</body>
+	<%@ include file="../common/footer.jsp"%>
+  </body>
+
 
 </html>

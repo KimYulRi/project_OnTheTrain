@@ -64,10 +64,9 @@
 
             
         </section>
+        <%@ include file="../common/footer.jsp"%>
 </body>
-    <footer>
-        
-    </footer>
+
     </div>
 
 </html>

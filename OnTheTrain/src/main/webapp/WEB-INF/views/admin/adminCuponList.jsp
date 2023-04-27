@@ -159,6 +159,7 @@
         
     </script>
     <script src="${path}/bootstrap5/assets/js/main.js"></script>
+    <%@ include file="../common/footer.jsp"%>
 </body>
 
 </html>
