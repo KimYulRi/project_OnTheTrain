@@ -9,7 +9,7 @@
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
-				<div class="modal-title">Event Modal Title</div>
+				<div class="modal-title">일정</div>
 			</div>
 			<div class="modal-body">
 				<div class="eventImage">
@@ -59,7 +59,7 @@
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
-				<div class="modal-title">Accommodation Modal Title</div>
+				<div class="modal-title">숙박</div>
 			</div>
 			<div class="modal-body">
 				<div class="accommodationImage">
@@ -113,7 +113,7 @@
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
-				<div class="modal-title">Ticket Modal Title</div>
+				<div class="modal-title">승차권</div>
 			</div>
 			<div class="modal-body">
 				<div class="TicketRequired">
