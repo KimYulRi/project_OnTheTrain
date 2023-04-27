@@ -60,6 +60,7 @@
 		<interceptor>
 			<mapping path="/logout"/>
 			<mapping path="/myPage/**"/>
+			<mapping path="/accommodation/review/**"/>
 			<exclude-mapping path="/enroll" />
 			<exclude-mapping path="/idCheck" />
 			<exclude-mapping path="/nicknameCheck" />

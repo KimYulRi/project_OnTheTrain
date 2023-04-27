@@ -18,7 +18,7 @@
     margin: 0 auto;
 }
 
-#banner_space{
+.banner_space{
     margin-top: 5%;
     left: 88px;
     right: 88px;
@@ -119,4 +119,8 @@
     line-clamp: 1;
 }
 
+#schedulerArea{
+	display:flex;
+	justify-content: center;
+}
 
