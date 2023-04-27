@@ -6,17 +6,17 @@ import {
   createNewCard,
 } from "./schedulerModalModule.js";
 
+import {
+  addSchedulerComponent,
+  deleteSchedulerComponent,
+} from "./calender/schedulerCreateCalender.js";
+
 const ctx = getContextPath();
 const noComponentArea = $("#noAddedComponentArea");
 const waitDeleteModeBtn = $("#waitDeleteMode-button");
 const waitComponentList = $("#waitComponentList");
 const addedComponentList = $("#addedComponent");
 const schedulerCreateModule = {};
-
-import {
-  addSchedulerComponent,
-  deleteSchedulerComponent,
-} from "./calender/schedulerCreateCalender.js";
 
 // 추가 대기 중인 요소 삭제 모드
 let waitDeleteMode = false;
@@ -31,27 +31,6 @@ function getCurrentComponent() {
   return sessionStorage.getItem("currentComponent");
 }
 
-// id 값으로 요소 객체 배열에서 요소 찾기
-function findIndexFromArrayById(arr, id) {
-  for (let i = 0; i < arr.length; i++) {
-    if (arr[i].id === id) {
-      return i;
-    }
-  }
-  // 해당 id 값을 가진 요소가 없을 경우 -1 반환
-  return -1;
-}
-
-function findIndexById(id) {
-  for (let i = 0; i < arr.length; i++) {
-    if (arr[i].id === id) {
-      return i;
-    }
-  }
-  // 해당 id 값을 가진 요소가 없을 경우 -1 반환
-  return -1;
-}
-
 // 추가된 요소 영역과 관련된 함수
 // 하나라도 요소가 추가되면 noComponent 가리기
 function addedComponentListVisable() {
@@ -60,7 +39,6 @@ function addedComponentListVisable() {
 }
 
 // 요소가 없으면 noComponent 보이기
-
 function noComponentAreaVisable() {
   noComponentArea.show();
 }
@@ -79,8 +57,19 @@ function dateToYYYYMMDD(unformattedDate) {
   return formattedDate;
 }
 
+// id 값으로 요소 객체 배열에서 요소 찾기
+function findIndexFromArrayById(arr, id) {
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i].id === id) {
+      return i;
+    }
+  }
+  // 해당 id 값을 가진 요소가 없을 경우 -1 반환
+  return -1;
+}
+
 $(document).ready(function () {
-  // 요소 클릭 시 해당 요소와 관련된 내용을 표시하도록 하는 함수
+  // 현재 표시할 요소 관련 함수
   $(".componentText").click(function () {
     var component = $(this).data("component");
     $.ajax({
@@ -240,6 +229,83 @@ $(document).ready(function () {
     }
   });
 
+  // 드래그 앤드 드롭 처리
+  function setCardDraggable(card) {
+    card.draggable({
+      revert: true, // 드래그가 취소될 경우 원래 위치로 이동
+      zIndex: 100, // 드래그 중인 요소의 z-index 값
+      cursor: "move", // 드래그 커서 모양
+      helper: "original",
+      start: function (event, ui) {
+        addedComponentListVisable();
+      },
+      stop: function (event, ui) {
+        // 드래그가 종료될 때 실행될 콜백 함수
+        if (addedComponentList.find(".card").length === 0) {
+          // card 클래스를 가진 요소가 없는 경우
+          noComponentAreaVisable();
+        }
+      },
+    });
+  }
+
+  function editCard(id) {
+    let component = getCurrentComponent();
+    let obj = addModalModule.findComponentById(component, id);
+    let cardToedit = $(".card#" + id);
+
+    cardToedit.find(".img").attr("src", obj.image);
+    cardToedit.find(".cardTitle").text(obj.title);
+    cardToedit.find(".cardRequiredDetail").text(obj.location);
+    cardToedit.find(".cardOptionalDetail").text(obj.price);
+  }
+
+  // 드롭 이벤트 발생 시 처리 함수
+  $("#noAddedComponentArea, #addedComponent, #waitComponentList").droppable({
+    drop: function (event, ui) {
+      event.stopPropagation();
+      let draggable = $(ui.helper[0]);
+      let droppable = $(event.target);
+      let currentComponent = getCurrentComponent();
+      let componentid = draggable.attr("id");
+      let dropType = null; // droppable 된 영역을 구분할 변수
+
+      // droppable된 영역에 따라 dropType 값을 설정
+      if (droppable.is("#addedComponent")) {
+        dropType = "addedComponent";
+      } else if (droppable.is("#waitComponentList")) {
+        dropType = "waitComponentList";
+      } else if (droppable.is("#noAddedComponentArea")) {
+        dropType = "noAddedComponentArea";
+      }
+
+      // dropType에 따라 다른 처리 실행
+      if (
+        dropType === "addedComponent" ||
+        dropType === "noAddedComponentArea"
+      ) {
+        addModalModule.toAddedList(currentComponent, componentid);
+        addSchedulerComponent(
+          addModalModule.findComponentById(currentComponent, componentid)
+        );
+      } else if (dropType === "waitComponentList") {
+        addModalModule.toWaitList(currentComponent, componentid);
+        deleteSchedulerComponent(componentid);
+      }
+
+      console.log(
+        addModalModule.getAddModalComponents()[currentComponent].addedList
+      );
+      console.log(
+        addModalModule.getAddModalComponents()[currentComponent].waitList
+      );
+
+      // 드래그한 요소를 드롭 대상 요소의 자식으로 추가
+      draggable.appendTo(droppable);
+    },
+    helper: "original",
+  });
+
   // 추가 대기 중인 요소 삭제 모드 버튼 클릭 이벤트
   waitDeleteModeBtn.on("click", () => {
     waitDeleteMode = !waitDeleteMode;
@@ -295,70 +361,8 @@ $(document).ready(function () {
     }
   });
 
-  // 드래그 앤드 드롭 처리
-  // 카드를 드래거블하게 만듦
-  function setCardDraggable(card) {
-    card.draggable({
-      revert: true, // 드래그가 취소될 경우 원래 위치로 이동
-      zIndex: 100, // 드래그 중인 요소의 z-index 값
-      cursor: "move", // 드래그 커서 모양
-      helper: "original",
-      start: function (event, ui) {
-        addedComponentListVisable();
-      },
-      stop: function (event, ui) {
-        // 드래그가 종료될 때 실행될 콜백 함수
-        if (addedComponentList.find(".card").length === 0) {
-          // card 클래스를 가진 요소가 없는 경우
-          noComponentAreaVisable();
-        }
-      },
-    });
-  }
   schedulerCreateModule.setCardDraggable = setCardDraggable;
-
-  $("#noAddedComponentArea, #addedComponent, #waitComponentList").droppable({
-    drop: function (event, ui) {
-      event.stopPropagation();
-      let draggable = $(ui.helper[0]);
-      let droppable = $(event.target);
-      let currentComponent = getCurrentComponent();
-      let componentid = draggable.attr("id");
-      let dropType = null; // droppable 된 영역을 구분할 변수
-
-      // droppable된 영역에 따라 dropType 값을 설정
-      if (droppable.is("#addedComponent")) {
-        dropType = "addedComponent";
-      } else if (droppable.is("#waitComponentList")) {
-        dropType = "waitComponentList";
-      } else if (droppable.is("#noAddedComponentArea")) {
-        dropType = "noAddedComponentArea";
-      }
-
-      // dropType에 따라 다른 처리 실행
-      if (
-        dropType === "addedComponent" ||
-        dropType === "noAddedComponentArea"
-      ) {
-        addModalModule.toAddedList(currentComponent, componentid);
-        addSchedulerComponent(addModalModule.findComponentById(currentComponent,componentid));
-      } else if (dropType === "waitComponentList") {
-        addModalModule.toWaitList(currentComponent, componentid);
-        deleteSchedulerComponent(componentid);
-      }
-
-      console.log(
-        addModalModule.getAddModalComponents()[currentComponent].addedList
-      );
-      console.log(
-        addModalModule.getAddModalComponents()[currentComponent].waitList
-      );
-
-      // 드래그한 요소를 드롭 대상 요소의 자식으로 추가
-      draggable.appendTo(droppable);
-    },
-    helper: "original",
-  });
+  schedulerCreateModule.editCard = editCard;
 });
 
 export {
@@ -367,9 +371,8 @@ export {
   waitComponentList,
   addedComponentList,
   schedulerCreateModule,
-  findIndexById,
   getCurrentComponent,
   findIndexFromArrayById,
-  addedComponentListVisable,
   noComponentAreaVisable,
+  addedComponentListVisable,
 };

@@ -13,7 +13,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>온더트레인</title>>
+<title>온더트레인</title>
 <link href="${ path }/css/scheduler/schedulerCreate.css"
 	rel="stylesheet" type="text/css">
 <link rel="stylesheet" type="text/css"
@@ -42,23 +42,40 @@
 		<div id="scheduler">
 			<div id="schedulerCalender" class="calendarContainer">
 				<div class=days>
-			
-					
-							<div class="schedulerCalenderBlank">구분</div>
-							<div class="day">일</div>
-							<div class="day">월</div>
-							<div class="day">화</div>
-							<div class="day">수</div>
-							<div class="day">목</div>
-							<div class="day">금</div>
-							<div class="day">토</div>
-							<div class="schedulerCalenderLastBlank"></div>
-					
+
+
+					<div class="schedulerCalenderBlank">구분</div>
+					<div class="day">일</div>
+					<div class="day">월</div>
+					<div class="day">화</div>
+					<div class="day">수</div>
+					<div class="day">목</div>
+					<div class="day">금</div>
+					<div class="day">토</div>
+					<div class="schedulerCalenderLastBlank"></div>
+
 				</div>
 				<div id="dp"></div>
 			</div>
 			<div id="schedulerSidemenu">
-				<div class="sideMenuIcon">
+
+				<div class="sideMenuIcon" id="previousWeek-Button">
+					<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
+						fill="currentColor" class="bi bi-arrow-bar-left"
+						viewBox="0 0 16 16">
+  <path fill-rule="evenodd"
+							d="M12.5 15a.5.5 0 0 1-.5-.5v-13a.5.5 0 0 1 1 0v13a.5.5 0 0 1-.5.5ZM10 8a.5.5 0 0 1-.5.5H3.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L3.707 7.5H9.5a.5.5 0 0 1 .5.5Z" />
+</svg>
+				</div>
+				<div class="sideMenuIcon" id="nextWeek-Button">
+					<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
+						fill="currentColor" class="bi bi-arrow-bar-right"
+						viewBox="0 0 16 16">
+  <path fill-rule="evenodd"
+							d="M6 8a.5.5 0 0 0 .5.5h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L12.293 7.5H6.5A.5.5 0 0 0 6 8Zm-2.5 7a.5.5 0 0 1-.5-.5v-13a.5.5 0 0 1 1 0v13a.5.5 0 0 1-.5.5Z" />
+</svg>
+				</div>
+				<div class="sideMenuIcon" id="download-Button">
 					<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
 						fill="currentColor" class="bi bi-download" viewBox="0 0 16 16">
   <path
@@ -67,7 +84,7 @@
 							d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z" />
 </svg>
 				</div>
-				<div class="sideMenuIcon">
+				<div class="sideMenuIcon" id="save-Button">
 					<svg class="svg-icon"
 						style="width: 30px; height: 30px; vertical-align: middle; fill: currentColor; overflow: hidden;"
 						viewBox="0 0 1024 1024" version="1.1"
@@ -76,7 +93,7 @@
 							d="M725.333333 128H213.333333c-47.146667 0-85.333333 38.186667-85.333333 85.333333v597.333334c0 47.146667 38.186667 85.333333 85.333333 85.333333h597.333334c47.146667 0 85.333333-38.186667 85.333333-85.333333V298.666667l-170.666667-170.666667zM512 810.666667c-70.613333 0-128-57.386667-128-128s57.386667-128 128-128 128 57.386667 128 128-57.386667 128-128 128z m128-426.666667H213.333333v-170.666667h426.666667v170.666667z" /></svg>
 
 				</div>
-				<div class="sideMenuIcon">
+				<div class="sideMenuIcon" >
 					<svg class="svg-icon"
 						style="width: 30px; height: 30px; vertical-align: middle; fill: currentColor; overflow: hidden;"
 						viewBox="0 0 1024 1024" version="1.1"
@@ -108,7 +125,7 @@
 				<div class="componentText" data-component="ticket">승차권</div>
 			</div>
 		</div>
-		<hr>
+		<div class="gray_line"></div>
 		<div class="title">
 			추가된
 			<div class="componentName">${basicComponent}</div>
@@ -125,7 +142,7 @@
 				</div>
 			</div>
 		</div>
-		<hr>
+		<div class="gray_line"></div>
 		<div class="title">
 			추가 대기 중인
 			<div class="componentName">${basicComponent}</div>
@@ -141,7 +158,7 @@
 			</div>
 			<!--  <div class="card" draggable="true">TestCard</div>  -->
 		</div>
-		<hr>
+		<div class="gray_line"></div>
 		<div class="title">
 			<div class="componentName">${basicComponent}</div>
 			조회
@@ -163,7 +180,7 @@
 			<input type="date" id="eventEndDate" name="endDate">
 			<div class="explantion">까지 열리는 행사를 찾습니다.</div>
 			<button id="searchEvent-button" class="search-button">검색</button>
-			<hr>
+			<div class="gray_line"></div>
 		</div>
 		<br>
 		<div>
