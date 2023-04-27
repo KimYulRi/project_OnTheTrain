@@ -24,5 +24,6 @@
     
 	<script src="${ path }/js/trainTable/station.js"></script>
 	<script src="${ path }/js/trainTable/popUp.js"></script>
+<%@ include file="../common/footer.jsp"%>
 </body>
 </html>

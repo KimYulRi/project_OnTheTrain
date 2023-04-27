@@ -298,7 +298,7 @@ public class MyPageContoller {
 		result = service.insertQnaReply(qnaNo, qnamodalreply);
 		
 		if(result > 0) {
-	         model.addObject("msg", "답글이 정상적으로 등되었습니다.");
+	         model.addObject("msg", "답글이 정상적으로 등록되었습니다.");
 	      } else {
 	         model.addObject("msg", "답글 수정을 실패하였습니다.");
 	      }

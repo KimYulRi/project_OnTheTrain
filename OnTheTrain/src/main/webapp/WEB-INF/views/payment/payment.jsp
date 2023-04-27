@@ -102,6 +102,6 @@
 				<button id="coupon_cancel_btn" type="button">취소하기</button>
 	</section>
 
-
+<%@ include file="../common/footer.jsp"%>
 </body>
 </html>

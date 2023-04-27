@@ -172,9 +172,9 @@
     </script>
 
     <script src="${path}/bootstrap5/assets/js/main.js"></script>
-    
 <%-- 
 	<script src="${ path }/js/admin/adminMemberModal.js"></script> --%>
 </body>
+    <%@ include file="../common/footer.jsp"%>
 
 </html>

@@ -110,10 +110,9 @@
             <script src="${ path }/js/myPage/myPageModal.js"></script>
 			<script src="${ path }/js/myPage/myPageInfo.js"></script>
         </section>
+        <%@ include file="../common/footer.jsp"%>
 	</body>
-    <footer>
-        
-    </footer>
+
     </div>
 
 </html>

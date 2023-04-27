@@ -192,5 +192,6 @@
 		<script type="module"
 			src="${ path }/js/scheduler/calender/schedulerCreateCalender.js"></script>
 	</article>
+	<%@ include file="../common/footer.jsp"%>
 </body>
 </html>
