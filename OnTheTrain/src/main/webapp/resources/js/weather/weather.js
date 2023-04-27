@@ -12,9 +12,10 @@ function getWeather(event) {
   const day = dateObj.getDate().toString().padStart(2, '0');
   const formattedDate = `${year}년 ${month}월 ${day}일`;
 
+
   const url = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=31274de68eb077bb441d28ad914faa16`;
 
-  $.ajax({
+   $.ajax({
     url: url,
     dataType: 'json',
     success: function(data) {
@@ -27,41 +28,43 @@ function getWeather(event) {
         }
       }
       if (weatherData !== null) {
+        let weather = weatherData.weather[0].main;
         const celsiusTemp = weatherData.main.temp - 273.15;
         const celsiusMaxTemp = weatherData.main.temp_max - 273.15;
         const celsiusMinTemp = weatherData.main.temp_min - 273.15;
 
         // Get cloudiness information from weather data
         const clouds = weatherData.weather[0].description;
-
         let cloudinessIcon;
         let cloud;
-        if (clouds.includes('few clouds')) {
-          cloudinessIcon = 'brightness-high';
-          cloud = '구름 없이 맑은 날씨가 예상됩니다.';
-        } else if (clouds.includes('scattered clouds')) {
-          cloudinessIcon = 'cloud-sun';
-          cloud = '구름이 조금 있는 맑은 날씨가 예상됩니다.'
-        } else if (clouds.includes('broken clouds')) {
-          cloudinessIcon = 'cloud';
-          cloud = '구름이 조금 많이 있는 날씨가 예상됩니다.'
-        } else if (clouds.includes('overcast clouds')) {
-          cloudinessIcon = 'cloud-haze2-fill';
-          cloud = '구름이 매우 많은 날씨가 예상됩니다.'
-        } else {
-          cloudinessIcon = 'brightness-high';
-          cloud = '구름 없이 맑은 날씨가 예상됩니다.';
-        }
+        if (weather === 'Clear') {
+		  weather = '맑을 예정입니다.';
+		  cloudinessIcon = 'brightness-high';
+		} else if (weather === 'Clouds') {
+		  weather = '흐릴 예정입니다.';
+		  cloudinessIcon = 'cloud';
+		} else if (weather === 'Rain') {
+		  weather = '비가 올 예정입니다.';
+		  cloudinessIcon = 'cloud-rain';
+		} else if (weather === 'Snow') {
+		  weather = '눈이 올 예정입니다.';
+		  cloudinessIcon = 'cloud-snow';
+		}
+
+        
+
+
 
         const cloudinessHTML = `
           <i width : 100px, height : 100px class="bi bi-${cloudinessIcon}"></i>
         `;
 
         const resultHTML = `
+        	<p id="weather" >${formattedDate} ${cityName}의 날씨는 ${weather}</p>
           <p id="icon" >${cloudinessHTML}</p>
-          <p id="dateCity" >${formattedDate} ${cityName}의 날씨는 다음과 같습니다.</p>
-          <p id="weatherText" >평균온도는 ${celsiusTemp.toFixed(1)}°C 로 예상이 되며 습도는 ${weatherData.main.humidity}%로 예상됩니다.</p>
-          <p id="cloud" >${cloud}</p>
+          <p id="dateCity" >${formattedDate} ${cityName}의 평균 온도와 습도는</p>
+          <p id="weatherText" >평균온도 : ${celsiusTemp.toFixed(1)}°C &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp  습도 : ${weatherData.main.humidity}%</p>
+          <p id="weatherText" >로 예상됩니다.<p>
         `;
         $('#result').html(resultHTML);
       } else {
