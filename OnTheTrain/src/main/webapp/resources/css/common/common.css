@@ -197,17 +197,21 @@ main{
 	padding-top: 20px;
  }
  main #ticketArea {
-	width: 1200px;
+	/* width: 1200px; */
 	height: 510px;
+	display: flex;
+	justify-content: center;
 }
   
 main #ticketArea img {
-	width: 1200px;
+	width: 1024px;
 	height: 510px;
+	
 }
   
 main .contentArea {
-	width: 1200px;
+	width: 1024px;
+	
 }
 main #content1{
 	width: 1024px;

@@ -2,16 +2,19 @@ package com.kh.onthetrain.accommodation.controller;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.onthetrain.accommodation.model.vo.Accommodation;
+import com.kh.onthetrain.accommodation.model.vo.Reservation;
 import com.kh.onthetrain.accommodation.model.vo.Review;
 import com.kh.onthetrain.accommodation.service.AccommodationService;
 
@@ -145,5 +148,30 @@ public class AccommodationController {
 	    mav.setViewName("review"); // 뷰 이름 설정
 	    return mav;
 	}
+	
+	@PostMapping("/accommodation/reservation")
+	public ModelAndView insertReservation(ModelAndView modelAndView, @ModelAttribute  Reservation reservation) {
+	    // 리뷰 생성 로직 수행
+		System.out.println(reservation);
+	    int result = service.insertReservation(reservation);
+	    
+	    if(result > 0 ) {
+	    	modelAndView.addObject("msg", "성공");
+//	    	modelAndView.addObject("location", "/mypage/myPageTicketWating?no=" + reservation.getAccommodationNo());
+	    	modelAndView.addObject("location", "/accommodation/reservation?no=" + reservation.getAccommodationNo());
+	    	
+	    } else {
+	    	modelAndView.addObject("location", "/accommodation/reservation?no=" + reservation.getAccommodationNo());
+			modelAndView.addObject("msg", "실패");
+		}
+	   
+	   modelAndView.setViewName("common/msg");
+	   
+	    return modelAndView;
+	    
+	}
+	
+	
+	
 
 }

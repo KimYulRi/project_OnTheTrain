@@ -42,11 +42,11 @@ section{
 	
 
 	#weatherbody{
+	    width: 1024px;
 	 	border : 1px solid #91B2E8;
 	 	background: #white;
 		border-radius : 10px;
 		text-align: center;
-		width: 850px;
 		height: 400px;
 		margin: auto;
 	}

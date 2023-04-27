@@ -11,7 +11,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin</title>
+    <title>온더트레인</title>
 
     <link rel="stylesheet" href="${path}/bootstrap5/assets/css/bootstrap.css">
     <link rel="stylesheet" href="${path}/bootstrap5/assets/vendors/iconly/bold.css">
@@ -87,7 +87,7 @@
                                             </div>
                                             <div class="col-md-8">
                                                 <h6 class="text-muted font-semibold">숙박 예약</h6>
-                                                <h6 class="font-extrabold mb-0">{ }건</h6>
+                                                <h6 class="font-extrabold mb-0">${ accCount}건</h6>
                                             </div>
                                         </div>
                                     </div>
@@ -105,7 +105,7 @@
                                             </div>
                                             <div class="col-md-8">
                                                 <h6 class="text-muted font-semibold">승차권 예약</h6>
-                                                <h6 class="font-extrabold mb-0">{ }건</h6>
+                                                <h6 class="font-extrabold mb-0">${ ticketCount }건</h6>
                                             </div>
                                         </div>
                                     </div>
@@ -118,7 +118,7 @@
                  	
                  	
                  	
-                 	
+        <!--          	
                             <div class="col-12">
                         <div class="row">
                                 <div class="card">
@@ -131,7 +131,7 @@
                                 </div>
                             </div>
                         </div>
-                        
+                         -->
                         
                         
                             <div class="col-12">
@@ -161,7 +161,7 @@
                                                             </div>
                                                         </td>
                                                         <td class="col-auto">
-                                                            <p class=" mb-0">{}건</p>
+                                                            <p class=" mb-0">${ totalReservation }건</p>
                                                         </td>
                                                     </tr>
                                                 </tbody>
@@ -181,13 +181,13 @@
     <script src="${path}/bootstrap5/assets/vendors/apexcharts.js"></script>
     <script src="${path}/bootstrap5/assets/js/pages/dashboard.js"></script>
 
-    <script>
+<!--     <script>
         // 메뉴바 변경
         window.onload = function() {
 			document.getElementById("ad_dashboard").classList.add("active");
 		}
         
-        var chartData = ${chartData};
+        var chartData = ${chart};
         var options = {
           chart: {
             type: 'line'
@@ -195,7 +195,7 @@
           series: [{
             name: 'Member',
             data: [
-              <c:forEach items="${chartData}" var="data" varStatus="status">
+              <c:forEach items="${chart}" var="data" varStatus="status">
                 ${data.count}
                 <c:if test="${not status.last}">,</c:if>
               </c:forEach>
@@ -203,7 +203,7 @@
           }],
           xaxis: {
             categories: [
-              <c:forEach items="${chartData}" var="data" varStatus="status">
+              <c:forEach items="${chart}" var="data" varStatus="status">
                 '${data.month}'
                 <c:if test="${not status.last}">,</c:if>
               </c:forEach>
@@ -214,7 +214,7 @@
         chart.render();
 
         
-    </script>
+    </script> -->
     <script src="${path}/bootstrap5/assets/js/main.js"></script>
 </body>
 

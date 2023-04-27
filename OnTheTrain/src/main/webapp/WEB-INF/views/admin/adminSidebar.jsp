@@ -35,7 +35,6 @@
                                 <span>회원관리</span>
                             </a>
                         </li>
-                        
                         <li class="sidebar-item" id="ad_ticketboard">
                             <a href="${path}/admin/ticket" class='sidebar-link'>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-ticket-fill" viewBox="0 0 16 16">
@@ -52,7 +51,6 @@
                                 <span>숙박예약관리</span>
                             </a>
                         </li>
-
 
                         <li class="sidebar-item" id="ad_cuponboard">
                             <a href="${path}/admin/cupon" class='sidebar-link'>
