@@ -10,7 +10,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-<title>온더트레인 - 고객센터</title>
+<title>온더트레인</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
    	<link rel="stylesheet" href="${path}/bootstrap5/assets/vendors/bootstrap-icons/bootstrap-icons.css">
     <link rel="stylesheet" href="${path}/css/admin/csNoticeUpdate.css">
@@ -164,5 +164,6 @@
   	        } 
         }
     </script>
+    <%@ include file="../common/footer.jsp"%>
 </body>
 </html>

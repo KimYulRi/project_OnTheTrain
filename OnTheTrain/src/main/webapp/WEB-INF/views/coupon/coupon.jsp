@@ -157,7 +157,12 @@
 		    });
 		};
 
+<<<<<<< HEAD
 	</script>
 
+=======
+
+   <%@ include file="../common/footer.jsp"%>
+>>>>>>> main
 </body>
 </html>

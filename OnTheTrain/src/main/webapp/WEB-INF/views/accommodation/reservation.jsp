@@ -33,7 +33,7 @@
 			<div id="leftContent"> 
 		    	<div class="accomodationName bold">${ accommodation.name }</div>
 		        <div class="font15" id="callnum">예약 가능 여부 : ${accommodation.status == 'Y' ? '가능' : '불가능'}</div>
-		        <div class="font15" id="callnum">잔여 객실 수 : ${ accommodation.maxValue }</div>
+		        <%-- <div class="font15" id="callnum">잔여 객실 수 : ${ accommodation.maxValue }</div> --%>
 		        <hr class="line">
 		        <div class="font15 bold" id="callnum">전화번호</div>
 			    <div class="font15 left" id="call">${ accommodation.explain }</div>
@@ -56,7 +56,9 @@
 		            
 		            <!-- 리뷰 작성하기 버튼 -->
 					<%-- <a href="#" onclick="window.open('${ path }/accommodation/review?no=${accommodation.no}', '_blank', 'width=330, height=500', 'true');" class="btn btn-primary right" style="margin-left: 10px;" id="writeReview">리뷰작성</a> --%>
-					<a href="${ path }/accommodation/review?no=${accommodation.no}" class="btn btn-primary right" style="margin-left: 10px;" id="writeReview">리뷰작성</a> 
+					<c:if test="${ loginMember.no != null }">
+						<a href="${ path }/accommodation/review?no=${accommodation.no}" class="btn btn-primary right" style="margin-left: 10px;" id="writeReview">리뷰작성</a> 
+		        	</c:if>
 		        </div>
 		        
 		        <!-- 후기 -->
@@ -97,7 +99,6 @@
 											<c:if test='${ loginMember.no  == review.memberNo }'>
 					                            <a class="littleFont" style=" text-decoration: none;" href="${ path }/accommodation/review/update?no=${ review.no }">수정</a>
 					                            <a class="littleFont" style="color: darkred; text-decoration: none;" href="${ path }/accommodation/review/delete?no=${ review.no }">삭제</a>
-												
 											</c:if>
 											<div class="littleFont">
 				                            	<svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
@@ -153,6 +154,7 @@
 			</div> 
 
 <!--오른쪽 옵션창-->
+		<form name="insertReservation" action="${ path }/accommodation/reservation" method="post" >
             <div id="rightContent" >
                   <div class="optionFrame ">
                      <div id="onedayPrice"><fmt:formatNumber value="${ accommodation.price }"/>원</div>
@@ -168,11 +170,11 @@
                   </div>
                   <div id="accomodationStatus" >
                         <div id="check">
-	                        <div id="checkIn"><input type="date" id="ckeckInInput" style="height: 100%; width: 100%;" placeholder="체크인" /></div>
-	                        <div id="checkOut"><input type="date" id="ckeckOutInput" style="height: 100%; width: 100%;" placeholder="체크아웃" /></div>
+	                        <div id="checkIn"><input  type="date" name="checkIn" id="ckeckInInput" style="height: 100%; width: 100%;" placeholder="체크인" required/></div>
+	                        <div id="checkOut"><input type="date" name="checkOut" id="ckeckOutInput" style="height: 100%; width: 100%;" placeholder="체크아웃" required/></div>
                   		</div>
 	                  <div class="left" id="pnum">
-	                  	<select id="pnumSelect">
+	                  	<select id="pnumSelect" name="adultNumber">
 					  		<option value="1" selected="selected">1명</option>
 						  	<option value="2">2명</option>
 					  		<option value="3">3명</option>
@@ -180,7 +182,11 @@
 						</select>
 	                  </div>
                   </div>
-                  <button class="btn btn-primary  type="button" id="reservBtn">예약하기</button>
+                  <input type="hidden" name="accommodationNo"  value="${ accommodation.no }">
+                  <input type="hidden" name="memberNo"  value="${ loginMember.no }">
+                  <input type="hidden" name="price"  value="${ accommodation.price}">
+   				  	<button class="btn btn-primary"  id="reservBtn">예약하기</button>
+   				  	<!-- <button class="btn btn-primary" type="button" id="reservBtn">예약하기</button> -->
                   <div id="warning">결제 전에는 예약이 확정되지 않습니다.</div>
 				  <div class="optionFrame" id="bottom1">
                       <div id="onedayPrice"><fmt:formatNumber value="${ accommodation.price }"/>원</div>
@@ -192,12 +198,12 @@
                       <span id="totalPrice" class="right" style="padding: 14px"><fmt:formatNumber value="${ accommodation.price }"/>원</span>
                   </div>
             </div>
+         </form>   
             
             <!-- 상단으로 이동하는 부트스트랩 아이콘  -->
             <div class="btn_gotop ">
 	            <i class="bi bi-chevron-double-up"></i>
             </div>
-            
 		</div>
     </section>
     

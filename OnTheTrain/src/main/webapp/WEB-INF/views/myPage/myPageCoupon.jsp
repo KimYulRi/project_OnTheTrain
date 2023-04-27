@@ -45,68 +45,58 @@
                         <th id="couponsalebody">할인 혜텍</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr>
-                        <td id="coupontitle" >반가워요 신인 환영 쿠폰</td>
-                        <td id="coupondate" >~2023/01/01</td>
-                        <td id="couponsale" >15,000원</td>
-                    </tr>
-                </tbody>
+                <c:if test="${not empty myCoupon}">
+	                <c:forEach items="${myCoupon}" var="myCoupon" >
+		                <tbody>
+		                    <tr>
+		                        <td id="coupontitle" >${myCoupon.couponName }</td>
+		                        <td id="coupondate" >~<fmt:formatDate pattern="yyyy/MM/dd" value="${myCoupon.expDate}"/></td>
+								<c:if test="${myCoupon.discountRate == 0}">
+								    <td id="couponsale"><fmt:formatNumber value="${myCoupon.discountAmount}" pattern="#,###"/>원</td>
+								</c:if>
+								<c:if test="${myCoupon.discountAmount == 0}">
+								    <td id="couponsale">${myCoupon.discountRate}%</td>
+								</c:if>
+		                    </tr>
+		                </tbody>
+	                </c:forEach>
+                </c:if>	
+                
             </table>
+            
+                    <c:if test="${empty myCoupon}" >
+	                	<div id="noResult" ><img id="imgNo"  width="110px" height="110px" src="${ path }/images/common/noResult.png" alt=""></div>
+						<div id="noResult">사용할 수 있는 쿠폰이 없습니다.</div>
+                    </c:if>
 
-	<table class="table" id="coupontablebody">
-    <thead class="table-light">
-        <tr>
-            <th id="coupontitlebody">쿠폰 이름</th>
-            <th id="coupondatebody">이용 기간</th>
-            <th id="couponsalebody">할인 혜택</th>
-        </tr>
-    </thead>
-    <tbody>
-        <c:forEach items="${myCouponList}" var="myCoupon">
-            <tr>
-                <td id="coupontitle">${myCoupon.getTitle()}</td>
-                <td id="coupondate">${myCoupon.getStartDate()} ~ ${myCoupon.getEndDate()}</td>
-                <td id="couponsale">${myCoupon.getDiscount()}원</td>
-            </tr>
-        </c:forEach>
-    </tbody>
-</table>
-<div id="paging" class="text-center">
-    <c:if test="${pageInfo.getMaxPage() > 1}">
-        <ul class="pagination">
-            <c:if test="${pageInfo.startPage > 1}">
-                <li class="page-item">
-                    <a class="page-link" href="?page=1" aria-label="First">
-                        <span aria-hidden="true">&laquo;</span>
-                    </a>
-                </li>
-            </c:if>
-            <c:forEach begin="${pageInfo.startPage}" end="${pageInfo.endPage}" step="1" var="i">
-                <c:choose>
-                    <c:when test="${i == pageInfo.currentPage}">
-                        <li class="page-item active">
-                            <span class="page-link">${i}</span>
-                        </li>
-                    </c:when>
-                    <c:otherwise>
-                        <li class="page-item">
-                            <a class="page-link" href="?page=${i}">${i}</a>
-                        </li>
-                    </c:otherwise>
-                </c:choose>
-            </c:forEach>
-            <c:if test="${pageInfo.endPage < pageInfo.getMaxPage()}">
-                <li class="page-item">
-                    <a class="page-link" href="?page=${pageInfo.getMaxPage()}" aria-label="Last">
-                        <span aria-hidden="true">&raquo;</span>
-                    </a>
-                </li>
-            </c:if>
-        </ul>
-    </c:if>
-</div>
+
+			<div id="pageBar">
+				<!-- 맨 처음으로 -->
+				<button onclick="location.href='${ path }/myPage/myPageCoupon?page=1'">&lt;&lt;</button>
+	
+				<!-- 이전 페이지로 -->
+				<button onclick="location.href='${ path }/myPage/myPageCoupon?page=${ pageInfo.prevPage }'">&lt;</button>
+	
+				<!--  5개 페이지 목록 -->
+				<c:forEach begin="${ pageInfo.startPage }" end="${ pageInfo.endPage }" varStatus="status">
+					<c:choose>
+						<c:when test="${ status.current == pageInfo.currentPage}">
+							<button disabled>${ status.current }</button>
+						</c:when>
+						<c:otherwise>						
+							<button onclick="location.href='${ path }/myPage/myPageCoupon?page=${ status.current }'">${ status.current }</button>
+						</c:otherwise>
+					</c:choose>
+				</c:forEach>
+							<!-- 다음 페이지로 -->
+				<button onclick="location.href='${ path }/myPage/myPageCoupon?page=${ pageInfo.nextPage }'">&gt;</button>
+	
+				<!-- 맨 끝으로 -->
+				<button onclick="location.href='${ path }/myPage/myPageCoupon?page=${ pageInfo.maxPage }'">&gt;&gt;</button>
 			
+				</div>
+                <div></div>
+            </div>
             
             
 
@@ -114,10 +104,9 @@
 
             
         </section>
+        <%@ include file="../common/footer.jsp"%>
 </body>
-    <footer>
-        
-    </footer>
+
     </div>
 
 </html>

@@ -9,7 +9,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>로그인</title>
+<title>온더트레인</title>
 <link rel="stylesheet" href="${ path }/css/member/login.css">
 <%@ include file="../common/header.jsp" %>
 </head>
@@ -51,5 +51,6 @@
 
 	</div>
 	</section>
+	<%@ include file="../common/footer.jsp"%>
 </body>
 </html>

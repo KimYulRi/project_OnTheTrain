@@ -38,6 +38,7 @@
                 <div id="accommodation" ><a href="${ path }/myPage/myPageAccommodation" >숙박</a></div>
             </div>
             
+<<<<<<< HEAD
             <div id="ticketbody" class="rounded-5 border">
                 <div id="tickettitle">열차종류</div>
                 <div id="ticketlogo">로고 이미지</div>
@@ -61,6 +62,8 @@
                     </svg></div>
                     <div id="ticketstationend">출발역  <div id="ticketstationendcontent">역삼역</div></div>
                 </div>
+=======
+>>>>>>> main
 
 
 		<c:if test="${not empty ticketList}">
@@ -139,10 +142,9 @@
 
             
         </section>
+  </div>
+	<%@ include file="../common/footer.jsp"%>
 </body>
-    <footer>
-        
-    </footer>
-    </div>
+  
 
 </html>

@@ -81,28 +81,28 @@ public class CouponController {
 		return ResponseEntity.ok(data);
 	}
 	
-	// 마이 페이지 내 쿠폰함 
-	@GetMapping("/myPage/myPageCoupon")
-	public ModelAndView getMyCouponListMyPage(ModelAndView modelAndView,
-											  @RequestParam(defaultValue = "1") int page,
-											  HttpSession session) {
-		// 회원번호 
-		int memberNo = ((Member) session.getAttribute("loginMember")).getNo();
-		
-		// 총 내 쿠폰 수 
-		int totalMyCoupon = couponService.selectCountMyCoupon();
-		
-		// 페이징 처리
-		PageInfo pageInfo = new PageInfo(page, 5, totalMyCoupon, 10);
-		
-		// 내 쿠폰 리스트 
-		List<MyCoupon> myCouponList = couponService.selectMyCouponList(memberNo);
-		
-		modelAndView.addObject("pageInfo",pageInfo);
-		modelAndView.addObject("myCouponList", myCouponList);
-		modelAndView.setViewName("/myPage/myPageCoupon");
-		
-		return modelAndView;
-	}
+//	// 마이 페이지 내 쿠폰함 
+//	@GetMapping("/myPage/myPageCoupon")
+//	public ModelAndView getMyCouponListMyPage(ModelAndView modelAndView,
+//											  @RequestParam(defaultValue = "1") int page,
+//											  HttpSession session) {
+//		// 회원번호 
+//		int memberNo = ((Member) session.getAttribute("loginMember")).getNo();
+//		
+//		// 총 내 쿠폰 수 
+//		int totalMyCoupon = couponService.selectCountMyCoupon();
+//		
+//		// 페이징 처리
+//		PageInfo pageInfo = new PageInfo(page, 5, totalMyCoupon, 10);
+//		
+//		// 내 쿠폰 리스트 
+//		List<MyCoupon> myCouponList = couponService.selectMyCouponList(memberNo);
+//		
+//		modelAndView.addObject("pageInfo",pageInfo);
+//		modelAndView.addObject("myCouponList", myCouponList);
+//		modelAndView.setViewName("/myPage/myPageCoupon");
+//		
+//		return modelAndView;
+//	}
 	
 }

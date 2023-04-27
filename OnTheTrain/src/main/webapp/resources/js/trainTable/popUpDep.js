@@ -94,10 +94,10 @@
 				
 	            console.log(rows);
 	         $(popup.document).on('click',".station-btn", function() {
-    let selectedStationcode = $(this).val();
-    let selectedStationname = $(this).text(); // 수정된 부분
-    $("#depPlaceId").val(selectedStationcode);
-    $(".depPlaceText").val(selectedStationname);    
+			    let selectedStationcode = $(this).val();
+			    let selectedStationname = $(this).text(); // 수정된 부분
+			    $("#depPlaceId").val(selectedStationcode);
+			    $(".depPlaceText").val(selectedStationname);    
     
       
 });

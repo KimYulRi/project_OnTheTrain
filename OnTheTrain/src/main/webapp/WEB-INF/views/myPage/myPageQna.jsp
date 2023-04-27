@@ -104,10 +104,9 @@
 
             
         </section>
+        <%@ include file="../common/footer.jsp"%>
 </body>
-    <footer>
-        
-    </footer>
+
     </div>
 
 	<script src="${ path }/js/myPage/myPageInfo.js"></script>

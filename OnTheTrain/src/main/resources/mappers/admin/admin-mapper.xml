@@ -43,20 +43,26 @@
       <result property="loginType" column="CODE" />
       <result property="snsId" column="SNS_ID" />
    </resultMap>
+   
    <resultMap id="ticketResultMap" type="TrainTicketReservation">
       <id property="ticketNo" column="TICKET_NO"/>
-      <result property="nickname" column="NICKNAME" />
+      <result property="userNo" column="USER_NO" />
       <result property="trainNo" column="TRAIN_NUM" />
+      <result property="type" column="TYPE" />
+      <result property="depDate" column="DEP_DATE" />
       <result property="departure" column="DEPARTURE" />
       <result property="arrival" column="ARRIVAL" />
-      <result property="depDate" column="DEP_DATE" />
-      <result property="bookDate" column="BOOK_DATE" />
-      <result property="paymentStatus" column="PAYMENT_STATUS" />
       <result property="refundStatus" column="REFUND_STATUS" />
-      <result property="type" column="TYPE" />
-      <result property="depTime" column="DEP_TIME" />
-      <result property="arrTime" column="ARR_TIME" />
-      <result property="price" column="T_PRICE" />
+   </resultMap>
+   
+      <resultMap id="accommodationResultMap" type="AccommodationReservation">
+      <id property="no" column="NO"/>
+      <result property="memberNo" column="MEMBER_NO" />
+      <result property="accommodationNo" column="ACCOMMODATION_NO" />
+      <result property="checkin" column="CHECKIN" />
+      <result property="checkout" column="CHECKOUT" />
+      <result property="adultNumber" column="ADULT_NUMBER" />
+      <result property="refundStatus" column="REFUND_STATUS" />
    </resultMap>
    
    <resultMap id="faqResultMap" type="Faq">
@@ -96,7 +102,7 @@
    
    	<!-- 전체회원 수 조회 -->
    	<select id="countMember" resultType="_int">
-		SELECT COUNT(*) FROM MEMBER
+		SELECT COUNT(*) FROM MEMBER WHERE ROLE='ROLE_USER'
 	</select>
 	
 	<!-- 전체회원리스트 조회 -->
@@ -123,10 +129,46 @@
 			WHERE M.NO=#{no}
 	</select>
 	
-	<!-- 전체 승차권 수 조회 -->
+	<!-- 전체 예약된 승차권 수 조회 (취소포함) -->
    	<select id="countTicket" resultType="int">
-		SELECT COUNT(*) FROM TICKET
+		SELECT COUNT (*)
+		FROM TICKET T
+		JOIN PAYMENT_WAITING W ON (T.TICKET_NO = W.TICKET_NO)
+		WHERE W.PAYMENT_STATUS='Y'
 	</select>
+	
+	<!-- 전체 예약된 승차권 리스트 조회 (취소포함) -->
+	<select id="getTicketReservationList" resultMap="ticketResultMap">
+		SELECT T.TICKET_NO,
+				T.USER_NO,
+				T.TRAIN_NUM,
+				T.TYPE,
+				T.DEPARTURE,
+				T.ARRIVAL,
+				T.DEP_DATE,
+				W.REFUND_STATUS
+		FROM TICKET T
+		JOIN PAYMENT_WAITING W ON (T.TICKET_NO = W.TICKET_NO)
+		WHERE W.PAYMENT_STATUS='Y'
+       	ORDER BY T.TICKET_NO DESC
+	</select>
+	
+	<!-- 전체 예약된 숙박 수 조회 (취소포함) -->
+   	<select id="countAccommodation" resultType="int">
+		SELECT COUNT (*)
+		FROM RESERVATION R 
+		JOIN PAYMENT_WAITING W ON (R.NO = W.TICKET_NO)
+		WHERE W.PAYMENT_STATUS='Y'
+	</select>
+	
+	<!-- 전체 예약된 숙박리스트 조회 (취소포함) -->
+	<select id="getAccommodationReservationList" resultMap="accommodationResultMap">
+		SELECT R.NO, R.MEMBER_NO, R.ACCOMMODATION_NO, R.CHECKIN, R.CHECKOUT, ADULT_NUMBER, W.REFUND_STATUS
+		FROM RESERVATION R 
+		JOIN PAYMENT_WAITING W ON (R.NO = W.TICKET_NO)
+		WHERE W.PAYMENT_STATUS='Y'
+	</select>
+	
 	
 	<!-- 전체 1:1 문의 수 조회 -->
    	<select id="countQna" resultType="int">
@@ -293,6 +335,32 @@
 		SELECT COUNT(*) FROM QNA
 		WHERE VISABLE='Y' AND QNA_CHECK='N'
 	</select>
+	
+	<!-- 오늘의 승차권예약 수 구하기 -->
+	<select id="countTodayTicket" resultType="_int">
+		SELECT COUNT(*)
+		FROM PAYMENT_WAITING W
+		JOIN PAYMENT P ON (W.PAYMENT_NO = P.PAYMENT_NO)
+		WHERE W.REFUND_STATUS = 'N' AND TRUNC(P.PAYMENT_DATE)=TRUNC(SYSDATE) AND TICKET_NO IS NOT NULL
+	</select>
+	
+	
+	<!-- 오늘의 숙박예약 수 구하기 -->
+	<select id="countTodayAcc" resultType="_int">
+		SELECT COUNT(*)
+		FROM PAYMENT_WAITING W
+		JOIN PAYMENT P ON (W.PAYMENT_NO = P.PAYMENT_NO)
+		WHERE W.REFUND_STATUS = 'N' AND TRUNC(P.PAYMENT_DATE)=TRUNC(SYSDATE) AND RESERVATION_NO IS NOT NULL
+	</select>
+	
+	<!--  전체 예약 수 구하기 -->
+	<select id="countTotalReservation" resultType="_int">
+		SELECT COUNT(*)
+		FROM PAYMENT_WAITING W
+		JOIN PAYMENT P ON (W.PAYMENT_NO = P.PAYMENT_NO)
+		WHERE W.REFUND_STATUS = 'N'
+	</select>
+	
 	
 	<select id="selectMonthEnroll" resultType="map">
 		SELECT TO_CHAR(ENROLL_DATE, 'YYYY-MM') AS MONTH,

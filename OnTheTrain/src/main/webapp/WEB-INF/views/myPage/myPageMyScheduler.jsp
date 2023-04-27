@@ -51,7 +51,7 @@
 						<c:if test="${not empty schedulerList}">	
 							<c:forEach items="${schedulerList}" var="scheduler">
 								<tr>
-									<td id="sctabletitle"><a href="${ path }/myPage/schedulerCreate?no=${ scheduler.no }">${scheduler.title}</a></td>
+									<td id="sctabletitle"><a href="${ path }/scheduler/create">${scheduler.title}</a></td>
 									<td id="sctableevent">${scheduler.featured}</td>
 									<td id="sctabledate"><fmt:formatDate pattern="yyyy/MM/dd" value="${scheduler.periodStart}"/></td>
 								</tr>
@@ -100,10 +100,9 @@
         <script src="${ path }/js/myPage/myPageScheduler.js"></script>
         </section>
 				</div>
+				<%@ include file="../common/footer.jsp"%>
 </body>
-    <footer>
-        
-    </footer>
+
     </div>
 
 </html>

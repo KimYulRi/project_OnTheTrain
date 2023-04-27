@@ -1,9 +1,35 @@
+@charset "UTF-8";
+
+@font-face {
+    font-family: 'NotoSans';
+    src:url('../../font/common/NotoSansKR-Light.otf') format('truetype');
+}
+
+body {
+   font-family: 'NotoSans'; 
+   font-style: normal;
+   font-weight: 400;
+}
+
+h1, h2, h3, h4, h5, h6{
+   font-weight: 600;
+}
+#wrap1{
+   width:1200px;
+}
+
+#wrap2{
+   width:1024px;
+   margin: 0 auto;
+}
+
 #banner {
   background-image: url("../../images/trainTable/trainTableBanner.png");
-  height: 100px;
-  margin: 30px 60px 30px 180px;
-  border-radius: 10px;
+  height: 120px;
+  margin: 20px 0px 50px 0px;
+  border-radius: 4px;
   width: 1024px;
+  display: flex;
  
   
 }
@@ -24,9 +50,20 @@
 }
 
 #ttable {
-  border-radius: 10px;
-  width:400px;
+  border-radius: 4px;
+  width:550px;
+  padding: 20px;
+  border: 2px solid #D3D2D2;
 }
+
+#ptable{
+  border-radius: 4px;
+  width: 550px;
+  padding: 20px;
+  height: 432px;
+  border: 2px solid #D3D2D2;
+}
+
 
 #topTable {
   padding-top: 150px;
@@ -38,34 +75,30 @@
 
 #field {
   text-align: center;
-  padding-left: 10px;
+  width: 1024px;
+  display: flex;
+  justify-content: space-between;
 }
 
 fieldset {
-  display: inline-block;
-  width: 45%;
+  width: 1024px;
   margin-right: 0px;
   vertical-align: top;
 }
 
-#ptable{
-  border-radius: 10px;
-  width: 300px;
-  height: 435px;
-}
-
-
-#fields{
-  margin-left: 50px;
-
-}
 
 select{
   margin: 10px;
+   border: 0.5px solid #D3D2D2;
+      border-radius: 4px;
+      margin-bottom: 10px;
 }
 
 option{
   font-size: 15px;
+ border: 0.5px solid #D3D2D2;
+      border-radius: 4px;
+      margin-bottom: 10px;
 }
 
 #searchTrain{
@@ -87,6 +120,9 @@ option{
   border: 0px;
   cursor: pointer;
 }
+#traintable_btn:hover{
+   background-color: #00008B;
+}
 
 #cityBtn {
   background-color: rgb(89, 97, 128);;
@@ -95,9 +131,9 @@ option{
   border: 0px;
   cursor: pointer;
   border-radius: 5px;
-  height: 30px;
-  width: 50px;
-  font-size: large;
+  height: 100px;
+  width: 200px;
+  font-size:12px;
 }
 
 a {
@@ -111,11 +147,16 @@ a {
   outline: none;
   border: 0px;
   cursor: pointer;
-  border-radius: 5px;
+  border-radius: 4px;
   height: 30px;
   width: 50px;
   font-size: large;
 }
+}
+#depId:hover{
+   background-color: #00008B;
+}
+
 
 #arId {
   background-color: rgb(89, 97, 128);;
@@ -123,15 +164,19 @@ a {
   outline: none;
   border: 0px;
   cursor: pointer;
-  border-radius: 5px;
+  border-radius: 4px;
   height: 30px;
   width: 50px;
   font-size: large;
 }
+#arId:hover{
+   background-color: #00008B;
+}
+
 
 #depPlandTime{
-	margin:10px;
-	
+   margin:10px;
+   
 }
 
 #charge{
@@ -140,20 +185,20 @@ a {
         
       }
 
-      #charge_btn{
-        background-color: rgb(89, 97, 128);;
-        transition-duration: 0.2s;
-        border-radius: 5px;
-        width: 100px;
-        height: 30px;
-        /* font-size: larger; */
-        font-weight: bolder;
-        color: #fff;
-        /* outline: none; */
-        border: 0px;
-        cursor: pointer;
-        outline-color: rgb(89, 97, 128);
-      }
+#charge_btn{
+  background-color: rgb(89, 97, 128);
+  transition-duration: 0.2s;
+  border-radius: 5px;
+  width: 100px;
+  height: 30px;
+  /* font-size: larger; */
+  font-weight: bolder;
+  color: #fff;
+  /* outline: none; */
+  border: 0px;
+  cursor: pointer;
+  outline-color: rgb(89, 97, 128);
+}
 
 .personTitle{
   text-align: left;
@@ -165,8 +210,8 @@ a {
 }
 
 #hr{
-	width: 80%;
-	display: none;
+   width: 100%;
+   display: none;
 }
 
 #checkBack{
@@ -187,7 +232,7 @@ a {
 
 
   #myTable{
-    width: 80%;
+    width: 100%;
     border: 1px solid #444444;
     border-collapse: collapse;
   }
@@ -231,6 +276,35 @@ a {
     border: 1px solid #596180;
     background-color: rgba(0, 0, 0,0);
     color: #596180;
+    padding: 3px;
+    border-radius: 5px;
+}
+
+
+input{
+      border: 0.5px solid #D3D2D2;
+      border-radius: 4px;
+      font-size: 12px;
+      padding-left:5px;
+   }
+p{
+   
+   color: #596180;
+   
+}
+
+.station-btn{
+	border: 1px solid #596180;
+    background-color: #596180;
+    color: white;
+    padding: 3px;
+    border-radius: 5px;
+}
+
+.city-btn{
+	border: 1px solid #596180;
+    background-color: #596180;
+    color: white;
     padding: 3px;
     border-radius: 5px;
 }

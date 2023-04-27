@@ -17,6 +17,19 @@
 	    <result property="renamedFilename" column="RENAMED_FILENAME"/>
 	  </resultMap>
   
+  	
+  	 <resultMap id="couponResultMap" type="com.kh.onthetrain.myPage.model.entity.MyPageCoupon">
+		<id property="couponNo" column="COUPON_NO"/>
+		<result property="couponName" column="COUPON_NAME"/>
+		<result property="discountRate" column="DISCOUNT_RATE"/>
+		<result property="discountAmount" column="DISCOUNT_AMOUNT"/>
+		<result property="memberNo" column="MEMBER_NO"/>
+		<result property="status" column="COUPON_STATUS"/>
+		<result property="expDate" column="EXPIRATION_DATE"/>
+	</resultMap>
+	
+  	  
+  	
 	  <resultMap type="com.kh.onthetrain.accommodation.model.vo.Review" id="reviewsResultMap">
 		  <id property="no" column="NO" />
 		    <result property="memberNo" column="MEMBER_NO" />
@@ -504,6 +517,29 @@
 			 WHERE   ACCOMMODATION_NO = #{no} AND MEMBER_NO = #{memberNo}
 	
 	</select>
+		
+		<!-- 내 쿠폰 갯수 (listCount)를 가져오는 쿼리문  -->
+		<select id="selectCountMyCoupon" resultType="_int" >
+		 	SELECT COUNT(*)
+		 	FROM MYCOUPON
+		 	WHERE MEMBER_NO = #{no}
+		</select>
+	
+	
+	
+		<select id="findCouponByNo" resultMap="couponResultMap" >
+			SELECT C.COUPON_NO,
+				   C.COUPON_NAME,
+				   C.DISCOUNT_RATE,
+				   C.DISCOUNT_AMOUNT,
+				   M.MEMBER_NO,
+				   M.COUPON_STATUS,
+				   M.EXPIRATION_DATE
+			FROM COUPON C 
+			JOIN MYCOUPON M ON C.COUPON_NO = M.COUPON_NO
+			WHERE COUPON_STATUS = 'Y' AND MEMBER_NO = #{no}
+		</select>
+	
 	
 	
 	

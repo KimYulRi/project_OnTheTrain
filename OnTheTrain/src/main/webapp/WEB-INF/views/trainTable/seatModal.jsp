@@ -86,7 +86,7 @@
 										class="depPlaceText"> <input style="height: 25px;"
 										type="hidden" id="depPlaceId"></td>
 									<td>>>>>>>></td>
-									<td colspan="4" style="text-align: center">통로다 이새끼들아</td>
+									<td colspan="4" style="text-align: center">통로</td>
 									<td>>>>>>>></td>
 									<td><input type="text"
 										style="width: 30px; border: none; font-weight: bold;"

@@ -15,6 +15,6 @@
  	});
  
  	$("#schedulerRead").on('click',() => {
- 		alert('스케줄 조회 클릭');
+ 		location.href = ctx +  "/myPage/myPageMyScheduler" 
  	});
  });

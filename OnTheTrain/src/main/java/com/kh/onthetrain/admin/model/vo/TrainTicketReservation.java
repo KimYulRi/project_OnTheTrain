@@ -16,9 +16,11 @@ public class TrainTicketReservation {
 	
 	private int ticketNo;
 	
-	private int nickname;
+	private int userNo;
 	
 	private int trainNo;
+	
+	private String type;
 	
 	private String departure;
 	
@@ -26,18 +28,6 @@ public class TrainTicketReservation {
 
 	private Date depDate;
 	
-	private Date bookDate;
-	
-	private String paymentStatus;
-	
 	private String refundStatus;
 	
-	
-	private String type;
-	
-	private int depTime;
-	
-	private int arrTime;
-	
-	private int price;
 }

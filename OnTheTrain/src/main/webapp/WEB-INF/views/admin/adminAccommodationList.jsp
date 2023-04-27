@@ -11,7 +11,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin</title>
+    <title>온더트레인</title>
 
    	<link rel="stylesheet" href="${path}/bootstrap5/assets/css/bootstrap.css">
    	<link rel="stylesheet" href="${path}/bootstrap5/assets/vendors/bootstrap-icons/bootstrap-icons.css">
@@ -67,50 +67,44 @@
                                             <thead>
                                                 <tr>
                                                     <th  class="col-1">예약번호</th>
-                                                    <th  class="col-2">예매자</th>
+                                                    <th  class="col-2">회원번호</th>
                                                     <th  class="col-1">숙소번호</th>
                                                     <th  class="col-2">체크인</th>
-                                             		<th  class="col-1">예약일</th>
-                                                    <th  class="col-2">상태</th>
-                                                    <th class="col-md-3">관리</th>
+                                             		<th  class="col-1">체크아웃</th>
+                                             		<th  class="col-2">인원</th>
+                                                    <th  class="col-1">상태</th>
+                                                    <th class="col-md-2">관리</th>
                                                 </tr>
                                             </thead>
-                                           <%--  <tbody>
-                                             <c:forEach var="ticket" items="${ list }" >
+                                           	<tbody>
+                                             <c:forEach var="acc" items="${ list }" >
                                                 <tr>
-                                                    <td class="text-bold-500">${ ticket.ticketNo }</td>
-                                                    <td>${ ticket.nickname }</td>
-                                                    <td class="text-bold-500">?열차번호?</td>
-                                                    <td>${ ticket.departure }</td>
-                                                    <td>${ ticket.arrival }</td>
-                                                    <td><fmt:formatDate value="${ ticket.depDate }" pattern="yyyy-MM-dd" /></td>
-                                                    <td><fmt:formatDate value="${ ticket.bookDate }" pattern="yyyy-MM-dd" /></td>
-                                                    <td>결제상태
+                                                    <td class="text-bold-500">${ acc.no }</td>
+                                                    <td>${ acc.memberNo }</td>
+                                                    <td class="text-bold-500">${ acc.accommodationNo }</td>
+                                                    <td><fmt:formatDate value="${ acc.checkin }" pattern="yyyy-MM-dd" /></td>
+                                                    <td><fmt:formatDate value="${ acc.checkout }" pattern="yyyy-MM-dd" /></td>
+                                                    <td>${ acc.adultNumber }</td>
+                                                    <td>
                                                     <c:choose>
-                                                    	 <c:when test="${ ticket.refundStatus == 'Y'}">
+                                                    	 <c:when test="${ acc.refundStatus == 'Y'}">
 														     <span class="badge   bg-disable" >예약취소</span>
 														  </c:when>
-														  <c:when test="${ ticket.paymentStatus == 'N'}">
-														     <span class="badge  bg-light-warning" >결제대기</span>
-														   </c:when>
-														  <c:when test="${ ticket.paymentStatus == 'Y'}">
+														  <c:when test="${ acc.refundStatus == 'N'}">
 														     <span class="badge  bg-light-primary" >예약완료</span>
 														  </c:when>
-														  <c:otherwise>
-														     <span class="badge  bg-disable">예약취소</span>
-														  </c:otherwise>
 													</c:choose>
                                                    </td>
                                                     
                                                     <td class="text-center d-flex justify-content-center">
                                                     	<div id=tablebtn>
-		                                                    <button class="adminbtn2 block" data-no="${ ticket.ticketNo }"
-		                                            		data-bs-toggle="modal" data-bs-target="#exampleModalCenter"></button>
+		                                                    <button class="adminbtn2 block" data-no="${ acc.no }"
+		                                            		data-bs-toggle="modal" data-bs-target="#exampleModalCenter">상세보기</button>
 														</div>
                                                     </td>
                                                 </tr>
                                                </c:forEach>											
-                                            </tbody> --%>
+                                            </tbody> 
                                         </table>
                                         
                                     </div>
@@ -178,9 +172,9 @@
     </script>
 
     <script src="${path}/bootstrap5/assets/js/main.js"></script>
-    
 <%-- 
 	<script src="${ path }/js/admin/adminMemberModal.js"></script> --%>
 </body>
+    <%@ include file="../common/footer.jsp"%>
 
 </html>

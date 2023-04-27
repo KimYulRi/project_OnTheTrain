@@ -3,6 +3,7 @@ package com.kh.onthetrain.scheduler.service;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.fail;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.jupiter.api.Disabled;
@@ -82,6 +83,11 @@ class SchedulerServiceimplTest {
 		List<APILocationCode> allLocationCode = APIservice.getAllLocationCode();
 		System.out.println(allLocationCode.toString());
 		assertThat(allLocationCode).isNotNull();
+	}
+	
+	@Test
+	void InsertSchedulerEvents() {
+		List<SchedulerEvent> schedulerEvents = new ArrayList<>();
 	}
 	
 	

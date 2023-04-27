@@ -11,7 +11,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin</title>
+    <title>온더트레인</title>
 
    	<link rel="stylesheet" href="${path}/bootstrap5/assets/css/bootstrap.css">
    	<link rel="stylesheet" href="${path}/bootstrap5/assets/vendors/bootstrap-icons/bootstrap-icons.css">
@@ -250,6 +250,7 @@
     
 <%-- 
 	<script src="${ path }/js/admin/adminMemberModal.js"></script> --%>
+	<%@ include file="../common/footer.jsp"%>
 </body>
 
 </html>
