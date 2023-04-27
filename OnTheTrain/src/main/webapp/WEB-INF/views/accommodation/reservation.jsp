@@ -18,7 +18,7 @@
 	<%@ include file="../common/header.jsp" %>
 	<link href="${ path }/css/accommodation/review.css" rel="stylesheet" type="text/css">
     <script src="${ path }/js/common/jquery-3.6.3.js"></script>
-    <script src="https://cdnjs.clouflare.com/ajax/libs/dayjs/1.10.7/dayjs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dayjs/1.10.7/dayjs.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
     <script type="text/javascript" src="http://dapi.kakao.com/v2/maps/sdk.js?appkey=abe862743db89d98578a540d9cfed4b7"></script>
 </head>
@@ -56,7 +56,7 @@
 		            
 		            <!-- 리뷰 작성하기 버튼 -->
 					<%-- <a href="#" onclick="window.open('${ path }/accommodation/review?no=${accommodation.no}', '_blank', 'width=330, height=500', 'true');" class="btn btn-primary right" style="margin-left: 10px;" id="writeReview">리뷰작성</a> --%>
-					<c:if test="${ loginMember.no  == review.memberNo }">
+					<c:if test="${ loginMember.no != null }">
 						<a href="${ path }/accommodation/review?no=${accommodation.no}" class="btn btn-primary right" style="margin-left: 10px;" id="writeReview">리뷰작성</a> 
 		        	</c:if>
 		        </div>
@@ -185,9 +185,7 @@
                   <input type="hidden" name="accommodationNo"  value="${ accommodation.no }">
                   <input type="hidden" name="memberNo"  value="${ loginMember.no }">
                   <input type="hidden" name="price"  value="${ accommodation.price}">
-                  <c:if test="${not empty loginMember }">
-   				  	<button class="btn btn-primary" type="button" id="reservBtn">예약하기</button>
-				  </c:if>
+   				  	<button class="btn btn-primary"  id="reservBtn">예약하기</button>
    				  	<!-- <button class="btn btn-primary" type="button" id="reservBtn">예약하기</button> -->
                   <div id="warning">결제 전에는 예약이 확정되지 않습니다.</div>
 				  <div class="optionFrame" id="bottom1">
