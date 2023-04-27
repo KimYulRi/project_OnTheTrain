@@ -10,9 +10,8 @@
 <head>
 <meta charset="UTF-8">
 <title>온더트레인</title>
-<%@ include file="../common/header.jsp" %>
 </head>
 <body>
-	<h2>성공</h2>
+
 </body>
 </html>

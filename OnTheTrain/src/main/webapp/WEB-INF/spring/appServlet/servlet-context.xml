@@ -52,6 +52,8 @@
 
 	<tx:annotation-driven
 		transaction-manager="transactionManager" proxy-target-class="true" />
+		
+	<task:annotation-driven/>
 
 	<interceptors>
 		<!-- 로그인한 사용자가 아니면 intercept -->
@@ -76,10 +78,6 @@
 		</interceptor>
 
 	</interceptors>
-
-
-
-
 
 
 </beans:beans>
