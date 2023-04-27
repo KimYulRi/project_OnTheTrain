@@ -13,6 +13,11 @@ const waitComponentList = $("#waitComponentList");
 const addedComponentList = $("#addedComponent");
 const schedulerCreateModule = {};
 
+import {
+  addSchedulerComponent,
+  deleteSchedulerComponent,
+} from "./calender/schedulerCreateCalender.js";
+
 // 추가 대기 중인 요소 삭제 모드
 let waitDeleteMode = false;
 
@@ -55,12 +60,15 @@ function addedComponentListVisable() {
 }
 
 // 요소가 없으면 noComponent 보이기
+
 function noComponentAreaVisable() {
   noComponentArea.show();
 }
 
-// 조회 시 날짜 데이터 포맷을 YYYYMMDD으로 변환하기 위한 함수
-// 파라미터는 "YYYY-MM-DD"
+/**
+ * 조회 시 날짜 데이터 포맷을 YYYYMMDD으로 변환하기 위한 함수
+ * @param {string}  "date 포맷"
+ */
 function dateToYYYYMMDD(unformattedDate) {
   let date = new Date(unformattedDate);
   let year = date.getFullYear().toString();
@@ -152,8 +160,9 @@ $(document).ready(function () {
             componentObj.addr1,
             componentObj.tel
           );
-          addNewCardtoArea($("#eventList"), newCard);
+          addNewCardtoArea($("#itemList"), newCard);
         });
+        $("#itemList .card").draggable("destroy");
       },
       error: function () {
         alert("API로 이벤트를 가져오는 중에 문제가 발생했습니다.");
@@ -213,7 +222,7 @@ $(document).ready(function () {
             "</div>" +
             "</div>";
         }
-        $("#eventList").html(eventList); // 이벤트 리스트 업데이트
+        $("#itemList").html(eventList); // 이벤트 리스트 업데이트
       },
       error: function () {
         alert("API로 이벤트를 가져오는 중에 문제가 발생했습니다.");
@@ -224,8 +233,8 @@ $(document).ready(function () {
     if (resultCount === 0) {
       // 반환값이 빈 객체리스트인 경우
       // 결과가 없음을 알리는 영역 표시
-      $("#eventList").empty();
-      $("#eventList").css("min-height", "unset");
+      //$("#itemList").empty();
+      $("#itemList").css("min-height", "unset");
       $("#noResultArea").show();
       return;
     }
@@ -239,6 +248,7 @@ $(document).ready(function () {
         .text("삭제모드ON")
         .addClass("delete-buttonOn");
       $("#deleteAllWait-button").show();
+      $("#deleteAllWait-button").css("display", "inline-block");
     } else {
       $("#waitDeleteMode-button")
         .text("삭제모드OFF")
@@ -254,6 +264,14 @@ $(document).ready(function () {
           .addClass("componentFilter")
           .on("click", (event) => {
             event.stopPropagation();
+            let component = getCurrentComponent();
+            let componentId = $(card).attr("id");
+            // 객체 배열에서도 삭제
+            addModalModule.removeFromArray(
+              component,
+              addModalModule.getAddModalComponents()[component].waitList,
+              componentId
+            );
             $(card).remove();
           });
         $(card).addClass("filtered");
@@ -269,6 +287,8 @@ $(document).ready(function () {
   $("#deleteAllWait-button").on("click", () => {
     if (confirm("정말로 모든 대기 중인 항목을 삭제하시겠습니까?")) {
       $(".filtered").remove();
+      let component = getCurrentComponent();
+      addModalModule.getAddModalComponents()[component].waitList.length = 0;
       return;
     } else {
       return;
@@ -321,19 +341,18 @@ $(document).ready(function () {
         dropType === "noAddedComponentArea"
       ) {
         addModalModule.toAddedList(currentComponent, componentid);
+        addSchedulerComponent(addModalModule.findComponentById(currentComponent,componentid));
       } else if (dropType === "waitComponentList") {
         addModalModule.toWaitList(currentComponent, componentid);
+        deleteSchedulerComponent(componentid);
       }
 
-      /*
       console.log(
-        "addList : " +
-          addModalModule.getAddModalComponents()[currentComponent].addList
+        addModalModule.getAddModalComponents()[currentComponent].addedList
       );
       console.log(
         addModalModule.getAddModalComponents()[currentComponent].waitList
       );
-      */
 
       // 드래그한 요소를 드롭 대상 요소의 자식으로 추가
       draggable.appendTo(droppable);
@@ -351,4 +370,6 @@ export {
   findIndexById,
   getCurrentComponent,
   findIndexFromArrayById,
+  addedComponentListVisable,
+  noComponentAreaVisable,
 };

@@ -35,8 +35,10 @@
       <div class="content" id="content-tablehead">
     
     	<div id="btnarea">
-        <button class="noticeBtn" id="updateBtn">수정</button>
-        <button class="noticeBtn" id="deleteBtn">삭제</button>
+    	<c:if test="${ not empty loginMember && loginMember.role == 'ROLE_ADMIN' }">
+        <button class="noticeBtn" id="updateBtn" onclick="toupdate()">수정</button>
+        <button class="noticeBtn" id="deleteBtn" >삭제</button>
+        </c:if>
         </div>
         
       </div>  
@@ -44,15 +46,33 @@
       <div class="content" id="content-list">
         <table class="table" id="noticetable">
                     <thead>
-                      <tr>
-                            <td class="col-1 paddingtd"><span id="cate">카테고리</span></td>
-                            <td id="title">게시글이름</td>
-                            <td class="col-1">날짜</td>
+                      <tr id="trhead">
+                            <td class="col-1 paddingtd"><span id="cate">${ notice.type }</span></td>
+                            <td id="title">${ notice.title }</td>
+                            <td class="col-1"><fmt:formatDate value="${ notice.createDate }" pattern="yyyy-MM-dd"/></td>
+                      </tr>
+                      
+                      <tr id="trfile">
+                            <td class="paddingtd"><span id="filetd">첨부파일</span></td>
+                            <td>
+                            	<span id="filefont">
+	                           	<c:if test="${ not empty notice.originalFileName }">
+	                           	<a href="${ path }/resources/upload/notice/${ notice.renamedFileName }">
+	                           		${ notice.originalFileName }
+	                           	</a>
+	                           	</c:if>
+	                            </span>
+                            </td>
+                            <td class="centertd">
+                           		<c:if test="${ notice.fix==1 }">
+                            		<span id="fixed">공지</span>
+                            	</c:if>
+                            </td>
                       </tr>
                       </thead>
                       <tbody>
                         <tr>
-                            <td id="tbcontent" colspan="3">글내용</td>
+                            <td id="tbcontent" colspan="3">${ notice.content }</td>
                         </tr>
                     </tbody>
                 </table>
@@ -65,5 +85,21 @@
   </div>
 </section>
     <script src="${path}/bootstrap5/assets/js/bootstrap.bundle.min.js"></script>
+    <script>
+    function tolist() {
+		  window.location.href = "${ path }/cs/notice";
+		}
+    function toupdate() {
+		  window.location.href = "${ path }/cs/notice/update?no=${ notice.no }";
+		}
+
+    const deleteButton = document.getElementById("deleteBtn");
+    deleteButton.addEventListener("click", () => {
+      const confirmation = confirm("삭제하시겠습니까?");
+      if (confirmation) {
+        window.location.href = "${ path }/cs/notice/delete?no=${ notice.no }";
+      }
+    });
+    </script>
 </body>
 </html>

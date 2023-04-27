@@ -10,11 +10,27 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
+
+@Component
 public class SendEmail {
-	private final static String sender = "***REMOVED***";
-	private final static String password = "***REMOVED***";
 	
-	public static void sendEmail(String receiver, String tempPwd) {
+	
+	@Value("${key.emailsender}")
+	private String sender;
+
+	@Value("${key.emailpass}")
+	private String password;
+	
+	private static SendEmail instance;
+	
+	private SendEmail() {
+		
+	}
+	
+	
+	public void sendEmail(String receiver, String tempPwd) {
 		Properties props = new Properties();
 		props.put("mail.smtp.host", "smtp.gmail.com");
 		props.put("mail.smtp.port", "587");
@@ -44,4 +60,12 @@ public class SendEmail {
 			e.printStackTrace();
 		}
 	}
+	
+	 public static SendEmail getInstance() {
+	        if (instance == null) {
+	            instance = new SendEmail();
+	        }
+	        return instance;
+	    }
+		 
 }
