@@ -51,7 +51,59 @@
                 </tbody>
             </table>
 
-
+	<table class="table" id="coupontablebody">
+    <thead class="table-light">
+        <tr>
+            <th id="coupontitlebody">쿠폰 이름</th>
+            <th id="coupondatebody">이용 기간</th>
+            <th id="couponsalebody">할인 혜택</th>
+        </tr>
+    </thead>
+    <tbody>
+        <c:forEach items="${myCouponList}" var="myCoupon">
+            <tr>
+                <td id="coupontitle">${myCoupon.getTitle()}</td>
+                <td id="coupondate">${myCoupon.getStartDate()} ~ ${myCoupon.getEndDate()}</td>
+                <td id="couponsale">${myCoupon.getDiscount()}원</td>
+            </tr>
+        </c:forEach>
+    </tbody>
+</table>
+<div id="paging" class="text-center">
+    <c:if test="${pageInfo.getMaxPage() > 1}">
+        <ul class="pagination">
+            <c:if test="${pageInfo.startPage > 1}">
+                <li class="page-item">
+                    <a class="page-link" href="?page=1" aria-label="First">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+            </c:if>
+            <c:forEach begin="${pageInfo.startPage}" end="${pageInfo.endPage}" step="1" var="i">
+                <c:choose>
+                    <c:when test="${i == pageInfo.currentPage}">
+                        <li class="page-item active">
+                            <span class="page-link">${i}</span>
+                        </li>
+                    </c:when>
+                    <c:otherwise>
+                        <li class="page-item">
+                            <a class="page-link" href="?page=${i}">${i}</a>
+                        </li>
+                    </c:otherwise>
+                </c:choose>
+            </c:forEach>
+            <c:if test="${pageInfo.endPage < pageInfo.getMaxPage()}">
+                <li class="page-item">
+                    <a class="page-link" href="?page=${pageInfo.getMaxPage()}" aria-label="Last">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </c:if>
+        </ul>
+    </c:if>
+</div>
+			
             
             
 

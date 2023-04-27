@@ -35,7 +35,7 @@
             </div>
             
             <div id="ticketbody" class="rounded-5 border">
-                <div id="tickettitle">승차권</div>
+                <div id="tickettitle">열차종류</div>
                 <div id="ticketlogo">로고 이미지</div>
                 <div id="ticketdatebody">
                     <div id="ticketdatetitle" >탑승일</div> 

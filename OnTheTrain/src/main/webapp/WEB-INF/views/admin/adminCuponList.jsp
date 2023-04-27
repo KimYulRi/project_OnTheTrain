@@ -155,6 +155,8 @@
 			document.getElementById("ad_cuponboard").classList.add("active");
 		}
         
+        
+        
     </script>
     <script src="${path}/bootstrap5/assets/js/main.js"></script>
 </body>
