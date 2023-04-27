@@ -25,6 +25,7 @@ import com.kh.onthetrain.common.util.PageInfo;
 import com.kh.onthetrain.member.model.vo.Member;
 import com.kh.onthetrain.member.service.MemberService;
 import com.kh.onthetrain.myPage.model.entity.ReservationCheck;
+import com.kh.onthetrain.myPage.model.entity.MyPageCoupon;
 import com.kh.onthetrain.myPage.model.entity.Qna;
 import com.kh.onthetrain.myPage.model.entity.QnaReply;
 import com.kh.onthetrain.myPage.service.MyPageService;
@@ -147,18 +148,29 @@ public class MyPageContoller {
 		return model;
 	}
 	
-//	@GetMapping("/myPage/myPageCoupon")
-//	// 마이페이지 쿠폰함으로 보내는 메소드
-//	public ModelAndView toMyCoupon(ModelAndView model,
-//								@RequestParam(defaultValue = "1") int page,
-//								@SessionAttribute("loginMember") Member loginMember) {
-//		
-//		model.setViewName("myPage/myPageCoupon");
-//		
-//		
-//		log.info("/myPage/toMyCoupon 메소드 실행");
-//		return model;
-//	}
+	@GetMapping("/myPage/myPageCoupon")
+	// 마이페이지 쿠폰함으로 보내는 메소드
+	public ModelAndView toMyCoupon(ModelAndView model,
+								@RequestParam(defaultValue = "1") int page,
+								@SessionAttribute("loginMember") Member loginMember) {
+		// 회원 번호 
+		int no = loginMember.getNo();
+		
+		// 쿠폰 개수를 가져오기 ( listCount )
+		int totalMyCoupon = service.selectCountMyCoupon(no);
+		// 내 쿠폰 상세 정보 가져오는 메소드
+		PageInfo pageInfo = new PageInfo(page, 3, totalMyCoupon, 5);
+		List<MyPageCoupon> myCoupon = service.findCouponByNo(no, pageInfo);
+		
+		
+		model.addObject("myCoupon", myCoupon);
+		model.addObject("pageInfo", pageInfo);
+		model.setViewName("myPage/myPageCoupon");
+		
+		
+		log.info("/myPage/toMyCoupon 메소드 실행");
+		return model;
+	}
 	
 
 	
