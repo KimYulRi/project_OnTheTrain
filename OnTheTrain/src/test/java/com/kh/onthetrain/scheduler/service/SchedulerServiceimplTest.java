@@ -88,8 +88,6 @@ class SchedulerServiceimplTest {
 	@Test
 	void InsertSchedulerEvents() {
 		List<SchedulerEvent> schedulerEvents = new ArrayList<>();
-		schedulerEvents.add(new SchedulerEvent("event_1", 1, "title_1", "2023-04-27T15:31", "2023-04-27T17:31", "location_1", 1000, "detail_1"));
-		schedulerEvents.add(new SchedulerEvent(event_2", 1, "title_2", "2023-04-28T15:31", "2023-04-28T17:31", "location_2", 2000, "detail_2"));
 	}
 	
 	

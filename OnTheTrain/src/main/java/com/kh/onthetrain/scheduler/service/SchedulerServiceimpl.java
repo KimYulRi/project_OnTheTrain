@@ -76,13 +76,6 @@ public class SchedulerServiceimpl implements SchedulerService {
 	@Override
 	public int saveScheduler(SchedulerInfo schedulerInfo) {
 
-		
-		
-		
-		Map<String, Object> addedEventMap = schedulerInfo.getSchedulerComponents().get("event").get(0);
-		
-		
-		
 		return 0;
 	}
 

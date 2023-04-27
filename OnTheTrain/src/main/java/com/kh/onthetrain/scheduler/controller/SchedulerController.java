@@ -93,7 +93,7 @@ public class SchedulerController {
 	@ResponseBody
 	public String saveScheduler(@RequestBody String schedulerInfoJson) {
 		log.info("saveScheduler 메소드 실행");
-		
+		log.info("넘어오는 값 : " + schedulerInfoJson);
 		ObjectMapper objectMapper = new ObjectMapper();
 		SchedulerInfo schedulerInfo = null;
 
@@ -102,8 +102,10 @@ public class SchedulerController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
+		
 
-		int result = service.saveScheduler(schedulerInfo);
+//		int result = service.saveScheduler(schedulerInfo);
 		
 //		int result = service.insertScheduler(schedulerInfo);
 //
@@ -113,7 +115,7 @@ public class SchedulerController {
 //			return "fail";
 //		}
 
-		String msg = "메소드 종료";
+		String msg = "saved!";
 		return msg;
 	}
 }
