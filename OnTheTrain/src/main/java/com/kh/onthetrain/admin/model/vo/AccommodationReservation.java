@@ -12,22 +12,20 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Component
-public class TrainTicketReservation {
+public class AccommodationReservation {
 	
-	private int ticketNo;
+	private int no;
 	
-	private int userNo;
+	private int memberNo;
 	
-	private int trainNo;
+	private int accommodationNo;
 	
-	private String type;
+	private Date checkin;
 	
-	private String departure;
+	private Date checkout;
 	
-	private String arrival;
+	private int adultNumber;
 
-	private Date depDate;
-	
 	private String refundStatus;
 	
 }

@@ -10,8 +10,10 @@ import org.springframework.stereotype.Service;
 import com.kh.onthetrain.accommodation.model.vo.Accommodation;
 import com.kh.onthetrain.common.util.PageInfo;
 import com.kh.onthetrain.member.model.vo.Member;
+import com.kh.onthetrain.myPage.model.entity.MyPageCoupon;
 import com.kh.onthetrain.myPage.model.entity.Qna;
 import com.kh.onthetrain.myPage.model.entity.QnaReply;
+import com.kh.onthetrain.myPage.model.entity.ReservationCheck;
 import com.kh.onthetrain.myPage.model.mapper.MyPageMapper;
 import com.kh.onthetrain.scheduler.model.entity.Scheduler;
 import com.kh.onthetrain.trainTable.model.vo.TrainTicket;
@@ -237,6 +239,49 @@ public class MyPageServiceImpl implements MyPageService {
 		
 		
 		return result;
+	}
+	
+//	// 결제완료 예약 확인 no 를 가지고 문의 게시판 상세보기를 가져오는 메소드
+//	@Override
+//	public ReservationCheck findReservationCheckByNo(int no) {
+//
+//
+//		
+//		return mapper.findReservationCheckByNo(no);
+//	}
+	
+	// 결제완료 예약 확인 no 를 가지고 숙소의 정보를 가져오는 메소드
+	@Override
+	public Accommodation findAccommodationByNo(int no) {
+		
+		return mapper.findAccommodationByNo(no);
+	}
+
+	// 숙소 번호 및 유저 번호를 가지고 예약 정보를 가져오는 메소드
+	@Override
+	public ReservationCheck findReservationByNo(int no, int memberNo) {
+		
+		return mapper.findReservationByNo(no,memberNo);
+	}
+	
+	
+	// 쿠폰 개수를 가져오기 ( listCount )
+	@Override
+	public int selectCountMyCoupon(int no) {
+		
+		
+		return mapper.selectCountMyCoupon(no);
+	}
+	
+	// 내 쿠폰 상세 정보 가져오는 메소드
+	@Override
+	public List<MyPageCoupon> findCouponByNo(int no, PageInfo pageInfo) {
+		int limit = pageInfo.getListLimit();
+		int offset = (pageInfo.getCurrentPage() -1) * limit;
+		RowBounds rowBounds = new RowBounds(offset,limit);
+		
+		
+		return mapper.findCouponByNo(no,rowBounds);
 	}
 
 

@@ -11,7 +11,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>온더트레인</title>
         <link href="${ path }/css/myPage/myPageTicket.css" rel="stylesheet" type="text/css">
     <!-- CSS only -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
@@ -38,6 +38,7 @@
                 <div id="accommodation" ><a href="${ path }/myPage/myPageAccommodation" >숙박</a></div>
             </div>
             
+
 
 		<c:if test="${not empty ticketList}">
             <c:forEach items="${ticketList}" var="ticketList" >
@@ -69,13 +70,13 @@
 	                <div id="tickettrainbody">
 	                    <div id="tickettrainway">&nbsp;<div id="tickettrainwaycontent">편도</div></div>
 	                    <div id="tickettrainname">&nbsp;<div id="tickettrainnamecontent">${ticketList.type }</div></div>
-	                    <div id="tickettrainsitnum">좌석 번호<div id="tickettrainsitnumcontent">A10</div></div>
+	                    <div id="tickettrainsitnum">좌석 번호<div id="tickettrainsitnumcontent">${ticketList.seat }</div></div>
 	                </div>
 	                <div id="ticketpricebody">
 	                    <div id="ticketpricetitle">영수액<div id="ticketpricecontent"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cash" viewBox="0 0 16 16">
 	                        <path d="M8 10a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/>
 	                        <path d="M0 4a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1V4zm3 0a2 2 0 0 1-2 2v4a2 2 0 0 1 2 2h10a2 2 0 0 1 2-2V6a2 2 0 0 1-2-2H3z"/>
-	                    </svg>&nbsp;${ticketList.price }원</div></div>
+	                    </svg>&nbsp;<fmt:formatNumber value="${ticketList.price}" pattern="#,###"/>원</div></div>
 	                </div>
 				
 	                <button id="ticketcancle" class="btn btn-primary" >예약 취소</button>

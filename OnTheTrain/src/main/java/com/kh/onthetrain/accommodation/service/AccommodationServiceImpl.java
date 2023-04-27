@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.kh.onthetrain.accommodation.model.mapper.AccommodationMapper;
 import com.kh.onthetrain.accommodation.model.vo.Accommodation;
+import com.kh.onthetrain.accommodation.model.vo.Reservation;
 import com.kh.onthetrain.accommodation.model.vo.Review;
 
 import lombok.extern.slf4j.Slf4j;
@@ -39,6 +40,7 @@ public class AccommodationServiceImpl implements AccommodationService {
     @Override
     @Transactional
     public int insertReview(Review review) {
+    	
     	return mapper.insertReview(review);
     }
 
@@ -56,6 +58,20 @@ public class AccommodationServiceImpl implements AccommodationService {
 	public int updateReview(Review review) {
 		
 		return  mapper.updateReview(review);
+	}
+	
+	@Transactional
+	@Override
+	public int insertReservation(Reservation reservation) {
+
+		int result = mapper.insertReservation(reservation);
+		System.out.println("여기"+reservation);
+		if(result > 0){
+			return mapper.insertPaymentWaiting(reservation);
+		} else {
+			return 0;
+		}
+		
 	}
 
 	

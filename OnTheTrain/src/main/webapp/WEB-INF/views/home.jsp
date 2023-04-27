@@ -77,8 +77,8 @@
 				</div>
 
 				<div>
-					<img style="width: 1200px;" class="banner_space"
-						src="${ path }/images/common/Rectangle 170.png" alt="">
+					<img style="width: 1024px;" class="banner_space"
+						src="${ path }/images/common/banner5.png" alt="">
 				</div>
 
 
@@ -88,12 +88,7 @@
 
 			</div>
 			<div id="content1">
-
 				<%@ include file="../views/weather/weather.jsp"%>
-
-				<h1>메인페이지 수정 중</h1>
-
-				<P>The time on the server is ${serverTime}.</P>
 			</div>
 		</div>
 

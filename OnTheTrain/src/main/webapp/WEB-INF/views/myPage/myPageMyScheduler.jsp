@@ -11,7 +11,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>온더트레인</title>
     <link href="${ path }/css/myPage/myPageMyScheduler.css" rel="stylesheet" type="text/css">
     <!-- CSS only -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
@@ -51,7 +51,7 @@
 						<c:if test="${not empty schedulerList}">	
 							<c:forEach items="${schedulerList}" var="scheduler">
 								<tr>
-									<td id="sctabletitle"><a href="${ path }/myPage/schedulerCreate?no=${ scheduler.no }">${scheduler.title}</a></td>
+									<td id="sctabletitle"><a href="${ path }/scheduler/create">${scheduler.title}</a></td>
 									<td id="sctableevent">${scheduler.featured}</td>
 									<td id="sctabledate"><fmt:formatDate pattern="yyyy/MM/dd" value="${scheduler.periodStart}"/></td>
 								</tr>
@@ -66,10 +66,10 @@
                     </c:if>
 			<div id="pageBar">
 				<!-- 맨 처음으로 -->
-				<button onclick="location.href='${ path }/myPage/myPageScheduler?page=1'">&lt;&lt;</button>
+				<button onclick="location.href='${ path }/myPage/myPageMyScheduler?page=1'">&lt;&lt;</button>
 	
 				<!-- 이전 페이지로 -->
-				<button onclick="location.href='${ path }/myPage/myPageScheduler?page=${ pageInfo.prevPage }'">&lt;</button>
+				<button onclick="location.href='${ path }/myPage/myPageMyScheduler?page=${ pageInfo.prevPage }'">&lt;</button>
 	
 				<!--  5개 페이지 목록 -->
 				<c:forEach begin="${ pageInfo.startPage }" end="${ pageInfo.endPage }" varStatus="status">
@@ -78,15 +78,15 @@
 							<button disabled>${ status.current }</button>
 						</c:when>
 						<c:otherwise>						
-							<button onclick="location.href='${ path }/myPage/myPageScheduler?page=${ status.current }'">${ status.current }</button>
+							<button onclick="location.href='${ path }/myPage/myPageMyScheduler?page=${ status.current }'">${ status.current }</button>
 						</c:otherwise>
 					</c:choose>
 				</c:forEach>
 							<!-- 다음 페이지로 -->
-				<button onclick="location.href='${ path }/myPage/myPageScheduler?page=${ pageInfo.nextPage }'">&gt;</button>
+				<button onclick="location.href='${ path }/myPage/myPageMyScheduler?page=${ pageInfo.nextPage }'">&gt;</button>
 	
 				<!-- 맨 끝으로 -->
-				<button onclick="location.href='${ path }/myPage/myPageScheduler?page=${ pageInfo.maxPage }'">&gt;&gt;</button>
+				<button onclick="location.href='${ path }/myPage/myPageMyScheduler?page=${ pageInfo.maxPage }'">&gt;&gt;</button>
 				</div>
 
             

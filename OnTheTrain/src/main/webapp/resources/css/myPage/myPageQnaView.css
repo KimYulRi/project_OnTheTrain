@@ -117,13 +117,14 @@ h1, h2, h3, h4, h5, h6{
  }
  
  .qnaBtn{
+ 	
      width: 15	0px;
      height: 30px;
      font-size: 12px;
      border: 0px;
      border-radius: 10px;
      background-color:#596180;
-     color: #ffffff;
+     color: #ffffff;s
  }
  .qnaBtn:hover{
      background-color:#00008B;
@@ -132,6 +133,11 @@ h1, h2, h3, h4, h5, h6{
  
   .qnaBtn:focus{
      outline:none;
+ }
+ 
+ #btndiv{
+ 	margin-top : 50px;
+ 	text-align: center;	
  }
 
 
@@ -233,7 +239,7 @@ table>tbody>.trcontent
 
 #qnaModal{
 	float: left;
-	margin-left: 500px;
+	margin-left: 550px;
 	text-align: 
 }
 
@@ -241,3 +247,8 @@ table>tbody>.trcontent
 	clear:both;
 }
 
+
+#noResultBody{
+	
+	text-align: center;
+}

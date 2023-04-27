@@ -1,5 +1,8 @@
 package com.kh.onthetrain.payment.model.mapper;
 
-public interface PaymentMapper {
+import org.apache.ibatis.annotations.Mapper;
 
+@Mapper
+public interface PaymentMapper {
+	
 }
