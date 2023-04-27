@@ -15,33 +15,37 @@ public class PaymentController {
 	@RequestMapping("/payment")
 	public String payment() {
 		
-		String asdf = "payment/payment";
-		
-		return asdf;
+		return "payment/payment";
 	};
 	
 	// 결제 성공 페이지 
-	@RequestMapping("/success")
+	@RequestMapping("payment/paymentSuccess")
 	public String success() {
 		
 		
-		return null;
+		return "payment/paymentSuccess";
 	};
 	
 	// 결제 대기 페이지 
 	@RequestMapping("/myPage/paymentWaiting")
-	public ModelAndView selectPaymentWaitingList(HttpSession session) {
+	public ModelAndView selectPaymentWaitingList(ModelAndView modelAndView,
+												 HttpSession session) {
 		
+		int totalPaymentWaiting = 0;
 		// 페이징 처리
-		PageInfo pageInfo = new PageInfo(page, 5, totalMyCoupon, 10);
+		PageInfo pageInfo = new PageInfo(1, 5, totalPaymentWaiting, 10);
 		return null;
 	}
 	
 	// 결제 완료 페이지
-	@RequestMapping("/")
-	public ModelAndView () {
+	@RequestMapping("/myPageAccommodation")
+	public ModelAndView selectCompletedPaymentAccommodation(ModelAndView modelAndView,
+															HttpSession httpSession) {
+		
+		int total = 123;
 		// 페이징 처리
-				PageInfo pageInfo = new PageInfo(page, 5, totalMyCoupon, 10);
+		PageInfo pageInfo = new PageInfo(1, 5, total, 10);
+		return modelAndView;
 	}
 	
 	
