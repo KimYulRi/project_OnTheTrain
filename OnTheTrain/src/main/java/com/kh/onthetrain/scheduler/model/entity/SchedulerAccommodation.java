@@ -18,6 +18,9 @@ public class SchedulerAccommodation {
 	// 스케줄러no
 	private int schedulerNo;
 
+	// ID
+	private String id;
+	
 	// 사진no
 	private int imageNo;
 
