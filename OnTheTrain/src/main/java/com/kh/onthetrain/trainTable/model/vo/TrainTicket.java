@@ -29,6 +29,9 @@ public class TrainTicket {
 	// 열차번호
 	private int no;
 	
+	// 열차 번호
+	private int trainNum;
+	
 	// 출발날짜
 	private Date depDate;
 	

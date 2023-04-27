@@ -14,9 +14,9 @@
 			<div class="modal-body">
 				<div class="eventImage">
 					<div class="image-preview">
-						<span id="event-image-caption" class="image-caption">이미지 등록</span>
-						<input id="event-image-upload" class="image-upload" type="file">
-						<img id="event-preview-image" class="preview-image"
+						<span class="image-caption">이미지 등록</span>
+						<input class="image-upload" type="file">
+						<img class="preview-image"
 							src="${ path }/images/common/OnTheTrain_Logo.png"
 							alt="Preview Image" />
 					</div>
@@ -44,8 +44,11 @@
 				</div>
 			</div>
 			<div class="modal-footer">
-				<button class="apply-button">Apply</button>
-				<button class="cancel-button">Cancel</button>
+				<button class="editComplete-button">수정완료</button>
+				<button class="directAdd-button">일정에 바로 추가</button>
+				<button class="add-button">추가</button>
+				<button class="reset-button">초기화</button>
+				<button class="cancel-button">취소</button>
 			</div>
 		</div>
 	</div>
@@ -97,7 +100,10 @@
 			</div>
 		</div>
 		<div class="modal-footer">
-			<button class="apply-button">Apply</button>
+			<button class="editComplete-button">수정완료</button>
+			<button class="directAdd-button">일정에 바로 추가</button>
+			<button class="add-button">Apply</button>
+			<button class="reset-button">Reset</button>
 			<button class="cancel-button">Cancel</button>
 		</div>
 	</div>
@@ -123,22 +129,26 @@
 						<label for="ticket-start-time" class="timelabel">출발 시간</label> <label
 							for="ticket-end-time">도착 시간</label>
 						<div class="line-break"></div>
-						<input type="date" id="ticket-start-time" required>
-						<input type="date" id="ticket-end-time" class="endtime" required>
+						<input type="datetime-local" id="ticket-start-time" required>
+						<input type="datetime-local" id="ticket-end-time" class="endtime"
+							required>
 					</div>
 				</div>
-				<div class="accommodationOptional">
+				<div class="ticketOptional">
 					<h3 class="modal-subtitle">선택 항목</h3>
-					<label for="accommodation-stars">인원</label>
-					<input type="number" id="accommodation-stars" class="form-control">
-					<label for="accommodation-price">비용</label>
-					<input type="number" id="accommodation-price" class="form-control">
-					<label for="event-details">세부사항</label>
-					<textarea id="accommodation-details" class="form-control"></textarea>
+					<label for="ticket-stars">인원</label>
+					<input type="number" id="ticket-stars" class="form-control">
+					<label for="ticket-price">비용</label>
+					<input type="number" id="ticket-price" class="form-control">
+					<label for="ticket-details">세부사항</label>
+					<textarea id="ticket-details" class="form-control"></textarea>
 				</div>
 			</div>
 			<div class="modal-footer">
-				<button class="apply-button">Apply</button>
+				<button class="editComplete-button">수정완료</button>
+				<button class="directAdd-button">일정에 바로 추가</button>
+				<button class="add-button">Apply</button>
+				<button class="reset-button">Reset</button>
 				<button class="cancel-button">Cancel</button>
 			</div>
 		</div>

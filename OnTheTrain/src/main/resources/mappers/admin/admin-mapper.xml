@@ -1,0 +1,372 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.kh.onthetrain.admin.model.mapper.AdminMapper">
+  <sql id="selectJoinMemberSql">
+	      SELECT M.NO,
+		       M.MEMBERSHIP_CODE,
+		       M.ID,
+		       M.ROLE,
+		       M.NICKNAME,
+		       M.NAME,
+		       M.BIRTH,
+		       M.EMAIL,
+		       M.PHONE,
+		       M.ADDRESS,
+		       M.ENROLL_DATE,
+		       M.MODIFY_DATE,
+		       M.SNS_LOGIN,
+		       M.STATUS,
+		       M.AMOUNT,
+		       S.CODE,
+		       S.SNS_ID
+			FROM MEMBER M
+	   </sql>
+	 <resultMap id="memberResultMap" type="Member">
+      <id property="no" column="NO"/>
+      <result property="membership" column="MEMBERSHIP_CODE" />
+      <result property="id" column="ID" />
+      <result property="password" column="PASSWORD" />
+      <result property="role" column="ROLE" />
+      <result property="nickname" column="NICKNAME" />
+      <result property="name" column="NAME" />
+      <result property="birth" column="BIRTH" />
+      <result property="email" column="EMAIL" />
+      <result property="phone" column="PHONE" />
+      <result property="address" column="ADDRESS" />
+      <result property="enrollDate" column="ENROLL_DATE" />
+      <result property="modifyDate" column="MODIFY_DATE" />
+      <result property="snsLogin" column="SNS_LOGIN" />
+      <result property="status" column="STATUS" />
+      <result property="amount" column="AMOUNT" />
+      <result property="loginType" column="CODE" />
+      <result property="snsId" column="SNS_ID" />
+   </resultMap>
+   
+   <resultMap id="ticketResultMap" type="TrainTicketReservation">
+      <id property="ticketNo" column="TICKET_NO"/>
+      <result property="userNo" column="USER_NO" />
+      <result property="trainNo" column="TRAIN_NUM" />
+      <result property="type" column="TYPE" />
+      <result property="depDate" column="DEP_DATE" />
+      <result property="departure" column="DEPARTURE" />
+      <result property="arrival" column="ARRIVAL" />
+      <result property="refundStatus" column="REFUND_STATUS" />
+   </resultMap>
+   
+      <resultMap id="accommodationResultMap" type="AccommodationReservation">
+      <id property="no" column="NO"/>
+      <result property="memberNo" column="MEMBER_NO" />
+      <result property="accommodationNo" column="ACCOMMODATION_NO" />
+      <result property="checkin" column="CHECKIN" />
+      <result property="checkout" column="CHECKOUT" />
+      <result property="adultNumber" column="ADULT_NUMBER" />
+      <result property="refundStatus" column="REFUND_STATUS" />
+   </resultMap>
+   
+   <resultMap id="faqResultMap" type="Faq">
+      <id property="no" column="NO"/>
+      <result property="type" column="TYPE" />
+      <result property="title" column="TITLE" />
+      <result property="content" column="CONTENT" />
+   </resultMap>
+   
+   <resultMap id="noticeListResultMap" type="Notice">
+		<id property="no" column="NO"/>
+		<result property="type" column="TYPE"/>
+		<result property="title" column="TITLE"/>
+		<result property="createDate" column="CREATE_DATE"/>
+	</resultMap>
+	
+	<resultMap id="noticeDetailResultMap" type="Notice" extends="noticeListResultMap">
+		<result property="content" column="CONTENT"/>
+		<result property="originalFileName" column="ORIGINAL_FILENAME"/>
+		<result property="renamedFileName" column="RENAMED_FILENAME"/>
+		<result property="modifyDate" column="MODIFY_DATE"/>
+		<result property="fix" column="TOP"/>
+	</resultMap>
+	
+	<resultMap id="qnaListResultMap" type="Qna" >
+		<id  property="qnaNo" column="NO" />
+		<result property="writerNo" column="MEMBER_NO" />
+		<result property="type" column="TYPE" />
+		<result property="title" column="TITLE" />
+		<result property="qnaContent" column="CONTENT" />
+		<result property="qnaCheck" column="QNA_CHECK" />
+		<result property="createDate" column="QNA_DATE" />
+		<result property="visable" column="VISABLE" />
+		<result property="qnaOriginalFileName" column="ORIGINAL_FILENAME" />
+		<result property="qnaRenamedFileName" column="RENAMED_FILENAME" />
+	</resultMap>
+   
+   	<!-- 전체회원 수 조회 -->
+   	<select id="countMember" resultType="_int">
+		SELECT COUNT(*) FROM MEMBER WHERE ROLE='ROLE_USER'
+	</select>
+	
+	<!-- 전체회원리스트 조회 -->
+	<select id="getMemberList" resultMap="memberResultMap">
+		SELECT M.NO,
+		       M.MEMBERSHIP_CODE,
+		       M.ID,
+		       M.ROLE,
+		       M.NAME,
+		       M.ENROLL_DATE,
+		       M.SNS_LOGIN,
+		       M.STATUS,
+		       S.CODE
+			FROM MEMBER M
+		LEFT OUTER JOIN SNS_MEMBER S ON (M.NO = S.MEMBER_NO)
+			WHERE M.ROLE='ROLE_USER'
+            ORDER BY M.NO DESC
+	</select>
+    
+    <!-- no로 회원정보 조회 -->
+	<select id="findMemberByNo" resultMap="memberResultMap">
+		<include refid="selectJoinMemberSql" />
+		LEFT OUTER JOIN SNS_MEMBER S ON (M.NO = S.MEMBER_NO)
+			WHERE M.NO=#{no}
+	</select>
+	
+	<!-- 전체 예약된 승차권 수 조회 (취소포함) -->
+   	<select id="countTicket" resultType="int">
+		SELECT COUNT (*)
+		FROM TICKET T
+		JOIN PAYMENT_WAITING W ON (T.TICKET_NO = W.TICKET_NO)
+		WHERE W.PAYMENT_STATUS='Y'
+	</select>
+	
+	<!-- 전체 예약된 승차권 리스트 조회 (취소포함) -->
+	<select id="getTicketReservationList" resultMap="ticketResultMap">
+		SELECT T.TICKET_NO,
+				T.USER_NO,
+				T.TRAIN_NUM,
+				T.TYPE,
+				T.DEPARTURE,
+				T.ARRIVAL,
+				T.DEP_DATE,
+				W.REFUND_STATUS
+		FROM TICKET T
+		JOIN PAYMENT_WAITING W ON (T.TICKET_NO = W.TICKET_NO)
+		WHERE W.PAYMENT_STATUS='Y'
+       	ORDER BY T.TICKET_NO DESC
+	</select>
+	
+	<!-- 전체 예약된 숙박 수 조회 (취소포함) -->
+   	<select id="countAccommodation" resultType="int">
+		SELECT COUNT (*)
+		FROM RESERVATION R 
+		JOIN PAYMENT_WAITING W ON (R.NO = W.TICKET_NO)
+		WHERE W.PAYMENT_STATUS='Y'
+	</select>
+	
+	<!-- 전체 예약된 숙박리스트 조회 (취소포함) -->
+	<select id="getAccommodationReservationList" resultMap="accommodationResultMap">
+		SELECT R.NO, R.MEMBER_NO, R.ACCOMMODATION_NO, R.CHECKIN, R.CHECKOUT, ADULT_NUMBER, W.REFUND_STATUS
+		FROM RESERVATION R 
+		JOIN PAYMENT_WAITING W ON (R.NO = W.TICKET_NO)
+		WHERE W.PAYMENT_STATUS='Y'
+	</select>
+	
+	
+	<!-- 전체 1:1 문의 수 조회 -->
+   	<select id="countQna" resultType="int">
+		SELECT COUNT(*) FROM QNA
+		WHERE  VISABLE = 'Y'
+	</select>
+
+	<!-- 1:1 문의 조회 -->
+	<select id="selectQnaList" resultMap="qnaListResultMap">
+		SELECT NO,
+			   MEMBER_NO,
+			   TYPE,
+			   TITLE,
+			   QNA_CHECK,
+			   QNA_DATE
+		FROM QNA
+		WHERE VISABLE = 'Y'
+		ORDER BY NO DESC
+	</select>
+	<!-- 1:1문의 답변 업데이트 -->
+	
+	<update id="updateQnaReply" parameterType="QnaReply">
+		UPDATE QNA_REPLY SET
+				CONTENT = #{qnaReplyContent},
+				QNA_DATE = SYSDATE
+				WHERE NO = #{qnaReplyNo}
+	</update>
+	
+	<!-- 1:1문의 답변 삭제 -->
+	<update id="deleteReply" parameterType="int">
+		UPDATE QNA_REPLY SET VISABLE = 'N' WHERE NO = #{replyno}
+	</update>
+	
+	<!-- 1:1문의 답변 삭제시 답변 미완료로 변경  -->
+	<update id="updateQnaDelteReply" parameterType="int">
+		UPDATE QNA SET QNA_CHECK = 'N' WHERE NO = #{no}
+	</update>
+	
+	
+	
+	
+	<!-- 자주묻는질문 조회 -->
+	<select id="selectFaqList" resultMap="faqResultMap">
+		SELECT NO, TYPE, TITLE, CONTENT
+		FROM FAQ
+	</select>
+	
+	
+   	<!-- 전체 공지사항 수 조회 -->
+   	<select id="countNotice" resultType="_int">
+		SELECT COUNT(*) FROM NOTICE
+		WHERE VISIBLE='Y'
+	</select>
+	
+	<!-- 고정된 공지사항 수 조회 -->
+   	<select id="countFix" resultType="_int">
+		SELECT COUNT(*) FROM NOTICE
+		WHERE VISIBLE='Y' AND TOP=1
+	</select>
+	
+	<!-- 공지사항 조회 -->
+	<select id="getNoticeList" resultMap="noticeListResultMap">
+		SELECT NO, TYPE, TITLE, CREATE_DATE
+		FROM NOTICE
+		WHERE VISIBLE='Y'
+		ORDER BY NO DESC
+	</select>
+	
+	<!-- 고정된 공지사항만 조회 -->
+	<select id="getFixNoticeList" resultMap="noticeListResultMap">
+		SELECT NO, TYPE, TITLE, CREATE_DATE 
+		FROM (SELECT NO, TYPE, TITLE, CREATE_DATE, 
+				DENSE_RANK() OVER(ORDER BY CREATE_DATE DESC) AS RNK
+				FROM NOTICE
+        		WHERE VISIBLE='Y' AND TOP=1)
+        WHERE RNK <![CDATA[ <= ]]> 3
+	</select>
+	
+	<!-- 가장 오래된 고정 해제 -->
+	<update id="deleteFix">
+	UPDATE NOTICE SET
+	TOP = 0 WHERE NO = (
+						SELECT NO
+						FROM (SELECT NO, 
+								DENSE_RANK() OVER(ORDER BY CREATE_DATE) AS RNK
+								FROM NOTICE
+		        				WHERE VISIBLE='Y' AND TOP=1)
+		    			WHERE RNK <![CDATA[ <= ]]> 1)
+	</update>
+	
+	<!-- 상세페이지 -->
+	<select id="selectNoticeByNo" resultMap="noticeDetailResultMap">
+		SELECT NO, TYPE, TITLE, CONTENT, ORIGINAL_FILENAME, RENAMED_FILENAME, CREATE_DATE, TOP
+		FROM NOTICE
+		WHERE VISIBLE='Y' AND NO=#{no}
+	</select>
+	
+	<!-- 공지사항 삽입  -->
+	<insert id="insertNotice" parameterType="Notice"
+			useGeneratedKeys="true" keyProperty="no" keyColumn="NO">
+		INSERT INTO NOTICE (
+			NO,
+			TYPE,
+			TITLE,
+			CONTENT,
+			ORIGINAL_FILENAME,
+			RENAMED_FILENAME,
+			CREATE_DATE,
+			VISIBLE,
+			TOP
+		)
+		VALUES(
+			SEQ_NOTICE_NO.NEXTVAL,
+			#{type},
+			#{title},
+			#{content},
+			#{originalFileName},
+			#{renamedFileName},
+			SYSDATE,
+			DEFAULT,
+			#{fix}
+		)
+	</insert>
+	<!-- 공지사항 삭제 -->
+	<update id="deleteNotice" parameterType="int">
+		UPDATE NOTICE SET VISIBLE = 'N' WHERE NO = #{no}
+	</update>
+	
+	<!-- 공지사항 수정 -->
+	<update id="updateNotice" parameterType="Notice">
+		UPDATE NOTICE 
+		<trim prefix="SET" suffixOverrides=",">
+			<if test="type != null">
+				TYPE = #{type},
+			</if>
+			<if test="title != null">
+				TITLE = #{title},
+			</if>
+			<if test="content != null">
+				CONTENT = #{content},
+			</if>
+			<if test="originalFileName != null">
+				ORIGINAL_FILENAME = #{originalFileName},
+			</if>
+			<if test="renamedFileName != null">
+				RENAMED_FILENAME = #{renamedFileName},
+			</if>
+			<if test="fix != null">
+				TOP = #{fix},
+			</if>
+			RENAMED_DATE = SYSDATE
+		</trim>
+		WHERE NO = #{no}
+	</update>
+	
+	<!-- 오늘의 가입자수 구하기 -->
+	<select id="countEnroll" resultType="_int">
+		SELECT COUNT(*) FROM MEMBER
+		WHERE TRUNC(ENROLL_DATE)=TRUNC(SYSDATE)
+	</select>
+	
+	<!-- 미답변문의 수 구하기 -->
+	<select id="countUnanswered" resultType="_int">
+		SELECT COUNT(*) FROM QNA
+		WHERE VISABLE='Y' AND QNA_CHECK='N'
+	</select>
+	
+	<!-- 오늘의 승차권예약 수 구하기 -->
+	<select id="countTodayTicket" resultType="_int">
+		SELECT COUNT(*)
+		FROM PAYMENT_WAITING W
+		JOIN PAYMENT P ON (W.PAYMENT_NO = P.PAYMENT_NO)
+		WHERE W.REFUND_STATUS = 'N' AND TRUNC(P.PAYMENT_DATE)=TRUNC(SYSDATE) AND TICKET_NO IS NOT NULL
+	</select>
+	
+	
+	<!-- 오늘의 숙박예약 수 구하기 -->
+	<select id="countTodayAcc" resultType="_int">
+		SELECT COUNT(*)
+		FROM PAYMENT_WAITING W
+		JOIN PAYMENT P ON (W.PAYMENT_NO = P.PAYMENT_NO)
+		WHERE W.REFUND_STATUS = 'N' AND TRUNC(P.PAYMENT_DATE)=TRUNC(SYSDATE) AND RESERVATION_NO IS NOT NULL
+	</select>
+	
+	<!--  전체 예약 수 구하기 -->
+	<select id="countTotalReservation" resultType="_int">
+		SELECT COUNT(*)
+		FROM PAYMENT_WAITING W
+		JOIN PAYMENT P ON (W.PAYMENT_NO = P.PAYMENT_NO)
+		WHERE W.REFUND_STATUS = 'N'
+	</select>
+	
+	
+	<select id="selectMonthEnroll" resultType="map">
+		SELECT TO_CHAR(ENROLL_DATE, 'YYYY-MM') AS MONTH,
+       	COUNT(*) AS COUNT
+		FROM MEMBER
+		GROUP BY TO_CHAR(ENROLL_DATE, 'YYYY-MM')
+		ORDER BY TO_CHAR(ENROLL_DATE, 'YYYY-MM')
+	</select>
+ </mapper>

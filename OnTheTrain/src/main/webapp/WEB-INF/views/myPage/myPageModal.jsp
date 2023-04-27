@@ -44,8 +44,8 @@
                     <div id="bronzebody" class="body">
                         <div id="bronzetitle" class="bodymargin">BRONZE</div>
                         <div id="bronzecontent" class="bodymargin">
-                            누적 결제금액<br>
-                            10만원 이상 적용
+                            가입 즉시 혜택을 <br>
+                            받으실수 있습니다.
                         </div>
                         <div id="bronzesale" class="bodymargin">결제시 추가 할인 1%</div>
                     </div>
@@ -87,6 +87,8 @@
         </div>
     </div>
 </div>
+
+
 
 
 <div id="qnaModal" class="modal">

@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>온더트레인</title>
 </head>
 <body>
 	<script>

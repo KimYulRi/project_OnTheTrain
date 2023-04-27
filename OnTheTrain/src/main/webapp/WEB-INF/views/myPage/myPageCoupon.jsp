@@ -11,7 +11,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>온더트레인</title>
     <link href="${ path }/css/myPage/myPageCoupon.css" rel="stylesheet" type="text/css">
     <!-- CSS only -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
@@ -19,6 +19,9 @@
 </head>
 <body>
     <div id="container">
+        	<div id="myBanner" >
+            	<img alt="" id="myBannerImg" width="1024px" height="181px" src="${ path }/images/myPage/myPage.jpg"  >
+            </div>
         <section>
             <div id="letftoolbar" class="table table-sm" >
                 <div id="toolbartitle">마이페이지</div>
@@ -42,21 +45,58 @@
                         <th id="couponsalebody">할인 혜텍</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr>
-                        <td id="coupontitle" >반가워요 신인 환영 쿠폰</td>
-                        <td id="coupondate" >~2023/01/01</td>
-                        <td id="couponsale" >15,000원</td>
-                    </tr>
-                    <tr>
-                        <td id="coupontitle" >봄맞이 꽃구경 쿠폰 말줄임표 테스트 어쩌구저쩌구 릴리림 ㄴ이ㅏ민 이</td>
-                        <td id="coupondate" >~2023/01/01</td>
-                        <td id="couponsale" >5%</td>
-                    </tr>
-                </tbody>
+                <c:if test="${not empty myCoupon}">
+	                <c:forEach items="${myCoupon}" var="myCoupon" >
+		                <tbody>
+		                    <tr>
+		                        <td id="coupontitle" >${myCoupon.couponName }</td>
+		                        <td id="coupondate" >~<fmt:formatDate pattern="yyyy/MM/dd" value="${myCoupon.expDate}"/></td>
+								<c:if test="${myCoupon.discountRate == 0}">
+								    <td id="couponsale"><fmt:formatNumber value="${myCoupon.discountAmount}" pattern="#,###"/>원</td>
+								</c:if>
+								<c:if test="${myCoupon.discountAmount == 0}">
+								    <td id="couponsale">${myCoupon.discountRate}%</td>
+								</c:if>
+		                    </tr>
+		                </tbody>
+	                </c:forEach>
+                </c:if>	
+                
             </table>
+            
+                    <c:if test="${empty myCoupon}" >
+	                	<div id="noResult" ><img id="imgNo"  width="110px" height="110px" src="${ path }/images/common/noResult.png" alt=""></div>
+						<div id="noResult">사용할 수 있는 쿠폰이 없습니다.</div>
+                    </c:if>
 
 
+			<div id="pageBar">
+				<!-- 맨 처음으로 -->
+				<button onclick="location.href='${ path }/myPage/myPageCoupon?page=1'">&lt;&lt;</button>
+	
+				<!-- 이전 페이지로 -->
+				<button onclick="location.href='${ path }/myPage/myPageCoupon?page=${ pageInfo.prevPage }'">&lt;</button>
+	
+				<!--  5개 페이지 목록 -->
+				<c:forEach begin="${ pageInfo.startPage }" end="${ pageInfo.endPage }" varStatus="status">
+					<c:choose>
+						<c:when test="${ status.current == pageInfo.currentPage}">
+							<button disabled>${ status.current }</button>
+						</c:when>
+						<c:otherwise>						
+							<button onclick="location.href='${ path }/myPage/myPageCoupon?page=${ status.current }'">${ status.current }</button>
+						</c:otherwise>
+					</c:choose>
+				</c:forEach>
+							<!-- 다음 페이지로 -->
+				<button onclick="location.href='${ path }/myPage/myPageCoupon?page=${ pageInfo.nextPage }'">&gt;</button>
+	
+				<!-- 맨 끝으로 -->
+				<button onclick="location.href='${ path }/myPage/myPageCoupon?page=${ pageInfo.maxPage }'">&gt;&gt;</button>
+			
+				</div>
+                <div></div>
+            </div>
             
             
 

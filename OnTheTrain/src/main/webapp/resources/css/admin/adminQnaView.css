@@ -1,0 +1,138 @@
+@charset "UTF-8";
+@font-face {
+    font-family: 'NotoSans';
+    src:url('../../font/common/NotoSansKR-Light.otf') format('truetype');
+}
+
+body {
+	font-family: 'NotoSans'; 
+	font-style: normal;
+	font-weight: 400;
+}
+
+h1, h2, h3, h4, h5, h6{
+	font-weight: 600;
+}
+
+ h4 {
+   	color:#00008b;
+ }
+
+
+ /* 글 작성 버튼 */
+ #btnarea{
+ display:flex;
+ 	justify-content: center;
+ }
+ 
+ .qnaBtn{
+     width: 100px;
+     height: 30px;
+     font-size: 12px;
+     border: 0px;
+     border-radius: 4px;
+     background-color:#596180;
+     color: #ffffff;
+ }
+ .qnaBtn:hover{
+     background-color:#00008B;
+     color: #ffffff;
+ }
+ .qnaBtn:focus{
+     outline:none;
+ }
+
+ /* 테이블(리스트) 영역  */
+
+ #noticetable{
+ 	border-top: 0.5px solid #2C3E50;
+ 	border-bottom:  0.5px solid #2C3E50;
+ 	margin-bottom: 20px; 
+ 	padding: 30px;
+ 	width: 95%;
+ 	}
+ 
+ .table .paddingtd {
+ 	width: 15%;
+ 	padding-left: 30px;
+ }
+
+  .centertd {
+  	text-align:center;
+  }
+  
+#title{
+	padding-left: 20px;
+	font-size: 18px;
+	font-weight: 600;
+}/* 
+#tbcontent1 {
+ 	padding-left: 50px;
+}
+#tbcontent2 {
+ 	paddingg-left: 50px;
+} */
+table>thead{
+  border-bottom: 1px solid #D3D2D2;
+  padding-bottom: 30px;
+}
+
+table>thead>#trhead1 {
+ vertical-align: middle;
+ height: 60px;
+ font-weight: 600;
+ font-size: 14px;
+}
+table>thead>#trhead2 {
+border-top: 0.5px solid #2C3E50;
+ vertical-align: middle;
+ height: 60px;
+font-weight: 600;
+ font-size: 14px;
+}
+
+table>thead>#trhead3 {
+ vertical-align: middle;
+ height: 50px;
+}
+table>thead>#trhead4 {
+ vertical-align: middle;
+ height: 50px;
+}
+
+table>thead>#trfile{
+vertical-align: middle;
+height: 10px;
+}
+
+table>tbody>.trcontent
+ {
+  height: 200px;
+}
+
+#cate {
+	border: 1.5px solid #274CE2;
+	border-radius:15px;
+	padding: 2px 10px 2px 10px;
+	color: #274CE2;
+	font-size: 6px;
+	font-weight: 500;
+	
+}
+#filetd{
+  	font-size: 12px;
+  	font-weight: 600;
+  	
+}
+#filefont{
+	 color: #596180;
+  	font-size: 12px;
+}
+#righttd{
+	text-align:right;
+}
+.headhead{
+	padding-left: 10px;
+	color: #00008B;
+}
+}

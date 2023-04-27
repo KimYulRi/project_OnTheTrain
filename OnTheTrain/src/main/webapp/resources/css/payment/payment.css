@@ -1,0 +1,230 @@
+@charset "UTF-8";
+
+
+div {
+	display: block;
+}
+
+dl {
+	list-style: none;
+}
+
+.discount, .price {
+	text-align: justify;
+	text-align-last: justify;
+	font-size: 12px;
+	padding: 10px
+}
+
+.discount span, .price span {
+	display: inline-block;
+}
+
+.discount, .discount_detail:last-child, .price, .final_price {
+	text-align: right;
+}
+
+#membership_discount_comment, #coupon_discount_comment, 
+#membership_discount, #coupon_discount, 
+#membership_discount_krw, #coupon_discount_krw,
+.final_price {
+	color: red;
+}
+
+.final_price {
+	font-size: 30px;
+}
+
+
+
+
+
+#price_detail{
+	text-align: center;
+	font-size: 20px;
+}
+
+
+/* 결제상품 정보요약 박스 */
+#payment_box1 {
+  display: inline-block;	
+  box-sizing: border-box;
+  width: 500px;
+  height: 400px;
+  margin-left: 25%;
+  margin-top: 5%;
+  background: #FFFFFF;
+  border: 1px solid #D3D2D2;
+  border-radius: 10px;
+  float: left;
+}
+
+.products {
+  height: auto; 초기 높이 설정
+  max-height: 600px; 최대 높이 설정
+}
+
+/* 결제상품 비용 박스 */
+#payment_box2 {
+padding: 10px;
+display: inline-block;	
+box-sizing: border-box;
+margin-top: 5%;
+margin-left: 5%;
+width: 250px;
+height: 400px;
+border: 1px solid #D3D2D2;
+border-radius: 10px;
+float: left;
+}
+
+
+/* 결제 버튼 */
+#payment_btn {
+width: 200px;
+height: 40px;
+margin-top: 10%;
+margin-left: 45%;
+background: #596180;
+border: 1px solid #DDDDDD;
+border-radius: 10px;
+font-family: 'Noto Sans KR';
+font-style: normal;
+font-weight: 400;
+font-size: 12px;
+line-height: 17px;
+text-align: center;
+color: #FFFFFF;
+
+}
+
+.modal-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 550px;
+  height: 500px;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  display: none;
+}
+
+.modal_content {
+  width: 100%;
+  height: 100%;
+  padding: 20px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#modal_open_btn {
+  transform: translate(-50%, -50%);
+  width: 60px;
+  height: 30px;
+  font-size: 12px;
+  border-radius: 5px;
+  border: none;
+  background-color: #596180;
+  color: white;
+}
+
+#modal_close_btn {
+  margin-top: 20px;
+  width: 60px;
+  height: 30px;
+  font-size: 12px;
+  border-radius: 5px;
+  border: none;
+  background-color: #596180;
+  color: white;
+  cursor: pointer;
+}
+
+
+#coupon_adapt_btn {
+width: 80px;
+height: 20px;
+background: #274CE2;
+border: 1px solid #DDDDDD;
+border-radius: 10px;
+font-family: 'Noto Sans KR';
+font-style: normal;
+font-weight: 400;
+font-size: 12px;
+line-height: 17px;
+align-items: center;
+text-align: center;
+color: #FFFFFF;
+
+}
+#coupon_cancel_btn {
+width: 80px;
+height: 20px;
+background: #D4062B;
+border: 1px solid #DDDDDD;
+border-radius: 10px;
+font-family: 'Noto Sans KR';
+font-style: normal;
+font-weight: 400;
+font-size: 12px;
+line-height: 17px;
+align-items: center;
+text-align: center;
+color: #FFFFFF;
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.modal-btn {
+position: absolute;
+left: 11.47%;
+right: 10.2%;
+top: 23.53%;
+bottom: 18.29%;
+width: 60px;
+height: 30px;
+background-color: #596180;
+border-radius: 5px;
+font-family: 'Noto Sans KR';
+font-style: normal;
+font-weight: 400;
+font-size: 12px;
+line-height: 17px;
+text-align: center;
+color: #FFFDFD;
+}
+
+.modal-btn:focus {
+outline: none;
+}
+
+.modal-btn:hover {
+cursor: pointer;
+background-color: #7c8899;
+}
+
+

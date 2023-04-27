@@ -1,205 +1,375 @@
-var ctx = getContextPath();
+// 스케줄러 생성 페이지를 그리는 데 쓰이는 코드들입니다.
+
+import {
+  addModalModule,
+  addNewCardtoArea,
+  createNewCard,
+} from "./schedulerModalModule.js";
+
+const ctx = getContextPath();
+const noComponentArea = $("#noAddedComponentArea");
+const waitDeleteModeBtn = $("#waitDeleteMode-button");
+const waitComponentList = $("#waitComponentList");
+const addedComponentList = $("#addedComponent");
+const schedulerCreateModule = {};
+
+import {
+  addSchedulerComponent,
+  deleteSchedulerComponent,
+} from "./calender/schedulerCreateCalender.js";
+
+// 추가 대기 중인 요소 삭제 모드
+let waitDeleteMode = false;
+
+// 콘텍스트 패스 값을 세션에 저장하고 가져오기
 function getContextPath() {
   return sessionStorage.getItem("contextpath");
 }
 
-// 요소 클릭 시 발생하는 함수
-$(".componentText").click(function () {
-  var component = $(this).data("component");
-  $.ajax({
-    url: ctx + "/scheduler/component",
-    type: "GET",
-    data: { component: component },
-    success: function (result) {
-      // 세션에 currentComponent 값 저장
-      sessionStorage.setItem("currentComponent", result.component);
-
-      // 표시 요소 변경
-      $(".componentName").text(result.name);
-
-      // 아무 것도 없을 때 이미지 변경
-      let imgUrl;
-
-      switch (result.component) {
-        case "event":
-          imgUrl = "/images/scheduler/noEvent.png";
-          break;
-        case "accommodation":
-          imgUrl = "/images/scheduler/noAccommodation.png";
-          break;
-        case "ticket":
-          imgUrl = "/images/scheduler/noTicket.png";
-          break;
-      }
-
-      $(".noComponentImg").css("background-image", "url(" + ctx + imgUrl + ")");
-    },
-    error: function () {
-      alert("요청에 실패했습니다.");
-    },
-  });
-});
-
-// card 아이디 생성 함수
-function getCardId(index) {
-  return "searchCard_" + index;
+// 현재 페이지에 표시될 요소 선택하기
+function getCurrentComponent() {
+  return sessionStorage.getItem("currentComponent");
 }
 
-// select 태그의 값이 변경될 때마다 실행되는 함수
-$("select[name='locationCode']").on("change", function () {
-  var locationCode = $(this).val(); // 선택된 값 가져오기
-  $.ajax({
-    type: "GET",
-    url: ctx + "/api/scheduler/events",
-    data: { locationCode: locationCode }, // 선택된 값 전달
-    dataType: "json",
-    success: function (response) {
-      if (response.length === 0) {
-        // 반환값이 빈 객체리스트인 경우
-        // 결과가 없음을 알리는 영역 표시
-        $("#eventList").empty();
-        $("#eventList").css("min-height", "unset");
-        $("#noResultArea").show();
-        return;
-      }
-      // 가져온 데이터를 이용해 이벤트 리스트를 만듦
-      var eventList = "";
-      $("#noResultArea").hide();
-      for (var i = 0; i < response.length; i++) {
-        // firstimage가 없는 경우 기본 이미지로 대체
-        var imageUrl = response[i].firstimage
-          ? response[i].firstimage
-          : ctx + "/images/common/OnTheTrain_Logo.png";
+// id 값으로 요소 객체 배열에서 요소 찾기
+function findIndexFromArrayById(arr, id) {
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i].id === id) {
+      return i;
+    }
+  }
+  // 해당 id 값을 가진 요소가 없을 경우 -1 반환
+  return -1;
+}
 
-        eventList +=
-          "<div class='card' id='" +
-          getCardId(i) +
-          "'>" +
-          "<div class='cardThumbnail'><img src='" +
-          imageUrl +
-          "'></div>" +
-          "<div class='cardBrief'>" +
-          "<div class='cardTitle'>" +
-          response[i].title +
-          "</div>" +
-          "<div class='cardRequiredDetail'>" +
-          response[i].addr1 +
-          "</div>" +
-          "<div class='cardOptionalDetail'>" +
-          response[i].optionalDetail +
-          "</div>" +
-          "</div>" +
-          "</div>";
-      }
-      $("#eventList").html(eventList); // 이벤트 리스트 업데이트
+function findIndexById(id) {
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i].id === id) {
+      return i;
+    }
+  }
+  // 해당 id 값을 가진 요소가 없을 경우 -1 반환
+  return -1;
+}
 
-      // 카드에 마우스가 올라갈 때와 내려갈 때 툴팁을 생성하고 제거하는 이벤트 처리
-      $(".card").hover(
-        function () {
-          // 마우스가 올라갔을 때
-          // 기존 CardBrief 영역 숨기기
-          $(this).find(".cardBrief").hide();
+// 추가된 요소 영역과 관련된 함수
+// 하나라도 요소가 추가되면 noComponent 가리기
+function addedComponentListVisable() {
+  noComponentArea.hide();
+  addedComponentList.show();
+}
 
-          var tooltip =
-            "<div class='cardTooltip'>" +
-            "<div class='cardTitle cardTooltip'>" +
-            $(this).find(".cardTitle").text() +
+// 요소가 없으면 noComponent 보이기
+
+function noComponentAreaVisable() {
+  noComponentArea.show();
+}
+
+/**
+ * 조회 시 날짜 데이터 포맷을 YYYYMMDD으로 변환하기 위한 함수
+ * @param {string}  "date 포맷"
+ */
+function dateToYYYYMMDD(unformattedDate) {
+  let date = new Date(unformattedDate);
+  let year = date.getFullYear().toString();
+  let month = (date.getMonth() + 1).toString().padStart(2, "0");
+  let day = date.getDate().toString().padStart(2, "0");
+  let formattedDate = year + month + day;
+
+  return formattedDate;
+}
+
+$(document).ready(function () {
+  // 요소 클릭 시 해당 요소와 관련된 내용을 표시하도록 하는 함수
+  $(".componentText").click(function () {
+    var component = $(this).data("component");
+    $.ajax({
+      url: ctx + "/scheduler/component",
+      type: "GET",
+      data: { component: component },
+      success: function (result) {
+        // 세션에 currentComponent 값 저장
+        sessionStorage.setItem("currentComponent", result.component);
+
+        // 표시 요소 변경
+        $(".componentName").text(result.name);
+
+        // 아무 것도 없을 때 이미지 변경
+        let imgUrl;
+
+        switch (result.component) {
+          case "event":
+            imgUrl = "/images/scheduler/noEvent.png";
+            break;
+          case "accommodation":
+            imgUrl = "/images/scheduler/noAccommodation.png";
+            break;
+          case "ticket":
+            imgUrl = "/images/scheduler/noTicket.png";
+            break;
+        }
+
+        $(".noComponentImg").css(
+          "background-image",
+          "url(" + ctx + imgUrl + ")"
+        );
+      },
+      error: function () {
+        alert("요청에 실패했습니다.");
+      },
+    });
+  });
+
+  // 일정 조회 함수
+  $("#searchEvent-button").on("click", function () {
+    let locationCode = $("#eventSearch select").val();
+    let eventStartDate = dateToYYYYMMDD($("#eventStartDate").val());
+    let eventEndDate = $("eventEndDate").val();
+    let resultCount = 0;
+
+    /* API2 호출 */
+    $.ajax({
+      type: "GET",
+      url: ctx + "/api/scheduler/events/2",
+      data: { locationCode: locationCode, startDate: eventStartDate }, // 선택된 값 전달
+      dataType: "json",
+      success: function (response) {
+        resultCount += response.length;
+        let currentComponent = getCurrentComponent();
+
+        // 가져온 데이터를 이용해 이벤트 리스트를 만듦
+        $("#noResultArea").hide();
+
+        $.each(response, function (i, item) {
+          //객체 만들어 배열에 넣어두기
+          let imageUrl = item.firstimage
+            ? item.firstimage
+            : ctx + "/images/common/OnTheTrain_Logo.png";
+
+          let componentObj = addModalModule.createAPIComponentObject(
+            currentComponent,
+            item,
+            imageUrl
+          );
+          addModalModule.getAPIItemList(currentComponent).push(componentObj);
+
+          let newCard = createNewCard(
+            componentObj.id,
+            imageUrl,
+            componentObj.title,
+            componentObj.addr1,
+            componentObj.tel
+          );
+          addNewCardtoArea($("#itemList"), newCard);
+        });
+        $("#itemList .card").draggable("destroy");
+      },
+      error: function () {
+        alert("API로 이벤트를 가져오는 중에 문제가 발생했습니다.");
+      },
+    });
+
+    /* API1 호출(구버전) */
+    /*
+    $.ajax({
+      type: "GET",
+      url: ctx + "/api/scheduler/events",
+      data: { locationCode: locationCode }, // 선택된 값 전달
+      dataType: "json",
+      success: function (response) {
+        resultCount += response.length;
+        // 가져온 데이터를 이용해 이벤트 리스트를 만듦
+        var eventList = "";
+        $("#noResultArea").hide();
+        for (var i = 0; i < response.length; i++) {
+          // 일정 객체 만들어 배열에 넣어두기
+          let imageUrl = response[i].firstimage
+            ? response[i].firstimage
+            : ctx + "/images/common/OnTheTrain_Logo.png";
+
+          let eventObj = addModalModule
+            .getAddModalComponents()
+            ["event"].createObject(
+              response[i].title,
+              response[i].addr1,
+              "",
+              "",
+              0,
+              response[i].tel,
+              imageUrl
+            );
+
+          addModalModule
+            .getAddModalComponents()
+            ["event"].searchList.push(eventObj);
+          // firstimage가 없는 경우 기본 이미지로 대체
+
+          eventList +=
+            "<div class='card'>" +
+            "<div class='cardThumbnail'><img src='" +
+            imageUrl +
+            "'></div>" +
+            "<div class='cardBrief'>" +
+            "<div class='cardTitle'>" +
+            response[i].title +
             "</div>" +
-            "<div class='cardRequiredDetail cardTooltip'>" +
-            $(this).find(".cardRequiredDetail").text() +
+            "<div class='cardRequiredDetail'>" +
+            response[i].addr1 +
             "</div>" +
-            "<div class='cardOptionalDetail cardTooltip'>" +
-            $(this).find(".cardOptionalDetail").text() +
+            "<div class='cardOptionalDetail'>" +
+            response[i].optionalDetail +
+            "</div>" +
             "</div>" +
             "</div>";
-          $(this).append(tooltip);
-        },
-        function () {
-          // 마우스가 내려갔을 때
-          // 기존 CardBrief 영역 보이기
-          $(this).find(".cardBrief").show();
-
-          $(this).find(".cardTooltip").remove();
         }
+        $("#itemList").html(eventList); // 이벤트 리스트 업데이트
+      },
+      error: function () {
+        alert("API로 이벤트를 가져오는 중에 문제가 발생했습니다.");
+      },
+    });
+
+    */
+    if (resultCount === 0) {
+      // 반환값이 빈 객체리스트인 경우
+      // 결과가 없음을 알리는 영역 표시
+      //$("#itemList").empty();
+      $("#itemList").css("min-height", "unset");
+      $("#noResultArea").show();
+      return;
+    }
+  });
+
+  // 추가 대기 중인 요소 삭제 모드 버튼 클릭 이벤트
+  waitDeleteModeBtn.on("click", () => {
+    waitDeleteMode = !waitDeleteMode;
+    if (waitDeleteMode) {
+      $("#waitDeleteMode-button")
+        .text("삭제모드ON")
+        .addClass("delete-buttonOn");
+      $("#deleteAllWait-button").show();
+      $("#deleteAllWait-button").css("display", "inline-block");
+    } else {
+      $("#waitDeleteMode-button")
+        .text("삭제모드OFF")
+        .removeClass("delete-buttonOn");
+      $("#deleteAllWait-button").hide();
+    }
+
+    // 추가 대기 중인 요소 카드에 필터 추가
+    const waitComponentCards = $("#waitComponentList .card");
+    waitComponentCards.each((index, card) => {
+      if (waitDeleteMode) {
+        const filter = $("<div>")
+          .addClass("componentFilter")
+          .on("click", (event) => {
+            event.stopPropagation();
+            let component = getCurrentComponent();
+            let componentId = $(card).attr("id");
+            // 객체 배열에서도 삭제
+            addModalModule.removeFromArray(
+              component,
+              addModalModule.getAddModalComponents()[component].waitList,
+              componentId
+            );
+            $(card).remove();
+          });
+        $(card).addClass("filtered");
+        $(card).append(filter);
+      } else {
+        $(card).removeClass("filtered");
+        $(card).find(".componentFilter").remove();
+      }
+    });
+  });
+
+  // 삭제 모드 활성화시 추가 대기 중인 요소 모두 삭제 버튼 이벤트
+  $("#deleteAllWait-button").on("click", () => {
+    if (confirm("정말로 모든 대기 중인 항목을 삭제하시겠습니까?")) {
+      $(".filtered").remove();
+      let component = getCurrentComponent();
+      addModalModule.getAddModalComponents()[component].waitList.length = 0;
+      return;
+    } else {
+      return;
+    }
+  });
+
+  // 드래그 앤드 드롭 처리
+  // 카드를 드래거블하게 만듦
+  function setCardDraggable(card) {
+    card.draggable({
+      revert: true, // 드래그가 취소될 경우 원래 위치로 이동
+      zIndex: 100, // 드래그 중인 요소의 z-index 값
+      cursor: "move", // 드래그 커서 모양
+      helper: "original",
+      start: function (event, ui) {
+        addedComponentListVisable();
+      },
+      stop: function (event, ui) {
+        // 드래그가 종료될 때 실행될 콜백 함수
+        if (addedComponentList.find(".card").length === 0) {
+          // card 클래스를 가진 요소가 없는 경우
+          noComponentAreaVisable();
+        }
+      },
+    });
+  }
+  schedulerCreateModule.setCardDraggable = setCardDraggable;
+
+  $("#noAddedComponentArea, #addedComponent, #waitComponentList").droppable({
+    drop: function (event, ui) {
+      event.stopPropagation();
+      let draggable = $(ui.helper[0]);
+      let droppable = $(event.target);
+      let currentComponent = getCurrentComponent();
+      let componentid = draggable.attr("id");
+      let dropType = null; // droppable 된 영역을 구분할 변수
+
+      // droppable된 영역에 따라 dropType 값을 설정
+      if (droppable.is("#addedComponent")) {
+        dropType = "addedComponent";
+      } else if (droppable.is("#waitComponentList")) {
+        dropType = "waitComponentList";
+      } else if (droppable.is("#noAddedComponentArea")) {
+        dropType = "noAddedComponentArea";
+      }
+
+      // dropType에 따라 다른 처리 실행
+      if (
+        dropType === "addedComponent" ||
+        dropType === "noAddedComponentArea"
+      ) {
+        addModalModule.toAddedList(currentComponent, componentid);
+        addSchedulerComponent(addModalModule.findComponentById(currentComponent,componentid));
+      } else if (dropType === "waitComponentList") {
+        addModalModule.toWaitList(currentComponent, componentid);
+        deleteSchedulerComponent(componentid);
+      }
+
+      console.log(
+        addModalModule.getAddModalComponents()[currentComponent].addedList
       );
+      console.log(
+        addModalModule.getAddModalComponents()[currentComponent].waitList
+      );
+
+      // 드래그한 요소를 드롭 대상 요소의 자식으로 추가
+      draggable.appendTo(droppable);
     },
-    error: function () {
-      alert("API로 이벤트를 가져오는 중에 문제가 발생했습니다.");
-    },
+    helper: "original",
   });
 });
 
-// 추가 대기 중인 요소에 요소 추가
-const addCardButton = document.getElementById("addCard");
-const waitComponentList = document.getElementById("waitComponentList");
-
-addCardButton.addEventListener("click", () => {
-  const newCard = document.createElement("div");
-  newCard.classList.add("card");
-
-  const cardThumbnail = document.createElement("div");
-  cardThumbnail.classList.add("cardThumbnail");
-  newCard.appendChild(cardThumbnail);
-
-  const cardBrief = document.createElement("div");
-  cardBrief.classList.add("cardBrief");
-  newCard.appendChild(cardBrief);
-
-  const cardTitle = document.createElement("div");
-  cardTitle.classList.add("cardTitle");
-  cardTitle.textContent = "cardTitle";
-  cardBrief.appendChild(cardTitle);
-
-  const cardRequiredDetail = document.createElement("div");
-  cardRequiredDetail.classList.add("cardRequiredDetail");
-  cardRequiredDetail.textContent = "cardRequiredDetail";
-  cardBrief.appendChild(cardRequiredDetail);
-
-  const cardOptionalDetail = document.createElement("div");
-  cardOptionalDetail.classList.add("cardOptionalDetail");
-  cardOptionalDetail.textContent = "cardOptionalDetail";
-  cardBrief.appendChild(cardOptionalDetail);
-
-  waitComponentList.appendChild(newCard);
-});
-
-// addCard를 눌렀을 때 모달창 열기
-$("#addCard").on("click", () => {
-  let currentComponent = getCurrentComponent();
-  function getCurrentComponent() {
-    return sessionStorage.getItem("currentComponent");
-  }
-
-  if (currentComponent === "event") {
-    $("#schedulerEventModal").show();
-  } else if (currentComponent === "accommodation") {
-    $("#schedulerAccommodationModal").show();
-  } else if (currentComponent === "ticket") {
-    $("#schedulerTicketModal").show();
-  }
-
-  // 모달 창 이미지 미리보기
-  console.log(currentComponent);
-
-  const imageUploadInput = document.querySelector(
-    "#" + currentComponent + "-image-upload"
-  );
-  const previewImage = document.querySelector(
-    "#" + currentComponent + "-preview-image"
-  );
-  const imageCaption = document.querySelector(
-    "#" + currentComponent + "-image-caption"
-  );
-
-  imageUploadInput.addEventListener("change", (event) => {
-    const file = event.target.files[0];
-    const reader = new FileReader();
-
-    reader.onload = (event) => {
-      previewImage.src = event.target.result;
-    };
-
-    reader.readAsDataURL(file);
-    imageCaption.innerText = file.name;
-  });
-});
+export {
+  ctx,
+  waitDeleteMode,
+  waitComponentList,
+  addedComponentList,
+  schedulerCreateModule,
+  findIndexById,
+  getCurrentComponent,
+  findIndexFromArrayById,
+  addedComponentListVisable,
+  noComponentAreaVisable,
+};

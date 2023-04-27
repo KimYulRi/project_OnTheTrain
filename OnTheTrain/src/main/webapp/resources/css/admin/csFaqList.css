@@ -1,0 +1,143 @@
+@charset "UTF-8";
+@font-face {
+    font-family: 'NotoSans';
+    src:url('../../font/common/NotoSansKR-Light.otf') format('truetype');
+}
+
+body {
+	font-family: 'NotoSans'; 
+	font-style: normal;
+	font-weight: 400;
+}
+
+h1, h2, h3, h4, h5, h6{
+	font-weight: 600;
+}
+
+ h4 {
+   	color:#00008b;
+ }
+
+
+ section{
+	min-height: 700px;
+	width: 1200px;
+	display: flex;
+	justify-content: center;
+	margin: 0 auto;
+ 
+ }
+ section .seciton-container {
+ margin: 0 auto;
+ height: 100%;
+ padding-top: 20px;
+ }
+ 
+ section .content{
+ width: 1024px;
+ margin: 0 auto;
+ font-size: 14px;
+ }
+ 
+ #heading-conatiner{
+   margin-top:10px;
+     height: 50px;
+
+
+ }
+
+
+ /* 박스 */
+ .boxContainer {
+ display: flex;
+ justify-content: space-between;
+ margin: 0 auto;
+ }
+
+ .boxContainer a {
+ width: 34%;
+ height: 40px;
+ margin:0px;
+ padding: 10px 0 10px 0;
+ background-color: #fff;
+ border-bottom: 1px solid #D3D2D2;
+ font-size: 16px;
+ font-weight: 600;
+ text-decoration: none;
+ text-align: center;
+ 
+ }
+
+ #box1 {
+ background-color:#fff;
+ color: #596180;
+ }
+
+ #box2 {
+ background-color:#00008B; 
+ color: #fff;
+ }
+
+ #box3 {
+ background-color:#fff; 
+ color: #596180;
+ }
+
+ 
+ #box1:hover {
+ background-color:#00008B;
+ color: #fff;
+ }
+
+ #box2:hover {
+ background-color:#00008B; 
+ color: #fff;
+ }
+
+ #box3:hover {
+ background-color:#00008B; 
+ color: #fff;
+ }
+ 
+
+ #numspan{
+     font-size: 12px;
+     font-weight: 700;
+     color: #274CE2;
+ }
+
+ /* 테이블(리스트) 영역  */
+  
+ table tr {
+ vertical-align: middle;
+  height: 50px;
+}
+ 
+ #content-list{
+     margin-top:50px;
+     min-height: 200px;
+ }
+ #noticetable{
+ 	border-top: 0.5px solid #2C3E50;
+ }
+  .table .paddingtd {
+  	width: 15%;
+  	padding-left: 30px;
+  }
+  
+  .centertd {
+  	text-align:center;
+  	text-weight: 700;
+  }
+  
+  
+ .tdcenter {
+ 	text-align:center;
+}
+
+
+
+.toggledisplay{
+	display:none;
+}
+

@@ -1,279 +1,316 @@
 @charset "UTF-8";
 
 @font-face {
-	font-family: 'Noto Sans';
-	src: url('../../font/common/NotoSansKR-Medium.otf') format('truetype');
+  font-family: "Noto Sans";
+  src: url("../../font/common/NotoSansKR-Medium.otf") format("truetype");
 }
 
 @font-face {
-	font-family: 'Noto Sans Bold';
-	src: url('../../font/common/NotoSansKR-Bold.otf') format('truetype');
+  font-family: "Noto Sans Bold";
+  src: url("../../font/common/NotoSansKR-Bold.otf") format("truetype");
 }
 
 /* 공통 스타일 */
+
+.componentId {
+  text-align: right;
+  display: inline-block;
+  width: 100%;
+  color: #6c757d;
+}
+
 .modal-body {
-	padding: 20px;
-	display: block;
+  padding: 20px;
+  display: block;
 }
 
 h3.modal-subtitle {
-	margin-top: 0;
-	margin-bottom: 10px;
-	font-weight: bold;
-	text-align: center;
+  margin-top: 0;
+  margin-bottom: 10px;
+  font-weight: bold;
+  text-align: center;
 }
 
 label {
-	display: block;
-	margin-bottom: 5px;
-	font-weight: bold;
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
 }
 
-input[type="text"], input[type="number"], textarea {
-	width: 100%;
-	padding: 10px;
-	border: 1px solid #ccc;
-	border-radius: 5px;
-	box-sizing: border-box;
-	font-size: 16px;
-	margin-bottom: 10px;
+input[type="text"],
+input[type="number"],
+textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+  font-size: 16px;
+  margin-bottom: 10px;
 }
 
-input[type="date"], input[type="datetime-local"] {
-	box-sizing: border-box;
-	width: 275px;
-	padding: 10px;
-	border: 1px solid #ccc;
-	border-radius: 5px;
-	box-sizing: border-box;
-	font-size: 16px;
-	margin-bottom: 10px;
+input[type="date"],
+input[type="datetime-local"] {
+  box-sizing: border-box;
+  width: 275px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+  font-size: 16px;
+  margin-bottom: 10px;
 }
 
 .image-preview {
-	position: relative;
-	margin-bottom: 20px;
-	width: 258px;
-	height: 251px;
-	border: 1px solid #D3D2D2;
-	border-radius: 10px;
-	cursor: pointer
+  position: relative;
+  margin-bottom: 20px;
+  width: 258px;
+  height: 251px;
+  border: 1px solid #d3d2d2;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+#preview-image_view {
+  cursor: auto;
 }
 
 .image-caption {
-	position: absolute;
-	width: 100%;
-	top: 90%;
-	text-align: center;
-	left: 50%;
-	transform: translate(-50%, -50%);
-	white-space: nowrap;
-	overflow: hidden;
-	text-overflow: ellipsis;
-	text-align: center;
-	font-size: 16px;
-	color: #aaa;
-	left: 50%;
+  position: absolute;
+  width: 100%;
+  top: 90%;
+  text-align: center;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: center;
+  font-size: 16px;
+  color: #aaa;
+  left: 50%;
 }
 
-.image-upload {
-	font-size: 16px;
-	position: absolute;
-	top: 0;
-	right: 0;
-	bottom: 0;
-	left: 0;
-	opacity: 0;
-	width: 100%;
-	height: 100%;
+#schedulerEventModalView .image-caption a {
+  text-decoration: none;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.5);
+  width: 150px;
+  display: inline-block;
+  height: 30px;
 }
 
-.preview-image {
-	width: 100%;
-	height: 100%;
-	object-fit: contain;
+.image-upload,
+#image-upload_view {
+  font-size: 16px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.preview-image,
+#preview-image_view {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.view-field {
+  margin-bottom: 15px;
 }
 
 .modal {
-	display: none;
-	position: fixed;
-	z-index: 1;
-	left: 0;
-	top: 0;
-	width: 100%;
-	height: 100%;
-	overflow: auto;
-	background-color: rgba(0, 0, 0, 0.4);
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4);
+  z-index: 999;
 }
 
 .modal-backdrop {
-	position: absolute;
-	left: 0;
-	top: 0;
-	width: 100%;
-	height: 100%;
-	background-color: rgba(0, 0, 0, 0.4);
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 200%;
+  background-color: rgba(0, 0, 0, 0.4);
 }
 
 .modal-dialog {
-	position: relative;
-	margin: auto;
-	top: 15%;
-	max-width: 600px;
-	background-color: #fff;
-	border-radius: 4px;
-	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-	border-radius: 10px;
+  position: relative;
+  margin: auto;
+  top: 20%;
+  max-width: 600px;
+  background-color: #fff;
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
 }
 
 .modal-header {
-	padding: 10px 20px;
-	background-color: #FFF;
-	border-bottom: 1px solid #ddd;
-	border-radius: 4px 4px 0 0;
-	color: #000000;
-	text-align: center;
+  padding: 10px 20px;
+  background-color: #fff;
+  border-bottom: 1px solid #ddd;
+  border-radius: 4px 4px 0 0;
+  color: #000000;
+  text-align: center;
 }
 
 .modal-title {
-	font-family: 'Noto Sans';
-	font-size: 1.5rem;
-	font-weight: 700;
-	margin: 0;
+  font-family: "Noto Sans";
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 0;
 }
 
 .modal-body {
-	padding: 20px;
-	font-family: 'Noto Sans';
+  padding: 20px;
+  font-family: "Noto Sans";
 }
 
 .schedulerTimes {
-	display: flex;
-	flex-direction: row;
-	margin-bottom: 5px;
-	font-weight: bold;
-	flex-wrap: wrap;
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 5px;
+  font-weight: bold;
+  flex-wrap: wrap;
+}
+
+#eventStartTime_view {
+  width: 285px;
 }
 
 .schedulerTimes label {
-	width: 275px;
+  width: 275px;
 }
 
 .timelabel {
-	margin-right: 10px;
+  margin-right: 10px;
 }
 
 .endtime {
-	margin-left: 10px;
+  margin-left: 10px;
 }
 
 .modal-footer {
-	padding: 10px 20px;
-	background-color: #FFF;
-	border-top: 1px solid #ddd;
-	border-radius: 0 0 4px 4px;
-	text-align: right;
+  padding: 10px 20px;
+  background-color: #fff;
+  border-top: 1px solid #ddd;
+  border-radius: 0 0 4px 4px;
+  text-align: right;
 }
 
-.apply-button, .cancel-button {
-	font-family: 'Noto Sans';
-	margin: 0 auto;
-	padding: 6px 12px;
-	border-radius: 4px;
-	border: none;
-	color: #fff;
-	background-color: #00008B;
-	cursor: pointer;
-	display: inline-block;
+.add-button,
+.edit-button,
+.reset-button,
+.cancel-button,
+.confirm-button,
+.directAdd-button,
+.modalDelete-button,
+.editComplete-button,
+.addToWait-button {
+  font-family: "Noto Sans";
+  margin: 0 auto;
+  padding: 6px 12px;
+  border-radius: 4px;
+  border: none;
+  color: #fff;
+  background-color: #00008b;
+  cursor: pointer;
+  display: inline-block;
 }
 
-.cancel-button {
-	background-color: #6c757d;
+.addToWait-button,
+.editComplete-button {
+  display: none;
+}
+
+.reset-button,
+.cancel-button,
+.edit-button {
+  background-color: #6c757d;
+}
+
+.modalDelete-button {
+  background: #d4062b;
+  color: white;
+  border: none;
 }
 
 .line-break {
-	height: 3px;
-	flex-basis: 100%;
+  height: 3px;
+  flex-basis: 100%;
 }
 
-/* Event Modal */
-.schedulerEvent .modal-header {
-	background-color: #FFC107;
-}
-
-.schedulerEvent .apply-button {
-	background-color: #FFC107;
-}
-
-.eventImage, .accommodationImage {
-	display: flex;
-	justify-content: center;
+.eventImage,
+.accommodationImage {
+  display: flex;
+  justify-content: center;
 }
 
 /* 필수 항목에 대한 스타일 */
 .eventRequired {
-	margin-bottom: 25px;
+  margin-bottom: 25px;
 }
 
-#event-title, #event-start-time, #event-end-time {
-	margin-bottom: 10px;
+#event-title,
+#event-title_view,
+#event-start-time,
+#event-start-time_view,
+#event-end-time,
+#event-end-time_view {
+  margin-bottom: 10px;
 }
 
 /* 선택 항목에 대한 스타일 */
 .eventOptional {
-	margin-bottom: 25px;
+  margin-bottom: 25px;
 }
 
-#event-price {
-	margin-bottom: 10px;
+#event-price,
+#event-price_view {
+  margin-bottom: 10px;
 }
 
-#event-details {
-	height: 150px;
-}
-
-/* Accommodation Modal */
-.schedulerAccommodation .modal-header {
-	background-color: #4CAF50;
-}
-
-.schedulerAccommodation .apply-button {
-	background-color: #4CAF50;
+#event-details,
+#event-details_view {
+  height: 150px;
 }
 
 #accommodation-title {
-	margin-top: 5px;
-	margin-bottom: 10px;
-}
-
-/* Ticket Modal */
-.schedulerTicket .modal-header {
-	background-color: #2196F3;
-}
-
-.schedulerTicket .apply-button {
-	background-color: #2196F3;
+  margin-top: 5px;
+  margin-bottom: 10px;
 }
 
 .schedulerTicketStation {
-	display: flex;
-	flex-direction: row;
-	margin-bottom: 5px;
-	font-weight: bold;
-	flex-wrap: wrap;
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 5px;
+  font-weight: bold;
+  flex-wrap: wrap;
 }
 
 .schedulerTicketStation input[type="text"] {
-	box-sizing: border-box;
-	width: 275px;
-	padding: 10px;
-	border: 1px solid #ccc;
-	border-radius: 5px;
-	box-sizing: border-box;
-	font-size: 16px;
-	margin-bottom: 10px;
+  box-sizing: border-box;
+  width: 275px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+  font-size: 16px;
+  margin-bottom: 10px;
 }
 
 .schedulerTicketStation label {
-	width: 275px;
+  width: 275px;
 }

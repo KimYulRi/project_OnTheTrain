@@ -12,7 +12,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>온더트레인</title>
     <link href="${ path }/css/myPage/myPageQnaView.css" rel="stylesheet" type="text/css">
     <link href="${ path }/css/myPage/myPageModal.css" rel="stylesheet" type="text/css">
     <!-- CSS only -->
@@ -21,6 +21,9 @@
 </head>
 <body>
     <div id="container">
+            <div id="myBanner" >
+            	<img alt="" id="myBannerImg" width="1024px" height="181px" src="${ path }/images/myPage/myPage.jpg"  >
+            </div>
         <section>
             <div id="letftoolbar" class="table table-sm" >
                 <div id="toolbartitle">마이페이지</div>
@@ -38,29 +41,69 @@
 
             
 
-            <div id="qnabody">
-            	
-                <div id="qnawriter">${member.nickname} 님의 문의 내역입니다.</div>
-                <div id="qnatype">${qna.type}</div>
-                <div id="qnatitle">${qna.title }</div>
-                <div id="qnadate">${qna.createDate }</div>
-                <div id="qnacontent">${qna.qnaContent }</div>
-                <div id="qnafile">${qna.qnaOriginalFileName }</div>
-            </div>
+             <table id="noticetable" >
+                              
+                                <thead>
+                                  <tr id="trhead1">
+                                        <td  class="headhead" colspan="3">${member.nickname} 님의 문의 내역</td>
+                                  </tr>
+                                  <tr id="trhead3"  >
+                                        <td class="col-1 paddingtd"><span id="cate">${ qna.type }</span></td>
+                                        <td id="title">${ qna.title }</td>
+                                        <td id="righttd">${ qna.createDate }</td>
+                                  </tr>
+                                  
+                                  </thead>
+                               <tbody>
+                               <tr id="trfile">
+                                     <td class="paddingtd"><span id="filetd">첨부파일</span></td>
+                                     <td colspan="2">
+                                        <span id="filefont">
+                                          <c:if test="${ not empty qna.qnaOriginalFileName }">
+                                          <a href="${ path }/resources/upload/qna/${ qna.qnaRenamedFileName }">
+                                             ${qna.qnaOriginalFileName }
+                                          </a>
+                                          </c:if>
+                                        </span>
+                                     </td>
+                               </tr>
+                                 <tr class="trcontent">
+                                     <td id="tbcontent1" colspan="3"> ${ qna.qnaContent }</td>
+                                 </tr>
+                             </tbody>
+                             
+                             <c:if test="${not empty qnaReply}">
+	                              <thead>
+	                               <tr id="trhead2">
+	                                     <td class="headhead" colspan="3"> 온더트레인 답변</td>
+	                               </tr>
+	                               <tr id="trhead4">
+	                                     <td id="righttd" colspan="3">${qnaReply.qnaReplyDate}</td>
+	                               </tr>
+	                               </thead>
+	                             
+	                              <tbody>
+	                                 <tr  class="trcontent"> 
+	                                     <td id="tbcontent2" colspan="3">${ qnaReply.qnaReplyContent }</td>
+	                                 </tr>
+	                             </tbody>
+                             </c:if>
 
-            <div class="line"></div>
+                         </table>
+			                  <c:if test="${empty qnaReply}">
+				                  <div id="noResultBody" >
+	                             	<div id="noResult" ><img id="imgNo"  width="110px" height="110px" src="${ path }/images/common/noResult.png" alt=""></div>
+	                             	<br>
+									<div id="noResult">작성된 관리자의 답변이 없습니다.</div>
+				                  </div>
+                             </c:if>
+			
+<!-- 			<div class="none"></div> -->
+			
 
-            <div id="qnareply">
-                <div id="replywriter">관리자</div>
-                <div id="replydate">${qnaReply.qnaReplyDate }</div>
-                <div id="replycontent">${qnaReply.qnaReplyContent }</div>
-            </div>
-			
-			<div class="none"></div>
-			
-			<button type="button" id="qnaModal" class="qnaModal">답변 작성하기</button>
-			<jsp:include page="./myPageQnaModal.jsp" />
-			<script src="${ path }/js/myPage/myPageQnaModal.js"></script>
+			<div id="btndiv" >
+				<button type="button" id="qnaBtn" class="qnaBtn" onclick="location.href='${path}/myPage/myPageQna'" >목록으로 돌아가기</button>
+			</div>
 
 
         </section>

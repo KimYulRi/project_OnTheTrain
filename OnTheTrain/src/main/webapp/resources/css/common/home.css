@@ -1,0 +1,126 @@
+@charset "UTF-8";
+
+* {
+    font-family: 'Noto Sans KR'; 
+    font-style: normal;
+    font-weight: 400;
+    text-decoration: none;
+    line-height: 17px;
+    color: #000000;
+}
+
+#ticketArea{
+	margin-bottom: 5%;
+}
+
+.contentArea{
+	width: 1024px;
+    margin: 0 auto;
+}
+
+.banner_space{
+    margin-top: 5%;
+    left: 88px;
+    right: 88px;
+    border-radius: 10px;
+}
+.text_type1{
+    font-size: 14px;
+}
+
+#text1{    
+    line-height: 20px;
+    margin-top: 30.41px;
+    margin-left: 97;
+}
+
+#pCount{
+	margin-top: 1%;
+	margin-bottom: 2%;
+	font-weight: 400px;
+}
+
+.gray_line{
+    /* position: absolute; */
+    border: 1px solid #DDDDDD;
+    margin-top: 5%;
+    margin-bottom: 1%;
+}
+
+.text_type2{
+    /* position: absolute; */
+    font-size: 12px;
+    margin-top: 13px;
+}
+
+#list_img{
+    float:left;
+    width: 502px;
+    height:723px;
+    /* border:1px solid #000000; */
+    margin-right:10px; 
+    text-align: center;
+}
+
+.areaset{
+    height: 900px;
+    margin-top: 91px;
+    margin-bottom: 173px;
+}
+
+.product{
+    width: 156px;
+    height: 151px;
+    border-radius: 10px;
+    float: left;
+    margin: 5px;
+    margin-top: 0;
+    padding: 0px;
+    margin-bottom: 90px;
+}
+
+.acctitle {
+    float: left;
+    width: 148px;
+    margin-left:0px;
+    font-weight: 400;
+    white-space: normal;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    margin-top: 10%;
+
+}
+
+.accstar{
+    float: right;
+    margin-top: 12px;
+}
+
+.accprice{
+    text-align: left;
+}
+
+.accfont{
+    font-size: 12px;
+    text-align: left;
+}
+
+
+.acccontent {
+	clear: both;
+	color: #717171;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 1;
+    line-clamp: 1;
+}
+
+#schedulerArea{
+	display:flex;
+	justify-content: center;
+}
+

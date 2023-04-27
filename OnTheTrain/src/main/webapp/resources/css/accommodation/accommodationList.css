@@ -14,10 +14,9 @@
 }
 
 #banner_space{
-    height: 180.59px;
     margin-top: 5%;
-    left: 88px;;
-    right: 88px;;
+    left: 88px;
+    right: 88px;
     border-radius: 10px;
 }
 
@@ -32,11 +31,12 @@
 }
 
 #pCount{
-	margin-top: 2%;
+	margin-top: 1%;
 	margin-bottom: 2%;
+	font-weight: 400px;
 }
 
-#searchAreab{
+/* #searchAreab{
     float:left;
     width: 600px;
     height: 55px;
@@ -84,22 +84,6 @@ button{
     margin-right: 30px;
     color: #00008B;
 }
-/* 
-#search1{
-    margin-left: 15.4px;
-}
-
-#search2{
-    
-}
-
-#search3{
-    
-}
-
-#search4{
-    
-} */
 
 #filter_box{
     float:left;
@@ -114,19 +98,18 @@ button{
 }
 
 #filter_box_text{
-    /* position: absolute; */
+    position: absolute;
     font-size: 14px;
     float: right; 
     margin-top: 4px;
     margin-right: 4px;
-}
+} */
 
 .gray_line{
     /* position: absolute; */
     border: 1px solid #DDDDDD;
-    margin-top: 150.41px;
-    margin-top: 18%;
-    margin-bottom: 2%;
+    margin-top: 5%;
+    margin-bottom: 1%;
 }
 
 .text_type2{
@@ -135,10 +118,10 @@ button{
     margin-top: 13px;
 }
 
-#accomodaion_count_text{
+/* #accomodaion_count_text{
     margin-top: 3px;
 }
-
+ */
 #list_img{
     float:left;
     width: 502px;
@@ -157,12 +140,12 @@ button{
 .product{
     width: 156px;
     height: 151px;
+    border-radius: 10px;
     float: left;
     margin: 5px;
     margin-top: 0;
     padding: 0px;
     margin-bottom: 90px;
-    /* border-radius: 30px; */
     /* max-width: 100%;
     max-height: 100%;
     width: auto;
@@ -177,12 +160,13 @@ button{
     float: left;
     width: 148px;
     margin-left:0px;
-    font-weight: 700;
+    font-weight: 400;
     white-space: normal;
     display: -webkit-box;
     -webkit-line-clamp: 1;
     -webkit-box-orient: vertical;
     overflow: hidden;
+    margin-top: 10%;
 
 }
 
@@ -200,18 +184,21 @@ button{
     text-align: left;
 }
 
-.acccontent{
-    clear: both;
-    color: #717171;
-    white-space: normal;
+
+.acccontent {
+	clear: both;
+	color: #717171;
     display: -webkit-box;
-    -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 1;
+    line-clamp: 1;
 }
 
+
 .pagination {
-    margin-top: 950px;
+    margin-top: 1000px;
     position: absolute;
     margin-left: 430px;
 }

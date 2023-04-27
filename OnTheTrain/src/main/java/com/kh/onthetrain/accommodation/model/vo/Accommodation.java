@@ -18,11 +18,13 @@ public class Accommodation {
 	
 	private int maxValue;
 	
-	private String explain ;
+	private String explain;
 	
 	private String location;
 	
 	private String  lot;
 	
 	private String  lat;
+	
+	private String renamedFilename;
 }
