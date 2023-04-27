@@ -47,7 +47,7 @@
 			                <div class="accfont" id="accprice">${accommodation.explain}</div>
 			                <input type="hidden" id="accNo" name="accNo" value="${accommodation.no}" >
 			                <button id="acccheck" class="btn btn-danger" type="submit">예약 확인</button>
-			                <button id="acccancle" class="btn btn-danger">예약 취소</button>
+			                <button type="button" id="acccancle" class="btn btn-danger">예약 취소</button>
 			            </div>
 			        </form>
 			    </c:forEach>
