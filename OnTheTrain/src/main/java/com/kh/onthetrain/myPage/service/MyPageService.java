@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import com.kh.onthetrain.accommodation.model.vo.Accommodation;
 import com.kh.onthetrain.common.util.PageInfo;
 import com.kh.onthetrain.member.model.vo.Member;
+import com.kh.onthetrain.myPage.model.entity.MyPageCoupon;
 import com.kh.onthetrain.myPage.model.entity.Qna;
 import com.kh.onthetrain.myPage.model.entity.QnaReply;
 import com.kh.onthetrain.myPage.model.entity.ReservationCheck;
@@ -89,6 +90,13 @@ public interface MyPageService {
 
 	// 숙소 번호 및 유저 번호를 가지고 예약 정보를 가져오는 메소드
 	ReservationCheck findReservationByNo(int no, int memberNo);
+
+	
+	// 쿠폰 개수를 가져오기 ( listCount )
+	int selectCountMyCoupon(int no);
+
+	// 내 쿠폰 상세 정보 가져오는 메소드
+	List<MyPageCoupon> findCouponByNo(int no, PageInfo pageInfo);
 	
 
 

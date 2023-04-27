@@ -4,6 +4,8 @@ import java.util.Date;
 
 import org.springframework.stereotype.Component;
 
+
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,6 +14,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Component
+
 public class TrainTicket {
 	
 	// no
@@ -21,7 +24,10 @@ public class TrainTicket {
 	private int userNo;
 	
 	//ktx
-	private String type;
+	private String train;
+	
+	// 열차번호
+	private int no;
 	
 	// 열차 번호
 	private int trainNum;
@@ -36,13 +42,13 @@ public class TrainTicket {
 	private int arrTime;
 	
 	// 출발역
-	private String departure;
+	private String depname;
 	
 	//도착역
-	private String arrival;
+	private String arrplace;
 	
 	// 가격
-	private int price;
+	private int charge;
 	
-
+	
 }

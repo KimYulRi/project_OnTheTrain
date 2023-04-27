@@ -20,6 +20,9 @@ public class SchedulerTicket {
 	// 스케줄러no
 	private int schedulerNo;
 	
+	// ID
+	private String id;
+	
 	// 출발시간
 	private String depTime;
 	

@@ -27,7 +27,7 @@
 	            const json = JSON.stringify(data);
 	          // document.write(json);
 	            console.log(data);
-	            let rows = data["response"]["body"]["items"]["item"];
+	            let rows = data["response"][  "body"]["items"]["item"];
 	    
 	    		let html = '';
 	    		
@@ -47,11 +47,6 @@
 						  </fieldset>`;
 					$("#citycode",popup.document).empty().append(html);
 	            console.log(rows);
-	        
-	        
-	        
-	        
-	        
 	        
 	  		
 	  		$(popup.document).on('click',".city-btn", function() {
@@ -75,7 +70,7 @@
 				          console.log(data);
 				          let rows = data["response"]["body"]["items"]["item"];
 				          
-				         let html = '';
+				          let html = '';
 				          
 				          for (let i = 0; i < rows.length; i++) {
 				          
@@ -84,13 +79,13 @@
 			              html += `<button style="cursor: pointer;"  class="station-btn" value='${nodeid}'>${nodename}</button>`;
 	  		}
 	          		$("#stationcode",popup.document).empty().append(` 
-	    <fieldset>
-	      <legend>역</legend>
-	      <div class='button-group'>
-	        ${html}
-	      </div>
-	    </fieldset>
-	  `);
+					    <fieldset>
+					      <legend>역</legend>
+					      <div class='button-group'>
+					        ${html}
+					      </div>
+					    </fieldset>
+					  				`);
 				
 	            console.log(rows);
 	     $(popup.document).on('click',".station-btn", function() {
@@ -104,7 +99,7 @@
 				            
 				          });
 				   });
-		 };
+     		 };
 	          
 
 	          

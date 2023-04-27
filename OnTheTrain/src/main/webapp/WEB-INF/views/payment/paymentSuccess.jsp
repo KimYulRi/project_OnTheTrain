@@ -13,6 +13,9 @@
 <%@ include file="../common/header.jsp" %>
 </head>
 <body>
-	<h2>성공</h2>
+	<h2>결제 성공</h2>
+	
+	<button type="button" onclick="location.href='myPageAccommodation.jsp'">마이페이지로</button>
+	
 </body>
 </html>

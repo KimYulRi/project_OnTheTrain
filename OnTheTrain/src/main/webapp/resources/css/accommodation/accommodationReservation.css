@@ -9,6 +9,7 @@
 #body {
     width: 1024px;
     margin: 0 auto;
+    height: 100%;
 }
 
 #contentFrame{
