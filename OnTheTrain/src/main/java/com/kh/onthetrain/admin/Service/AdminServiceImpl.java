@@ -9,8 +9,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.kh.onthetrain.admin.model.mapper.AdminMapper;
+import com.kh.onthetrain.admin.model.vo.AccommodationReservation;
 import com.kh.onthetrain.admin.model.vo.Faq;
 import com.kh.onthetrain.admin.model.vo.Notice;
+import com.kh.onthetrain.admin.model.vo.TrainTicketReservation;
 import com.kh.onthetrain.common.util.PageInfo;
 import com.kh.onthetrain.member.model.vo.Member;
 import com.kh.onthetrain.myPage.model.entity.Qna;
@@ -40,6 +42,24 @@ public class AdminServiceImpl implements AdminService {
 	public List<Map<String, Object>>  getMonthEnroll(){
 		return mapper.selectMonthEnroll();
 	}
+
+	// 오늘의 승차권예약수
+	@Override
+	public int todayTicketCount() {
+		return mapper.countTodayTicket();
+	}
+	
+	// 오늘의 숙소예약수
+	@Override
+	public int todayAccCount() {
+		return mapper.countTodayAcc();
+	}
+	
+	// 전체 예약수
+	@Override
+	public int getCountReservation() {
+		return mapper.countTotalReservation();
+	};
 	
 	/* 회원관리 */
 	// 총 회원수
@@ -87,14 +107,45 @@ public class AdminServiceImpl implements AdminService {
 
 	}
 	
-	
-	
-	// 총 승차권수
+	/* 승차권 */
+	// 총 승차권수(환불 포함)
 	@Override
 	public int getCountTicket() {
 		
 		return mapper.countTicket();
 	}
+	
+	// 승차권 리스트 가져오기
+	@Override
+	public List<TrainTicketReservation> getTicketReservation(PageInfo pageInfo){
+		int limit = pageInfo.getListLimit();
+		int offset = (pageInfo.getCurrentPage() - 1 ) * limit;
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		
+		List<TrainTicketReservation> list = mapper.getTicketReservationList(rowBounds);
+		return list;
+	}
+
+//	
+	// 총 숙박예약 수(환불 포함)
+	@Override
+	public int getCountAccommodation() {
+		
+		return mapper.countAccommodation();
+	}
+
+	// 숙박 예약 리스트 가져오기
+	@Override
+	public List<AccommodationReservation> getAccommodationList(PageInfo pageInfo){
+		int limit = pageInfo.getListLimit();
+		int offset = (pageInfo.getCurrentPage() - 1 ) * limit;
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		
+		List<AccommodationReservation> list = mapper.getAccommodationReservationList(rowBounds);
+		return list;
+		
+	}
+	
 	
 	/* 자주묻는 질문*/
 	@Override
