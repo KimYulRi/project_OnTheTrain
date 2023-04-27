@@ -42,18 +42,18 @@
 		<div id="scheduler">
 			<div id="schedulerCalender" class="calendarContainer">
 				<div class=days>
-			
-					
-							<div class="schedulerCalenderBlank">구분</div>
-							<div class="day">일</div>
-							<div class="day">월</div>
-							<div class="day">화</div>
-							<div class="day">수</div>
-							<div class="day">목</div>
-							<div class="day">금</div>
-							<div class="day">토</div>
-							<div class="schedulerCalenderLastBlank"></div>
-					
+
+
+					<div class="schedulerCalenderBlank">구분</div>
+					<div class="day">일</div>
+					<div class="day">월</div>
+					<div class="day">화</div>
+					<div class="day">수</div>
+					<div class="day">목</div>
+					<div class="day">금</div>
+					<div class="day">토</div>
+					<div class="schedulerCalenderLastBlank"></div>
+
 				</div>
 				<div id="dp"></div>
 			</div>
@@ -108,7 +108,7 @@
 				<div class="componentText" data-component="ticket">승차권</div>
 			</div>
 		</div>
-		<hr>
+		<div class="gray_line"></div>
 		<div class="title">
 			추가된
 			<div class="componentName">${basicComponent}</div>
@@ -125,7 +125,7 @@
 				</div>
 			</div>
 		</div>
-		<hr>
+		<div class="gray_line"></div>
 		<div class="title">
 			추가 대기 중인
 			<div class="componentName">${basicComponent}</div>
@@ -141,7 +141,7 @@
 			</div>
 			<!--  <div class="card" draggable="true">TestCard</div>  -->
 		</div>
-		<hr>
+		<div class="gray_line"></div>
 		<div class="title">
 			<div class="componentName">${basicComponent}</div>
 			조회
@@ -163,7 +163,7 @@
 			<input type="date" id="eventEndDate" name="endDate">
 			<div class="explantion">까지 열리는 행사를 찾습니다.</div>
 			<button id="searchEvent-button" class="search-button">검색</button>
-			<hr>
+			<div class="gray_line"></div>
 		</div>
 		<br>
 		<div>
