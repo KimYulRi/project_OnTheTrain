@@ -185,7 +185,7 @@
                   <input type="hidden" name="accommodationNo"  value="${ accommodation.no }">
                   <input type="hidden" name="memberNo"  value="${ loginMember.no }">
                   <input type="hidden" name="price"  value="${ accommodation.price}">
-                  <c:if test="${not empty loginMember and loginMember.no eq review.memberNo}">
+                  <c:if test="${not empty loginMember }">
    				  	<button class="btn btn-primary" type="button" id="reservBtn">예약하기</button>
 				  </c:if>
    				  	<!-- <button class="btn btn-primary" type="button" id="reservBtn">예약하기</button> -->
