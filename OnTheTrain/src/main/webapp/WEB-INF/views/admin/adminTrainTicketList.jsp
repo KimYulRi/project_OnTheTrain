@@ -171,7 +171,6 @@
     
 <%-- 
 	<script src="${ path }/js/admin/adminMemberModal.js"></script> --%>
-	<%@ include file="../common/footer.jsp"%>
 </body>
 
 </html>
